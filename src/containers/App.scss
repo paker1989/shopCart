@@ -1,0 +1,17 @@
+$shelf-top-padding: 20px;
+$shelf-horizon-padding: 10%;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+  margin: auto;
+}
+
+main {
+    padding: $shelf-top-padding $shelf-horizon-padding;
+}
