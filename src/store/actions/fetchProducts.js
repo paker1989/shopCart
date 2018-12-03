@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { FETCH_PRODUCTS } from './type';
 
-// const productsAPI = 'localhost:1218/static/products.json';
 const productsAPI = "https://react-shopping-cart-67954.firebaseio.com/products.json";
+const localAPI = "/static/products.json";
 
 export default (filters, sort, callback) => dispatch => {
-  axios.get(productsAPI).then(res => {
-    console.log(res);
+  axios.get(productsAPI, {
+  }).then(res => {
     const { products } = res.data;
 
     if (!!filters) {
@@ -31,3 +31,4 @@ export default (filters, sort, callback) => dispatch => {
     throw new Error('cannot fetch products, please try later.');
   })
 }
+

@@ -13,14 +13,19 @@ import Product from '../product';
  * composed with shelf header above and products 
  */
 class Shelf extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { loading: false };
-  }
+
+  state = { loading: false };
 
   componentWillMount() {
     const { filters, sort } = this.props;
     this.handleFetchProducts(filters, sort);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { filters, sort } = prevProps;
+    if (this.props.filters !== filters || this.props.sort !== sort) {
+      this.handleFetchProducts(this.props.filters, this.props.sort );
+    }
   }
 
   handleFetchProducts(filters = this.props.filters, sort = this.props.sort) {
@@ -32,10 +37,20 @@ class Shelf extends React.Component {
   }
 
   render() {
+    const p = this.props.products.map((p) => {
+      return (
+        <div key={p.id}>
+          {p.title}
+        </div>
+      );
+    })
 
     return (
       <React.Fragment>
         <Filter />
+        <div className="shelf-content-container">
+          {p}
+        </div>
       </React.Fragment>
     );
   }

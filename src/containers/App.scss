@@ -1,6 +1,12 @@
 $shelf-top-padding: 20px;
 $shelf-horizon-padding: 10%;
 
+@mixin flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -14,4 +20,10 @@ body {
 
 main {
     padding: $shelf-top-padding $shelf-horizon-padding;
+
+  &.shelf-container {
+    @include flex;
+  }
 }
+
+
