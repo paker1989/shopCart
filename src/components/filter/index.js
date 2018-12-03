@@ -1,6 +1,8 @@
 import React from 'react';
 
+import './filter.scss';
 import Checkbox from './checkbox';
+
 
 const availableSizes = [
   'XS',
@@ -18,11 +20,15 @@ class Filter extends React.Component {
     this.selectedFilters = new Set();
   }
 
+  toggleFilterChange = (label) => {
+    //todo
+  }
+
   createCheckbox(label) {
     return (
       <Checkbox 
         label={label}
-        onClick={this.toggleFilterChange}
+        toggleFilterChange={this.toggleFilterChange}
         key={label}
       />
     );
@@ -36,7 +42,7 @@ class Filter extends React.Component {
     return (
       <section className="filter-container">
         <h4 className="title">Sizes:</h4>
-        <div className="filters">
+        <div className="checkboxs">
           {checkboxs}
         </div>
       </section>

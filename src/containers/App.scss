@@ -1,11 +1,7 @@
+@import '../style/mixin.scss';
+
 $shelf-top-padding: 20px;
 $shelf-horizon-padding: 10%;
-
-@mixin flex {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
 
 * {
   padding: 0;
