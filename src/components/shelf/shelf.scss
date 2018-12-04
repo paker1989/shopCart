@@ -1,5 +1,11 @@
 @import '../../style/mixin.scss';
 
+.shelf {
+  @include flex;
+  flex-wrap: nowrap;
+  // width: 100vw;
+}
+
 .shelf-content-container {
   flex-grow: 1;
   
@@ -9,12 +15,25 @@
     @include flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1em;
 
     & .sortbox {
       border-radius: 5%;
-      padding: .5em .1em;
+      // padding: .5em .1em;
+      height: 35px;
       cursor: pointer;
       margin-left: 1em;
+      &:hover {
+        border: 1px solid black;
+      }
+    }
+  }// end .shelf-header
+
+  & .products-wraper {
+    @include flex;
+    width: 100%;
+    & > * {
+      width: 25%;
     }
   }
 } 

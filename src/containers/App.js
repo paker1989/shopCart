@@ -9,8 +9,8 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <main className="shelf-container">
-          <Shelf />
+        <main>
+          <Shelf/>
         </main>
       </Provider>
     );

@@ -12,7 +12,7 @@ class ShelfHeader extends React.Component {
           <span>{this.props.productLength} product(s) found.</span>
         </small>
         <div>
-          Order by: {<Sort />}
+          Order by {<Sort />}
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 @import '../style/mixin.scss';
 
 $shelf-top-padding: 20px;
-$shelf-horizon-padding: 10%;
+$shelf-horizon-padding: 8vw;
 
 * {
   padding: 0;
@@ -17,11 +17,6 @@ body {
 
 main {
     padding: $shelf-top-padding $shelf-horizon-padding;
-
-  &.shelf-container {
-    @include flex;
-    padding-top: 2em;
-  }
 }
 
 

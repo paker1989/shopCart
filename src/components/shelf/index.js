@@ -40,20 +40,22 @@ class Shelf extends React.Component {
   render() {
     const p = this.props.products.map((p) => {
       return (
-        <div key={p.id}>
-          {p.title + ': ' + p.price}
-        </div>
+        <Product 
+          key={p.id}
+          product={p}
+          // addProduct={this.props.addProduct}
+          />
       );
     })
 
     return (
-      <React.Fragment>
+      <div className="shelf">
         <Filter />
         <div className="shelf-content-container">
           {<ShelfHeader/>}
-          {p}
+          <div className="products-wraper">{p}</div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
