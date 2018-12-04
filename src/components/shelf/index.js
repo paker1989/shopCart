@@ -7,6 +7,7 @@ import './shelf.scss';
 import fetchProducts from '../../store/actions/fetchProducts';
 import Filter from '../filter';
 import Product from '../product';
+import ShelfHeader from './shelfHeader';
 
 /**
  * composed with filter at left, product container at right, product container
@@ -40,7 +41,7 @@ class Shelf extends React.Component {
     const p = this.props.products.map((p) => {
       return (
         <div key={p.id}>
-          {p.title}
+          {p.title + ': ' + p.price}
         </div>
       );
     })
@@ -49,6 +50,7 @@ class Shelf extends React.Component {
       <React.Fragment>
         <Filter />
         <div className="shelf-content-container">
+          {<ShelfHeader/>}
           {p}
         </div>
       </React.Fragment>
@@ -62,7 +64,7 @@ Shelf.prototypes = {
 
 const mapStateToProps = state => ({
   products: state.products.items,
-  filters: state.filters.item,
+  filters: state.filters.items,
   sort: state.sort.item,
 })
 

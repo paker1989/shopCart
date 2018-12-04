@@ -2,6 +2,8 @@ import React from 'react';
 
 import './filter.scss';
 import Checkbox from './checkbox';
+import { connect } from 'react-redux';
+import updateFilters from '../../store/actions/updateFilter';
 
 
 const availableSizes = [
@@ -21,7 +23,12 @@ class Filter extends React.Component {
   }
 
   toggleFilterChange = (label) => {
-    //todo
+    if (this.selectedFilters.has(label)) {
+      this.selectedFilters.delete(label);
+    } else {
+      this.selectedFilters.add(label);
+    }
+    this.props.updateFilters(Array.from(this.selectedFilters));
   }
 
   createCheckbox(label) {
@@ -50,4 +57,4 @@ class Filter extends React.Component {
   }
 }
 
-export default Filter;
+export default connect(() => {return {}}, { updateFilters })(Filter);

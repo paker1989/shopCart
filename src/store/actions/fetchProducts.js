@@ -7,14 +7,22 @@ const localAPI = "/static/products.json";
 export default (filters, sort, callback) => dispatch => {
   axios.get(productsAPI, {
   }).then(res => {
-    const { products } = res.data;
+    let { products } = res.data;
 
     if (!!filters) {
-      //do something
+      if (filters.length > 0) {
+        products = products.filter(p => p.availableSizes.find(size => filters.includes(size)));
+      }
     }
 
     if (!!sort) {
-      //do something
+      products = products.sort((a, b) => {
+        switch(sort) {
+          case 'ltoh': return (b.price - a.price);
+          case 'htol': return (a.price - b.price);
+          default: return 0;
+        }
+      })
     }
 
     if (!!callback) {
