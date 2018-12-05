@@ -1,0 +1,43 @@
+@import '../../style/mixin.scss';
+
+$floatcart-md-width: 450px;
+$floatcart-sm-width: 100vw;
+
+$toggle-close-width: 50px;
+$background: #1b1a20;
+
+.float-cart-container {
+  position: fixed;
+  width: $floatcart-md-width;
+  top: 0;
+  right: 0;
+  height: 100vh; //temp
+  background: $background;
+  opacity: .95;
+
+  @media only screen and (max-width: 900px){
+    width: $floatcart-sm-width;
+  }
+
+  & .toggle-close {
+    position: absolute;
+    top: 0;
+    left: -$toggle-close-width;
+    width: $toggle-close-width;
+    height: $toggle-close-width;
+    color: white;
+    background: $background;
+    cursor: pointer;
+    @include flex;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width: 900px){
+      left:0;
+    }
+  }
+
+  & .checkout {
+    background: darken($background, 10%);
+  }
+}

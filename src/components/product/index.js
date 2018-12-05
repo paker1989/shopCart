@@ -1,10 +1,19 @@
 import React from 'react';
 import './product.scss';
+import util from '../../utils';
 
 class Product extends React.Component {
   render() {
     const product = this.props.product;
+    const formattedPrice = util.formatPrice(product.price, product.currencyId);
 
+    const productInstallment = (
+      <div className="installment">
+        or {product.installments} x {product.currencyFormat} {util.formatPrice(product
+          .price/product.installments, product.currencyId)}
+      </div>
+    );
+    
     return (
       <div className="product">
         <div className="freeship">Free Shipping</div>
@@ -14,7 +23,12 @@ class Product extends React.Component {
           </img>
           <span className="title">{product.title}</span>
           <div className="price">
-            todo
+            <div className="price_self">
+              <small>{product.currencyFormat}</small>
+              <b>{formattedPrice.substring(0, formattedPrice.length - 3)}</b>
+              {formattedPrice.substring(formattedPrice.length - 3)}
+            </div>
+            {productInstallment}
           </div>
           <div className="product-action">
             Add to cart

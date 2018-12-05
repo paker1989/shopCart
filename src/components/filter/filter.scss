@@ -1,8 +1,13 @@
 @import '../../style/mixin.scss';
 
 .filter-container {
-  margin-right: 1.5em;
+  padding-right: 1.5em;
+  width: 250px;
   
+  @media only screen and (max-width: 900px) {
+    width: 100%;
+  }
+
   & .title {
     text-align: left;
     margin-bottom: 1em;
@@ -12,7 +17,7 @@
 .checkboxs {
   @include flex;
   justify-content: flex-start;
-  width: 200px;
+  width: 100%;
   & > * {
     margin-right: 10px;
     margin-bottom: 20px;

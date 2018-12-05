@@ -1,7 +1,7 @@
 @import '../style/mixin.scss';
 
 $shelf-top-padding: 20px;
-$shelf-horizon-padding: 8vw;
+$shelf-horizon-padding: 20px;
 
 * {
   padding: 0;
@@ -12,11 +12,13 @@ $shelf-horizon-padding: 8vw;
 
 body {
   text-align: center;
-  margin: auto;
 }
 
 main {
     padding: $shelf-top-padding $shelf-horizon-padding;
+    max-width: 95vw;
+    margin: auto;
+    position: relative;
 }
 
 

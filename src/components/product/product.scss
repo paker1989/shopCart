@@ -1,12 +1,13 @@
 @import '../../style/mixin.scss';
 
-$fs-height: 1.8em;
-$fs-font: .4em;
+$fs-height: 30px;
+$fs-font: 0.6em;
 $action-height: 50px;
 $action-font: 15px;
 
 .product {
   position: relative;
+  min-width: 250px;
 
   &:hover {
     border: lighten(grey, 40%) 1px solid;
@@ -14,11 +15,11 @@ $action-font: 15px;
 
   & > .freeship {
     position: absolute;
-    top: .5em;
-    right: .5em;
+    top: 10px;
+    right: 5px;
     height: $fs-height;
     line-height: $fs-height;
-    padding: 0 .3em;
+    padding: 0 5px;
     font-size: $fs-font;
     color: white;
     background: black;
@@ -36,14 +37,14 @@ $action-font: 15px;
 
     & > .title {
       position: relative;
-      padding: .6em 0 1.2em 0;
+      padding: 10px 0 12px 0;
       font-size: 14px;
       font-weight: 400;
 
       &::before{
         content: "";
         position: absolute;
-        bottom: 0em;
+        bottom: 0px;
         left: 50%;
         transform: scaleX(-50%);
         width: 20px;
@@ -53,7 +54,20 @@ $action-font: 15px;
     }
 
     & > .price {
-      margin: 1em 0;
+      margin: 20px 0;
+
+      & .price_self {
+        & b {
+          margin-left: 4px;
+          font-size: 20px;
+        }
+      }
+      & .installment {
+        margin-top: 4px;
+        color: lighten(grey, 10%);
+        font-weight: 600;
+        font-size: 16px;
+      }
     }
 
     & .product-action {
