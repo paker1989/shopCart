@@ -1,4 +1,4 @@
-import { UPDATE_FILTER } from '../actions/type';
+import { LOAD_CARTS } from '../actions/type';
 
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_FILTER:
+    case LOAD_CARTS:
       return {
         ...state,
         items: action.payload

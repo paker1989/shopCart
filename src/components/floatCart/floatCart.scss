@@ -6,17 +6,28 @@ $floatcart-sm-width: 100vw;
 $toggle-close-width: 50px;
 $background: #1b1a20;
 
+$color: lighten(grey, 50%);
+
 .float-cart-container {
   position: fixed;
   width: $floatcart-md-width;
   top: 0;
-  right: 0;
+  right: - $floatcart-md-width;;
   height: 100vh; //temp
   background: $background;
   opacity: .95;
 
+  &.fadeOut {
+    right: 0;
+  }
+
   @media only screen and (max-width: 900px){
     width: $floatcart-sm-width;
+    right: - $floatcart-sm-width;
+
+    &.fadeOut {
+      right: 0;
+    }    
   }
 
   & .toggle-close {
@@ -37,7 +48,44 @@ $background: #1b1a20;
     }
   }
 
+  & .header {
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+
+    & .icon {
+      position: relative;
+      background-image: url('../../../data/static/bag-icon.png');
+      display: inline-block;
+      height: 35px;
+      width: 35px;
+      margin-right: 10px;
+
+      & .bag_quantity {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: scale(-50%, 50%);
+        color: #1b1a20;
+        background: orange;
+        font-size: 14px;
+        padding: 0 5px;
+        border-radius: 50%;
+      }
+    }
+
+    & .title {
+      color: $color;
+      font-size:20px;
+      font-weight: 600;
+    }
+  } // end header
+
   & .checkout {
     background: darken($background, 10%);
+    color: $color;
+    margin: 0 20px;
+    padding: 15px 0; 
   }
 }
