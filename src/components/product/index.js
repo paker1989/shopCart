@@ -2,6 +2,9 @@ import React from 'react';
 import './product.scss';
 import util from '../../utils';
 
+import { connect } from 'react-redux';
+import { addProduct } from '../../store/actions/floatCarts';
+
 class Product extends React.Component {
   render() {
     const product = this.props.product;
@@ -30,7 +33,7 @@ class Product extends React.Component {
             </div>
             {productInstallment}
           </div>
-          <div className="product-action">
+          <div className="product-action" onClick={() => this.props.addProduct(product)}>
             Add to cart
           </div>
         </div>
@@ -39,7 +42,7 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+export default connect((state) => ({}), { addProduct })(Product);
 
 /**
  * 

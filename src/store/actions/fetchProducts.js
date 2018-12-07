@@ -5,7 +5,7 @@ const productsAPI = "https://react-shopping-cart-67954.firebaseio.com/products.j
 const localAPI = "/static/products.json";
 
 export default (filters, sort, callback) => dispatch => {
-  axios.get(productsAPI, {
+  axios.get(localAPI, {
   }).then(res => {
     let { products } = res.data;
 

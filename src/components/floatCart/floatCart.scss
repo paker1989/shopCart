@@ -16,6 +16,7 @@ $color: lighten(grey, 50%);
   height: 100vh; //temp
   background: $background;
   opacity: .95;
+  overflow: auto;
 
   &.fadeOut {
     right: 0;
@@ -82,10 +83,40 @@ $color: lighten(grey, 50%);
     }
   } // end header
 
+  & .subtotal {
+    @include flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+    color: lighten(grey, 5%);
+    font-size: 15px;
+    font-weight: 400;
+
+    & .total__detail {
+      @include flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      & .total_price {
+        color: orange;
+        font-size: 20px;
+        font-weight: 500;
+      } 
+      & .total__installment {
+        color: grey;
+        font-size: 14px;
+      }
+    }
+
+  }
+
   & .checkout {
     background: darken($background, 10%);
     color: $color;
     margin: 0 20px;
     padding: 15px 0; 
+    cursor: pointer;
   }
+
 }
