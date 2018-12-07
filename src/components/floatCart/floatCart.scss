@@ -12,29 +12,16 @@ $color: lighten(grey, 50%);
   position: fixed;
   width: $floatcart-md-width;
   top: 0;
-  right: - $floatcart-md-width;;
+  // right: - $floatcart-md-width;;
   height: 100vh; //temp
   background: $background;
   opacity: .95;
   overflow: auto;
 
-  &.fadeOut {
-    right: 0;
-  }
-
-  @media only screen and (max-width: 900px){
-    width: $floatcart-sm-width;
-    right: - $floatcart-sm-width;
-
-    &.fadeOut {
-      right: 0;
-    }    
-  }
-
   & .toggle-close {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: -$toggle-close-width;
+    // right: 0;
     width: $toggle-close-width;
     height: $toggle-close-width;
     color: white;
@@ -44,8 +31,38 @@ $color: lighten(grey, 50%);
     justify-content: center;
     align-items: center;
 
-    @media only screen and (max-width: 900px){
-      left:0;
+  }
+
+  @media only screen and (min-width: 900px){
+    right: - $floatcart-md-width;
+
+    & .toggle-close {
+      right: 0;
+    }
+
+    &.fadeOut {
+      right: 0;
+
+      & .toggle-close {
+        right: $floatcart-md-width;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 900px){
+    width: $floatcart-sm-width;
+    right: - $floatcart-sm-width;
+
+    & .toggle-close {
+      right: 0;
+    }
+
+    &.fadeOut {
+      right: 0;
+
+      & .toggle-close {
+        left: 0;
+      }  
     }
   }
 

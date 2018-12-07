@@ -1,4 +1,4 @@
-import { LOAD_CARTS, ADD_CARTS, UPDATE_CARTS } from '../actions/type';
+import { UPDATE_CARTS, LOAD_CARTS } from '../actions/type';
 
 
 const initialState = {
@@ -7,29 +7,27 @@ const initialState = {
     totalQuantities: 0,
     installments: 0,
     currencyId: 'USD',
-    currencyFormat: '$',    
+    currencyFormat: '$',
+    isInitial: true
   },
   items: [],
-  newItem: undefined
 };
+
+const loadInfo = (state, action) => {
+  const { cards, ...totalInfo } = action.payload;
+  return {
+    ...state,
+    items: cards,
+    info: Object.assign({}, totalInfo)
+  }   
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_CARTS:
-      return {
-        ...state,
-        items: action.payload
-      };
-    case ADD_CARTS:
-      return {
-        ...state,
-        newItem: Object.assign({}, action.payload)
-      };
+      return loadInfo(state, action);
     case UPDATE_CARTS:
-      return {
-        ...state,
-        info: Object.assign({}, action.payload)
-      }
+      return loadInfo(state, action);
     default:
       return state;
   }

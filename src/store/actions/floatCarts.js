@@ -1,4 +1,4 @@
-import { LOAD_CARTS, ADD_CARTS, UPDATE_CARTS } from './type';
+import { UPDATE_CARTS, LOAD_CARTS } from './type';
 
 const persistCart = () => {
   const key = 'cardProducts';
@@ -15,40 +15,57 @@ const persistCart = () => {
 }
 
 export const loadCarts = () => dispatch => {
-  const cardProducts = persistCart().get();
+  const cards = persistCart().get();
 
-  if (!!cardProducts) {
+  if (!!cards) {
+    const cardTotalInfo = {
+      totalPrice: cards.reduce((sum, p) => (sum += p.price * p.quantity), 0),
+      totalQuantities: cards.reduce((totalNb, p) => (totalNb += Number(p.quantity)), 0),
+      installments: cards.reduce((greater, p) => (p.installments > greater ? 
+        p.installments : greater), 0),
+      currencyId: 'USD',
+      currencyFormat: '$',
+      cards,
+      isInitial: true
+    }
+  
     dispatch({
       type: LOAD_CARTS,
-      payload: cardProducts
+      payload: cardTotalInfo
     })
   }
 }
 
 export const addProduct = (product) => dispatch => {
-  dispatch({
-    type: ADD_CARTS,
-    payload: product
-  })
-}
+  let isAlreadyAdded = false;
+  const cards = persistCart().get();
 
-export const updateCarts = (cardProducts) => dispatch => {
-  persistCart().persistCarts(cardProducts);
-  
+  cards.forEach((p) => {
+    if (p.id === product.id) {
+      p.quantity += 1;
+      isAlreadyAdded = true;
+    }
+  })
+
+  if (!isAlreadyAdded) {
+    cards.push(Object.assign({}, product, { quantity: 1}));
+  }
+
+  persistCart().persistCarts(cards);
+    
   const cardTotalInfo = {
-    totalPrice: cardProducts.reduce((sum, p) => (sum += p.price * p.quantity), 0),
-    totalQuantities: cardProducts.reduce((totalNb, p) => (totalNb += Number(p.quantity)), 0),
-    installments: cardProducts.reduce((greater, p) => (p.installments > greater ? 
+    totalPrice: cards.reduce((sum, p) => (sum += p.price * p.quantity), 0),
+    totalQuantities: cards.reduce((totalNb, p) => (totalNb += Number(p.quantity)), 0),
+    installments: cards.reduce((greater, p) => (p.installments > greater ? 
       p.installments : greater), 0),
     currencyId: 'USD',
     currencyFormat: '$',
+    cards,
+    isInitial: false
   }
 
-  if (!!cardProducts) {
-    dispatch({
-      type: UPDATE_CARTS,
-      payload: cardTotalInfo
-    })
-  }
-
+  dispatch({
+    type: UPDATE_CARTS,
+    payload: cardTotalInfo
+  })
 }

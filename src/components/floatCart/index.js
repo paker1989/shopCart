@@ -17,42 +17,21 @@ class FloatCart extends React.Component {
    this.props.loadCarts();
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.updateCarts(this.props.cardProducts);
-    }, 0);
-  }
-
   componentWillReceiveProps(nextProps) {
-    let isAlreadyAdded = false;
-    const { cardProducts, newProduct, updateCarts } = nextProps;
-    if (newProduct === undefined || nextProps.newProduct === this.props.newProduct) return;
-
-    cardProducts.forEach(p => {
-      if (p.id === newProduct.id) {
-        isAlreadyAdded = true;
-        p.quantity += 1;
-      }
-    })
-
-    if (isAlreadyAdded == false) {
-      cardProducts.push(Object.assign({}, newProduct, {quantity: 1}));
+    if (!nextProps.isInitial) {
+      this.onFloatCart(true);
     }
-    
-    updateCarts(cardProducts);
-    this.fadeOutFloatCart();
   }
 
   toggleFloatCart = () => {
     this.setState((state) => ({ isFadeout: !state.isFadeout}));
   }
 
-  fadeOutFloatCart = () => {
-    this.setState((state) => ({ isFadeout: true}));
+  onFloatCart = (showStatus) => {
+    this.setState(() => ({ isFadeout: showStatus}));
   }
 
   render() {
-    // console.log(this.props);
     const { cardProducts, totalPrice, totalQuantities, installments, 
             currencyId, currencyFormat } = this.props;
     const container_classes = ["float-cart-container"];
@@ -114,8 +93,8 @@ FloatCart.prototypes = {
 }
 
 const mapStatsToProps = state => ({
-  newProduct: state.floatCarts.newItem,
   cardProducts: state.floatCarts.items,
+  isInitial: state.floatCarts.info.isInitial,
   totalPrice: state.floatCarts.info.totalPrice,
   totalQuantities: state.floatCarts.info.totalQuantities,
   installments: state.floatCarts.info.installments,
