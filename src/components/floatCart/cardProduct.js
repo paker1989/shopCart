@@ -7,7 +7,7 @@ class CardProduct extends React.Component {
 
   render() {
     const { price, currencyId, currencyFormat, sku, title, style, quantity} = this.props.product;
-    const formattedPrice = utils.formatPrice(price, currencyId);
+    const formattedPrice = utils.formatPrice(price * quantity, currencyId);
   
     return (
       <div className="card-product">

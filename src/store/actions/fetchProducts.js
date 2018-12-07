@@ -35,7 +35,6 @@ export default (filters, sort, callback) => dispatch => {
     })
   })
   .catch(error => {
-    console.log(error);
     throw new Error('cannot fetch products, please try later.');
   })
 }

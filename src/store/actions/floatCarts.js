@@ -33,11 +33,10 @@ export const addProduct = (product) => dispatch => {
 }
 
 export const updateCarts = (cardProducts) => dispatch => {
-  console.log('update carts')
   persistCart().persistCarts(cardProducts);
   
   const cardTotalInfo = {
-    totalPrice: cardProducts.reduce((sum, p) => (sum += p.price), 0),
+    totalPrice: cardProducts.reduce((sum, p) => (sum += p.price * p.quantity), 0),
     totalQuantities: cardProducts.reduce((totalNb, p) => (totalNb += Number(p.quantity)), 0),
     installments: cardProducts.reduce((greater, p) => (p.installments > greater ? 
       p.installments : greater), 0),

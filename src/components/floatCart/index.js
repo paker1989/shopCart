@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { loadCarts, updateCarts } from '../../store/actions/floatCarts';
 import CardProduct from './cardProduct';
 
+import utils from '../../utils';
+
 import './floatCart.scss';
 
 class FloatCart extends React.Component {
 
-  state = { isFadeout: true };
+  state = { isFadeout: false };
 
   componentWillMount() {
    this.props.loadCarts();
@@ -22,8 +24,6 @@ class FloatCart extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('receive props')
-    // console.log(nextProps)
     let isAlreadyAdded = false;
     const { cardProducts, newProduct, updateCarts } = nextProps;
     if (newProduct === undefined || nextProps.newProduct === this.props.newProduct) return;
@@ -38,12 +38,17 @@ class FloatCart extends React.Component {
     if (isAlreadyAdded == false) {
       cardProducts.push(Object.assign({}, newProduct, {quantity: 1}));
     }
-
+    
     updateCarts(cardProducts);
+    this.fadeOutFloatCart();
   }
 
   toggleFloatCart = () => {
-    this.setState((state) => ({ isFadeout: !state.isFadeout}))
+    this.setState((state) => ({ isFadeout: !state.isFadeout}));
+  }
+
+  fadeOutFloatCart = () => {
+    this.setState((state) => ({ isFadeout: true}));
   }
 
   render() {
@@ -51,6 +56,7 @@ class FloatCart extends React.Component {
     const { cardProducts, totalPrice, totalQuantities, installments, 
             currencyId, currencyFormat } = this.props;
     const container_classes = ["float-cart-container"];
+    const formattedTotalPrice = utils.formatPrice(totalPrice, currencyId);
 
     if (this.state.isFadeout) {
       container_classes.push('fadeOut');
@@ -68,7 +74,7 @@ class FloatCart extends React.Component {
         <div className="total__detail">
           <label className="total_price">
             <span className="total_price__currency">{currencyId}</span>
-            <span>{totalPrice}</span>
+            <span>{formattedTotalPrice}</span>
           </label>
           <span className="total__installment">
             OR UP TO {installments} x $ 4.48
