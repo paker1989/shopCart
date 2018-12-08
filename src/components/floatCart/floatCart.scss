@@ -7,21 +7,23 @@ $toggle-close-width: 50px;
 $background: #1b1a20;
 
 $color: lighten(grey, 50%);
+$pos-transition: right .4s ease;
+
+
 
 .float-cart-container {
   position: fixed;
   width: $floatcart-md-width;
   top: 0;
-  // right: - $floatcart-md-width;;
   height: 100vh; //temp
   background: $background;
   opacity: .95;
   overflow: auto;
+  transition: $pos-transition;
 
   & .toggle-close {
     position: fixed;
     top: 0;
-    // right: 0;
     width: $toggle-close-width;
     height: $toggle-close-width;
     color: white;
@@ -30,7 +32,13 @@ $color: lighten(grey, 50%);
     @include flex;
     justify-content: center;
     align-items: center;
+    transition: $pos-transition;
 
+    & .icon {
+      height: 30px;
+      width: 30px;
+      // margin-right: 10px;
+    }
   }
 
   @media only screen and (min-width: 900px){
@@ -66,6 +74,15 @@ $color: lighten(grey, 50%);
     }
   }
 
+  & .reminder {
+    @include flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    color: white;
+  }
+
   & .header {
     @include flex;
     justify-content: center;
@@ -73,32 +90,38 @@ $color: lighten(grey, 50%);
     padding: 30px 0;
 
     & .icon {
-      position: relative;
-      background-image: url('../../../data/static/bag-icon.png');
-      display: inline-block;
       height: 35px;
       width: 35px;
       margin-right: 10px;
-
-      & .bag_quantity {
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: scale(-50%, 50%);
-        color: #1b1a20;
-        background: orange;
-        font-size: 14px;
-        padding: 0 5px;
-        border-radius: 50%;
-      }
     }
-
+    
     & .title {
       color: $color;
       font-size:20px;
       font-weight: 600;
     }
   } // end header
+
+  & .icon {
+    position: relative;
+    background-image: url('../../../data/static/bag-icon.png');
+    display: inline-block;
+    // height: 35px;
+    // width: 35px;
+    // margin-right: 10px;
+
+    & .bag_quantity {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: scale(-50%, 50%);
+      color: #1b1a20;
+      background: orange;
+      font-size: 14px;
+      padding: 0 5px;
+      border-radius: 50%;
+    }
+  }
 
   & .subtotal {
     @include flex;
@@ -119,6 +142,10 @@ $color: lighten(grey, 50%);
         color: orange;
         font-size: 20px;
         font-weight: 500;
+
+        & .total_price__currency {
+          margin-right: 10px;
+        }
       } 
       & .total__installment {
         color: grey;

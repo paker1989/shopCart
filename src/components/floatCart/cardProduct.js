@@ -6,11 +6,12 @@ import './cardProduct.scss';
 class CardProduct extends React.Component {
 
   render() {
-    const { price, currencyId, currencyFormat, sku, title, style, quantity} = this.props.product;
+    const { id, price, currencyId, currencyFormat, sku, title, style, quantity } = this.props.product;
     const formattedPrice = utils.formatPrice(price * quantity, currencyId);
-  
+
     return (
-      <div className="card-product">
+      <div className="card-product" onClick={() => this.props.removeProduct(id)}>
+        <div className="delete-card">x</div>
         <div className="product_info">
           <div className = "product_info__img">
             <img

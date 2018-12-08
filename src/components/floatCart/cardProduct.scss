@@ -7,10 +7,31 @@ $content-height: 110px;
   flex-wrap: nowrap;
   align-items: center;
   position: relative;
-  padding: 15px 20px;
+  padding: 0 20px;
+  margin-bottom: 30px;
+
+  & .delete-card {
+    width: 0;
+    height: $content-height;
+    transform: scaleX(0);
+    background: lighten(grey, 20%);
+    transition: width .4s ease;
+    @include flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    color: lighten(black, 30%);
+  }
 
   &:hover {
     background: lighten(#1b1a20, 5%);
+
+    & .delete-card {
+      width: 80px;
+      transform: scaleX(1);
+    }
   }
 
   & .product_info {
@@ -20,6 +41,7 @@ $content-height: 110px;
 
     & .product_info__img {
       height: $content-height;
+      flex-shrink: 0;
       & img {
         max-width: 100%;
         max-height: 100%;

@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadCarts, updateCarts } from '../../store/actions/floatCarts';
+import { loadCarts, updateCarts, removeProduct } from '../../store/actions/floatCarts';
 import CardProduct from './cardProduct';
 
 import utils from '../../utils';
@@ -31,9 +31,13 @@ class FloatCart extends React.Component {
     this.setState(() => ({ isFadeout: showStatus}));
   }
 
+  removeCard = (id) => {
+    this.props.removeProduct(id);
+  }
+
   render() {
     const { cardProducts, totalPrice, totalQuantities, installments, 
-            currencyId, currencyFormat } = this.props;
+            currencyId } = this.props;
     const container_classes = ["float-cart-container"];
     const formattedTotalPrice = utils.formatPrice(totalPrice, currencyId);
 
@@ -41,11 +45,40 @@ class FloatCart extends React.Component {
       container_classes.push('fadeOut');
     }
 
+    const icon = (
+      <span className="icon">
+        <span className="bag_quantity">{totalQuantities}</span>
+      </span>
+    );
+
+    const closeRender = (
+      <div className="toggle-close" onClick={this.toggleFloatCart}>
+        {this.state.isFadeout && 'x'}
+        {!this.state.isFadeout && icon}
+      </div>
+
+    );
+
     const p = (
       cardProducts.map(cart => {
-        return <CardProduct product={cart} key={cart.id}/>
-      })
+        return <CardProduct product={cart} key={cart.id} removeProduct={this.removeCard}/>
+      })      
     )
+
+    const reminder = (
+      <div className="reminder">
+        <span>Add some product in the bag</span>
+        <span>:)</span>
+      </div>
+    );
+
+    const content = (
+      <div>
+        <div className="product-list">
+          {p}
+        </div>
+      </div>
+    );
 
     const subtotal = (
       <div className="subtotal">
@@ -64,18 +97,13 @@ class FloatCart extends React.Component {
 
     return (
       <div className={container_classes.join(' ')}>
-        <div className="toggle-close" onClick={this.toggleFloatCart}>
-          x
-        </div>
+        {closeRender}
         <div className="header">
-           <span className="icon">
-             <span className="bag_quantity">{totalQuantities}</span>
-           </span>
-           <span className="title">Bag</span>
+          {icon}
+          <span className="title">Bag</span>
         </div>
-        <div className="product-list">
-          {p}
-        </div>
+        {cardProducts.length === 0 && reminder}
+        {cardProducts.length > 0 && content}
         {cardProducts.length > 0 && subtotal}
         <div className="checkout">
           <span>CHECKOUT</span>
@@ -103,4 +131,4 @@ const mapStatsToProps = state => ({
 })
 
 
-export default connect(mapStatsToProps, { loadCarts, updateCarts })(FloatCart);
+export default connect(mapStatsToProps, { loadCarts, updateCarts, removeProduct })(FloatCart);

@@ -8,6 +8,7 @@ import fetchProducts from '../../store/actions/fetchProducts';
 import Filter from '../filter';
 import Product from '../product';
 import ShelfHeader from './shelfHeader';
+import Spinner from '../spinner';
 
 /**
  * composed with filter at left, product container at right, product container
@@ -50,6 +51,9 @@ class Shelf extends React.Component {
 
     return (
       <div className="shelf">
+       {this.state.loading &&
+         <Spinner />
+       }
         <Filter />
         <div className="shelf-content-container">
           {<ShelfHeader/>}

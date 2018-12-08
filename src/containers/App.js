@@ -7,10 +7,15 @@ import FloatCart from '../components/floatCart';
 import './App.scss';
 
 class App extends React.Component {
+
+  checkClickOutsideFloatCart = (e) => {
+    
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <div>
+        <div onClick={(e) => this.checkClickOutsideFloatCart(e)}>
           <main>
             <Shelf/>
           </main>
