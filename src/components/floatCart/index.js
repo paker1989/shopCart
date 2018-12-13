@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { loadCarts, updateCarts, removeProduct } from '../../store/actions/floatCarts';
 import CardProduct from './cardProduct';
+import Modal from '../modal';
+// import ReactModal from 'react-modal';
 
 import utils from '../../utils';
 
@@ -11,7 +13,7 @@ import './floatCart.scss';
 
 class FloatCart extends React.Component {
 
-  state = { isFadeout: false };
+  state = { isFadeout: false, checkOut: false };
 
   componentWillMount() {
    this.props.loadCarts();
@@ -35,9 +37,14 @@ class FloatCart extends React.Component {
     this.props.removeProduct(id);
   }
 
+  checkOutTotal = () => {
+    this.setState((state) => ({ checkOut: !state.checkOut }));
+  }
+
   render() {
     const { cardProducts, totalPrice, totalQuantities, installments, 
             currencyId } = this.props;
+    const { checkOut } = this.state;
     const container_classes = ["float-cart-container"];
     const formattedTotalPrice = utils.formatPrice(totalPrice, currencyId);
 
@@ -95,6 +102,18 @@ class FloatCart extends React.Component {
       </div>
     );
 
+    const modal = (
+      <Modal 
+        layerClass="center-layer"
+        contentClass="float-content-modal"
+      >
+        <h1>This is modal</h1>
+      </Modal>
+    );
+
+
+    console.log(checkOut);
+
     return (
       <div className={container_classes.join(' ')}>
         {closeRender}
@@ -105,9 +124,10 @@ class FloatCart extends React.Component {
         {cardProducts.length === 0 && reminder}
         {cardProducts.length > 0 && content}
         {cardProducts.length > 0 && subtotal}
-        <div className="checkout">
+        <div className="checkout" onClick={this.checkOutTotal}>
           <span>CHECKOUT</span>
         </div>
+        {checkOut && modal}
       </div>
     );
   }

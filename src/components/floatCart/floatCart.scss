@@ -162,5 +162,23 @@ $pos-transition: right .4s ease;
     padding: 15px 0; 
     cursor: pointer;
   }
-
 }
+
+.modal-layer.center-layer {
+   opacity: .9;
+   display: flex;
+   justify-content: center;
+
+   & .float-content-modal {
+     opacity: 1;
+     min-width: 400px;
+     min-height: 350px;
+     display: flex;
+     justify-content: center;
+     top: 10px;
+     padding: 10px;
+     background: lighten(grey, 30%);
+     border-radius: 6px;
+   }
+}
+
