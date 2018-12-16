@@ -42,7 +42,7 @@ class Product extends React.Component {
   }
 }
 
-export default connect((state) => ({}), { addProduct })(Product);
+export default connect(() => ({}), { addProduct })(Product);
 
 /**
  * 
