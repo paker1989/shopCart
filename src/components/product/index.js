@@ -4,6 +4,7 @@ import util from '../../utils';
 
 import { connect } from 'react-redux';
 import { addProduct } from '../../store/actions/floatCarts';
+import Tooltip from '../tooltip';
 
 class Product extends React.Component {
   render() {
@@ -37,12 +38,15 @@ class Product extends React.Component {
             Add to cart
           </div>
         </div>
+        <Tooltip showComponent={this}>
+          <p>this is a demo tooltip</p>
+        </Tooltip>
       </div>
     );
   }
 }
 
-export default connect((state) => ({}), { addProduct })(Product);
+export default connect(() => ({}), { addProduct })(Product);
 
 /**
  * 
