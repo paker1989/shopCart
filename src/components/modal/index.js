@@ -3,23 +3,45 @@ import propTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 class Modal extends React.Component {
-  componentDidMount() {
-    console.log('mont');
-    const { isFullScreen } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = ({
+      beforeOpen: true,
+      afterOpen: false,
+      afterClose: false,
+    })
+  }
 
-    // this.underLayer = document.createElement('div');
-    // this.underLayer.appendChild(this);
-    // if (isFullScreen) {
-    //   document.body.appendChild(this.underLayer);
-    // }
+  componentDidMount() {
+    const { closeAfterTimeMS } = this.props;
+    if (closeAfterTimeMS) {
+      this.timeID = setTimeout(() => {
+        this.removeModal(); 
+      }, closeAfterTimeMS);
+    }
     if (this.node) {
       document.body.appendChild(this.node);
     }
+    // this.setState((state) => ({
+    //   beforeOpen: false,
+    //   afterOpen: true
+    // }));
   }
 
   componentWillUnmount() {
-    console.log('unmount');
     document.body.removeChild(this.node);
+  }
+
+  removeModal = () => {
+    if (this.timeID) {
+      this.timeID = null;
+    }
+    const { onClose } = this.props;
+    if (typeof onClose === 'function') {
+      this.props.onClose();
+    } else {
+      document.body.removeChild(this.node);
+    }
   }
 
   static defaultLayerStyles = {
@@ -28,24 +50,24 @@ class Modal extends React.Component {
     height: '100%',
     top: '0',
     left: '0',
-    background: 'grey'
+    background: 'rgba(55,55,55,.6)'
   }
 
   static defaultContentStyles = {
     position: 'absolute',
     zIndex: '999',
+    minWidth: '400px',
+    minHeight: '200px'
   }
 
   render() {  
-    this.node = document.createElement('div');
-
-    const { contentStyle, layerStyle, contentClass, layerClass } = this.props;
     const modalLayerProps = {
       style: Modal.defaultLayerStyles,
     };
     const modalContentProps = {
       style: Modal.defaultContentStyles,
     }
+    const { contentStyle, layerStyle, contentClass, layerClass, children } = this.props;
 
     if (contentStyle) {
       modalContentProps.style = Object.assign(modalContentProps.style, contentStyle);
@@ -65,34 +87,23 @@ class Modal extends React.Component {
 
     modalLayerProps.className += ' modal-layer';
 
-    // console.log(modalContentProps)
+    this.node = document.createElement('div');
 
-    const { children } = this.props;
-
-    console.log(children)
-
-    const modalLayer = React.createElement('div',
-      modalLayerProps,
-      React.createElement('div',
-        modalContentProps,
-        children
-      )
-    )
+    const modalLayer = (
+      <div className={modalLayerProps.className} style={modalLayerProps.style}>
+        <div className={modalContentProps.className} style={modalContentProps.style}>
+          {children}
+        </div>
+      </div>
+    );
 
     return ReactDOM.createPortal(modalLayer, this.node);
   }
 }
 
- 
-
 Modal.defaultProps = {
-  fullScreen: true,
-}
-
-
-
-Modal.prototypes = {
-  
+  isClose: false,
+  closeAfterTimeMS: false,
 }
 
 export default Modal;

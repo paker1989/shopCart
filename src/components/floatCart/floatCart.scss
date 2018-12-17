@@ -165,19 +165,16 @@ $pos-transition: right .4s ease;
 }
 
 .modal-layer.center-layer {
-   opacity: .9;
    display: flex;
    justify-content: center;
 
    & .float-content-modal {
-     opacity: 1;
-     min-width: 400px;
-     min-height: 350px;
+     font-size: 16px;
      display: flex;
      justify-content: center;
      top: 10px;
      padding: 10px;
-     background: lighten(grey, 30%);
+     background: white;
      border-radius: 6px;
    }
 }

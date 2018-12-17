@@ -13,7 +13,10 @@ import './floatCart.scss';
 
 class FloatCart extends React.Component {
 
-  state = { isFadeout: false, checkOut: false };
+  state = { 
+    isFadeout: false,
+    checkOut: false,
+   };
 
   componentWillMount() {
    this.props.loadCarts();
@@ -38,7 +41,13 @@ class FloatCart extends React.Component {
   }
 
   checkOutTotal = () => {
-    this.setState((state) => ({ checkOut: !state.checkOut }));
+    this.setState((state) => ({ checkOut: true }));
+  }
+
+  closeCheckout = () => {
+    console.log('close checkout')
+    this.setState((state) => ({ checkOut: false }));
+    
   }
 
   render() {
@@ -106,13 +115,13 @@ class FloatCart extends React.Component {
       <Modal 
         layerClass="center-layer"
         contentClass="float-content-modal"
+        closeAfterTimeMS="3000"
+        onClose={this.closeCheckout}
       >
         <h1>This is modal</h1>
       </Modal>
     );
 
-
-    console.log(checkOut);
 
     return (
       <div className={container_classes.join(' ')}>
