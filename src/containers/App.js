@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import Router from '../router';
+
 import store from '../store';
 
 import Shelf from '../components/shelf';
@@ -8,15 +10,12 @@ import './App.scss';
 
 class App extends React.Component {
 
-  checkClickOutsideFloatCart = (e) => {
-    
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <div onClick={(e) => this.checkClickOutsideFloatCart(e)}>
+        <div>
           <main>
+            <Router />
             <Shelf/>
           </main>
           <FloatCart />
