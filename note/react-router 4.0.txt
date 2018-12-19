@@ -35,3 +35,7 @@ router component props: { match, location, history}
 
 ===========
 react router设计哲学: dynamic routing, composable design.
+
+========
+Route会给render的组件里注入props，包括 history, location, match
+location中包括key, hash, search, pathname等信息，其中user can define <state>， 比较有用
