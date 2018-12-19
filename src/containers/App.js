@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Router from '../router/authRouter';
+import Router from '../router/preventTransition';
 
 import store from '../store';
 
