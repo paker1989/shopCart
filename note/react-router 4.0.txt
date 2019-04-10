@@ -3,7 +3,7 @@ you should use a <BrowserRouter> if you have a server that responds to requests 
 
 You can include a <Route> anywhere that you want to render content based on the location
 
-switch: his helps when multiple route’s paths match the same pathname, when animating transitions between routes, and in identifying
+switch: this helps when multiple route’s paths match the same pathname, when animating transitions between routes, and in identifying
 when no routes match the current location (so that you can render a “404” component).
 
 Route: 
@@ -27,7 +27,8 @@ Scrolling up on navigation so you don’t start a new screen scrolled to the bot
 Restoring scroll positions of the window and overflow elements on “back” and “forward” clicks (but not Link clicks!)
 
 First, ScrollRestoration would scroll the window up on navigation. Second, it would use location.key to save the window scroll 
-position and the scroll positions of RestoredScroll components to sessionStorage. Then, when ScrollRestoration or RestoredScroll components mount, they could look up their position from sessionsStorage.
+position and the scroll positions of RestoredScroll components to sessionStorage. Then, when ScrollRestoration or RestoredScroll 
+components mount, they could look up their position from sessionsStorage.
 
 ====
 router component props: { match, location, history}

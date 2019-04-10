@@ -21,6 +21,7 @@ module.exports = {
     compress: true,
     port: 1218,
     open: false,
+    historyApiFallback: true,
     // publicPath: '/devServer/'
   },
   plugins: [

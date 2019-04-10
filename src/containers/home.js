@@ -1,28 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import Router from '../router/preventTransition';
-
-import store from '../store';
 
 import Shelf from '../components/shelf';
 import FloatCart from '../components/floatCart';
-import './App.scss';
+import './home.scss';
 
-class App extends React.Component {
+class Home extends React.Component {
 
   render() {
     return (
-      <Provider store={store}>
         <div>
           <main>
-            <Router />
             <Shelf/>
           </main>
           <FloatCart />
         </div>
-      </Provider>
     );
   }
 }
 
-export default App;
+export default Home;

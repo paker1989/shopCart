@@ -15,3 +15,16 @@ const AppRouter = (
     <Route component={NotFound}/>
   </Switch>
 );
+
+const Index = () => <div>Index</div>
+const AppRouter = (
+  <div>
+    <BrowserRouter>
+      <NavLink to="/index" activeClassName="index-class"/>
+    </BrowserRouter>
+
+    <Switch>
+      <Route path="/index" component={Index}/>
+    </Switch>
+  </div>
+);

@@ -22,10 +22,6 @@ class Modal extends React.Component {
     if (this.node) {
       document.body.appendChild(this.node);
     }
-    // this.setState((state) => ({
-    //   beforeOpen: false,
-    //   afterOpen: true
-    // }));
   }
 
   componentWillUnmount() {

@@ -10,3 +10,22 @@ const App = () => {
     }
   </Switch>
 }
+
+//re-test
+const routes = [
+  {
+    path: '/index',
+    component: Root,
+    loadData: () => getSomeData()
+  }
+]
+
+const APP = () => {
+  <Switch>
+    {
+      routes.map((route) => (
+        <Route {...route} />
+      ))
+    }
+  </Switch>
+}

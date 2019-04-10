@@ -18,7 +18,7 @@ const availableSizes = [
 
 class Filter extends React.Component {
   
-  componentWillMount() {
+  componentDidMount() {
     this.selectedFilters = new Set();
   }
 
