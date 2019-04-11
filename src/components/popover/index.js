@@ -1,17 +1,10 @@
-import React from 'react';
+import Popover from './popover';
+import Trigger from './trigger';
+import Content from './content';
+import Placement from './placement';
 
-class Popover extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        Popover right here
-      </div>
-    );
-  }
-}
+Popover.Trigger = Trigger;
+Popover.Content = Content;
+Popover.Placement = Placement;
 
 export default Popover;
