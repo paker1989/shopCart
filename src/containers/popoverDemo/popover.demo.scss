@@ -1,0 +1,28 @@
+.blue-button {
+  background: #38f;
+  color: white;
+  border-radius: 3px;
+  padding: 3px 4px;
+  outline: none;
+}
+
+._popover_demo_container {
+  margin-top: 20px;
+
+  & .offsetted_container {
+    position: relative;
+    left: 20px;
+    right: 30px;
+  }
+}
+
+body {
+  position: relative;
+}
+
+._demo_content_style {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  max-width: 200px;
+  padding: 3px;
+}

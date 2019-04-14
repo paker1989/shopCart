@@ -1,5 +1,5 @@
-import belowRight from './belowRight.js';
+import bottomRight from './bottomRight';
 
 export default {
-  belowRight,
+  bottomRight,
 }

@@ -7,15 +7,16 @@ class PopoverDemo extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {isVisible: false};
+    // this.state = {isVisible: false};
   }
 
   render() {
     return (
       <div className="_popover_demo_container">
         <Popover
-          isVisible={this.state.isVisible}
-          position={Popover.Placement.belowRight}
+          className="_demo_content_style"
+          closeOnOutSide={true}
+          position={Popover.Placement.bottomRight}
           cushion={5}>
           <Popover.Trigger.ClickTrigger>
             <button className="blue-button">
