@@ -12,11 +12,15 @@ class Popover extends React.Component {
 
   static propTypes = {
     isVisible: propTypes.bool,
+    onVisibleChange: propTypes.func,
     position: propTypes.func,
     cushion: propTypes.number,
     containerSelector: propTypes.string,
     className: propTypes.string,
-    closeOnOutSide: propTypes.bool
+    closeOnOutSide: propTypes.bool,
+    onBeforeShow: propTypes.func,
+    onBeforeClose: propTypes.func,
+    onShow: propTypes.func,
   }
 
   static defaultProps = {
@@ -58,8 +62,30 @@ class Popover extends React.Component {
   }
   
   setVisible(isVisible) {
-    if (!this.isPropVisibleControlled()) {
-      this.setState({ isVisible });
+    const { onBeforeShow, onBeforeClose } = this.props,
+          onBeforeHook = isVisible? onBeforeShow: onBeforeClose;
+
+    const continuation = () => {
+      console.log('continuation');
+      this.pendingOnBeforeHook = false;
+      if (this.isPropVisibleControlled()) {
+        this.props.onVisibleChange();
+      } else {
+        this.setState({ isVisible });
+      }
+    }
+
+    if (onBeforeHook && !this.pendingOnBeforeHook) {
+      this.pendingOnBeforeHook = true;
+      const maybePromise = onBeforeHook();
+
+      if (maybePromise && typeof maybePromise.then === 'function') {
+        maybePromise.then(() => {
+          continuation();
+        })
+      } else {
+        continuation();
+      }
     }
   }
 
