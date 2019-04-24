@@ -4,8 +4,6 @@ import PopoverDemo from '../containers/popoverDemo';
 import Layout from '../containers/layout';
 import { Route, Switch } from 'react-router-dom';
 
-console.log(Layout);
-
 const routeProps = [
   {path: '/', component: Home, exact: true, id: 1},
   {path: '/popover', component: PopoverDemo, id: 2},

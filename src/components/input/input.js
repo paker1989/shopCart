@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
+import './input.scss';
 import Textarea from './textarea';
 import omit from 'lodash/omit';
 import isFunction from 'lodash/isFunction';
+import getWidth from '../../utils/getWidth';
 
 
 class Input extends React.Component {
@@ -43,9 +45,16 @@ class Input extends React.Component {
   }
 
   componentDidMount() {
-    const { autoFocus } = this.props;
+    const { autoFocus, 
+            autoSelect,
+            initSelectionStart, 
+            initSelectionEnd 
+          } = this.props;
     if (autoFocus) {
       this.input.focus();
+    }
+    if (autoSelect) {
+      this.input.setSelectionRange(initSelectionStart, initSelectionEnd);
     }
   }
 
@@ -69,6 +78,16 @@ class Input extends React.Component {
     evt.preventDefault();
   };
 
+  handleKeyDown = evt => {
+    const keyCode = evt.code || evt.keyCode,
+          { onPressEnter, onKeyDown } = this.props;
+    if (keyCode && keyCode === 13 && onPressEnter) {
+      onPressEnter(evt);
+    } else if (onKeyDown) {
+      onKeyDown(evt);
+    }
+  }
+
   render() {
     const {
       type,
@@ -77,26 +96,27 @@ class Input extends React.Component {
       disabled,
       onChange,
       prefix,
+      width,
+      showClear,
       addonBefore,
       addonAfter,
-      value
+      value,
     } = this.props;
 
     const isEditable = !(readOnly || disabled);
-
     const wrapperClass = cx({
       [`${prefix}-input-wrapper`]: true,
       [`${prefix}-input-wrapper_not-editable`]: !isEditable,
+      },
       className
-    });
-
+    );
+    const wrapperStyle = getWidth(width);
     const inputProps = omit(this.props, [
       'className',
-      'prefix',
+      'width',
       'addonBefore',
       'addonAfter',
       'onPressEnter',
-      'showCount',
       'showClear',
       'autoSelect',
       'initSelectionStart',
@@ -105,17 +125,23 @@ class Input extends React.Component {
     ])
 
     if (type.toLowerCase() === 'textarea') {
-    return (<Textarea className={wrapperClass}/>);
+      return (<Textarea className={wrapperClass} 
+        wrapperStyle={wrapperStyle}
+        handleKeyDown={this.handleKeyDown}
+        inputRef={this}
+        {...inputProps}/>);
     }
 
     return (
-      <div className={wrapperClass}>
+      <div className={wrapperClass} style={wrapperStyle}>
         {addonBefore && (
           <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>
         )}
         <input 
           ref={input => {this.input = input}}
           className={`${prefix}-input`}
+          value={value}
+          onKeyDown={this.handleKeyDown}
           {...inputProps}/>
         {isFunction(onChange) && value && showClear && (
            <i
