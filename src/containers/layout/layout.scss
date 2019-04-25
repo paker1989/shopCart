@@ -62,5 +62,14 @@ $bgColorClass: (primary #0078E7 #fff) (blue #00A3CF #fff) (orange #F47837 #fff) 
   border: 1px solid #bbb;
   background: whitesmoke;
   font-size: 13px;
+
+  &.btn-affix {
+    color: white;
+    background: #38f;
+  }
+}
+
+.marginStyle {
+  margin-top: 100px;
 }
 

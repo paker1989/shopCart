@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class WindowEventHandler extends React.PureComponent {
 
-  static proptypes = {
+  static propTypes = {
     eventName: PropTypes.string.isRequired,
     callbackFn: PropTypes.func.isRequired,
-    useCapture: Proptypes.func
+    useCapture: PropTypes.bool
   }
 
   static defaultProps = {

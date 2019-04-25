@@ -4,6 +4,7 @@ import './layout.scss';
 
 import Input from '../../components/input';
 import Steps from '../../components/steps';
+import Affix from '../../components/affix';
 
 const { Col, Row } = Layout;
 
@@ -54,6 +55,14 @@ class LayoutDemo extends React.Component {
         <Row>
           <Col span={22} offset={2} className="spec-col">
             span 22, offset 2
+          </Col>
+        </Row>
+        {/* affix */}
+        <Row>
+          <Col span={4} offset={6}>
+             <Affix offsetTop={100} placeHoldClassName="marginStyle">
+               <button className="bxu-btn btn-affix">固钉</button>
+             </Affix>
           </Col>
         </Row>
         <Input 
