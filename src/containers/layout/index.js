@@ -5,6 +5,7 @@ import './layout.scss';
 import Input from '../../components/input';
 import Steps from '../../components/steps';
 import Affix from '../../components/affix';
+import Notify from '../../components/notify';
 
 const { Col, Row } = Layout;
 
@@ -44,6 +45,12 @@ class LayoutDemo extends React.Component {
 
     return (
       <div className="_layout_demo_container">
+        {/* demo for notify */}
+        <Row>
+          <Col span={10} offset={7}>
+            <button onClick={() => {Notify.success('鬼子进村啦')}}>Notify basis</button>
+          </Col>
+        </Row>
         <Row>
           <Col span={4} offset={2} className="spec-col">
             span 4, offset 2
