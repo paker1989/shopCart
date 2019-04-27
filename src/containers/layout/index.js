@@ -48,7 +48,9 @@ class LayoutDemo extends React.Component {
         {/* demo for notify */}
         <Row>
           <Col span={10} offset={7}>
-            <button onClick={() => {Notify.success('鬼子进村啦')}}>Notify basis</button>
+            <button className="bxu-btn" onClick={() => {Notify.success('鬼子进村啦')}}>
+              Notify basis
+            </button>
           </Col>
         </Row>
         <Row>
