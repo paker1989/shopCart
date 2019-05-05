@@ -1,0 +1,11 @@
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1111;
+
+  & .modal-close-icon {
+    font-size: 22px;
+    cursor: pointer;
+  }
+}

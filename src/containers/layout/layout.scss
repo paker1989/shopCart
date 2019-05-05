@@ -4,6 +4,14 @@
  box-sizing: border-box;
 }
 
+$notify-error: rgba(255, 68, 68, 0.8);
+$notify-success: rgba(68, 187, 136, 0.8);
+
+._layout_demo_container {
+  position: relative;
+  margin: 30px 30px auto 30px;
+}
+
 .spec-col {
   background: lightpink;
 }
@@ -60,8 +68,23 @@ $bgColorClass: (primary #0078E7 #fff) (blue #00A3CF #fff) (orange #F47837 #fff) 
   outline: none;
   cursor: pointer;
   border: 1px solid #bbb;
-  background: whitesmoke;
+  // background: $notify-success;
+  // color: whitesmoke;
   font-size: 13px;
+
+  &.bxu-success {
+    background: $notify-success;
+    color: whitesmoke;
+  }
+
+  &.bxu-error {
+    background: $notify-error;
+    color: whitesmoke;
+  }
+
+  &:hover {
+    opacity: .8;
+  }
 
   &.btn-affix {
     color: white;

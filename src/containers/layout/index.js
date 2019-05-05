@@ -47,11 +47,26 @@ class LayoutDemo extends React.Component {
       <div className="_layout_demo_container">
         {/* demo for notify */}
         <Row>
-          <Col span={10} offset={7}>
-            <button className="bxu-btn" onClick={() => {Notify.success('鬼子进村啦')}}>
-              Notify basis
+          <Col span={4} offset={6}>
+            <button className="bxu-btn bxu-success" onClick={() => {Notify.success('鬼子进村啦')}}>
+              通知鬼子进村了
             </button>
           </Col>
+          <Col span={4}>
+            <button className="bxu-btn bxu-error" onClick={() => {Notify.error('太晚了')}}>
+              通知太晚了
+            </button>
+          </Col>  
+          <Col span={4}>
+            <button className="bxu-btn" onClick={() => {Notify.config({duration: 3000})}}>
+              设置为3秒
+            </button>
+          </Col>  
+          <Col span={4}>
+            <button className="bxu-btn" onClick={() => {Notify.clear()}}>
+              清除所有notify
+            </button>
+          </Col>                             
         </Row>
         <Row>
           <Col span={4} offset={2} className="spec-col">

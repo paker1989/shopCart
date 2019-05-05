@@ -70,6 +70,12 @@ export const config = (options) => {
   }
 }
 
+export const clear = () => {
+  for(let notifyId in notifies) {
+    closeNotify(notifyId);
+  }
+}
+
 export const closeNotify = (containerId) => {
   if (notifies[containerId]) {
     const { oncloseCallback, timerId, container } = notifies[containerId];

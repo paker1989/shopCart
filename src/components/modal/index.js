@@ -1,8 +1,17 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import "./modal.scss";
 
 class Modal extends React.Component {
+
+  static defaultProps = {
+    isClose: false,
+    closeAfterTimeMS: false,
+    closeOnEsc: true,
+  }
+
   constructor(props) {
     super(props);
     this.state = ({
@@ -13,7 +22,7 @@ class Modal extends React.Component {
   }
 
   componentDidMount() {
-    const { closeAfterTimeMS } = this.props;
+    const { closeAfterTimeMS, closeOnEsc } = this.props;
     if (closeAfterTimeMS) {
       this.timeID = setTimeout(() => {
         this.removeModal(); 
@@ -22,10 +31,26 @@ class Modal extends React.Component {
     if (this.node) {
       document.body.appendChild(this.node);
     }
+
+    if (closeOnEsc) { // handle esc event
+      window.addEventListener('keyup', this.handleCloseOnEsc);
+    }
   }
 
   componentWillUnmount() {
+    const { closeOnEsc } = this.props;
+    if (closeOnEsc) {
+      window.removeEventListener('keyup', this.handleCloseOnEsc);
+    }
+
     document.body.removeChild(this.node);
+    
+  }
+
+  handleCloseOnEsc = (evt) => {
+    if (evt.keyCode === 27) {
+      this.removeModal();
+    }
   }
 
   removeModal = () => {
@@ -59,11 +84,20 @@ class Modal extends React.Component {
   render() {  
     const modalLayerProps = {
       style: Modal.defaultLayerStyles,
+      className: ''
     };
     const modalContentProps = {
       style: Modal.defaultContentStyles,
     }
-    const { contentStyle, layerStyle, contentClass, layerClass, children } = this.props;
+    const { 
+      contentStyle, 
+      layerStyle, 
+      contentClass,
+      layerClass, 
+      children, 
+      isClose, 
+      onClose 
+    } = this.props;
 
     if (contentStyle) {
       modalContentProps.style = Object.assign(modalContentProps.style, contentStyle);
@@ -83,23 +117,26 @@ class Modal extends React.Component {
 
     modalLayerProps.className += ' modal-layer';
 
-    this.node = document.createElement('div');
+    if (!this.node) {
+      this.node = document.createElement('div');
+    }
 
     const modalLayer = (
       <div className={modalLayerProps.className} style={modalLayerProps.style}>
+        {isClose && (
+          <div className="modal-close" onClick={onClose}>
+            <span className="modal-close-icon">
+              <FontAwesomeIcon icon="times-circle" />
+            </span>
+          </div>
+        )}
         <div className={modalContentProps.className} style={modalContentProps.style}>
           {children}
         </div>
       </div>
     );
-
     return ReactDOM.createPortal(modalLayer, this.node);
   }
-}
-
-Modal.defaultProps = {
-  isClose: false,
-  closeAfterTimeMS: false,
 }
 
 export default Modal;

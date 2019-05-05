@@ -1,0 +1,21 @@
+.infiniteScroller-container {
+  padding: 20px 30px;
+  text-align: left;
+
+  & .infinite-scroller-demo {
+    position: relative;
+    margin: 30px 0 100px 0;
+    width: 500px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #bbb;
+
+    & .loading {
+      position: relative;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: grey;
+    }
+  }
+}
