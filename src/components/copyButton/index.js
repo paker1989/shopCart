@@ -24,6 +24,7 @@ class CopyButton extends React.PureComponent {
    */
   copy = () => {
     // TODO
+    console.log('just copy it');
   }
 
   render() {
@@ -34,13 +35,11 @@ class CopyButton extends React.PureComponent {
     } = this.props;
 
     const childToRender = children? Children.only(children)
-      : (<button onClick={this.copy}>复制</button>);
+      : (<button>复制</button>);
     
-    return (
-      <div className={`${prefix}-copybutton-wrapper`}>
-        {childToRender}
-      </div>
-    );
+    return  React.cloneElement(childToRender, {
+      onClick: this.copy
+    })
   }
 }
 
