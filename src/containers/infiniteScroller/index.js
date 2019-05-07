@@ -15,12 +15,13 @@ export default () => {
       <InfiniteScrollerDemo />
       <PreviewImageDemo />
       <div>
+        <p>this is to focus</p>
       {/* 没有children */}
-        <CopyButton />
+        <CopyButton className="bxu-btn bxu-action" text="狂乱贵公子"/>
 
         {/* 有单一child */}
-        <CopyButton><button>点我复制</button></CopyButton>
-        
+        <CopyButton text="芳心纵火犯"><button className="bxu-btn bxu-action">点我复制</button></CopyButton>
+
         {/* 有两个children, 报错 */}
         {/* <CopyButton>
           <button>点我复制</button>
