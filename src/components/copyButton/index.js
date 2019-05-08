@@ -2,10 +2,11 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 
 import deselectRangeFn from './deselectRange';
+import Notify from '../notify';
+import isFunction from 'lodash/isFunction';
 
 class CopyButton extends React.PureComponent {
   static propTypes = {
-    prefix: PropTypes.string,
     text: PropTypes.string,
     onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -21,16 +22,36 @@ class CopyButton extends React.PureComponent {
     super(props);
   }
 
+  onCopy = () => {
+    const { onCopyError, onCopySuccess } = this.props;
+    let success,
+        copyCallback;
+
+    success = this.copy();
+    copyCallback = success? onCopySuccess : onCopyError;
+
+    if (isFunction(copyCallback)) {
+      copyCallback();
+    } else {
+      if (success) {
+        Notify.success(onCopySuccess);
+      } else {
+        Notify.error(onCopyError);
+      }
+    }
+    
+  }
   /**
    * handle copy action
    */
-  copy = () => {
+  copy() {
     const { text } = this.props;
     let restoreRangeFn = deselectRangeFn(); // deselect the current range
 
     let range,
         selection,
-        mark;
+        mark,
+        success = false;
 
     try {
       range = document.createRange();
@@ -38,7 +59,6 @@ class CopyButton extends React.PureComponent {
   
       mark = document.createElement('span');
       mark.textContent = text;
-      // mark.style.
       mark.style = {
         userSelect: 'text',
         webUserSelect: 'text',
@@ -59,9 +79,11 @@ class CopyButton extends React.PureComponent {
       if (!sucessful) {
         throw new Error('copy command was unsuccessful');
       }
+      success = true;
     } catch(e) {
       try {
         window.clipboardData.setData('text', text);
+        success = true;
       } catch(e) {
         console.log(e); 
       }
@@ -79,21 +101,21 @@ class CopyButton extends React.PureComponent {
       document.body.removeChild(mark);
     }
     restoreRangeFn();
+    return success;
   }
 
   render() {
     const {
-      prefix,
-      text,
       className,
       children
     } = this.props;
 
     const childToRender = children? Children.only(children)
-      : (<button className="bxu-btn bxu-success">复制</button>);
+      : (<button className={className}>复制</button>);
     
     return  React.cloneElement(childToRender, {
-      onClick: this.copy
+      onClick: this.onCopy,
+      className,
     })
   }
 }
