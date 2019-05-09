@@ -20,7 +20,9 @@ export default () => {
         <CopyButton className="bxu-btn bxu-action" text="狂乱贵公子"/>
 
         {/* 有单一child */}
-        <CopyButton text="芳心纵火犯"><button className="bxu-btn bxu-action">点我复制</button></CopyButton>
+        <CopyButton text="芳心纵火犯" className="bxu-btn-wrapper">
+          <button className="bxu-btn bxu-action">点我复制</button>
+        </CopyButton>
 
         {/* 有两个children, 报错 */}
         {/* <CopyButton>

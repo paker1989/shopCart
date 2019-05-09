@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import deselectRangeFn from './deselectRange';
 import Notify from '../notify';
 import isFunction from 'lodash/isFunction';
+import cx from 'classnames';
 
 class CopyButton extends React.PureComponent {
   static propTypes = {
@@ -109,13 +110,18 @@ class CopyButton extends React.PureComponent {
       className,
       children
     } = this.props;
+    // let ownClass,
+    // wrapperClass;
 
     const childToRender = children? Children.only(children)
-      : (<button className={className}>复制</button>);
+    : (<button className={className}>复制</button>);
+
+    // ownClass = childToRender.props.className;
+    // wrapperClass = cx(ownClass, className);
     
     return  React.cloneElement(childToRender, {
       onClick: this.onCopy,
-      className,
+      // className: wrapperClass,
     })
   }
 }

@@ -1,8 +1,11 @@
 import React from 'react';
-import ReactDOM, { createPortal } from 'react-dom';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import throttle from 'lodash/throttle';
 
 import getPositionnedParent from '../../utils/getPositionnedParent';
+import WindowEventHandler from '../../utils/components/windowEventHandler';
+import WindowResizeHandler from '../../utils/components/windowResizeHandler';
 
 class Content extends React.Component {
    static propTypes = {
@@ -16,6 +19,20 @@ class Content extends React.Component {
 
    constructor(props) {
      super(props);
+     this.state = {style: {}};
+   }
+
+   componentDidMount() {
+     const { visible } = this.props;
+     if (visible) {
+      this.adjustPosition();
+     }
+   }
+
+   componentDidUpdate(prevProps) {
+     if (this.props.visible && prevProps.visible !== this.props.visible) {
+       this.adjustPosition();
+     }
    }
 
    contentRefChange = (contentRefInstance) => {
@@ -24,11 +41,11 @@ class Content extends React.Component {
 
    adjustPosition = () => {
      const {
-      getTriggerNode,
-      getContentNode,
-      placement,
-      cushion,
-      containerSelector
+       getTriggerNode,
+       getContentNode,
+       placement,
+       cushion,
+       containerSelector
      } = this.props;
 
      const containerNode = document.querySelector(containerSelector),
@@ -44,36 +61,50 @@ class Content extends React.Component {
            contentBoundingBox = content.getBoundingClientRect(),
            parentBoundingBox = positionnedParent.getBoundingClientRect();
 
-     const position = this.props.placement(
+     const position = placement(
        anchorBoundingBox,
        contentBoundingBox,
        parentBoundingBox,
-       {
-         cushion
-       }
+       { cushion }
      );
 
-     return position;
+     this.setState({
+       style: {
+         ...position,
+       }
+     })
    }
+
+   onWindowResize = throttle((evt, delta) => {
+     const { visible } = this.props;
+     if (visible && (delta.x !== 0 || delta.y !== 0)) {
+      this.adjustPosition();
+     }}, 16);
+
+   onWindowScroll = throttle(this.adjustPosition, 16);
 
    render() {
      const {
-      visible,
-      containerSelector,
-      className
+       visible,
+       containerSelector,
+       className
      } = this.props;
+     const { style } = this.state;
+     let wrapperStyle = {
+       ...style,
+       visibility: visible? 'visible': 'hidden'
+     }
 
-     const containerNode = document.querySelector(containerSelector),
-           position = this.adjustPosition();
-
-     position.visibility = visible?'visible': 'hidden';
+     const containerNode = document.querySelector(containerSelector);
      
      const wrappedChildren = (
        <div
            ref={this.contentRefChange} 
            className={className}
-           style={position}>
+           style={wrapperStyle}>
          {this.props.children}
+         <WindowResizeHandler onResize={this.onWindowResize}/>
+         <WindowEventHandler eventName="scroll" callbackFn={this.onWindowScroll}/>
        </div>
      )
      return createPortal(wrappedChildren, containerNode) 

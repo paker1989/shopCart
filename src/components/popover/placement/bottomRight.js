@@ -6,10 +6,10 @@ export default (
 ) => {
   const top = triggerBoundingBox.bottom + options.cushion - parentBoundingBox.top,
         right = triggerBoundingBox.right + options.cushion - parentBoundingBox.left;
-  
+        
   return {
     position: 'absolute',
-    top: `${top}px`,
-    left: `${right}px`,
+    top: `${Math.round(top)}px`,
+    left: `${Math.round(right)}px`,
   }
 }

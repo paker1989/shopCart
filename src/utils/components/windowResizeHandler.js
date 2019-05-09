@@ -1,14 +1,14 @@
-import WindowEventHandler from './windowEventHandler';
-import getViewportSize from '../getViewportSize';
-
 import React from "react";
 import PropTypes from 'prop-types';
+
+import WindowEventHandler from './windowEventHandler';
+import getViewportSize from '../getViewportSize';
 
 class WindowResizeHandler extends React.PureComponent {
   
   static proptypes = {
     onResize: PropTypes.func.isRequired,
-    useCapture: Proptypes.func
+    useCapture: PropTypes.bool
   }
 
   onResize = (evt) => {
@@ -16,8 +16,8 @@ class WindowResizeHandler extends React.PureComponent {
     const viewportSize = getViewportSize();
 
     const delta = {
-      x: viewportSize.width - this._previousViewportSize.width,
-      y: viewportSize.height - this._previousViewportSize.height,
+      deltaX: viewportSize.width - this._previousViewportSize.width,
+      deltaY: viewportSize.height - this._previousViewportSize.height,
     };
 
     if (delta.deltaX === 0 && delta.deltaY === 0) {
@@ -33,7 +33,7 @@ class WindowResizeHandler extends React.PureComponent {
   }
 
   render() {
-     
+    const { useCapture } = this.props;
     return <WindowEventHandler eventName="resize" callbackFn={this.onResize} userCapture={useCapture}/>
   }
 }

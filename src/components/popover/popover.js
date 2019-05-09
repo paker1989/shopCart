@@ -16,7 +16,8 @@ class Popover extends React.Component {
     position: propTypes.func,
     cushion: propTypes.number,
     containerSelector: propTypes.string,
-    className: propTypes.string,
+    className: propTypes.string, // trigger additional class
+    wrapperClassName: propTypes.string, // popover additional class
     closeOnOutSide: propTypes.bool,
     onBeforeShow: propTypes.func,
     onBeforeClose: propTypes.func,
@@ -26,7 +27,8 @@ class Popover extends React.Component {
   static defaultProps = {
     cushion: 0,
     position: Placement.belowRight,
-    containerSelector: 'body'
+    containerSelector: 'body',
+    closeOnOutSide: true
   }
 
   constructor(props) {
@@ -66,7 +68,6 @@ class Popover extends React.Component {
           onBeforeHook = isVisible? onBeforeShow: onBeforeClose;
 
     const continuation = () => {
-      console.log('continuation');
       this.pendingOnBeforeHook = false;
       if (this.isPropVisibleControlled()) {
         this.props.onVisibleChange();
@@ -75,17 +76,18 @@ class Popover extends React.Component {
       }
     }
 
+    let maybePromise;
     if (onBeforeHook && !this.pendingOnBeforeHook) {
       this.pendingOnBeforeHook = true;
-      const maybePromise = onBeforeHook();
+      maybePromise = onBeforeHook();
+    }
 
-      if (maybePromise && typeof maybePromise.then === 'function') {
-        maybePromise.then(() => {
-          continuation();
-        })
-      } else {
+    if (maybePromise && typeof maybePromise.then === 'function') {
+      maybePromise.then(() => {
         continuation();
-      }
+      })
+    } else {
+      continuation();
     }
   }
 
@@ -139,11 +141,12 @@ class Popover extends React.Component {
       cushion,
       position,
       className,
+      wrapperClassName,
     } = this.props;
     const visible = this.getVisible();
     const { trigger, content } = this.validChildren();
     return (
-      <div>
+      <div className={wrapperClassName}>
         {React.cloneElement(trigger, {
           open: this.open,
           triggerRefChange: this.triggerRefChange,
