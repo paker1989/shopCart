@@ -4,9 +4,10 @@ export default (
   parentBoundingBox,
   options
 ) => {
-  const top = triggerBoundingBox.bottom + options.cushion - parentBoundingBox.top,
+  const top = triggerBoundingBox.top - contentBoundingBox.height - options.cushion
+              - parentBoundingBox.top,
         left = triggerBoundingBox.left - options.cushion
-          - contentBoundingBox.width + triggerBoundingBox.width - parentBoundingBox.left;
+               - contentBoundingBox.width + triggerBoundingBox.width - parentBoundingBox.left;
 
   return {
     position: 'absolute',

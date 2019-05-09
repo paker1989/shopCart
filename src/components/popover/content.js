@@ -7,6 +7,12 @@ import getPositionnedParent from '../../utils/getPositionnedParent';
 import WindowEventHandler from '../../utils/components/windowEventHandler';
 import WindowResizeHandler from '../../utils/components/windowResizeHandler';
 
+const wrapperDimension = function(boundingBox) {
+  boundingBox.width = boundingBox.right - boundingBox.left;
+  boundingBox.height = boundingBox.bottom - boundingBox.top;
+  return boundingBox;
+}
+
 class Content extends React.Component {
    static propTypes = {
      getTriggerNode: PropTypes.func,
@@ -23,10 +29,7 @@ class Content extends React.Component {
    }
 
    componentDidMount() {
-     const { visible } = this.props;
-     if (visible) {
-      this.adjustPosition();
-     }
+     this.adjustPosition();
    }
 
    componentDidUpdate(prevProps) {
@@ -57,9 +60,9 @@ class Content extends React.Component {
        return {};
      }
     
-     const anchorBoundingBox = anchor.getBoundingClientRect(),
-           contentBoundingBox = content.getBoundingClientRect(),
-           parentBoundingBox = positionnedParent.getBoundingClientRect();
+     const anchorBoundingBox = wrapperDimension(anchor.getBoundingClientRect()),
+           contentBoundingBox = wrapperDimension(content.getBoundingClientRect()),
+           parentBoundingBox = wrapperDimension(positionnedParent.getBoundingClientRect());
 
      const position = placement(
        anchorBoundingBox,
@@ -78,7 +81,8 @@ class Content extends React.Component {
    onWindowResize = throttle((evt, delta) => {
      const { visible } = this.props;
      if (visible && (delta.x !== 0 || delta.y !== 0)) {
-      this.adjustPosition();
+       console.log('resize');
+       this.adjustPosition();
      }}, 16);
 
    onWindowScroll = throttle(this.adjustPosition, 16);
@@ -94,7 +98,7 @@ class Content extends React.Component {
        ...style,
        visibility: visible? 'visible': 'hidden'
      }
-
+     
      const containerNode = document.querySelector(containerSelector);
      
      const wrappedChildren = (

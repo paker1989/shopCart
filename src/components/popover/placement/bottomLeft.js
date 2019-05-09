@@ -5,12 +5,11 @@ export default (
   options
 ) => {
   const top = triggerBoundingBox.bottom + options.cushion - parentBoundingBox.top,
-        left = triggerBoundingBox.left - options.cushion
-          - contentBoundingBox.width + triggerBoundingBox.width - parentBoundingBox.left;
-
+        left = triggerBoundingBox.left + options.cushion - parentBoundingBox.left;
+  
   return {
     position: 'absolute',
-    top: `${Math.round(top)}px`,
-    left: `${Math.round(left)}px`,
+    top: `${top}px`,
+    left: `${left}px`,
   }
 }
