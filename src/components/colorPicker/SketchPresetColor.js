@@ -6,7 +6,7 @@ export default (props) => {
     type,
     presetColors = [],
   } = props;
-
+  
   if (type === 'simple') {
     return (
       <div className='sketch-preset-color-container'>

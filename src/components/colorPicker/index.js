@@ -83,15 +83,15 @@ class ColorPicker extends React.PureComponent {
       );
     } else {
       popOverContent = (
-        <ColorBoard>
-        </ColorBoard>
+        <ColorBoard 
+          prefix={prefix}
+        />
       );
     }
 
     return (
       <Popover wrapperClassName="colorpicker-container"
                position={Popover.Placement.autoBottomLeft}
-              //  position={Popover.Placement.autoBottomLeft}
                cushion={2}
       >
         <Popover.Trigger.ClickTrigger>
