@@ -85,6 +85,7 @@ class ColorPicker extends React.PureComponent {
       popOverContent = (
         <ColorBoard 
           prefix={prefix}
+          color={color}
         />
       );
     }
