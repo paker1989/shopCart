@@ -22,7 +22,7 @@ class Saturation extends React.Component {
     onChange({
       h: hsl.h,
       s: parseInt(100*left)/100,
-      v: parseInt(100*(1 - top))/100,
+      l: parseInt(100*(1 - top))/100,
       a: hsl.a,
       source: 'rgb',
     })
@@ -52,13 +52,11 @@ class Saturation extends React.Component {
     const {
       prefix,
       hsl,
-      hsv,
     } = this.props;
 
-    // console.log('s: ' + hsv.s + ', v: ' + hsv.v);
     let pointerStyle = {
-      left: `${Math.round(100 * hsv.s)}%`,
-      top: `${100 - Math.round(100 * hsv.v)}%`
+      left: `${Math.round(100 * hsl.l)}%`,
+      top: `${100 - Math.round(100 * hsl.s)}%`
     }
     
     let styles = {
@@ -74,6 +72,8 @@ class Saturation extends React.Component {
       <div className={`${prefix}-saturation-container`}
            style={styles.container}
            onMouseDown={this.handleMouseDown}
+           onTouchMove={this.handleChange}
+           onTouchStart={this.handleChange}
            ref={this.containerRef}>
         <div className={`${prefix}-colorboard-bg_white`}>
           <div className={`${prefix}-colorboard-bg_black`}></div>

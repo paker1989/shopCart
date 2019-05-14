@@ -27,6 +27,8 @@ const Sketch = ({
         <div className={`${prefix}-colorboard-slider_huewrapper`}>
           <Hue 
             prefix={prefix}
+            hsl={hsl}
+            onChange={onChange}
           />
         </div>
 
