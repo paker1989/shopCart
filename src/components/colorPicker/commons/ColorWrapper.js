@@ -11,12 +11,21 @@ export default function (Picker) {
     }
 
     handleColorChange = (color) =>  {
-      // this.setState
+      const { onChange } = this.props;
+      let newColor = toState(color);
+
+      this.setState({
+        ...newColor
+      })
+      if (onChange) {
+        onChange(newColor.hex);
+      }
     }
 
     render() {
+      const { onChange, ...otherProps} = this.props;
       return (
-        <Picker {...this.state} {...this.props} />
+        <Picker {...this.state} {...otherProps} onChange={this.handleColorChange} />
       );
     }
   }

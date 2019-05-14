@@ -65,6 +65,18 @@ $spcolor-ver-nb: 6;
   border-radius: 5px;
   border: 1px solid #bbb;
   background: #fff;
+
+  & .bxu-colorboard-slider {
+    padding-top: 10px;
+    position: relative;
+
+    & .bxu-colorboard-slider_huewrapper {
+      position: relative;
+      width: 100%;
+      height: 10px;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 /**
@@ -88,9 +100,23 @@ $spcolor-ver-nb: 6;
     & .bxu-colorboard-pointer_wrapper {
       position: absolute;
       border-radius: 50%;
-      border: 1px solid white;
+      // border: 1px solid white;
+      box-shadow: rgb(255, 255, 255) 0px 0px 0px 1.5px, rgba(0, 0, 0, 0.3) 
+        0px 0px 1px 1px inset, rgba(0, 0, 0, 0.4) 0px 0px 1px 2px;
       width: 4px;
       height: 4px;
+      transform: translate(-2px, -2px);
     }
   }
+}
+
+.bxu-hue-area {
+  position: absolute;
+  left:0;
+  right: 0;
+  top:0;
+  bottom: 0;
+  background: linear-gradient(to right, rgb(255, 0, 0) 0%,
+   rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, 
+   rgb(0, 0, 255) 67%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%);
 }

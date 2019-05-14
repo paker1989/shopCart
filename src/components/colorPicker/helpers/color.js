@@ -6,5 +6,6 @@ export function toState(color) {
   return {
     hsv: tnColor.toHsv(),
     hsl: tnColor.toHsl(),
+    hex: tnColor.toHexString(),
   }
 }

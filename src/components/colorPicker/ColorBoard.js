@@ -5,10 +5,11 @@ import cx from 'classnames';
 import ColorBoardWrapper from './commons/ColorWrapper.js';
 
 import Saturation from './commons/Saturation';
+import Hue from './commons/Hue';
 
 const Sketch = ({
   prefix,
-  color,
+  // color,
   hsl,
   hsv,
   onChange,
@@ -22,6 +23,14 @@ const Sketch = ({
         hsv={hsv}
         onChange={onChange}
       />
+      <div className={`${prefix}-colorboard-slider`}>
+        <div className={`${prefix}-colorboard-slider_huewrapper`}>
+          <Hue 
+            prefix={prefix}
+          />
+        </div>
+
+      </div>
     </div>
   );
 }

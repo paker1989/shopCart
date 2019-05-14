@@ -86,6 +86,7 @@ class ColorPicker extends React.PureComponent {
         <ColorBoard 
           prefix={prefix}
           color={color}
+          onChange={onChange}
         />
       );
     }
