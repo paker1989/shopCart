@@ -6,6 +6,7 @@ import ColorBoardWrapper from './commons/ColorWrapper.js';
 
 import Saturation from './commons/Saturation';
 import Hue from './commons/Hue';
+import Alpha from './commons/Alpha';
 
 const Sketch = ({
   prefix,
@@ -31,7 +32,12 @@ const Sketch = ({
             onChange={onChange}
           />
         </div>
-
+        <div className={`${prefix}-colorboard-slider_alphawrapper`}>
+          <Alpha 
+            prefix={prefix}
+            hsl={hsl}
+            onChange={onChange}/>
+        </div>
       </div>
     </div>
   );
