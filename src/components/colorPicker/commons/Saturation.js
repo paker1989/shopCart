@@ -55,8 +55,8 @@ class Saturation extends React.Component {
     } = this.props;
 
     let pointerStyle = {
-      left: `${Math.round(100 * hsl.l)}%`,
-      top: `${100 - Math.round(100 * hsl.s)}%`
+      left: `${Math.round(100 * hsl.s)}%`,
+      top: `${100 - Math.round(100 * hsl.l)}%`
     }
     
     let styles = {

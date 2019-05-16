@@ -15,7 +15,7 @@ class PickerDemo extends React.Component {
   }
 
   handleColorBoardChange = (colorBorardColor) =>  {
-    this.setState({ colorBorardColor });
+    this.setState({ colorBorardColor: colorBorardColor.rgbString });
   }
 
   render() {

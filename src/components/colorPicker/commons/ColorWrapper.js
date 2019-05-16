@@ -18,7 +18,7 @@ export default function (Picker) {
         ...newColor
       })
       if (onChange) {
-        onChange(newColor.hex);
+        onChange(newColor);
       }
     }
 

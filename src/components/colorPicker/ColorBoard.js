@@ -13,6 +13,7 @@ const Sketch = ({
   // color,
   hsl,
   hsv,
+  rgb,
   onChange,
 }) => {
 
@@ -36,6 +37,7 @@ const Sketch = ({
           <Alpha 
             prefix={prefix}
             hsl={hsl}
+            rgb={rgb}
             onChange={onChange}/>
         </div>
       </div>

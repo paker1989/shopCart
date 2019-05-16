@@ -1,7 +1,8 @@
 import React from 'react';
 import throttle from 'lodash/throttle';
-import calculateChange from '../helpers/hue';
 
+import calculateChange from '../helpers/alpha';
+import { get } from '../helpers/checkboard';
 
 class Alpha extends React.Component {
   constructor(props) {
@@ -13,10 +14,10 @@ class Alpha extends React.Component {
     const { onChange, hsl } = this.props;
     const containerNode = this.containerRef.current;
     onChange({
-      h: calculateChange(evt, skip, containerNode),
+      h: hsl.h,
       s: hsl.s,
       l: hsl.l,
-      a: hsl.a,
+      a: calculateChange(evt, skip, containerNode),
       source: 'rgb',
     })
   }, 50)
@@ -41,17 +42,26 @@ class Alpha extends React.Component {
   }
 
   render() {
-    const { prefix, hsl } = this.props;
-    console.log('a: ' + hsl.a);
-    let sliderPos = {
-      left: `${parseInt(hsl.a*100)}%`
-    }
-
+    const { prefix, hsl, rgb } = this.props,
+          { r, g, b } = rgb;
+    
+    let sliderPos = {left: `${parseInt(hsl.a*100)}%`},
+        wraperStyle = {
+          background: `linear-gradient(to right, rgb(${r}, ${g}, ${b}, 0%),
+            rgb(${r}, ${g}, ${b}, 100%))`
+        },
+        checkBoardBg = {
+          background: `url(${get('transparent', 'rgba(0,0,0,.08)', 8)}) left center`
+        }
+    
     return (
       <div ref={this.containerRef} className={`${prefix}-alpha-area`}
+           style={wraperStyle}
            onMouseDown={this.handleMouseDown}
            onTouchMove={this.handleChange}
            onTouchStart={this.handleChange}>
+        <div className={`${prefix}-alpha-checkboard`} style={checkBoardBg}>
+        </div>
         <div className={`${prefix}-alpha-slider`} style={sliderPos}>
         </div>
       </div>
