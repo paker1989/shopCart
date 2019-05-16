@@ -1,5 +1,4 @@
 export default function (evt, skip, container) {
-  console.log('saturation check');
   !skip && evt.preventDefault();
   
   const { left, right, top, bottom } = container.getBoundingClientRect();

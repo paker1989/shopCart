@@ -4,7 +4,6 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 import isFunction from 'lodash/isFunction';
-// import WindowEventListener from '../../utils/components/windowEventHandler';
 import './infiniteScroller.scss';
 
 class InfiniteScroller extends React.Component {
@@ -100,7 +99,6 @@ class InfiniteScroller extends React.Component {
     if (!hasMore || !this.isOffsetBottom() || !loadMore 
       || !isFunction(loadMore) || loading) 
       return;
-      // console.log('handlescroll');  
       this.setState({loading: true}); 
     
     const maybePromise = loadMore(this.closeLoading);

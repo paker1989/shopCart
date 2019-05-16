@@ -11,6 +11,7 @@ import Alpha from './commons/Alpha';
 const Sketch = ({
   prefix,
   // color,
+  hex,
   hsl,
   hsv,
   rgb,
@@ -38,6 +39,13 @@ const Sketch = ({
             prefix={prefix}
             hsl={hsl}
             rgb={rgb}
+            onChange={onChange}/>
+        </div>
+        <div className={`${prefix}-colorboard-editinput_wrapper`}>
+          <SketchFields
+            prefix={prefix}
+            rgb={rgb}
+            hex={hex} 
             onChange={onChange}/>
         </div>
       </div>

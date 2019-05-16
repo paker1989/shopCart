@@ -16,7 +16,5 @@ export default (evt, skip, container) => {
     alpha = Math.round(percent*100)/100;
   }
 
-  console.log(alpha);
-
   return alpha;
 }
