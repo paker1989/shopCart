@@ -7,10 +7,10 @@ import ColorBoardWrapper from './commons/ColorWrapper.js';
 import Saturation from './commons/Saturation';
 import Hue from './commons/Hue';
 import Alpha from './commons/Alpha';
+import SketchFields from './commons/SketchFields';
 
 const Sketch = ({
   prefix,
-  // color,
   hex,
   hsl,
   hsv,

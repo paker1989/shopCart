@@ -60,7 +60,7 @@ $spcolor-ver-nb: 6;
 */
 .bxu-colorboard-container {
   position: relative;
-  width: 200px;
+  width: 220px;
   padding: 10px 10px 0px; // bottom = 0;
   border-radius: 5px;
   border: 1px solid #bbb;
@@ -82,6 +82,11 @@ $spcolor-ver-nb: 6;
       width: 100%;
       height: 10px;
       margin-bottom: 5px;
+    }
+
+    & .bxu-colorboard-editinput_wrapper {
+      position: relative;
+      width: 100%;
     }
   }
 }
@@ -143,6 +148,9 @@ $spcolor-ver-nb: 6;
   }
 }
 
+/**
+  alpha style
+*/
 .bxu-alpha-area {
   @include absoluteFullPage;
   height: 10px;
@@ -160,5 +168,31 @@ $spcolor-ver-nb: 6;
     background: #fff;
     cursor: pointer;
     transform: translateX(-2px);
+  }
+}
+
+.bxu-sketchFields-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.bxu-editinput-container {
+  position: relative;
+
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+  & input[type="text"] {
+    width: 100%;
+    border: none;
+    font-size: 11px;
+    box-shadow: rgb(204, 204, 204) 0px 0px 0px 1px inset;
+    padding: 4px 10% 3px;
+  }
+  & .bxu-editinput_label {
+    font-size: 11px; 
   }
 }

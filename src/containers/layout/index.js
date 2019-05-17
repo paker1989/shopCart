@@ -120,27 +120,27 @@ class LayoutDemo extends React.Component {
           />
         <div className="step-container">
           <Steps current={current} status={status}>
-            <Steps.Step title="第一步" description="分享邀请码给好友" />
-            <Steps.Step title="第二步" description="订购时输入你的邀请码" />
-            <Steps.Step title="第三步" description="获得有赞E卡奖励" />
+            <Steps.Step title="第一步" description="打开冰箱门" />
+            <Steps.Step title="第二步" description="把大象放进去" />
+            <Steps.Step title="第三步" description="关上冰箱门" />
           </Steps>
           <button className="bxu-btn" style={{ margin: '10px 0 0 30px' }} onClick={this.nextStep}>下一步</button>
         </div>
         <div className="step-container">
           <Steps className="vertical-step" direction="vertical" current={current} status={status}>
-            <Steps.Step title="第一步" description="分享邀请码给好友" />
-            <Steps.Step title="第二步" description="订购时输入你的邀请码" />
-            <Steps.Step title="第三步" description="获得有赞E卡奖励" />
+            <Steps.Step title="第一步" description="打开柜子" />
+            <Steps.Step title="第二步" description="把狮子放进去" />
+            <Steps.Step title="第三步" description="忘记关柜子了，卒" />
           </Steps>
           <button className="bxu-btn" style={{ margin: '10px 0 0 30px' }} onClick={this.nextStep}>下一步</button>
         </div>
         <div className="step-container">
           <Steps className="breadcrumb-demo-container" current={current} type="breadcrumb"
              onStepChange={this.onStepChange} >
-            <Steps.Step title="登录有赞账号" />
-            <Steps.Step title="选择门店" />
-            <Steps.Step title="绑定门店" />
-            <Steps.Step title="完成" />
+            <Steps.Step title="看天气预报" />
+            <Steps.Step title="天气不错，出门" />
+            <Steps.Step title="下雨了没带伞" />
+            <Steps.Step title="被骂了" />
           </Steps>
         </div>
       </div>
