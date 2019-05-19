@@ -7,12 +7,15 @@ import Layout from '../containers/layout';
 import InfiniteScroller from '../containers/infiniteScroller';
 import Picker from '../containers/Picker';
 
+import Demo from '../containers/demo';
+
 const routeProps = [
-  {path: '/', component: Home, exact: true, id: 1},
+  {path: '/', component: Demo, exact: true, id: 1},
   {path: '/popover', component: PopoverDemo, id: 2},
   {path: '/layout', component: Layout, id: 3},
   {path: '/scroller', component: InfiniteScroller, id: 4},
-  {path: '/picker', component: Picker, id: 5}
+  {path: '/picker', component: Picker, id: 5},
+  {path: '/home', component: Home, id: 6},
 ]
 
 const routes = (
