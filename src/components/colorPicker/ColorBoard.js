@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
 
 import ColorBoardWrapper from './commons/ColorWrapper.js';
 
@@ -22,7 +20,7 @@ const Sketch = ({
   onChange,
 }) => {
   presetColors = presetColors || defaultPresetColors;
-  
+
   return (
     <div className={`${prefix}-colorboard-container`}>
       <div className={`${prefix}-colorboard-saturation_container`}>
