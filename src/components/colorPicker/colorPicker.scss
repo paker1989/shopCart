@@ -1,6 +1,13 @@
 $spcolor-block_width: 20px;
 $spcolor-block_margin: 10px;
 $spcolor-ver-nb: 6;
+$spcolor-block_width_colorboard: 16px;
+$spcolor-block_colorboard_nb-per-row: 8;
+
+$spcolor-block-colorboard_margin: (190/$spcolor-block_colorboard_nb-per-row) 
+  - $spcolor-block_width_colorboard;
+
+$slider-pointer-boxshadow: rgba(0, 0, 0, 0.6) 0px 0px 2px;
 
 @mixin absoluteFullPage {
   position: absolute;
@@ -8,6 +15,17 @@ $spcolor-ver-nb: 6;
   right: 0;
   top: 0;
   bottom: 0;
+}
+
+@mixin slider{
+  position: absolute;
+  margin-top: 1px;
+  height: 8px;
+  width: 4px;
+  transform: translateX(-2px);
+  background: #fff;
+  cursor: pointer;
+  box-shadow: $slider-pointer-boxshadow;  
 }
 
 .colorpicker-container {
@@ -39,19 +57,38 @@ $spcolor-ver-nb: 6;
   display: flex;
   position: relative;
   flex-wrap: wrap;
-  width: ($spcolor-block_width + $spcolor-block_margin) * $spcolor-ver-nb + $spcolor-block_margin;
-  border: 1px solid #bbb;
-  padding: 10px 0 0 0;
-  background: whitesmoke;
-  box-shadow: 0 1px 4px rgba(0,0,0,.2);
 
   & .sketch-preset-color_block {
-    border: 1px solid #bbb;
-    margin: 0 0 $spcolor-block_margin $spcolor-block_margin;
     display: inline-block;
-    width: $spcolor-block_width;
-    height: $spcolor-block_width;
     cursor: pointer;
+  }
+
+  &.sketch-presetcolor_simple {
+    background: whitesmoke;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    border: 1px solid #bbb;
+    width: ($spcolor-block_width + $spcolor-block_margin) * $spcolor-ver-nb
+      + $spcolor-block_margin;
+    padding: 10px 0 0 0;
+    & .sketch-preset-color_block {
+      border: 1px solid #bbb;
+      width: $spcolor-block_width;
+      height: $spcolor-block_width;
+      margin: 0 $spcolor-block-colorboard_margin $spcolor-block-colorboard_margin;
+    }
+  }
+
+  &.sketch-presetcolor_colorBoard {
+    width: 100%; // 198px;
+    padding: 9px 0 0 9px;
+
+    & .sketch-preset-color_block {
+      width: $spcolor-block_width_colorboard;
+      height: $spcolor-block_width_colorboard;
+      border-radius: 2px;
+      margin: 0 7px 7px 0;
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+    }
   }
 }
 
@@ -61,14 +98,15 @@ $spcolor-ver-nb: 6;
 .bxu-colorboard-container {
   position: relative;
   width: 220px;
-  padding: 10px 10px 0px; // bottom = 0;
+  padding-top: 10px; // bottom = 0;
   border-radius: 5px;
-  border: 1px solid #bbb;
   background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px;
 
-  & .bxu-colorboard-slider {
-    padding-top: 10px;
+  & .bxu-colorboard-slider_container {
+    padding: 10px 10px 0 10px;
     position: relative;
+    border-bottom: 1px solid lighten(#bbb, 20%);
 
     & .bxu-colorboard-slider_huewrapper {
       position: relative;
@@ -88,6 +126,16 @@ $spcolor-ver-nb: 6;
       position: relative;
       width: 100%;
     }
+
+    & .bxu-colorboard-sketchcolor_wrapper {
+      position: relative;
+    }
+  }
+
+  & .bxu-colorboard-saturation_container {
+    position: relative;
+    padding: 0 10px;
+    width: 100%;
   }
 }
 
@@ -138,13 +186,7 @@ $spcolor-ver-nb: 6;
    rgb(0, 0, 255) 67%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%);
   
   & .bxu-hue-slider {
-    position: absolute;
-    margin-top: 1px;
-    height: 8px;
-    width: 4px;
-    transform: translateX(-2px);
-    background: #fff;
-    cursor: pointer;
+    @include slider;
   }
 }
 
@@ -161,13 +203,7 @@ $spcolor-ver-nb: 6;
   }
   
   & .bxu-alpha-slider {
-    position: absolute;
-    margin-top: 1px;
-    height: 8px;
-    width: 4px;
-    background: #fff;
-    cursor: pointer;
-    transform: translateX(-2px);
+    @include slider;
   }
 }
 

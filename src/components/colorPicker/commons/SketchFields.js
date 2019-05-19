@@ -10,6 +10,7 @@ class SketchFileds extends React.Component {
 
   handleChange = (value, label) => {
     const { onChange, rgb } = this.props;
+    let color;
 
     switch(label) {
       case 'Hex': 
@@ -18,47 +19,51 @@ class SketchFileds extends React.Component {
         }
         break;
       case 'R':
-        if (simpleValidColor(value)) {
-          onChange({
-            r: value,
-            g: rgb.g,
-            b: rgb.b,
-            a: rgb.a,
-            source: 'rgb',
-          })
+        color = {
+          r: value,
+          g: rgb.g,
+          b: rgb.b,
+          a: rgb.a,
+          source: 'rgb',
+        };
+        if (simpleValidColor(color)) {
+          onChange(color)
         }
         break;
       case 'G':
-        if (simpleValidColor(value)) {
-          onChange({
-            r: rgb.r,
-            g: value,
-            b: rgb.b,
-            a: rgb.a,
-            source: 'rgb',
-          })
+        color = {
+          r: rgb.r,
+          g: value,
+          b: rgb.b,
+          a: rgb.a,
+          source: 'rgb',
+        };
+        if (simpleValidColor(color)) {
+          onChange(color)
         }
         break;
       case 'B':
-        if (simpleValidColor(value)) {
-          onChange({
-            r: rgb.r,
-            g: rgb.g,
-            b: value,
-            a: rgb.a,
-            source: 'rgb',
-          })
+        color = {
+          r: rgb.r,
+          g: rgb.g,
+          b: value,
+          a: rgb.a,
+          source: 'rgb',
+        };
+        if (simpleValidColor(color)) {
+          onChange(color)
         }
         break;
       case 'A':
-        if (simpleValidColor(value)) {
-          onChange({
-            r: rgb.r,
-            g: rgb.g,
-            b: rgb.b,
-            a: value,
-            source: 'rgb',
-          })
+        color = {
+          r: rgb.r,
+          g: rgb.g,
+          b: rgb.b,
+          a: value,
+          source: 'rgb',
+        };
+        if (simpleValidColor(color)) {
+          onChange(color)
         }
         break;
       default:
@@ -68,7 +73,6 @@ class SketchFileds extends React.Component {
 
   render() {
     const { prefix, rgb, hex } = this.props;
-    console.log('new rgb: ' + JSON.stringify(rgb));
     return (
       <div className={`${prefix}-sketchFields-container`}>
         <EditInput

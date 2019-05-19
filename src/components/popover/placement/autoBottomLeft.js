@@ -19,19 +19,23 @@ export default (
 ) => {
   let viewportSize = getViewportSize(),
       nearRight,
+      nearLeft,
       nearBottom,
-      vertAxe,
-      horAxe;
+      nearTop,
+      vertDimension,
+      horDimension;
 
   nearRight = viewportSize.width - (triggerBoundingBox.left + options.cushion + 
     contentBoundingBox.width);
+  nearLeft = triggerBoundingBox.left - (options.cushion + contentBoundingBox.width);
   nearBottom = viewportSize.height - (triggerBoundingBox.bottom + options.cushion
     + contentBoundingBox.height);
+  nearTop = triggerBoundingBox.top - (options.cushion + contentBoundingBox.height);
   
-  vertAxe = nearBottom > 0? 'bottom': 'top';
-  horAxe = nearRight > 0? 'Left': 'Right';
+  vertDimension = nearBottom < 0 && nearTop > 0? 'top': 'bottom';
+  horDimension = nearRight < 0 && nearLeft > 0? 'Right': 'Left';
 
-  return placementMap[`${vertAxe}${horAxe}`](
+  return placementMap[`${vertDimension}${horDimension}`](
     triggerBoundingBox,
     contentBoundingBox,
     parentBoundingBox,

@@ -6,6 +6,7 @@ import Popover from '../popover';
 import SketchPresetColor from './SketchPresetColor';
 import ColorBoard from './ColorBoard';
 import noop from 'lodash/noop';
+import { defaultPresetColors } from './helpers/color';
 
 import './colorPicker.scss';
 
@@ -19,6 +20,7 @@ class ColorPicker extends React.PureComponent {
     onChange: PropTypes.func,
     showAlpha: PropTypes.bool,
     presetColors: PropTypes.array,
+    showAlpha: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -26,23 +28,8 @@ class ColorPicker extends React.PureComponent {
     prefix: 'bxu',
     showAlpha: false,
     onChange: noop,
-    presetColors: [
-      '#FFFFFF',
-      '#F8F8F8',
-      '#F2F2F2',
-      '#999999',
-      '#444444',
-      '#FF4444',
-      '#FF6500',
-      '#FF884D',
-      '#FFCD00',
-      '#3FBD00',
-      '#3FBC87',
-      '#00CD98',
-      '#5197FF',
-      '#BADCFF',
-      '#FFEFB8',
-    ],
+    showAlpha: true,
+    presetColors: defaultPresetColors,
   }
 
   static ColorBoard = ColorBoard;
@@ -54,7 +41,8 @@ class ColorPicker extends React.PureComponent {
       color,
       onChange,
       wrapperClassName,
-      presetColors
+      presetColors,
+      showAlpha
     } = this.props;
 
     let popOverTrigger, 
@@ -87,6 +75,8 @@ class ColorPicker extends React.PureComponent {
           prefix={prefix}
           color={color}
           onChange={onChange}
+          presetColors={presetColors}
+          showAlpha={showAlpha}
         />
       );
     }
