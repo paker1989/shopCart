@@ -7,7 +7,7 @@ import Layout from '../containers/layout';
 import InfiniteScroller from '../containers/infiniteScroller';
 import Picker from '../containers/Picker';
 
-import Demo from '../containers/demo';
+import Demo from '../site';
 
 const routeProps = [
   {path: '/', component: Demo, exact: true, id: 1},

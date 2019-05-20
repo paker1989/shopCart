@@ -1,0 +1,13 @@
+.header_container {
+  position: relative;
+  width: 100%;
+  display:flex;
+
+  & .logo_container {
+    flex:  1 1 0%;
+  }
+
+  & .search_input_container {
+    flex: 8 1 0%;
+  }
+} // end header_container
