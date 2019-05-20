@@ -7,6 +7,8 @@ import Textarea from './textarea';
 import omit from 'lodash/omit';
 import isFunction from 'lodash/isFunction';
 import getWidth from '../../utils/getWidth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 class Input extends React.Component {
@@ -113,6 +115,7 @@ class Input extends React.Component {
     const wrapperStyle = getWidth(width);
     const inputProps = omit(this.props, [
       'className',
+      'inputClass',
       'width',
       'addonBefore',
       'addonAfter',
@@ -121,7 +124,6 @@ class Input extends React.Component {
       'autoSelect',
       'initSelectionStart',
       'initSelectionEnd',
-      'width',
     ])
 
     if (type.toLowerCase() === 'textarea') {
@@ -131,7 +133,7 @@ class Input extends React.Component {
         inputRef={this}
         {...inputProps}/>);
     }
-
+    
     return (
       <div className={wrapperClass} style={wrapperStyle}>
         {addonBefore && (
@@ -144,11 +146,11 @@ class Input extends React.Component {
           onKeyDown={this.handleKeyDown}
           {...inputProps}/>
         {isFunction(onChange) && value && showClear && (
-           <i
-           className={`prefix-input-icon`}
-           onClick={this.clearInput}
-           onMouseDown={this.retainInputFocus}
-           ></i>
+          <span className="clear-icon"
+            onClick={this.clearInput}
+            onMouseDown={this.retainInputFocus}>
+            <FontAwesomeIcon icon="times-circle"/>
+          </span>
         )}
         {addonAfter && (
           <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>

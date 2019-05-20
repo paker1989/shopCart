@@ -1,29 +1,30 @@
 $border-radius: 4px;
-$prefex: '.bxu-input';
+$prefix: '.bxu-input';
 $prefex-ta: '.bxu-textarea';
 $height: 30px;
 
-#{$prefex}-wrapper {
+#{$prefix}-wrapper {
   position: relative;
   min-width: 100px;
   height: $height;
   display: flex;
+  border: 1px solid #bbb;
 
   & > * {
     box-sizing: border-box;
   }
 
-  & > #{$prefex}-addon-before:first-child {
+  & > #{$prefix}-addon-before:first-child {
     border-top-left-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
   }
 
-  & > #{$prefex}-addon-after:last-child {
+  & > #{$prefix}-addon-after:last-child {
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
   }
 
-  & #{$prefex} {
+  & #{$prefix} {
     padding: 4px 3px;
     flex-grow: 1;
     height: 100%;
@@ -31,10 +32,10 @@ $height: 30px;
     font-size: 12px;
     outline: none;
     border-radius: 2px;
-    border: 1px solid #bbb;
+    border: 0;
   }
 
-  & #{$prefex}-addon-before, & #{$prefex}-addon-after {
+  & #{$prefix}-addon-before, & #{$prefix}-addon-after {
     background: lighten(grey, 30%);
     color: darken(grey, 40%);
     height: 100%;
@@ -43,7 +44,16 @@ $height: 30px;
     line-height: $height - 2px;
     white-space:nowrap;
   }
-}
+
+  & .clear-icon {
+    position: absolute;
+    height: 100%;
+    line-height: $height; 
+    right: 4px;
+    font-size: 13px;
+    color: #bbb; 
+  }
+} // end input wrapper
 
 #{$prefex-ta}-wrapper {
   height: auto;
