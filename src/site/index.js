@@ -1,14 +1,10 @@
 import React from 'react';
 
+import navData from './data/sideNav';
 import Header from './header';
 import SideNav from './sideNav';
 
 import './index.scss';
-
-// import data from './data/sideNav.json';
-let data = require('./data/test.json');
-
-console.log(data);
 
 class Demo extends React.Component {
 
@@ -23,7 +19,6 @@ class Demo extends React.Component {
 
   render() {
     let { searchContent } = this.state;
-    // console.log(data);
 
     return (
       <div className="official-demo_container">
@@ -31,7 +26,7 @@ class Demo extends React.Component {
           handleSearch={this.handleSearch}
           searchContent={searchContent}/>
         <div className="sidebar-container">
-          <SideNav />
+          <SideNav navData={navData}/>
         </div>
       </div>
     );

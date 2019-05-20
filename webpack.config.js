@@ -50,8 +50,9 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
-      }
+        use: 'json-loader',
+        // include: "/site/data/*"
+      },
     ],   
   }
 }

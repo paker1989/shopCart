@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "title": "组件",
     "groups": [
