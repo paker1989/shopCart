@@ -6,7 +6,7 @@ import SideNav from './sideNav';
 import './index.scss';
 
 // import data from './data/sideNav.json';
-let data = require('json!./data/sideNav.json');
+let data = require('./data/test.json');
 
 console.log(data);
 
