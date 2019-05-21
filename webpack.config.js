@@ -47,17 +47,11 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i, 
         loader: "file-loader",
-        // query: {
-        //   name: '[hash].[ext]',
-        //   outputPath: 'static/img/',
-        //   publicPath: '/dist/static/img/'
-        // }
       },
-      {
-        test: /\.json$/,
-        use: 'json-loader',
-        // include: "/site/data/*"
-      },
+      // {
+      //   test: /\.json$/,
+      //   loader: 'json-loader',
+      // },
     ],   
   }
 }

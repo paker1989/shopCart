@@ -5,6 +5,7 @@ import Header from './header';
 import SideNav from './sideNav';
 
 import Layout from '../components/layout';
+import DemoMarkdown from './pages/affixDemo';
 
 import './index.scss';
 
@@ -36,6 +37,7 @@ class Demo extends React.Component {
             </div>
           </Col>
           <div className="content-container">
+            <DemoMarkdown />
           </div>
         </Row>
       </div>
