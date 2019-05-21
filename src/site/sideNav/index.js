@@ -2,6 +2,7 @@ import React from 'react';
 import cx from "classnames";
 
 import { NavLink } from 'react-router-dom';
+import './sideNav.scss';
 
 class SideNav extends React.PureComponent {
   constructor(props) {

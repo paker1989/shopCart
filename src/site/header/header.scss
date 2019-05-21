@@ -1,13 +1,25 @@
+$container-height: 80px;
+$image-size: 46px;
+
 .header_container {
   position: relative;
-  width: 100%;
   display:flex;
+  width: 100%;
+  border-bottom: 1px solid #eaeefb;
 
   & .logo_container {
-    flex:  1 1 0%;
+    text-align: right;
+    padding: ($container-height - $image-size)/2 0;
+    margin: 0 20px 0 10%;
+    height: $container-height;
+
+    & img {
+      width: $image-size;
+    }
   }
 
   & .search_input_container {
-    flex: 8 1 0%;
+    height: $container-height;
+    padding: ($container-height - 30px)/2 0;
   }
 } // end header_container

@@ -1,4 +1,7 @@
 .bxu-row {
+  position: relative;
+  width: 100%;
+
   &:after {
     content: "";
     display: table;

@@ -1,6 +1,13 @@
 import React from 'react';
 import SearchInput from '../../components/searchInput';
+import Layout from '../../components/layout';
+
 import './header.scss';
+import logo from '../data/logo1.png';
+
+console.log(logo);
+
+const { Col, Row } = Layout;
 
 class DemoHeader extends React.Component {
 
@@ -13,7 +20,9 @@ class DemoHeader extends React.Component {
 
     return (
       <div className="header_container">
-        <div className="logo_container"></div>
+        <div className="logo_container">
+          <img src={logo}/>
+        </div>          
         <div className="search_input_container">
           <SearchInput 
             placeholder="搜索组件..."

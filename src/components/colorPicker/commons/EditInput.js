@@ -28,26 +28,29 @@ class EditInput extends React.Component {
     prefix: 'bxu',
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.getValueFromProps(this.props)
-    };
-  }
+  static getDerivedStateFromProps(props, state) {
+    let newValue = EditInput.getValueFromProps(props);
 
-  componentWillReceiveProps(nextProps) {
-    let newValue = this.getValueFromProps(nextProps);
-    if (this.state.value != newValue) {
-      this.setState({
+    if (newValue != state.value) {
+      console.log('update');
+      return {
         value: newValue
-      })
+      }
     }
+    return null;
   }
 
-  getValueFromProps(props) {
+  static getValueFromProps(props) {
     const { scale, value } = props;
     let stateValue = scale? parseInt(scale*value): value;
     return String(stateValue).toUpperCase();
+  }
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: EditInput.getValueFromProps(this.props)
+    };
   }
 
   handleChange =(evt) => {
@@ -62,9 +65,7 @@ class EditInput extends React.Component {
       }
     }
 
-    console.log('is valid number: ' + isValidNumber(newValue));
     if (scale &&isValidNumber(newValue)) {
-      console.log('divise newvalue');
       newValue = Number(newValue)/scale;
     }
 
@@ -82,7 +83,7 @@ class EditInput extends React.Component {
       size,
     } = this.props;
     const { value } = this.state;
-    // const value = this.getValueFromProps(this.props);
+
     let style = {
       flex: `${size === 'single'? 1: 2} 1 0`
     }

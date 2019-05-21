@@ -4,7 +4,11 @@ import navData from './data/sideNav';
 import Header from './header';
 import SideNav from './sideNav';
 
+import Layout from '../components/layout';
+
 import './index.scss';
+
+const { Col, Row } = Layout;
 
 class Demo extends React.Component {
 
@@ -25,9 +29,15 @@ class Demo extends React.Component {
         <Header
           handleSearch={this.handleSearch}
           searchContent={searchContent}/>
-        <div className="sidebar-container">
-          <SideNav navData={navData}/>
-        </div>
+        <Row>
+          <Col offset={2} span={3}>
+            <div className="sidebar-container">
+              <SideNav navData={navData}/>
+            </div>
+          </Col>
+          <div className="content-container">
+          </div>
+        </Row>
       </div>
     );
   }
