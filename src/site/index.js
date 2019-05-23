@@ -5,13 +5,13 @@ import Header from './header';
 import SideNav from './sideNav';
 
 import Layout from '../components/layout';
-import DemoMarkdown from './pages/affixDemo';
+// import DemoMarkdown from './pages/affixDemo';
 
 import './index.scss';
 
 const { Col, Row } = Layout;
 
-class Demo extends React.Component {
+class Site extends React.Component {
 
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ class Demo extends React.Component {
 
   render() {
     let { searchContent } = this.state;
+    const { children } = this.props;
 
     return (
       <div className="official-demo_container">
@@ -37,7 +38,7 @@ class Demo extends React.Component {
             </div>
           </Col>
           <div className="content-container">
-            <DemoMarkdown />
+            {children}
           </div>
         </Row>
       </div>
@@ -45,4 +46,4 @@ class Demo extends React.Component {
   }
 }
 
-export default Demo;
+export default Site;

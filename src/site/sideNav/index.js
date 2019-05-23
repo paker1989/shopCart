@@ -59,7 +59,7 @@ class SideNav extends React.PureComponent {
 
   getFullPath = (path) => {
     //TODO
-    return path;
+    return `/demo/${path}`;
   }
 
 
