@@ -39,6 +39,10 @@ class Site extends React.Component {
           </Col>
           <div className="content-container">
             {children}
+            {/* <div className="markdown-body">
+              <DemoMarkdown />
+            </div> */}
+
           </div>
         </Row>
       </div>
