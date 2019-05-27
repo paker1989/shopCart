@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Switch, browserHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, browserHistory, Redirect } from 'react-router-dom';
 
 import Site from './site';
 import { addRoute } from './site/addRoute';
@@ -36,6 +36,7 @@ class App extends React.Component {
                   ))}
                 </Site>
               )}/>
+            <Redirect from="*" to="/shopCart" />
           </Switch>
         </Router>
       </Provider>
