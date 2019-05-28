@@ -1,7 +1,8 @@
 import React from 'react';
 import cx from "classnames";
-
 import { NavLink } from 'react-router-dom';
+
+import { getFullPath } from '../addRoute';
 import './sideNav.scss';
 
 class SideNav extends React.PureComponent {
@@ -48,7 +49,7 @@ class SideNav extends React.PureComponent {
           {group.items.map((item, index) => {
             return (
               <li key={index}>
-                <NavLink to={this.getFullPath(item.path)}>{item.title}</NavLink>
+                <NavLink to={getFullPath(item.path)}>{`${item.title} ${item.subtitle}`}</NavLink>
               </li>
             )
           })}
@@ -56,12 +57,6 @@ class SideNav extends React.PureComponent {
       </div>
     );
   }
-
-  getFullPath = (path) => {
-    //TODO
-    return `/demo/${path}`;
-  }
-
 
   render() {
     const { navData, className } = this.props;

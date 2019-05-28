@@ -149,6 +149,7 @@ class Popover extends React.Component {
       <div className={wrapperClassName}>
         {React.cloneElement(trigger, {
           open: this.open,
+          close: this.close,
           triggerRefChange: this.triggerRefChange,
           contentVisible: visible,
           isClickOutSide: this.isClickOutSide

@@ -13,4 +13,8 @@ function addRoute(navData, prefix = '') {
   return routes;
 }
 
-export { addRoute };
+function getFullPath(path) {
+  return `/demo/${path}`;
+}
+
+export { addRoute, getFullPath };

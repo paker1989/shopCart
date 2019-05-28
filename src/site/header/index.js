@@ -7,6 +7,23 @@ import './header.scss';
 import logo from '../data/logo1.png';
 import githubMark from '../data/github-mark.png';
 
+/**
+ * @param {navData} 
+ * @returns one level flat item list
+ */
+function getFlatNavData(navData) {
+  let flatNavData = [];
+  navData.forEach(cat => {
+    cat.groups.forEach(group => {
+      group.items.forEach(item => {
+        flatNavData.push(item);
+      })
+    })
+  });
+  return flatNavData;
+}
+
+
 class DemoHeader extends React.Component {
 
   constructor(props) {
@@ -14,7 +31,10 @@ class DemoHeader extends React.Component {
   }
 
   render() {
-    let { searchContent, handleSearch } = this.props;
+    const { searchContent, handleSearch, navData } = this.props;
+    const matches = searchContent.trim() === ''? getFlatNavData(navData)
+      : getFlatNavData(navData).filter((item) =>
+          item.title.includes(searchContent.trim()));
 
     return (
       <div className="header_container">
@@ -33,7 +53,7 @@ class DemoHeader extends React.Component {
                 width={250}/>
             </Popover.Trigger.FocusTrigger>
             <Popover.Content>
-              <ComponentSelectable searchStr={searchContent}/>
+              <ComponentSelectable matches={matches} />
             </Popover.Content>
           </Popover>
         </div>

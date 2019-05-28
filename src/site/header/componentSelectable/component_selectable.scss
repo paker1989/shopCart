@@ -1,0 +1,37 @@
+
+@import '../../style/mixin.scss';
+
+$nav-item-height: 40px;
+$padding: 0 15px;
+$color: white;
+$bgColor: #3498db;
+
+.component_selectable-wrapper {
+  position: relative;
+  box-shadow: 0 1px 8px rgba(0,0,0,.2);
+  overflow-y: auto;
+  width: 250px;
+  max-height: 400px;
+  background: white;
+
+  & ul li.list_item {
+    list-style-type: none;
+    box-sizing: border-box;
+    height: 40px;
+
+    @include nav_link_style(
+      $nav-item-height, $padding, $color, $bgColor);
+
+    & .item_title {
+      float: left;
+      font-size: 13px;
+    }
+    & .item_sub_title {
+      float: right;
+      color: lighten(#999, 20%);;
+      font-size: 12px;
+    }
+  }
+
+
+}

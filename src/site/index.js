@@ -15,7 +15,7 @@ class Site extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = ({searchContent: ''});
+    this.state = {searchContent: ''};
   }
 
   handleSearch = (val) => {
@@ -29,6 +29,7 @@ class Site extends React.Component {
     return (
       <div className="official-demo_container">
         <Header
+          navData={navData}
           handleSearch={this.handleSearch}
           searchContent={searchContent}/>
         <Row>
