@@ -1,4 +1,3 @@
-import React from 'react';
 import Trigger from './trigger';
 
 class ClickTrigger extends Trigger {

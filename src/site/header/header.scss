@@ -22,4 +22,30 @@ $image-size: 46px;
     height: $container-height;
     padding: ($container-height - 30px)/2 0;
   }
+
+  & .link_dispatcher {
+    position: relative;
+    text-align: right;
+    flex: 2 1 0;
+    padding-right: 40px;
+    & .shop_cart {
+      text-decoration: none;
+      color: #5A5353;
+      line-height: $container-height;
+      font-size: 12px;
+      border: 1px solid #5A5353;
+      border-radius: 4px;
+      padding: 5px 4px;
+    }
+    & .demologo {
+      margin-right: 10px;
+      & img {
+        width: 25px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+
+
 } // end header_container

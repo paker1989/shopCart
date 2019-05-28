@@ -7,7 +7,7 @@ import SideNav from './sideNav';
 import Layout from '../components/layout';
 // import DemoMarkdown from './pages/affixDemo';
 
-import './index.scss';
+import './style/index.scss';
 
 const { Col, Row } = Layout;
 
