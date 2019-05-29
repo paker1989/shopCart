@@ -8,7 +8,7 @@ import './component_selectable.scss';
 class ComponentSelectable extends React.Component {
 
   render() {
-    const { matches, activeIndex } = this.props;
+    const { match, matches, activeIndex } = this.props;
     let content;
 
     if (!matches || matches.length === 0) {
@@ -25,7 +25,7 @@ class ComponentSelectable extends React.Component {
             })
             return (
               <li key={`match_item-${index}`} className={itemClass}>
-                <NavLink to={getFullPath(item.path)}>
+                <NavLink to={getFullPath(match, item.path)}>
                   <span className="item_title">{item.title}</span>
                   <span className="item_sub_title">{item.subtitle}</span>
                 </NavLink>

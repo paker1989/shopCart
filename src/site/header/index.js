@@ -30,7 +30,7 @@ class DemoHeader extends React.Component {
   }
 
   render() {
-    const { searchContent, handleSearch, navData, location } = this.props;
+    const { searchContent, handleSearch, navData, location, match } = this.props;
     const currentDemoPath = location.pathname.split('/')[2];
 
     let flatNavData = getFlatNavData(navData);
@@ -58,6 +58,7 @@ class DemoHeader extends React.Component {
             </Popover.Trigger.ClickTrigger>
             <Popover.Content>
               <ComponentSelectable 
+                match={match}
                 matches={matches} 
                 activeIndex={activeIndex}/>
             </Popover.Content>

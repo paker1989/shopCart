@@ -32,7 +32,8 @@ class Site extends React.Component {
           navData={navData}
           handleSearch={this.handleSearch}
           searchContent={searchContent}
-          location={location}/>
+          location={location}
+          match={match}/>
         <Row>
           <Col offset={2} span={3}>
             <div className="sidebar-container">
