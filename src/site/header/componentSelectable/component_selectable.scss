@@ -14,6 +14,11 @@ $bgColor: #3498db;
   max-height: 400px;
   background: white;
 
+  & .no_matches {
+    font-size: 14px;
+    padding: 15px 0;
+  }
+
   & ul li.list_item {
     list-style-type: none;
     box-sizing: border-box;
@@ -30,6 +35,10 @@ $bgColor: #3498db;
       float: right;
       color: lighten(#999, 20%);;
       font-size: 12px;
+    }
+    &.is-active a {
+      background: $bgColor;
+      color: $color;
     }
   }
 

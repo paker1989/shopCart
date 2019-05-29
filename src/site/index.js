@@ -24,26 +24,23 @@ class Site extends React.Component {
 
   render() {
     let { searchContent } = this.state;
-    const { children } = this.props;
+    const { children, location, match } = this.props;
 
     return (
       <div className="official-demo_container">
         <Header
           navData={navData}
           handleSearch={this.handleSearch}
-          searchContent={searchContent}/>
+          searchContent={searchContent}
+          location={location}/>
         <Row>
           <Col offset={2} span={3}>
             <div className="sidebar-container">
-              <SideNav navData={navData}/>
+              <SideNav navData={navData} match={match}/>
             </div>
           </Col>
           <div className="content-container">
             {children}
-            {/* <div className="markdown-body">
-              <DemoMarkdown />
-            </div> */}
-
           </div>
         </Row>
       </div>

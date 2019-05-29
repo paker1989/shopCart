@@ -11,8 +11,6 @@ class ComponentSelectable extends React.Component {
     const { matches, activeIndex } = this.props;
     let content;
 
-    // console.log(Array.isArray(matches));
-
     if (!matches || matches.length === 0) {
       content = (
         <div className="no_matches">没有符合的组件</div>

@@ -25,16 +25,20 @@ function getFlatNavData(navData) {
 
 
 class DemoHeader extends React.Component {
-
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { searchContent, handleSearch, navData } = this.props;
-    const matches = searchContent.trim() === ''? getFlatNavData(navData)
-      : getFlatNavData(navData).filter((item) =>
+    const { searchContent, handleSearch, navData, location } = this.props;
+    const currentDemoPath = location.pathname.split('/')[2];
+
+    let flatNavData = getFlatNavData(navData);
+    let matches = searchContent.trim() === ''? flatNavData
+      : flatNavData.filter((item) =>
           item.title.includes(searchContent.trim()));
+    let activeIndex = currentDemoPath === undefined? -1
+      : matches.findIndex(data => data.path === currentDemoPath);
 
     return (
       <div className="header_container">
@@ -45,15 +49,17 @@ class DemoHeader extends React.Component {
           <Popover
             position={Popover.Placement.autoBottomLeft}
             cushion={5}>
-            <Popover.Trigger.FocusTrigger>
+            <Popover.Trigger.ClickTrigger>
               <SearchInput 
                 placeholder="搜索组件..."
                 onChange={handleSearch}
                 value={searchContent}
                 width={250}/>
-            </Popover.Trigger.FocusTrigger>
+            </Popover.Trigger.ClickTrigger>
             <Popover.Content>
-              <ComponentSelectable matches={matches} />
+              <ComponentSelectable 
+                matches={matches} 
+                activeIndex={activeIndex}/>
             </Popover.Content>
           </Popover>
         </div>

@@ -42,6 +42,7 @@ class SideNav extends React.PureComponent {
   }
 
   parseGroup = (group) => {
+    const { match } = this.props;
     return (
       <div className="nav-group-wrapper">
         <div className="nav-group-title">{group.title}</div>
@@ -49,7 +50,7 @@ class SideNav extends React.PureComponent {
           {group.items.map((item, index) => {
             return (
               <li key={index}>
-                <NavLink to={getFullPath(item.path)}>{`${item.title} ${item.subtitle}`}</NavLink>
+                <NavLink to={getFullPath(match, item.path)}>{`${item.title} ${item.subtitle}`}</NavLink>
               </li>
             )
           })}

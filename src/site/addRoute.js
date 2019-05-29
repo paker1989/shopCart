@@ -1,10 +1,10 @@
 const routes = [];
 
-function addRoute(navData, prefix = '') {
+function addRoute(navData) {
   navData.forEach((nav) => {
     const { name, path, source } = nav;
     routes.push({
-      path: `${prefix}/${path}`,
+      path,
       source,
       name,
     })
@@ -13,8 +13,8 @@ function addRoute(navData, prefix = '') {
   return routes;
 }
 
-function getFullPath(path) {
-  return `/demo/${path}`;
+function getFullPath(match, path) {
+  return `${match.url}/${path}`;
 }
 
 export { addRoute, getFullPath };

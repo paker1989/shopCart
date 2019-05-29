@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    // publicPath: 'http://localhost:1218/devServer'
+    publicPath: '/'
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -22,14 +22,13 @@ module.exports = {
     port: 1218,
     open: false,
     historyApiFallback: true,
-    // publicPath: '/devServer/'
   },
   plugins: [
     htmlWebPackPlugin,
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, './data'),
-        to: 'static' //可以从devServer.publicPath + to访问
+        to: '' //可以从devServer.publicPath + to访问
       }
     ])
   ],
