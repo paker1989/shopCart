@@ -22,12 +22,21 @@ class Site extends React.Component {
     this.setState({searchContent: val.target.value});
   }
 
+  /**
+   * @description may needed if parent need
+   */
+  passRef = (ref) => {
+    if (this.props.getRef) {
+      this.props.getRef(ref);
+    }
+  }
+
   render() {
     let { searchContent } = this.state;
     const { children, location, match } = this.props;
 
     return (
-      <div className="official-demo_container">
+      <div className="official-demo_container" ref={this.passRef}>
         <Header
           navData={navData}
           handleSearch={this.handleSearch}

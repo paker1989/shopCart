@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FETCH_PRODUCTS } from './type';
 
 const productsAPI = "https://react-shopping-cart-67954.firebaseio.com/products.json";
-const localAPI = "/static/products.json";
+const localAPI = "/products.json";
 
 export default (filters, sort, callback) => dispatch => {
   axios.get(localAPI, {

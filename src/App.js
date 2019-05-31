@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Site from './site';
+import ScrollToTop from './site/ScrollToTop';
 import { getFullPath } from './site/addRoute';
 import navData from './site/navData';
 
@@ -24,21 +25,23 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Router basename="/">
-          <Switch>
-            <Route 
-              path="/shopCart"
-              component={ShopCart}/>
-            <Route 
-              path="/demo"
-              render={({ match, ...routeProps }) => (
-                <Site match={match} {...routeProps}>
-                  {navData.map((data) => (
-                    renderComponent(match, data)
-                  ))}
-                </Site>
-              )}/>
-            <Redirect from="*" to="/shopCart" />
-          </Switch>
+          <ScrollToTop>
+            <Switch>
+              <Route 
+                path="/shopCart"
+                component={ShopCart}/>
+              <Route 
+                path="/demo"
+                render={({ match, ...routeProps }) => (
+                  <Site match={match} {...routeProps}>
+                    {navData.map((data) => (
+                      renderComponent(match, data)
+                    ))}
+                  </Site>
+                )}/>
+              <Redirect from="*" to="/shopCart" />
+            </Switch>
+          </ScrollToTop>
         </Router>
       </Provider>
     );
