@@ -1,8 +1,19 @@
 .official-demo_container {
   position: relative;
 
-  & .sidebar-container {
-    padding-top: 15px;
+  & .main-container {
+    position: relative;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+
+    & .sidebar-container {
+      margin-left: 100px;
+    }
+
+    & .content-container {
+
+    }
   }
 }
 

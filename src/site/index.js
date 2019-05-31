@@ -44,16 +44,21 @@ class Site extends React.Component {
           searchContent={searchContent}
           location={location}
           match={match}/>
-        <Row>
+        {/* <Row>
           <Col offset={2} span={3}>
             <div className="sidebar-container">
               <SideNav navData={navData} match={match}/>
             </div>
           </Col>
+        </Row> */}
+        <div className="main-container">
+          <div className="sidebar-container">
+            <SideNav navData={navData} match={match}/>
+          </div>
           <div className="content-container">
             {children}
           </div>
-        </Row>
+        </div>
         <Footer />
       </div>
     );

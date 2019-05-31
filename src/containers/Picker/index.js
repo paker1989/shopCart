@@ -22,6 +22,13 @@ class PickerDemo extends React.Component {
     const { color, colorBorardColor } = this.state;
     return (
       <div>
+        <div className="_only_colorboard_demo_container">
+          <ColorPicker.ColorBoard 
+            prefix="bxu"
+            color={colorBorardColor}
+            showAlpha={true}
+            onChange={this.handleColorBoardChange}/>
+        </div>
         <div className="_picker_demo_container">
           <ColorPicker color={color} type="simple" onChange={this.handleChange} />
           <div style={{ color, marginTop: 5 }}>当前颜色：{color}</div>
@@ -30,13 +37,6 @@ class PickerDemo extends React.Component {
           <ColorPicker color={colorBorardColor} onChange={this.handleColorBoardChange}
             showAlpha={true} />
           <div style={{ color: colorBorardColor, marginTop: 5 }}>当前颜色：{colorBorardColor}</div>
-        </div>
-        <div className="_only_colorboard_demo_container">
-          <ColorPicker.ColorBoard 
-            prefix="bxu"
-            color={colorBorardColor}
-            showAlpha={true}
-            onChange={this.handleColorBoardChange}/>
         </div>
       </div>
     );
