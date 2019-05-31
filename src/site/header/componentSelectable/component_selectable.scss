@@ -27,15 +27,19 @@ $bgColor: #3498db;
     @include nav_link_style(
       $nav-item-height, $padding, $color, $bgColor);
 
-    & .item_title {
-      float: left;
-      font-size: 13px;
+    & a {
+      display: flex;
+      justify-content: space-between;
+
+      & .item_title {
+        font-size: 13px;
+      }
+      & .item_sub_title {
+        color: lighten(#999, 20%);;
+        font-size: 12px;
+      }
     }
-    & .item_sub_title {
-      float: right;
-      color: lighten(#999, 20%);;
-      font-size: 12px;
-    }
+
     &.is-active a {
       background: $bgColor;
       color: $color;

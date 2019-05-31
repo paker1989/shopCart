@@ -1,6 +1,7 @@
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import propTypes from 'prop-types';
+import isFunction from 'lodash/isFunction';
 
 import Trigger from './trigger/trigger';
 import Content from './content';
@@ -39,7 +40,7 @@ class Popover extends React.Component {
   }
 
   isPropVisibleControlled() {
-    return !!this.props.isVisible;
+    return this.props.isVisible !== undefined && isFunction(this.props.onVisibleChange);
   }
 
   getVisible() {
@@ -66,11 +67,11 @@ class Popover extends React.Component {
   setVisible(isVisible) {
     const { onBeforeShow, onBeforeClose } = this.props,
           onBeforeHook = isVisible? onBeforeShow: onBeforeClose;
-
+          
     const continuation = () => {
       this.pendingOnBeforeHook = false;
       if (this.isPropVisibleControlled()) {
-        this.props.onVisibleChange();
+        this.props.onVisibleChange(isVisible);
       } else {
         this.setState({ isVisible });
       }

@@ -2,6 +2,7 @@ import React from 'react';
 
 import navData from './data/sideNav';
 import Header from './header';
+import Footer from './footer';
 import SideNav from './sideNav';
 
 import Layout from '../components/layout';
@@ -53,6 +54,7 @@ class Site extends React.Component {
             {children}
           </div>
         </Row>
+        <Footer />
       </div>
     );
   }

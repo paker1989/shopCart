@@ -1,0 +1,25 @@
+.foot-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #34383b;
+  height: 70px;
+  margin-top: 20px;
+
+  & img {
+    margin-right: 10px;
+    width: 25px;
+  }
+
+  & .demo-description {
+    text-decoration: none;
+    outline: none;
+    font-size: 13px;
+    color: white;
+    font-stretch: expanded;
+    &:hover {
+      color: #bbb;
+    }
+  }
+}

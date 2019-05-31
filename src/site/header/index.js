@@ -27,9 +27,19 @@ function getFlatNavData(navData) {
 class DemoHeader extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {isVisible: false};
+  }
+
+  onListVisibleChange = (isVisible) => {
+    if (this.state.isVisible !== isVisible) {
+      this.setState({ isVisible }, () => {
+        // todo
+      });
+    }
   }
 
   render() {
+    const { isVisible } = this.state;
     const { searchContent, handleSearch, navData, location, match } = this.props;
     const currentDemoPath = location.pathname.split('/')[2];
 
@@ -48,7 +58,9 @@ class DemoHeader extends React.Component {
         <div className="search_input_container">
           <Popover
             position={Popover.Placement.autoBottomLeft}
-            cushion={5}>
+            cushion={5}
+            isVisible={isVisible}
+            onVisibleChange={this.onListVisibleChange}>
             <Popover.Trigger.ClickTrigger>
               <SearchInput 
                 placeholder="搜索组件..."
@@ -57,7 +69,8 @@ class DemoHeader extends React.Component {
                 width={250}/>
             </Popover.Trigger.ClickTrigger>
             <Popover.Content>
-              <ComponentSelectable 
+              <ComponentSelectable
+                isVisible={isVisible}
                 match={match}
                 matches={matches} 
                 activeIndex={activeIndex}/>

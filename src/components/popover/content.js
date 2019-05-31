@@ -98,6 +98,8 @@ class Content extends React.Component {
        ...style,
        visibility: visible? 'visible': 'hidden'
      }
+
+    //  console.log('render content: ' + visible);
      
      const containerNode = document.querySelector(containerSelector);
      
