@@ -51,7 +51,25 @@ module.exports = {
         test: /\.json$/i,
         type: 'javascript/auto',
         loader: 'json-loader'
-      }
+      },
+      // {
+      //   test: /\.md$/,
+      //   use: [
+      //       'babel-loader',
+      //       {
+      //           loader: require.resolve('react-markdown-doc-loader'),
+      //           options: {
+      //               jsTemplate: path.join(__dirname, './react-template.js'),
+      //               renderers: {
+      //                   markdown: 'Markdown',
+      //                   style: 'Style',
+      //                   demo: 'Demo'
+      //               }
+      //           }
+      //       },
+      //       'markdown-doc-loader'
+      //   ]
+      // }
     ],   
   }
 }

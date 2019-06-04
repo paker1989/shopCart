@@ -8,11 +8,13 @@
     justify-content: flex-start;
 
     & .sidebar-container {
-      margin-left: 100px;
+      padding-left: 100px;
+      flex: 1 1 0;
     }
 
     & .content-container {
-
+      flex: 4 1 0;
+      position: relative;
     }
   }
 }

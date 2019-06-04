@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Site from './site';
-import ScrollToTop from './site/ScrollToTop';
-import { getFullPath } from './site/addRoute';
+import ScrollToTop from './site/util/ScrollToTop';
+import { getFullPath } from './site/util/addRoute';
 import navData from './site/navData';
-
 import ShopCart from './containers/home';
-
-// const demoRouteData = addRoute(navData, '/demo');
-
 
 class App extends React.Component {
 

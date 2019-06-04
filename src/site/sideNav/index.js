@@ -2,7 +2,7 @@ import React from 'react';
 import cx from "classnames";
 import { NavLink } from 'react-router-dom';
 
-import { getFullPath } from '../addRoute';
+import { getFullPath } from '../util/addRoute';
 import './sideNav.scss';
 
 class SideNav extends React.PureComponent {

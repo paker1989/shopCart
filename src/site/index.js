@@ -6,6 +6,7 @@ import Footer from './footer';
 import SideNav from './sideNav';
 
 import Layout from '../components/layout';
+import CodeHighlighter from './util/CodeHighlighter';
 // import DemoMarkdown from './pages/affixDemo';
 
 import './style/index.scss';
@@ -44,13 +45,6 @@ class Site extends React.Component {
           searchContent={searchContent}
           location={location}
           match={match}/>
-        {/* <Row>
-          <Col offset={2} span={3}>
-            <div className="sidebar-container">
-              <SideNav navData={navData} match={match}/>
-            </div>
-          </Col>
-        </Row> */}
         <div className="main-container">
           <div className="sidebar-container">
             <SideNav navData={navData} match={match}/>
@@ -60,6 +54,7 @@ class Site extends React.Component {
           </div>
         </div>
         <Footer />
+        <CodeHighlighter />
       </div>
     );
   }

@@ -1,0 +1,101 @@
+/**
+  customize markdown style
+*/
+.bxu-react-container {
+  position: relative;
+  padding: 0 40px;
+
+  @for $var from 1 to 6 {
+    & h#{$var} {
+      line-height: 1.5;
+      font-weight: 400;
+      position: relative;
+      margin: 20px 0 10px;
+      color: rgba(51,51,51,.9);
+      font-family: Dosis,Source Sans Pro,PingFang SC,Helvetica Neue,Arial,sans-serif;
+
+      &.anchor-heading { // anchor style
+        & a:first-child {
+          opacity: 0;
+          &:hover {
+            opacity: .7;
+            color: lightblue;
+          }
+        }
+      }
+    }
+  }
+
+  & p {
+    line-height: 20px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+  &>h3 {
+    font-size: 22px;
+    margin-top: 40px;
+  }
+
+  & table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 45px;
+
+    & thead th, & tbody td {
+      padding: 10px;
+      color: #666;
+      font-weight: 400;
+      font-size: 14px;
+      background-color: white;
+      border: 1px solid #eaeefb;      
+    }
+
+    & thead th {
+      font-weight: 500;
+      background-color: #f5f7fa;
+    }
+
+  }
+  
+  // common element style
+  & code {
+    margin: 0;
+    font-size: 13px;
+    overflow-x: auto;
+    font-weight: 400;
+    word-break: break-all;
+    white-space: pre-wrap;
+    font-family: Source Code Pro,Monaco,Inconsolata,monospace;
+    color: lighten(#455a64, 10%);
+
+    &:not(.hljs) {
+      position: relative;
+      background-color: #f5f7fa;
+      line-height: 22px;
+      border-radius: 3px;
+      padding: 4px 7px;
+      display: inline;
+    }
+  }
+
+  & pre {
+    position: relative;
+    padding: 10px;
+    background: #f8f8f8;
+
+    & .hljs-keyword {
+      color: #d63200;
+      font-weight: 500;
+    }
+
+    & .hljs-string {
+      color: #42b983;
+      font-weight: 500;
+    }
+  }
+}
