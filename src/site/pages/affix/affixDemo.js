@@ -1,8 +1,8 @@
 import React from 'react';
-import MarkdownRender from '../../util/MarkdownRender';
+import MarkdownRender from '../../utils/MarkdownRender';
 import Affix from '../../../components/affix';
 
-const demoMarkDown = 
+const mdDescription = 
   `
   ## Affix 固钉
   
@@ -22,32 +22,35 @@ const demoMarkDown =
   | prefix    | 自定义前缀    | string | \`'zent'\`   |                                   |
   
   如果 \`offsetTop\` 和 \`offsetBottom\` 同时设置，优先使用 \`offsetBottom\`  
+  `;
 
-  \`\`\`javascript
-import { Affix, Alert } from 'zent';
+const md_democode = 
+  `
+    \`\`\`javascript
+  import { Affix, Alert } from 'shopCart';
 
-class App extends React.Component {
+  class App extends React.Component {
 
-	state = {
-		text: '{i18n.affix}'
-	}
+    state = {
+      text: '{i18n.affix}'
+    }
 
-	onPin = () => {
-		this.setState({ text: '{i18n.finishText}' });
-	}
-	onUnpin = () => {
-		this.setState({ text: '{i18n.cancalText}' });
-	}
+    onPin = () => {
+      this.setState({ text: '{i18n.finishText}' });
+    }
+    onUnpin = () => {
+      this.setState({ text: '{i18n.cancalText}' });
+    }
 
-	render() {
-		return (
-			<Affix offsetTop={200} onPin={this.onPin} onUnpin={this.onUnpin}>
-					<Alert type="warning">{this.state.text}</Alert>
-			</Affix>
-		)
-	}
-}
-\`\`\`
+    render() {
+      return (
+        <Affix offsetTop={200} onPin={this.onPin} onUnpin={this.onUnpin}>
+            <Alert type="warning">{this.state.text}</Alert>
+        </Affix>
+      )
+    }
+  }
+  \`\`\` 
   `;
 
 class AffixDemo extends React.PureComponent {
@@ -57,7 +60,7 @@ class AffixDemo extends React.PureComponent {
         <Affix offsetTop={100} placeHoldClassName="marginStyle">
           <button className="bxu-btn btn-affix">固钉</button>
         </Affix>
-        <MarkdownRender source={demoMarkDown}/>
+        <MarkdownRender source={mdDescription}/>
       </React.Fragment>
     );
   }
