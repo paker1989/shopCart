@@ -1,6 +1,7 @@
 import React from 'react';
 import MarkdownRender from '../../utils/MarkdownRender';
 import Affix from '../../../components/affix';
+import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 
 const mdDescription = 
   `
@@ -19,14 +20,14 @@ const mdDescription =
   | zIndex | 固钉的z-index | number | 10 | null |
   | className | 自定义额外类名  | string | \`''\`       |                                   |
   | placeHoldClassName | 占位容器的类名  | string | \`''\`       |                                   |
-  | prefix    | 自定义前缀    | string | \`'zent'\`   |                                   |
+  | prefix    | 自定义前缀    | string | \`'bxu'\`   |                                   |
   
   如果 \`offsetTop\` 和 \`offsetBottom\` 同时设置，优先使用 \`offsetBottom\`  
   `;
 
 const md_democode = 
   `
-    \`\`\`javascript
+  \`\`\`javascript
   import { Affix, Alert } from 'shopCart';
 
   class App extends React.Component {
@@ -57,10 +58,12 @@ class AffixDemo extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <Affix offsetTop={100} placeHoldClassName="marginStyle">
-          <button className="bxu-btn btn-affix">固钉</button>
-        </Affix>
         <MarkdownRender source={mdDescription}/>
+        <DemoCodeRender source={md_democode} title="设置offsetTop来设置到顶部距离">
+            <Affix offsetTop={100} placeHoldClassName="marginStyle">
+              <button className="bxu-btn btn-affix">固钉</button>
+            </Affix>
+        </DemoCodeRender>
       </React.Fragment>
     );
   }

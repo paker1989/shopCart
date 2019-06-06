@@ -1,0 +1,23 @@
+.demo-code-render_container {
+  position: relative;
+
+  & .demo-code_title {
+    background: #f5f7fa;
+    border: 1px solid #eaeefb;
+    &:hover {
+      background: lighten(#bbb, 15%);
+      transition: all .1s ease;
+      cursor: pointer;
+    }
+    & span {
+      display: inline-block;
+      width: 100%;
+      padding-left: 20px;
+      height: 60px;
+      line-height: 60px;
+      color: #666;
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+}
