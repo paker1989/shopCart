@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import cx from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import { getFullPath } from '../../util/addRoute';
+import { getFullPath } from '../../utils/addRoute';
 import './component_selectable.scss';
 
 class ComponentSelectable extends React.Component {

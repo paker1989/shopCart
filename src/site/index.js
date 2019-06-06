@@ -6,7 +6,7 @@ import Footer from './footer';
 import SideNav from './sideNav';
 
 import Layout from '../components/layout';
-import CodeHighlighter from './util/CodeHighlighter';
+import CodeHighlighter from './utils/CodeHighlighter';
 // import DemoMarkdown from './pages/affixDemo';
 
 import './style/index.scss';

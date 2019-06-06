@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Site from './site';
-import ScrollToTop from './site/util/ScrollToTop';
-import { getFullPath } from './site/util/addRoute';
+import ScrollToTop from './site/utils/ScrollToTop';
+import { getFullPath } from './site/utils/addRoute';
 import navData from './site/navData';
 import ShopCart from './containers/home';
 
