@@ -38,7 +38,7 @@ class ComponentSelectable extends React.Component {
         isActiveItemVisible = heightRequired <= heightContainer;
 
     if (!isActiveItemVisible) {
-      console.log('scroll to');
+      // console.log('scroll to');
       refDOM.scrollTo(0, (heightRequired - clientHeight));
     }
   }
