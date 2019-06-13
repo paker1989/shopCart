@@ -16,11 +16,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// app.use('/prd', express.static(''));
+
 app.use(webpackDevMiddleware(webpack(config), {
   publicPath: config.output.publicPath
 }));
-
-app.use(express.static('dist'));
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')());

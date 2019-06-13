@@ -1,6 +1,4 @@
 const path = require('path');
-
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
@@ -18,12 +16,6 @@ module.exports = {
   },
   plugins: [
     htmlWebPackPlugin,
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.join(__dirname, '..', './data'),
-    //     to: '' //可以从devServer.publicPath + to访问
-    //   }
-    // ])
   ],
   module: {
     rules: [

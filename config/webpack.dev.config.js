@@ -1,4 +1,5 @@
 const webpackBaseConfig = require('./webpack.base.config');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 
@@ -9,7 +10,15 @@ const webpackdevConfig = merge(webpackBaseConfig, {
     port: 1218,
     open: false,
     historyApiFallback: true,
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, '..', './data'),
+        to: '' //可以从devServer.publicPath + to访问
+      }
+    ])
+  ],
 });
 
 module.exports = webpackdevConfig;
