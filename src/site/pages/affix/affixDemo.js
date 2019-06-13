@@ -2,6 +2,7 @@ import React from 'react';
 import MarkdownRender from '../../utils/MarkdownRender';
 import Affix from '../../../components/affix';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
+import axios from 'axios';
 
 const mdDescription = 
   `
@@ -55,7 +56,23 @@ const md_democode =
   `;
 
 class AffixDemo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   mdDescription: '',
+    // }
+  }
+  // componentDidMount() {
+  //   axios.get('/readme')
+  //     .then((res) => {
+  //       console.log('axios');
+  //       console.log(res);
+  //     })
+  // }
+
   render() {
+    // const { mdDescription } = this.state;
+
     return (
       <React.Fragment>
         <MarkdownRender source={mdDescription}/>

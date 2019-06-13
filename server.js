@@ -11,6 +11,11 @@ app.get('/api/products', (req, res) => {
   res.sendFile(path.join(__dirname, 'data', 'products.json'));
 });
 
+app.get('/readme', (req, res) => {
+  console.log(path.resolve(__dirname, 'demo.md'));
+  res.sendFile(path.resolve(__dirname, 'demo.md'));
+});
+
 app.listen(port, () => {
   console.log(`server listen on ${port}`);
 })
