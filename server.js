@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const createAlias = require('./createAlias');
 
 const app = express();
 app.use(cors());
@@ -18,4 +19,6 @@ app.get('/readme', (req, res) => {
 
 app.listen(port, () => {
   console.log(`server listen on ${port}`);
+  const alias = createAlias(path.resolve(__dirname, './src'));
+  console.log(alias);
 })

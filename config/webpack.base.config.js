@@ -5,32 +5,25 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
   filename: 'index.html',
-  template: path.resolve(__dirname, 'src/index.html')
+  template: path.join(__dirname, '..', 'src/index.html')
 });
 
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'main.js',
     publicPath: '/'
   },
-//   devServer: {
-//     contentBase: path.join(__dirname, 'dist'),
-//     compress: true,
-//     port: 1218,
-//     open: false,
-//     historyApiFallback: true,
-//   },
   plugins: [
     htmlWebPackPlugin,
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, './data'),
-        to: '' //可以从devServer.publicPath + to访问
-      }
-    ])
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: path.join(__dirname, '..', './data'),
+    //     to: '' //可以从devServer.publicPath + to访问
+    //   }
+    // ])
   ],
   module: {
     rules: [

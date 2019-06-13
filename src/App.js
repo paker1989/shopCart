@@ -9,6 +9,14 @@ import { getFullPath } from './site/utils/addRoute';
 import navData from './site/navData';
 import ShopCart from './containers/home';
 
+// const prefix =
+//   process.env.NODE_ENV === 'production'
+//     ? '/bxu/api/'
+//     : '/';
+
+console.log(process.env.NODE_ENV);
+// console.log(prefix);
+
 class App extends React.Component {
 
   static propTypes = {
