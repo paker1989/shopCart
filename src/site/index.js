@@ -7,7 +7,8 @@ import SideNav from './sideNav';
 
 import Layout from '../components/layout';
 import CodeHighlighter from './utils/CodeHighlighter';
-// import DemoMarkdown from './pages/affixDemo';
+
+import SiteConfig  from './site.config';
 
 import './style/index.scss';
 
@@ -59,5 +60,7 @@ class Site extends React.Component {
     );
   }
 }
+
+Site.SiteConfig = SiteConfig;
 
 export default Site;

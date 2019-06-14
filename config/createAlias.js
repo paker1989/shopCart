@@ -18,7 +18,7 @@ module.exports = function createAlias(packagesDir) {
   return packages
     .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
     .reduce(function(alias, p) {
-      alias[p] = path.join(packagesDir, p);
+      alias[p] = path.posix.join(packagesDir, p);
       return alias;
     }, {});
 }

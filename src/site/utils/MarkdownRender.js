@@ -1,12 +1,11 @@
 import React from 'react';
 import Markdown from 'react-markdown/with-html';
 import PropTypes from 'prop-types';
-import hljs from 'highlightjs';
 
 class MarkdownRender extends React.PureComponent {
 
   static propTypes = {
-    source: PropTypes.string,
+    source: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     escapeHtml: PropTypes.bool
   }
 
@@ -15,12 +14,29 @@ class MarkdownRender extends React.PureComponent {
   }
 
   render() {
-    const { source, escapeHtml } = this.props;
-    return (
-      <div className="bxu-react-container">
-        <Markdown source={source} escapeHtml={escapeHtml}/>
-      </div>
-    );
+    let { source, escapeHtml } = this.props;
+   
+    if (Array.isArray(source) && source.length > 1) {
+      return (
+        <React.Fragment>
+          {source.map((src, index) => {
+            return (
+              <div className="bxu-react-container" key={`md-${index}`}>
+                <Markdown source={src} escapeHtml={escapeHtml}/>
+              </div>
+            )
+          })}
+        </React.Fragment>
+      );
+    } else {
+      source = Array.isArray(source) ? source[0]: source;
+      return (
+        <div className="bxu-react-container">
+          <Markdown source={source} escapeHtml={escapeHtml}/>
+        </div>
+      );
+    }
+
   }
 }
 

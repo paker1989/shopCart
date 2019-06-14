@@ -1,10 +1,3 @@
----
-title: Affix
-subtitle: 固钉
-path: component/affix
-group: 导航
----
-
 ## Affix 固钉
 
 将元素固定在特定区域，一般用于导航栏固钉。

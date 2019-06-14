@@ -18,7 +18,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, '..', './data'),
+        from: path.resolve(__dirname, '../data'),
         to: '' //可以从devServer.publicPath + to访问
       }
     ])   

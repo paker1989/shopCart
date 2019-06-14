@@ -35,7 +35,7 @@ class App extends React.Component {
                 path="/shopCart"
                 component={ShopCart}/>
               <Route 
-                path="/demo"
+                path={Site.SiteConfig.prefix}
                 render={({ match, ...routeProps }) => (
                   <Site match={match} {...routeProps}>
                     {navData.map((data) => (

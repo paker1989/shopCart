@@ -1,30 +1,9 @@
 import React from 'react';
 import MarkdownRender from '../../utils/MarkdownRender';
+import { getCompoName } from '../../utils/addRoute';
 import Affix from '../../../components/affix';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 import axios from 'axios';
-
-const mdDescription = 
-  `
-  ## Affix 固钉
-  
-  将元素固定在特定区域，一般用于导航栏固钉。
-  
-  ### API
-  
-  | 参数 | 说明 | 类型 | 默认值 | 备选值 |
-  |------|------|------|--------|--------|
-  | offsetTop | 距离窗口顶部指定偏移量后触发 | number | 0 | '' |
-  | offsetBottom | 距离窗口底部指定偏移量后触发 | number | null | null |
-  | onPin | 触发固定后执行的回调函数 | function | null | null |
-  | onUnpin | 固定消失后执行的回调函数 | function | null | null |
-  | zIndex | 固钉的z-index | number | 10 | null |
-  | className | 自定义额外类名  | string | \`''\`       |                                   |
-  | placeHoldClassName | 占位容器的类名  | string | \`''\`       |                                   |
-  | prefix    | 自定义前缀    | string | \`'bxu'\`   |                                   |
-  
-  如果 \`offsetTop\` 和 \`offsetBottom\` 同时设置，优先使用 \`offsetBottom\`  
-  `;
 
 const md_democode = 
   `
@@ -58,21 +37,31 @@ const md_democode =
 class AffixDemo extends React.PureComponent {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   mdDescription: '',
-    // }
+    this.state = {
+      mdDescription: '',
+    }
   }
-  // componentDidMount() {
-  //   axios.get('/readme')
-  //     .then((res) => {
-  //       console.log('axios');
-  //       console.log(res);
-  //     })
-  // }
+  componentDidMount() {
+    const { match } = this.props;
+
+    axios
+      .post(match.path)
+      .then((res) => {
+        const { err, mds } = res.data;
+        if (err) {
+          console.log(err.message); // to handle
+        } else {
+          this.setState({ mdDescription: mds });
+        };
+      })
+      .catch((err) => {
+        console.log('something is going wrong!!');
+        console.log(err);
+      })
+  }
 
   render() {
-    // const { mdDescription } = this.state;
-
+    const { mdDescription } = this.state;
     return (
       <React.Fragment>
         <MarkdownRender source={mdDescription}/>

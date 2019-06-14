@@ -1,3 +1,6 @@
+import SiteConfig from '../site.config';
+import siteConfig from '../site.config';
+
 const routes = [];
 
 function addRoute(navData) {
@@ -17,4 +20,8 @@ function getFullPath(match, path) {
   return `${match.url}/${path}`;
 }
 
-export { addRoute, getFullPath };
+function getCompoName(matchPath) {
+  return matchPath.replace(`${SiteConfig.prefix}/`, '');
+}
+
+export { addRoute, getFullPath, getCompoName };

@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,9 +7,13 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const config = require('./webpack.prod.config');
-// const createAlias = require('./createAlias');
-// console.log(process.env.NODE_ENV);
-const isProduction = process.env.NODE_ENV === 'production';
+const createAlias = require('./createAlias');
+
+let devMiddleWare = webpackDevMiddleware(webpack(config), {
+  publicPath: config.output.publicPath
+});
+
+const componentAlias = createAlias(path.resolve(__dirname, '../src/components'));
 
 const app = express();
 app.use(cors());
@@ -16,34 +21,58 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// app.use('/prd', express.static(''));
-
-app.use(webpackDevMiddleware(webpack(config), {
-  publicPath: config.output.publicPath
-}));
-
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')());
 
-// if (true) {
-//   app.get('*', function(req, res, next) {
-//     res.sendFile('index.html', { root: '/bxu/api/' })
-//   })
-// }
+app.use(devMiddleWare);
+
+app.use('/static', express.static('/'));
 
 const port = 1218;
 
-// app.get('/api/products', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'data', 'products.json'));
-// });
+/**
+ * return markdown README.md file accordingly
+ */
+app.post('/demo/:compoName', (req, res) => {
+  const compoName = req.params.compoName;
+  
+  if (!compoName) {
+    res.status(500).json({ err: '内容标识不存在' });
+  }
 
-// app.get('/readme', (req, res) => {
-//   console.log(path.resolve(__dirname, 'demo.md'));
-//   res.sendFile(path.resolve(__dirname, 'demo.md'));
-// });
+  if (compoName && componentAlias[compoName]) {
+    let readmePath = path.join(componentAlias[compoName], 'demos');
+    fs.access(readmePath, (err) => {
+      if (err) {
+        res.json({ err, message: '内容路径不存在' });
+      } else {
+        fs.readdir(readmePath, (err, files) => {
+          if (err) {
+            res.json({ err, message: '寻找文件中发生不可知错误' });
+          } else {
+            let contents = files
+              .filter((file) => {
+                return path.extname(file) == '.md';
+              })
+              .reduce((contents, f) => {
+                const content = fs.readFileSync(path.join(readmePath, f), { encoding: 'utf-8' });
+                const fOrder = parseInt(f.split('_')[1]);
+                if (Number.isNaN(fOrder)) {
+                  contents.unshift(content);
+                } else {
+                  contents.splice(fOrder, 0, content);
+                }
+                return contents;
+              }, []);
+
+            res.status(200).json({ mds: contents });
+          }
+        })
+      }
+    })
+  }
+});
 
 app.listen(port, () => {
   console.log(`server listen on ${port}`);
-  // const alias = createAlias(path.resolve(__dirname, './src'));
-  // console.log(alias);
 })
