@@ -1,6 +1,5 @@
 import React from 'react';
 import MarkdownRender from '../../utils/MarkdownRender';
-import { getCompoName } from '../../utils/addRoute';
 import Affix from '../../../components/affix';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 import axios from 'axios';

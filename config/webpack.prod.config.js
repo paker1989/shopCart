@@ -6,6 +6,9 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackProdConfig = merge(webpackBaseConfig, {
+  mode: 'development',
+  entry: ['webpack-hot-middleware/client.js', './src/index.js'],
+  // entry: ['./src/index.js'],
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle_[hash].js',
@@ -13,6 +16,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
     publicPath: '/'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': '"production"'
     }),

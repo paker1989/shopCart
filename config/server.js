@@ -5,13 +5,19 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const config = require('./webpack.prod.config');
 const createAlias = require('./createAlias');
 
-let devMiddleWare = webpackDevMiddleware(webpack(config), {
+let compiler = webpack(config);
+let devMiddleWare = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 });
+
+let hotMiddleWare = webpackHotMiddleware(compiler, {
+  publicPath: config.output.publicPath
+}); 
 
 const componentAlias = createAlias(path.resolve(__dirname, '../src/components'));
 
@@ -25,6 +31,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('connect-history-api-fallback')());
 
 app.use(devMiddleWare);
+
+app.use(hotMiddleWare);
 
 app.use('/static', express.static('/'));
 

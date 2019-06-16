@@ -46,7 +46,7 @@ class DemoHeader extends React.Component {
     let flatNavData = getFlatNavData(navData);
     let matches = searchContent.trim() === ''? flatNavData
       : flatNavData.filter((item) =>
-          item.title.includes(searchContent.trim()));
+          item.title.toLowerCase().includes(searchContent.trim().toLowerCase()));
     let activeIndex = currentDemoPath === undefined? -1
       : matches.findIndex(data => data.path === currentDemoPath);
 

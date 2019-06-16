@@ -7,3 +7,7 @@ import store from './store';
 import './style/markdown.scss';
 
 ReactDOM.render(<App store={store}/>, document.getElementById('root'));
+
+if (module.hot) {
+  module.hot.accept();
+}

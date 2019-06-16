@@ -47,6 +47,11 @@ module.exports = [
         "title": "数据",
         "items": [
           {
+            "title": "Upload",
+            "subtitle": "文件上传",
+            "path": "upload"
+          },
+          {
             "title": "AutoComplete",
             "subtitle": "自动完成",
             "path": "autocomplete"
