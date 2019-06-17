@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Modal from '../modal';
-import UploadPanel from './UploadPanel';
-import FileInput from './FileInput';
+import UploadPanel from './components/UploadPanel/UploadPanel';
+import FileInput from './components/FileInput';
+
+import './Upload.scss';
 
 class Upload extends React.Component {
   static propTypes = {
@@ -25,13 +27,14 @@ class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showUpload: false
+      visible: false
     };
   }
 
   showUpload = () => {
+    // console.log('show upload');
     this.setState({
-      showUpload: true
+      visible: true
     });
   }
 
@@ -43,10 +46,11 @@ class Upload extends React.Component {
       maxSize,
       withoutModal,
       tips,
+      localOnly,
       children
     } = this.props;
 
-    const { showUpload } = this.state;
+    const { visible } = this.state;
 
     const wrapperClass = cx({
       [`${prefix}-upload-wrapper`]: true,
@@ -56,22 +60,28 @@ class Upload extends React.Component {
       <div className={wrapperClass}>
         {withoutModal ? (
           <UploadPanel
+            prefix={prefix}
             maxAmount={maxAmount}
             maxSize={maxSize}
+            localOnly={localOnly}
           />
         ) : (
           <div className={`${prefix}-upload-modal-container`}>
             {/* to add previews of uploaded files */}
             <span 
-              className={`${prefix}-upload-trigger`}
+              className={`${prefix}-upload-trigger-container`}
               onClick={this.showUpload}>
-              {children || <span>+</span>}
-              <FileInput /> 
+              {children || <span className={`${prefix}-upload-default-trigger`}>+</span>}
             </span>  {/* upload panel trigger */}
             <p className={`${prefix}-upload-tips`}>{tips}</p>
-            {showUpload && (
-              <Modal>
-                <UploadPanel />
+            {visible && (
+              <Modal
+                contentClass={`${prefix}-uploadpanel-layer`}>
+                <UploadPanel
+                  prefix={prefix}
+                  maxAmount={maxAmount}
+                  maxSize={maxSize}
+                  localOnly={localOnly}/>
               </Modal>
             )}
           </div>

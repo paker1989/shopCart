@@ -44,7 +44,6 @@ class Modal extends React.Component {
     }
 
     document.body.removeChild(this.node);
-    
   }
 
   handleCloseOnEsc = (evt) => {
@@ -61,24 +60,31 @@ class Modal extends React.Component {
     if (typeof onClose === 'function') {
       this.props.onClose();
     } else {
+      console.log('remove modal');
+      // ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this));
       document.body.removeChild(this.node);
     }
   }
 
   static defaultLayerStyles = {
     position: 'fixed',
-    width: '100%',
-    height: '100%',
+    overflow: 'auto',
     top: '0',
+    right: '0',
+    bottom: '0',
     left: '0',
-    background: 'rgba(55,55,55,.6)'
+    zIndex: '1050',
+    overflowScrolling: 'touch',
+    outline: '0',
+    textAlign: 'center',
+    fontSize: '0',
+    whiteSpace: 'nowrap'
   }
 
   static defaultContentStyles = {
-    position: 'absolute',
     zIndex: '999',
     minWidth: '400px',
-    minHeight: '200px'
+    minHeight: '200px',
   }
 
   render() {  
@@ -122,18 +128,21 @@ class Modal extends React.Component {
     }
 
     const modalLayer = (
-      <div className={modalLayerProps.className} style={modalLayerProps.style}>
-        {isClose && (
-          <div className="modal-close" onClick={onClose}>
-            <span className="modal-close-icon">
-              <FontAwesomeIcon icon="times-circle" />
-            </span>
+      <React.Fragment>
+        <div className="modal-backdrop"></div>
+        <div className={modalLayerProps.className} style={modalLayerProps.style}>
+          {isClose && (
+            <div className="modal-close" onClick={onClose}>
+              <span className="modal-close-icon">
+                <FontAwesomeIcon icon="times-circle" />
+              </span>
+            </div>
+          )}
+          <div className={modalContentProps.className} style={modalContentProps.style}>
+            {children}
           </div>
-        )}
-        <div className={modalContentProps.className} style={modalContentProps.style}>
-          {children}
-        </div>
-      </div>
+        </div>        
+      </React.Fragment>
     );
     return ReactDOM.createPortal(modalLayer, this.node);
   }

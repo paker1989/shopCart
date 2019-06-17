@@ -1,6 +1,7 @@
 import ColorPicker from '../containers/Picker';
 import AffixDemo from './pages/affix/affixDemo';
 import UploadDemo from './pages/upload/UploadDemo';
+import PreviewImage from './pages/previewImage/PreviewImageDemo';
 import DocLoadable from './DocLoadable';
 
 module.exports = [
@@ -19,5 +20,10 @@ module.exports = [
     name: 'upload',
     path: 'upload',
     source: UploadDemo,
+  },
+  {
+    name: 'previewImage',
+    path: 'previewImage',
+    source: PreviewImage,
   }
 ];
