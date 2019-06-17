@@ -15,13 +15,17 @@ class Upload extends React.Component {
     localOnly: PropTypes.bool,
     maxSize: PropTypes.number,
     maxAmount: PropTypes.number,
-    tips: PropTypes.string,
+    tips: PropTypes.string,   
+    type: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    multiple: PropTypes.bool,
   }
 
   static defaultProps = {
     prefix: 'bxu',
     withoutModal: false,
-    localOnly: false
+    localOnly: false,
+    type: ['image', 'text'],
+    multiple: false
   }
 
   constructor(props) {
@@ -46,6 +50,7 @@ class Upload extends React.Component {
       maxSize,
       withoutModal,
       tips,
+      type,
       localOnly,
       children
     } = this.props;
@@ -60,6 +65,7 @@ class Upload extends React.Component {
       <div className={wrapperClass}>
         {withoutModal ? (
           <UploadPanel
+            type={type}
             prefix={prefix}
             maxAmount={maxAmount}
             maxSize={maxSize}
@@ -76,8 +82,10 @@ class Upload extends React.Component {
             <p className={`${prefix}-upload-tips`}>{tips}</p>
             {visible && (
               <Modal
-                contentClass={`${prefix}-uploadpanel-layer`}>
+                contentClass={`${prefix}-uploadpanel-layer`}
+                onClose={() => { this.setState({ visible: false })}}>
                 <UploadPanel
+                  type={type}
                   prefix={prefix}
                   maxAmount={maxAmount}
                   maxSize={maxSize}

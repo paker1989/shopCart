@@ -13,3 +13,7 @@ export function getAcceptFromArray(array) {
   .join(',');
 }
   
+export function checkTypeIncludes(type, target) {
+  return typeof type === 'string' ? type == target :
+    type.includes(target);
+}

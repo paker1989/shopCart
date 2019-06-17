@@ -58,10 +58,10 @@ class Modal extends React.Component {
     }
     const { onClose } = this.props;
     if (typeof onClose === 'function') {
+      // console.log('on close');
       this.props.onClose();
     } else {
       console.log('remove modal');
-      // ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(this));
       document.body.removeChild(this.node);
     }
   }
