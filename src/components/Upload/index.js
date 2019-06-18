@@ -17,7 +17,6 @@ class Upload extends React.Component {
     maxAmount: PropTypes.number,
     tips: PropTypes.string,   
     type: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-    multiple: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -25,7 +24,7 @@ class Upload extends React.Component {
     withoutModal: false,
     localOnly: false,
     type: ['image', 'text'],
-    multiple: false
+    maxAmount: 0
   }
 
   constructor(props) {
@@ -42,17 +41,18 @@ class Upload extends React.Component {
     });
   }
 
+  onCloseModal = () => {
+    this.setState({ visible: false });
+  }
+
   render() {
     const {
       prefix,
       className,
-      maxAmount,
-      maxSize,
       withoutModal,
       tips,
-      type,
-      localOnly,
-      children
+      children,
+      ...otherProps
     } = this.props;
 
     const { visible } = this.state;
@@ -65,11 +65,8 @@ class Upload extends React.Component {
       <div className={wrapperClass}>
         {withoutModal ? (
           <UploadPanel
-            type={type}
             prefix={prefix}
-            maxAmount={maxAmount}
-            maxSize={maxSize}
-            localOnly={localOnly}
+            {...otherProps}
           />
         ) : (
           <div className={`${prefix}-upload-modal-container`}>
@@ -83,13 +80,11 @@ class Upload extends React.Component {
             {visible && (
               <Modal
                 contentClass={`${prefix}-uploadpanel-layer`}
-                onClose={() => { this.setState({ visible: false })}}>
+                onClose={this.onCloseModal}>
                 <UploadPanel
-                  type={type}
                   prefix={prefix}
-                  maxAmount={maxAmount}
-                  maxSize={maxSize}
-                  localOnly={localOnly}/>
+                  onClose={this.onCloseModal}
+                  {...otherProps}/>
               </Modal>
             )}
           </div>

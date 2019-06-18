@@ -10,10 +10,20 @@ export function getAcceptFromArray(array) {
         return accepts;
     }
   }, [])
-  .join(',');
+  .join(', ');
 }
   
 export function checkTypeIncludes(type, target) {
   return typeof type === 'string' ? type == target :
     type.includes(target);
+}
+
+export function isValidFileType() {
+  return true; // todo
+}
+
+export function isImage(target) {
+  // console.log(target);
+  const imageRexp = new RegExp(/image\/*/, 'i');
+  return imageRexp.test(target.toLowerCase());
 }

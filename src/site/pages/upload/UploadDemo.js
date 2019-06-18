@@ -29,7 +29,7 @@ class UploadDemo extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <Upload />
+        <Upload maxAmount={20}/>
       </React.Fragment>
     );
   }
