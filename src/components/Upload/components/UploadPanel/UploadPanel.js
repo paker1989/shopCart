@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './UploadPanel.scss';
 import FileInput from '../FileInput';
-import { checkTypeIncludes, isImage } from '../../utils/accept'
+import { checkTypeIncludes, isImage, formatSize } from '../../utils/accept'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class UploadPanel extends React.Component {
@@ -25,10 +25,10 @@ class UploadPanel extends React.Component {
       console.log(item.file.type);
       if (isImage(item.file.type)) {
         localImages.splice(localImages.length, 0, item);
-        console.log(localImages);
+        // console.log(localImages);
         this.setState({ localImages });
       } else {
-        localTexts.push(item);
+        localTexts.splice(localTexts.length, 0, item);
         this.setState({ localTexts });
       }
     })
@@ -44,9 +44,6 @@ class UploadPanel extends React.Component {
           } = this.props;
     
     const { localImages, localTexts } = this.state;
-    console.log(localImages);
-    console.log('============');
-    console.log(localTexts);
           
     // show it when localOnly is false and type contains image
     const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
@@ -92,22 +89,34 @@ class UploadPanel extends React.Component {
                 <ul className="local-images-list">
                   {localImages.map(image => (
                     <li>
-                      <div className="loal-image-wrapper" key={image.fk}>
-                        <img src={image.src} alt={image.file.name}/>
+                      <div className="local-image-wrapper"
+                           key={image.fk}
+                           style={{backgroundImage: `url("${image.src}")`}}>
                         <span><FontAwesomeIcon icon="times-circle"/></span>
                       </div>
                     </li>
                   ))}
                 </ul>
-
               )}
             </div>
           </div>
-          <div className={`${prefix}-uploader-row`}>
-            <div className="upload-label">placeholder</div>
-            <div className="upload-body">upload body</div>
-            <div>{}</div>
-          </div>
+          {localTexts.length>0 && (
+            <div className={`${prefix}-uploader-row`}>
+              <div className="upload-label"></div>
+                <ul className="local-text-list">
+                  {localTexts.map(item => (
+                    <li>
+                      <div className="local-file-wraper">
+                        <p className="name-label">{item.file.name}</p>
+                        <p className="size-label">{formatSize(item.file.size)}</p>
+                        <span><FontAwesomeIcon icon="times-circle"/></span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>             
+            </div>
+          )}
+
         </div>
         <div className={`${prefix}-uploader-confirm-container`}>
           <button className={confirmButtonClass}>确 认</button>
