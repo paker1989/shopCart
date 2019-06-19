@@ -3,6 +3,8 @@ export const DEFAULT_ACCEPT = {
     text: 'text/plain, text/html'
 }
 
+export const UID_KEY = 'uid_key';
+
 export function getAcceptFromArray(array) {
   return array.reduce(function(accepts, a) {
     if (DEFAULT_ACCEPT[a]) {

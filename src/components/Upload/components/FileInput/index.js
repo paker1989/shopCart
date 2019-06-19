@@ -5,7 +5,7 @@ import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 
 import Notify from '../../../notify';
-import { DEFAULT_ACCEPT, getAcceptFromArray, isValidFileType, isImage } from '../../utils/accept';
+import { DEFAULT_ACCEPT, getAcceptFromArray, isValidFileType, isImage, UID_KEY } from '../../utils/accept';
 import './FileInput.scss';
 
 class FileInput extends React.PureComponent {
@@ -58,7 +58,7 @@ class FileInput extends React.PureComponent {
           localFiles.push({
             src: e.target.result,
             file,
-            fk: lastImageIndex + index
+            fk: `${UID_KEY}_${lastImageIndex + index}`
           });
         } else {
           localFiles.push({

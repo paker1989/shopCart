@@ -4,8 +4,9 @@ import cx from 'classnames';
 import './UploadPanel.scss';
 import FileInput from '../FileInput';
 import { checkTypeIncludes, isImage } from '../../utils/accept'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class UploadPanel extends React.PureComponent {
+class UploadPanel extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,9 +21,11 @@ class UploadPanel extends React.PureComponent {
     if (!files)
       return;
 
-    files.forEach((item, index) => {
+    files.forEach((item) => {
+      console.log(item.file.type);
       if (isImage(item.file.type)) {
-        localImages = localImages.splice(localImages.length, 0, item);
+        localImages.splice(localImages.length, 0, item);
+        console.log(localImages);
         this.setState({ localImages });
       } else {
         localTexts.push(item);
@@ -74,19 +77,35 @@ class UploadPanel extends React.PureComponent {
           )}
           <div className={`${prefix}-uploader-row`}>
             <div className="upload-label">本地资源:</div>
-            <div className="upload-body upload-icon">
-              <span>+</span>
-              <FileInput
-                lastImageIndex={localImages.length}
-                lastFileIndex={localTexts.length}
-                type={type}
-                maxAmount={maxAmount}
-                maxSize={maxSize}
-                onChange={this.handleFileChange}/>
+            <div className="upload-body">
+              <div className="upload-icon">
+                <span>+</span>
+                <FileInput
+                  lastImageIndex={localImages.length}
+                  lastFileIndex={localTexts.length}
+                  type={type}
+                  maxAmount={maxAmount}
+                  maxSize={maxSize}
+                  onChange={this.handleFileChange}/>
+              </div>
+              {localImages.length > 0 && (
+                <ul className="local-images-list">
+                  {localImages.map(image => (
+                    <li>
+                      <div className="loal-image-wrapper" key={image.fk}>
+                        <img src={image.src} alt={image.file.name}/>
+                        <span><FontAwesomeIcon icon="times-circle"/></span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+              )}
             </div>
           </div>
           <div className={`${prefix}-uploader-row`}>
-            <div className="upload-label"></div>
+            <div className="upload-label">placeholder</div>
+            <div className="upload-body">upload body</div>
             <div>{}</div>
           </div>
         </div>

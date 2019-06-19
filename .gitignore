@@ -6,6 +6,7 @@
 
 package-lock.json
 
+/blog/
 
 npm-debug.log*
 yarn-debug.log*
