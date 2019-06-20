@@ -1,129 +1,160 @@
 import React from 'react';
 import cx from 'classnames';
 
-import './UploadPanel.scss';
 import FileInput from '../FileInput';
-import { checkTypeIncludes, isImage, formatSize } from '../../utils/accept'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Uploaded from '../Uploaded';
+import { checkTypeIncludes, isImage } from '../../utils/accept';
+
+import './UploadPanel.scss';
+
 
 class UploadPanel extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      localImages: [],
-      localTexts: [],
+    constructor(props) {
+        super(props);
+        this.state = {
+            localImages: [],
+            localTexts: [],
+            netWorkImageSrc: '',
+            lastImageIndex: 0,
+            lastFileIndex: 0
+        }
     }
-  }
 
-  handleFileChange = (files) => {
-    let { localImages, localTexts } = this.state;
-    if (!files)
-      return;
+    handleFileChange = (files) => {
+        let { localImages,
+            localTexts,
+            lastFileIndex,
+            lastImageIndex } = this.state;
+        if (!files)
+            return;
 
-    files.forEach((item) => {
-      console.log(item.file.type);
-      if (isImage(item.file.type)) {
-        localImages.splice(localImages.length, 0, item);
-        // console.log(localImages);
-        this.setState({ localImages });
-      } else {
-        localTexts.splice(localTexts.length, 0, item);
-        this.setState({ localTexts });
-      }
-    })
-  }
+        files.forEach((item) => {
+            if (isImage(item.file.type)) {
+                localImages.splice(localImages.length, 0, item);
 
-  render() {
-    const { prefix, 
+                this.setState({
+                    localImages,
+                    lastImageIndex: ++lastImageIndex
+                });
+            } else {
+                localTexts.splice(localTexts.length, 0, item);
+                this.setState({
+                    localTexts,
+                    lastFileIndex: ++lastFileIndex
+                });
+            }
+        })
+    }
+
+    handleNetWorkImage = (e) => {
+        const { value } = e.target;
+        if (value && value.trim().length > 0) {
+            this.setState({ netWorkImageSrc: value });
+        }
+    }
+
+    retrievenwImage = () => {
+        const { netWorkImageSrc } = this.state;
+        const { onClose } = this.props;
+
+        if (netWorkImageSrc.length > 0) {
+            onClose && onClose();
+        }
+    }
+
+    deleteUploaded = (fk, sourceType) => {
+        const { localImages, localTexts } = this.state;
+
+        switch (sourceType) {
+            case '_TEXT_':
+                localTexts.splice(localTexts.findIndex((item) => {
+                    return item.fk === fk;
+                }), 1);
+                this.setState({ localTexts });
+                break;
+            case '_IMAGE_':
+                localImages.splice(localImages.findIndex((item) => {
+                    return item.fk === fk;
+                }), 1);
+                this.setState({ localTexts });
+                break;
+            default:
+                break;
+        }
+    }
+
+    render() {
+        const { prefix,
             maxAmount,
             maxSize,
             type,
             localOnly,
             onClose,
-          } = this.props;
-    
-    const { localImages, localTexts } = this.state;
-          
-    // show it when localOnly is false and type contains image
-    const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
-    const isConfirmValid = true;
-    const confirmButtonClass = cx({
-      [`${prefix}-confirm`]: true,
-      ['is-valid']: isConfirmValid
-    });
+        } = this.props;
 
-    return (
-      <React.Fragment>
-        <div className={`${prefix}-uploader-head-container`}>
-          <span className="head-title">资源选择</span>
-          <span className="head-close-button"
-                onClick={onClose}>×</span>
-        </div>
-        <div className={`${prefix}-uploader-content-container`}>
-          {isShowNetwork && (
-          <div className={`${prefix}-uploader-row`}>
-            <div className="upload-label">网络图片:</div>
-            <div className="upload-body upload-network-image-wraper">
-              <input 
-                type="text"
-                placeholder="请添加网络图片地址"/>
-              <button>提取</button>
-            </div>
-          </div>
-          )}
-          <div className={`${prefix}-uploader-row`}>
-            <div className="upload-label">本地资源:</div>
-            <div className="upload-body">
-              <div className="upload-icon">
-                <span>+</span>
-                <FileInput
-                  lastImageIndex={localImages.length}
-                  lastFileIndex={localTexts.length}
-                  type={type}
-                  maxAmount={maxAmount}
-                  maxSize={maxSize}
-                  onChange={this.handleFileChange}/>
-              </div>
-              {localImages.length > 0 && (
-                <ul className="local-images-list">
-                  {localImages.map(image => (
-                    <li>
-                      <div className="local-image-wrapper"
-                           key={image.fk}
-                           style={{backgroundImage: `url("${image.src}")`}}>
-                        <span><FontAwesomeIcon icon="times-circle"/></span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-          {localTexts.length>0 && (
-            <div className={`${prefix}-uploader-row`}>
-              <div className="upload-label"></div>
-                <ul className="local-text-list">
-                  {localTexts.map(item => (
-                    <li>
-                      <div className="local-file-wraper">
-                        <p className="name-label">{item.file.name}</p>
-                        <p className="size-label">{formatSize(item.file.size)}</p>
-                        <span><FontAwesomeIcon icon="times-circle"/></span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>             
-            </div>
-          )}
+        const { localImages,
+            localTexts,
+            lastImageIndex,
+            lastFileIndex } = this.state;
 
-        </div>
-        <div className={`${prefix}-uploader-confirm-container`}>
-          <button className={confirmButtonClass}>确 认</button>
-        </div>
-      </React.Fragment>
-    );
-  }
+        // show it when localOnly is false and type contains image
+        const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
+        const isConfirmValid = true;
+        const confirmButtonClass = cx({
+            [`${prefix}-confirm`]: true,
+            ['is-valid']: isConfirmValid
+        });
+
+        return (
+            <React.Fragment>
+                <div className={`${prefix}-uploader-head-container`}>
+                    <span className="head-title">资源选择</span>
+                    <span className="head-close-button"
+                        onClick={onClose}>×</span>
+                </div>
+                <div className={`${prefix}-uploader-content-container`}>
+                    {isShowNetwork && (
+                        <div className={`${prefix}-uploader-row`}>
+                            <div className="upload-label">网络图片:</div>
+                            <div className="upload-body upload-network-image-wraper">
+                                <input
+                                    type="text"
+                                    placeholder="请添加网络图片地址"
+                                    onChange={this.handleNetWorkImage} />
+                                <button onClick={this.retrievenwImage}>提取</button>
+                            </div>
+                        </div>
+                    )}
+                    <div className={`${prefix}-uploader-row`}>
+                        <div className="upload-label">本地资源:</div>
+                        <div className="upload-body">
+                            <div className="upload-icon">
+                                <span>+</span>
+                                <FileInput
+                                    lastImageIndex={lastImageIndex}
+                                    lastFileIndex={lastFileIndex}
+                                    type={type}
+                                    maxAmount={maxAmount}
+                                    maxSize={maxSize}
+                                    onChange={this.handleFileChange} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${prefix}-uploader-row`}>
+                        <div className="upload-label">已选择资源:</div>
+                        <Uploaded images={localImages}
+                            texts={localTexts}
+                            showDelete={true}
+                            onDelete={this.deleteUploaded} />
+                    </div>
+                </div>
+                <div className={`${prefix}-uploader-confirm-container`}>
+                    <button className={confirmButtonClass}>确 认</button>
+                </div>
+            </React.Fragment>
+        );
+    }
 }
 
 export default UploadPanel;

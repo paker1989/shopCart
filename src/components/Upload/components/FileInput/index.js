@@ -15,11 +15,10 @@ class FileInput extends React.PureComponent {
   }
 
   processFiles = (evt) => {
-    // console.log(evt.target.files);
     if (!evt.target.files || evt.target.files.length === 0)
       return;
 
-    const { maxAmount, maxSize } = this.props;
+    const { maxAmount } = this.props;
 
     let files = toArray(evt.target.files);
     if (maxAmount && maxAmount < files.length) {
@@ -29,7 +28,7 @@ class FileInput extends React.PureComponent {
 
     const images = files.filter(file => isImage(file.type));
     const texts = files.filter(file => isImage(file.type) === false);
-    
+
     this.iterator(images);
     this.iterator(texts);
   }
@@ -48,10 +47,10 @@ class FileInput extends React.PureComponent {
 
   addFile = (file, index) => {
     const { onChange, lastImageIndex, lastFileIndex } = this.props;
-    const localFiles = []; 
+    const localFiles = [];
 
     if (isValidFileType(file) && isFunction(onChange)) {
-      let isImageType = isImage(file.type); 
+      let isImageType = isImage(file.type);
       let fileReader = new FileReader();
       fileReader.onload = e => {
         if (isImageType) {
@@ -64,8 +63,8 @@ class FileInput extends React.PureComponent {
           localFiles.push({
             data: e.target.result,
             file,
-            fk: lastFileIndex + index
-          });          
+            fk: `${UID_KEY}_${lastFileIndex + index}`
+          });
         }
         onChange(localFiles);
       };
@@ -81,7 +80,7 @@ class FileInput extends React.PureComponent {
   }
 
   render() {
-    const { type, maxSize, maxAmount, onChange } = this.props;
+    const { type, maxAmount } = this.props;
     const accept = isArray(type) ? getAcceptFromArray(type) : DEFAULT_ACCEPT[type];
 
     return (
@@ -90,7 +89,7 @@ class FileInput extends React.PureComponent {
         type="file"
         accept={accept}
         multiple={maxAmount !== 0}
-        onChange={this.processFiles}/>
+        onChange={this.processFiles} />
     );
   }
 }
