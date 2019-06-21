@@ -5,9 +5,6 @@ import cx from 'classnames';
 import Modal from '../modal';
 import UploadPanel from './components/UploadPanel/UploadPanel';
 import FileInput from './components/FileInput';
-import Uploaded from './components/Uploaded';
-
-// import { CSSTransition } from 'react-transition-group';
 
 import './Upload.scss';
 
@@ -80,18 +77,7 @@ class Upload extends React.Component {
                                 {children || <span className={`${prefix}-upload-default-trigger`}>+</span>}
                             </span>  {/* upload panel trigger */}
                             <p className={`${prefix}-upload-tips`}>{tips}</p>
-                            {visible && (
-                                <Modal
-                                    visible={visible}
-                                    contentClass={`${prefix}-uploadpanel-layer`}
-                                    onClose={this.onCloseModal}>
-                                    <UploadPanel
-                                        prefix={prefix}
-                                        onClose={this.onCloseModal}
-                                        {...otherProps} />
-                                </Modal>
-                            )}
-                            {/* <Modal
+                            <Modal
                                 visible={visible}
                                 contentClass={`${prefix}-uploadpanel-layer`}
                                 onClose={this.onCloseModal}>
@@ -99,7 +85,7 @@ class Upload extends React.Component {
                                     prefix={prefix}
                                     onClose={this.onCloseModal}
                                     {...otherProps} />
-                            </Modal> */}
+                            </Modal>
                         </div>
                     )}
             </div>

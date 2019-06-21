@@ -60,7 +60,6 @@ class Modal extends React.Component {
         }
         const { onClose } = this.props;
         if (typeof onClose === 'function') {
-            // console.log('on close');
             this.props.onClose();
         } else {
             console.log('remove modal');
@@ -108,6 +107,8 @@ class Modal extends React.Component {
             visible
         } = this.props;
 
+        // console.log(visible);
+
         if (contentStyle) {
             modalContentProps.style = Object.assign(modalContentProps.style, contentStyle);
         }
@@ -133,29 +134,31 @@ class Modal extends React.Component {
         const modalLayer = (
             <React.Fragment>
                 <div className="modal-backdrop"></div>
-                <CSSTransition
-                    timeout={30000}
-                    in={true}
-                    appear
-                    classNames="bxu-zoom"
-                    onExited={onClose}
-                    unmountOnExit>
-                    <div className={modalLayerProps.className} style={modalLayerProps.style}>
-                        {isClose && (
-                            <div className="modal-close" onClick={onClose}>
-                                <span className="modal-close-icon">
-                                    <FontAwesomeIcon icon="times-circle" />
-                                </span>
-                            </div>
-                        )}
-                        <div className={modalContentProps.className} style={modalContentProps.style}>
-                            {children}
+                <div className={modalLayerProps.className} style={modalLayerProps.style}>
+                    {isClose && (
+                        <div className="modal-close" onClick={onClose}>
+                            <span className="modal-close-icon">
+                                <FontAwesomeIcon icon="times-circle" />
+                            </span>
                         </div>
+                    )}
+                    <CSSTransition
+                        timeout={8000}
+                        in={visible}
+                        appear
+                        mountOnEnter
+                        classNames="bxu-zoom"
+                        onExited={onClose}
+                        unmountOnExit>
+                    <div className={modalContentProps.className} style={modalContentProps.style}>
+                        {children}
                     </div>
-                </CSSTransition>
-            </React.Fragment>
+                        </CSSTransition>
+                    </div>
+  
+            </React.Fragment >
         );
-        return ReactDOM.createPortal(modalLayer, this.node);
+        return visible ? ReactDOM.createPortal(modalLayer, this.node) : null;
     }
 }
 

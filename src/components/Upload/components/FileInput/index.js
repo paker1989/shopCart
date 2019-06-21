@@ -15,19 +15,24 @@ class FileInput extends React.PureComponent {
   }
 
   processFiles = (evt) => {
+    console.log('process files');
+
     if (!evt.target.files || evt.target.files.length === 0)
       return;
 
     const { maxAmount } = this.props;
+    const files = evt.target.files;
+    let filesArray = toArray(files);
 
-    let files = toArray(evt.target.files);
-    if (maxAmount && maxAmount < files.length) {
+    evt.target.value = null;
+
+    if (maxAmount && maxAmount < filesArray.length) {
       Notify.error(`文件数量超出限制，最大文件数量为${maxAmount}`, 2000);
       return;
     }
 
-    const images = files.filter(file => isImage(file.type));
-    const texts = files.filter(file => isImage(file.type) === false);
+    const images = filesArray.filter(file => isImage(file.type));
+    const texts = filesArray.filter(file => isImage(file.type) === false);
 
     this.iterator(images);
     this.iterator(texts);
@@ -72,7 +77,13 @@ class FileInput extends React.PureComponent {
       if (isImageType) {
         fileReader.readAsDataURL(file);
       } else {
-        fileReader.readAsArrayBuffer(file);
+        console.log(file.size);
+        if (file.size > 1024 * 1024 * 1024) {
+          fileReader.readAsArrayBuffer(file.slice(0, 1024 * 1024));
+          console.log('read as array buffer');
+        } else {
+          fileReader.readAsText(file);
+        }
       }
     } else {
       Notify.error('请在Upload组件上添加onChange函数');

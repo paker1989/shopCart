@@ -144,6 +144,8 @@ $local-image-size: 70px;
             color: #bbb;
             border: 1px solid #bbb;
             padding: 8px 20px;
+            outline: none;
+            
             &.is-valid {
                 color: #fff;
                 background: #38f;

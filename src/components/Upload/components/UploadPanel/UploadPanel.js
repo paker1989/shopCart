@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import isFunction from 'lodash/isFunction';
 
 import FileInput from '../FileInput';
 import Uploaded from '../Uploaded';
@@ -17,7 +18,8 @@ class UploadPanel extends React.Component {
             localTexts: [],
             netWorkImageSrc: '',
             lastImageIndex: 0,
-            lastFileIndex: 0
+            lastFileIndex: 0,
+            errorMessage: ''
         }
     }
 
@@ -84,6 +86,50 @@ class UploadPanel extends React.Component {
         }
     }
 
+    /**
+     * handle upload
+     */
+    handleUpload = () => {
+        const { onClose, exeUpload } = this.props;
+        let { localImages, localTexts } = this.state;
+
+        if (!exeUpload || !isFunction(exeUpload)) {
+            console.warn('exeUpload method is missing');
+            onClose();
+            return;
+        }
+
+        const handleError = (res) => {
+          this.setState({
+              errorMessage: res
+          });
+        }
+
+        console.log(localImages);
+        console.log(localTexts);
+
+        const res = exeUpload({
+            images: localImages,
+            files: localTexts
+        });
+
+        if (res && isFunction(res.then)) {
+            res.then(onClose, handleError);
+        } else {
+            onClose();
+        }
+
+        // let result = exeUpload()
+
+        // this.setState({
+        //   localImages: [],   
+        // }, () => {
+        //     setTimeout(() => {
+        //         onClose();
+        //     }, 2000);
+        // })
+    }
+
     render() {
         const { prefix,
             maxAmount,
@@ -100,7 +146,7 @@ class UploadPanel extends React.Component {
 
         // show it when localOnly is false and type contains image
         const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
-        const isConfirmValid = true;
+        const isConfirmValid = localImages.length > 0 || localTexts.length > 0;
         const confirmButtonClass = cx({
             [`${prefix}-confirm`]: true,
             ['is-valid']: isConfirmValid
@@ -150,7 +196,8 @@ class UploadPanel extends React.Component {
                     </div>
                 </div>
                 <div className={`${prefix}-uploader-confirm-container`}>
-                    <button className={confirmButtonClass}>确 认</button>
+                    <button className={confirmButtonClass}
+                        onClick={this.handleUpload}>确 认</button>
                 </div>
             </React.Fragment>
         );

@@ -53,3 +53,38 @@ export function formatSize(rawSizeBytes, toFixed) {
             return rawSizeBytes.toFixed(toFixed) + ' B';
     }
 }
+
+// document.getElementById('get-time').onclick = function () {
+//     let file = document.getElementById('file').files[0];
+//     let fr = new FileReader();
+//     let CHUNK_SIZE = 10 * 1024;
+//     let startTime, endTime;
+//     let reverse = false;
+//     fr.onload = function () {
+//         let buffer = new Uint8Array(fr.result);
+//         let timeReg = /\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/;
+//         for (let i = reverse ? buffer.length - 1 : 0; reverse ? i > -1 : i < buffer.length; reverse ? i-- : i++) {
+//             if (buffer[i] === 10) {
+//                 let snippet = new TextDecoder('utf-8').decode(buffer.slice(i + 1, i + 20));
+//                 if (timeReg.exec(snippet)) {
+//                     if (!reverse) {
+//                         startTime = snippet;
+//                         reverse = true;
+//                         seek();
+//                     } else {
+//                         endTime = snippet;
+//                         alert(`Log time range: ${startTime} ~ ${endTime}`);
+//                     }
+//                     break;
+//                 }
+//             }
+//         }
+//     }
+//     seek();
+//     function seek() {
+//         let start = reverse ? file.size - CHUNK_SIZE : 0;
+//         let end = reverse ? file.size : CHUNK_SIZE;
+//         let slice = file.slice(start, end);
+//         fr.readAsArrayBuffer(slice);
+//     }
+// }
