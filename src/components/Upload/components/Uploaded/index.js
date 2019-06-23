@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import './Uploaded.scss';
-import { formatSize } from '../../utils/accept'
+import { formatSize } from '../../utils/accept';
+import { initSortable } from '../../utils/sortable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Uploaded extends React.Component {
@@ -13,6 +15,14 @@ class Uploaded extends React.Component {
     if ((showDelete && !onDelete) || (!showDelete && onDelete)) {
         throw new Error('show delete and onDelete props are both required.');
     }
+
+    this.imageRef = React.createRef();
+    this.textRef = React.createRef();
+  }
+
+  componentDidMount() {
+    initSortable(ReactDOM.findDOMNode(this.imageRef.current));
+    initSortable(ReactDOM.findDOMNode(this.textRef.current));
   }
 
   render() {
@@ -25,8 +35,8 @@ class Uploaded extends React.Component {
 
     return (
       <div className="uploaded-result-container">
-        {(images && images.length > 0) && (
-            <ul className="local-images-list">
+        {/* {(images && images.length > 0) && ( */}
+            <ul className="local-images-list" ref={this.imageRef}>
                 {images.map(image => (
                 <li key={image.fk}>
                     <div className="local-image-wrapper"               
@@ -39,9 +49,9 @@ class Uploaded extends React.Component {
                 </li>
                 ))}
             </ul>
-        )}
-        {(texts && texts.length > 0) && (
-            <ul className="local-text-list">
+        {/* )} */}
+        {/* {(texts && texts.length > 0) && ( */}
+            <ul className="local-text-list" ref={this.textRef}>
                 {texts.map(item => (
                 <li key={item.fk}>
                     <div className="local-file-wraper">
@@ -55,7 +65,7 @@ class Uploaded extends React.Component {
                 </li>
                 ))}
             </ul>  
-        )}   
+        {/* )}    */}
       </div>
     );
   }

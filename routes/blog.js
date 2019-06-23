@@ -1,29 +1,30 @@
 const express = require('express')
 const fs = require('fs');
-// const upload = require('./multerConfig')
-// const Note = require('../model/note')
-// const Photo = require('../model/photo')
-// const url = require('url')
-// const _ = require('lodash')
+const path = require('path');
 
 const router = express.Router();
+const _BLOG_LOCAL_CONFIG = require('../blog/env.config');
 
-const saveBlog = (req, res) => {
-    const body = req.body;
-    console.log(body);
-    const { data } = req.body.data;
-    
-    fs.writeFile('test.md', data, {
-        encoding: 'utf-8'
-    }, function (err, data) {
-        res.send({
-            message: 'OK',
-            data
+const handleError = (req, res, err) => {
+    // to do
+}
+
+const saveSimpleBlog = (req, res) => {
+    const { fileName, content } = req.body;
+
+    fs.writeFile(path.join(__dirname, '../blog',
+        _BLOG_LOCAL_CONFIG._ROOT_DIR, fileName), content, function (err) {
+            if (err) {
+                return handleError(req, res, err);
+            }
+
+            res.send({
+                message: 'OK',
+            });
         })
-    })
 
 }
 
-router.post('/saveBlog', saveBlog);
+router.post('/saveSimpleBlog', saveSimpleBlog);
 
 module.exports = router;

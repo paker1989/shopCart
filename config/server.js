@@ -43,8 +43,8 @@ app.use('/static', express.static('/'));
 
 const port = 1218;
 
-console.log(demoRoutes);
-console.log(blogRoutes);
+// console.log(demoRoutes);
+// console.log(blogRoutes);
 
 app.use('/demo', demoRoutes);
 app.use('/blog', blogRoutes);

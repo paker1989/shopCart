@@ -1,6 +1,6 @@
-const _KB_LIMIT = 1024;
-const _MB_LIMIT = 1024 * _KB_LIMIT;
-const _GB_LIMIT = 1024 * _MB_LIMIT;
+export const _KB_LIMIT = 1024;
+export const _MB_LIMIT = 1024 * _KB_LIMIT;
+export const _GB_LIMIT = 1024 * _MB_LIMIT;
 
 
 export const DEFAULT_ACCEPT = {

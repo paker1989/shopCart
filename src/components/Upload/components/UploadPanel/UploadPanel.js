@@ -19,7 +19,8 @@ class UploadPanel extends React.Component {
             netWorkImageSrc: '',
             lastImageIndex: 0,
             lastFileIndex: 0,
-            errorMessage: ''
+            errorMessage: '',
+            uploading: false
         }
     }
 
@@ -100,34 +101,26 @@ class UploadPanel extends React.Component {
         }
 
         const handleError = (res) => {
-          this.setState({
-              errorMessage: res
-          });
+            this.setState({
+                errorMessage: res
+            });
         }
 
-        console.log(localImages);
-        console.log(localTexts);
-
-        const res = exeUpload({
-            images: localImages,
-            files: localTexts
-        });
-
-        if (res && isFunction(res.then)) {
-            res.then(onClose, handleError);
-        } else {
-            onClose();
+        const continuation = () => {
+            const res = exeUpload({
+                images: localImages,
+                texts: localTexts
+            });
+            if (res && isFunction(res.then)) {
+                res.then(onClose, handleError);
+            } else {
+                onClose();
+            }
         }
 
-        // let result = exeUpload()
-
-        // this.setState({
-        //   localImages: [],   
-        // }, () => {
-        //     setTimeout(() => {
-        //         onClose();
-        //     }, 2000);
-        // })
+        this.setState({
+            uploading: true
+        }, continuation);
     }
 
     render() {
@@ -142,14 +135,16 @@ class UploadPanel extends React.Component {
         const { localImages,
             localTexts,
             lastImageIndex,
-            lastFileIndex } = this.state;
+            lastFileIndex,
+            uploading
+        } = this.state;
 
         // show it when localOnly is false and type contains image
         const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
         const isConfirmValid = localImages.length > 0 || localTexts.length > 0;
         const confirmButtonClass = cx({
             [`${prefix}-confirm`]: true,
-            ['is-valid']: isConfirmValid
+            ['is-valid']: isConfirmValid,
         });
 
         return (
