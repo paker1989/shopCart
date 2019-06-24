@@ -1,16 +1,9 @@
 
 ## Upload 上传文件
-上传文件和图片。可以选择从本地选择或者从网络提取图片
+上传文件和图片。可以选择从本地选择或者从网络提取图片.
 
 ### API
 
-        prefix: PropTypes.string,
-        withoutModal: PropTypes.bool, // 直接渲染，不通过popup
-        localOnly: PropTypes.bool,
-        maxSize: PropTypes.number,
-        maxAmount: PropTypes.number,
-        tips: PropTypes.string,
-        type: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|

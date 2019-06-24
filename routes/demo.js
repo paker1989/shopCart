@@ -3,15 +3,14 @@ const router = express.Router();
 const path = require('path');
 const fs = require('fs');
 
+const _IGNORE_TAG_REGEXR = new RegExp(/^\s*<!--\s*ignore\s*-->/, 'i');
+
 module.exports = function (componentAlias) {
     /**
   * return markdown README.md file accordingly
   */
     const getDemoComponent = (req, res) => {
         const compoName = req.params.compoName;
-
-        console.log('compoName = ' + compoName);
-        console.log(componentAlias);
 
         if (!compoName) {
             res.status(500).json({ err: '内容标识不存在' });
@@ -33,6 +32,10 @@ module.exports = function (componentAlias) {
                                 })
                                 .reduce((contents, f) => {
                                     const content = fs.readFileSync(path.join(readmePath, f), { encoding: 'utf-8' });
+                                    if (_IGNORE_TAG_REGEXR.test(content)) { // if ignore flag, then ignore
+                                        return contents;
+                                    }
+
                                     const fOrder = parseInt(f.split('_')[1]);
                                     if (Number.isNaN(fOrder)) {
                                         contents.unshift(content);
