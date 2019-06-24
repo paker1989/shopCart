@@ -10,6 +10,7 @@ import Product from '../product';
 import ShelfHeader from './shelfHeader';
 import Spinner from '../spinner';
 
+
 /**
  * composed with filter at left, product container at right, product container
  * composed with shelf header above and products 

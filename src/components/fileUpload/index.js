@@ -8,6 +8,7 @@ import FileInput from './components/FileInput';
 
 import './Upload.scss';
 
+
 class Upload extends React.Component {
     static propTypes = {
         prefix: PropTypes.string,

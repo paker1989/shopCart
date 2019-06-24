@@ -1,6 +1,6 @@
 import ColorPicker from '../containers/Picker';
 import AffixDemo from './pages/affix/affixDemo';
-import UploadDemo from './pages/upload/UploadDemo';
+import UploadDemo from './pages/fileUpload/UploadDemo';
 import PreviewImage from './pages/previewImage/PreviewImageDemo';
 import DocLoadable from './DocLoadable';
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import MarkdownRender from '../../utils/MarkdownRender';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 
-import Upload from '../../../components/Upload';
+import Upload from '../../../components/fileUpload';
 
 const md_democode =
     `

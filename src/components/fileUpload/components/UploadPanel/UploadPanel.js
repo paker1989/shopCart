@@ -153,6 +153,7 @@ class UploadPanel extends React.Component {
             localTexts,
             lastImageIndex,
             lastFileIndex,
+            uploading,
         } = this.state;
 
         // show it when localOnly is false and type contains image
@@ -161,7 +162,9 @@ class UploadPanel extends React.Component {
         const confirmButtonClass = cx({
             [`${prefix}-confirm`]: true,
             ['is-valid']: isConfirmValid,
+            ['is-uploading']: uploading,
         });
+        
 
         return (
             <React.Fragment>
