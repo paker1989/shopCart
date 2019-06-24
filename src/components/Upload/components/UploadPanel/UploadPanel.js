@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 
 import FileInput from '../FileInput';
 import Uploaded from '../Uploaded';
-import { checkTypeIncludes, isImage } from '../../utils/accept';
+import { checkTypeIncludes, isImage, swapInArray } from '../../utils/util';
 
 import './UploadPanel.scss';
 
@@ -94,6 +94,8 @@ class UploadPanel extends React.Component {
         const { onClose, exeUpload } = this.props;
         let { localImages, localTexts } = this.state;
 
+        // console.log(localTexts);
+
         if (!exeUpload || !isFunction(exeUpload)) {
             console.warn('exeUpload method is missing');
             onClose();
@@ -123,6 +125,21 @@ class UploadPanel extends React.Component {
         }, continuation);
     }
 
+    handleSwap = (oldIndex, newIndex, isSwapImage) => {
+        let { localImages, localTexts } = this.state;
+
+        if (isSwapImage) {
+            localImages = swapInArray(oldIndex, newIndex, localImages);
+        } else {
+            localTexts = swapInArray(oldIndex, newIndex, localTexts);
+        }
+
+        this.setState({
+            localImages,
+            localTexts
+        })
+    }
+
     render() {
         const { prefix,
             maxAmount,
@@ -136,7 +153,6 @@ class UploadPanel extends React.Component {
             localTexts,
             lastImageIndex,
             lastFileIndex,
-            uploading
         } = this.state;
 
         // show it when localOnly is false and type contains image
@@ -187,7 +203,8 @@ class UploadPanel extends React.Component {
                         <Uploaded images={localImages}
                             texts={localTexts}
                             showDelete={true}
-                            onDelete={this.deleteUploaded} />
+                            onDelete={this.deleteUploaded}
+                            swapFiles={this.handleSwap} />
                     </div>
                 </div>
                 <div className={`${prefix}-uploader-confirm-container`}>

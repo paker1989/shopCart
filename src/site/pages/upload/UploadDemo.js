@@ -1,11 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 
+import MarkdownRender from '../../utils/MarkdownRender';
+import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
+
 import Upload from '../../../components/Upload';
 
+const md_democode =
+    `
+    <div style={{ margin: '20px' }}>
+        <Upload maxAmount={5} exeUpload={this.handleUpload} />
+    </div>
+  `
 class UploadDemo extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.state = {
+            mdDescription: '',
+        }
     }
 
     /**
@@ -15,6 +27,8 @@ class UploadDemo extends React.PureComponent {
         if (texts.length === 0)
             return;
 
+        // console.log(texts);
+
         const toPickData = texts[0];
 
         let data = {
@@ -23,24 +37,57 @@ class UploadDemo extends React.PureComponent {
         };
         return new Promise((resolve, reject) => {
             axios
-            .post('/blog/saveSimpleBlog', data)
-            .then((res) => {
-                setTimeout(() => {
-                    resolve();
-                }, 2000);
-            });
+                .post('/blog/saveSimpleBlog', data)
+                .then((res) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, 2000);
+                });
         });
     }
 
+    componentDidMount() {
+        const { match } = this.props;
+
+        console.log(match.path);
+        axios
+            .post(match.path)
+            .then((res) => {
+                console.log(res);
+                const { err, mds } = res.data;
+                if (err) {
+                    console.log(err.message); // to handle
+                } else {
+                    this.setState({ mdDescription: mds });
+                };
+            })
+            .catch((err) => {
+                console.log('something is going wrong!!');
+                console.log(err);
+            })
+    }
+
+
     render() {
+        // return (
+        //     <React.Fragment>
+        //         <div style={{ margin: '20px' }}>
+        //             <Upload maxAmount={5} exeUpload={this.handleUpload} />
+        //         </div>
+        //         <div style={{ margin: '20px' }}>
+        //             <Upload maxAmount={20} withoutModal={true} />
+        //         </div>
+        //     </React.Fragment>
+        // );
+        const { mdDescription } = this.state;
         return (
             <React.Fragment>
-                <div style={{ margin: '20px' }}>
-                    <Upload maxAmount={5} exeUpload={this.handleUpload} />
-                </div>
-                {/* <div style={{ margin: '20px' }}>
-                    <Upload maxAmount={20} withoutModal={true} />
-                </div> */}
+                <MarkdownRender source={mdDescription} />
+                <DemoCodeRender source={md_democode} title="设置最多上传数量以及上传方法">
+                    <div style={{ margin: '20px' }}>
+                        <Upload maxAmount={5} exeUpload={this.handleUpload} />
+                    </div>
+                </DemoCodeRender>
             </React.Fragment>
         );
     }

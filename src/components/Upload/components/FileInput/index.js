@@ -1,17 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import toArray from 'lodash/toArray';
 import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 
 import Notify from '../../../notify';
-import { DEFAULT_ACCEPT,
-   getAcceptFromArray,
-    isValidFileType, 
-    isImage,
-    _GB_LIMIT,
-     UID_KEY
-     } from '../../utils/accept';
+import {
+  DEFAULT_ACCEPT,
+  getAcceptFromArray,
+  isValidFileType,
+  isImage,
+  _GB_LIMIT,
+  UID_KEY
+} from '../../utils/util';
 import './FileInput.scss';
 
 class FileInput extends React.PureComponent {
@@ -81,7 +81,7 @@ class FileInput extends React.PureComponent {
       if (isImageType) {
         fileReader.readAsDataURL(file);
       } else {
-        console.log(file.size);
+        // console.log(file.size);
         if (file.size > _GB_LIMIT) {
           fileReader.readAsArrayBuffer(file.slice(0, 1024 * 1024));
           console.log('read as array buffer');

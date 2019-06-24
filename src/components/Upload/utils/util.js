@@ -54,6 +54,18 @@ export function formatSize(rawSizeBytes, toFixed) {
     }
 }
 
+export function swapInArray(oldIndex, newIndex, array) {
+    if (!array || !array.length)
+        return;
+
+    let temp = array[oldIndex];
+
+    array[oldIndex] = array[newIndex];
+    array[newIndex] = temp;
+
+    return array;
+}
+
 // document.getElementById('get-time').onclick = function () {
 //     let file = document.getElementById('file').files[0];
 //     let fr = new FileReader();

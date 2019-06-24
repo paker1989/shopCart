@@ -27,9 +27,9 @@ class DemoCodeRender extends React.Component {
     
     return (
       <div className="demo-code-render_container" ref={this.ref}>
-        {!!children && 
+        {/* {!!children && 
           <div>this is children: {children}</div>
-        } 
+        }  */}
         <div className="demo-code_title" onClick={this.toggleCode}>
           <span>{title}</span>
         </div>

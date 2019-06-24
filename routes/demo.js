@@ -10,6 +10,9 @@ module.exports = function (componentAlias) {
     const getDemoComponent = (req, res) => {
         const compoName = req.params.compoName;
 
+        console.log('compoName = ' + compoName);
+        console.log(componentAlias);
+
         if (!compoName) {
             res.status(500).json({ err: '内容标识不存在' });
         }
