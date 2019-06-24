@@ -7,6 +7,7 @@ export function initSortable(el, onMove) {
 		onStart() {
 			initState = sortable.toArray();
 		  },
+		  
 		onEnd(evt) {
 			sortable.sort(initState);
 			onMove && onMove(evt);
