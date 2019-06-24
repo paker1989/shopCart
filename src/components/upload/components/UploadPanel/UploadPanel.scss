@@ -1,0 +1,163 @@
+$upload-label-width: 100px;
+$local-image-size: 70px;
+
+.bxu-uploadpanel-layer {
+    position: relative;
+    display: inline-block;
+    background: #fff;
+    padding: 20px;
+    vertical-align: middle;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    font-size: 14px;
+    color: #666;
+
+    @media screen and (max-width: 780px) {
+        width: 100%;
+    }
+
+    @media screen and (min-width: 781px) {
+        width: 780px;
+    }
+
+    & .bxu-uploader-head-container {
+        height: 35px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #e5e5e5;
+        margin-bottom: 20px;
+
+        & .head-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        & .head-close-button {
+            font-weight: 600;
+            color: #999;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+
+    & .bxu-uploader-content-container {
+      position: relative;
+      height: 480px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+        & .bxu-uploader-row {
+            position: relative;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            box-sizing: border-box;
+
+            &:not(:last-child) {
+                margin-bottom: 40px;
+            }
+
+            & > * {
+                line-height: 60px;
+            }
+        
+            & .upload-label {
+                flex-shrink: 0;
+                width: $upload-label-width;
+                font-weight: 700;
+            }
+
+            & .upload-body {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;    
+                flex-wrap: nowrap;
+            }
+
+            & .upload-network-image-wraper {
+                position: relative;
+                flex-grow: 1;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                & input[type="text"] {
+                    flex: 2 1 0;
+                    font-size: 13px;
+                    flex-grow: 1;
+                    outline: none;
+                    height: 30px;
+                    line-height: 30px;
+                    min-width: 80px;
+                    border-radius: 2px;
+                    border: 1px solid #bbb;
+                    padding: 0px 0 0px 10px;
+                    &:focus {
+                        border: 1px solid #38f;
+                    }
+                }
+
+                & button {
+                    border: 1px solid #38f;
+                    color: #38f;
+                    border-radius: 2px;
+                    padding: 6px 16px;
+                    font-size: 12px;
+                    margin-left: 10px;
+                    cursor: pointer;
+                    outline: none;
+                    background: #fff;
+                }
+            }
+        }
+
+        & .upload-icon {
+            position: relative;
+            display: inline-block;
+            border: 2px dashed #e5e5e5;
+            width: $local-image-size;
+            height: $local-image-size;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+
+            & span {
+                position: absolute;
+                transform: translate(-50%, -50%);
+                font-size: 40px;
+                font-weight: 500;
+                top: 50%;
+                left: 50%;
+                color: #e5e5e5;
+            }
+
+        }
+    }
+
+    & .bxu-uploader-confirm-container {
+        position: relative;
+        text-align: center;
+
+        & .bxu-confirm {
+            background: #fff;
+            border-radius: 3px;
+            color: #bbb;
+            border: 1px solid #bbb;
+            padding: 8px 20px;
+            outline: none;
+            
+            &.is-valid {
+                color: #fff;
+                background: #38f;
+                &:hover {
+                    cursor: pointer;
+                    background: lighten(#38f, 10%);
+                    transition: background ease .2s;
+                }
+            }
+        }
+    }
+    & li {
+        list-style-type: none;
+    }
+}
