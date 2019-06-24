@@ -6,9 +6,12 @@ const fs = require('fs');
 const _IGNORE_TAG_REGEXR = new RegExp(/^\s*<!--\s*ignore\s*-->/, 'i');
 
 module.exports = function (componentAlias) {
+    // console.log(componentAlias);
+    // console.log(compoName);
+    // console.log(componentAlias[compoName]);
     /**
-  * return markdown README.md file accordingly
-  */
+     * return markdown README.md file accordingly
+     */
     const getDemoComponent = (req, res) => {
         const compoName = req.params.compoName;
 

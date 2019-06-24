@@ -49,7 +49,7 @@ module.exports = [
           {
             "title": "Upload",
             "subtitle": "文件上传",
-            "path": "upload"
+            "path": "fileUpload"
           },
           {
             "title": "AutoComplete",

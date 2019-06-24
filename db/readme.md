@@ -9,6 +9,14 @@
   mongod --port 27019 -dbpath /Users/binxu/Desktop/react/projects/shopCart/blog/db
   ```
 
+  macbook下kill mongod命令:
+  ```
+    ps -ax | grep mongod 
+    // then
+    sudo -kill -9 ${pid}
+  ```
+  
+
 ## 命令行连接mongo db
 ```
   C:\Progra~1\MongoDB\Server\4.0\bin\mongo --port 27019

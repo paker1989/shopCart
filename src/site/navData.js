@@ -18,7 +18,7 @@ module.exports = [
   },
   {
     name: 'upload',
-    path: 'upload',
+    path: 'fileUpload',
     source: UploadDemo,
   },
   {
