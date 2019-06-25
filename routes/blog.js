@@ -4,7 +4,9 @@ const path = require('path');
 
 const router = express.Router();
 const _BLOG_LOCAL_CONFIG = require('../blog/env.config');
+const multerUpload = require('../config/multer.config');
 
+// console.log(multerUpload);
 // 合并分片
 function mergeChunks(fileName, chunks, callback) {
     console.log('chunks:' + chunks);
@@ -39,34 +41,40 @@ const handleError = (req, res, err) => {
 }
 
 const saveChunkBlog = (req, res) => {
-    const {
-        fileName,
-        data,
-        orderIndex,
-        finalize
-    } = req.body;
+    // const {
+    //     fileName,
+    //     data,
+    //     orderIndex,
+    //     finalize,
+    //     chunkFile
+    // } = req.body;
 
-    if (finalize) {
-        // finalize the save
-        console.log(`finalize the file for ${fileName}`);
-        res.send({
-            message: 'finalized'
-        })
-    } else {
-        const tmpDir = path.join(__dirname, '../blog', _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP);
+    // console.log(chunkFile);
 
-        if (!fs.existsSync(tmpDir)) {
-            fs.mkdirSync(tmpDir);
-        }
+    // if (finalize) {
+    //     // finalize the save
+    //     console.log(`finalize the file for ${fileName}`);
+    //     res.send({
+    //         message: 'finalized'
+    //     })
+    // } else {
+    //     const tmpDir = path.join(__dirname, '../blog', _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP);
 
-        fs.writeFile(path.join(tmpDir, `${fileName}_${orderIndex}`),
-            data, function (err) {
-                if (err) {
-                    return handleError(req, res, err);
-                }
-                res.end();
-            })
-    }
+    //     if (!fs.existsSync(tmpDir)) {
+    //         fs.mkdirSync(tmpDir);
+    //     }
+
+    //     fs.writeFile(path.join(tmpDir, `${fileName}_${orderIndex}`),
+    //         data, function (err) {
+    //             if (err) {
+    //                 return handleError(req, res, err);
+    //             }
+    //             res.end();
+    //         })
+    // }
+
+    console.log(req.body);
+    res.end();
 }
 
 const saveSimpleBlog = (req, res) => {
@@ -82,10 +90,18 @@ const saveSimpleBlog = (req, res) => {
                 message: 'OK',
             });
         })
+}
 
+const finalizeChunckFile = (req, res) => {
+    const { finalize } = req.body;
+    console.log('finalize = ' + finalize);
+    res.send({
+        message: 'chunk file finalized'
+    })
 }
 
 router.post('/saveSimpleBlog', saveSimpleBlog);
-router.post('/saveChunkBlog', saveChunkBlog);
+router.post('/saveChunkBlog', multerUpload.single('chunkedFile'), saveChunkBlog);
+router.post('/finalizeChunckFile', finalizeChunckFile);
 
 module.exports = router;

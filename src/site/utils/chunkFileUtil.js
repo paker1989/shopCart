@@ -31,48 +31,30 @@ export function sendFileByChunk(file, chunkSize, cb) {
         }
 
         const readAsBlock = function (offset, length, file) {
-            let fr = new FileReader();
-            let slicedBlob = file.slice(offset, length + offset);
+            // let fr = new FileReader();
+            // let slicedBlob = file.slice(offset, length + offset);
 
-            fr.onload = onload;
-            fr.readAsText(slicedBlob);
+            // fr.onload = onload;
+            // fr.readAsText(slicedBlob);
+            let slicedBlob = file.slice(offset, length + offset);
+            let newFile = new File([slicedBlob], `${file.name}_${incre}`);
+            console.log(newFile);
+            offset += newFile.size;
+            incre += 1;
+            console.log('offset = ' + offset);
+
+            cb(newFile, incre);
+
+            if (offset >= totalSize) {
+                console.log('read done');
+                resolve();
+                return;
+            }
+
+            console.log('read as block');
+            readAsBlock(offset, chunkSize, file); 
         }
 
         readAsBlock(offset, chunkSize, file);
     })
 }
-
-// function parseFile(file, callback) {
-//     var fileSize   = file.size;
-//     var chunkSize  = 64 * 1024; // bytes
-//     var offset     = 0;
-//     var self       = this; // we need a reference to the current object
-//     var chunkReaderBlock = null;
-
-//     var readEventHandler = function(evt) {
-//         if (evt.target.error == null) {
-//             offset += evt.target.result.length;
-//             callback(evt.target.result); // callback for handling read chunk
-//         } else {
-//             console.log("Read error: " + evt.target.error);
-//             return;
-//         }
-//         if (offset >= fileSize) {
-//             console.log("Done reading file");
-//             return;
-//         }
-
-//         // of to the next chunk
-//         chunkReaderBlock(offset, chunkSize, file);
-//     }
-
-//     chunkReaderBlock = function(_offset, length, _file) {
-//         var r = new FileReader();
-//         var blob = _file.slice(_offset, length + _offset);
-//         r.onload = readEventHandler;
-//         r.readAsText(blob);
-//     }
-
-//     // now let's start the read with the first block
-//     chunkReaderBlock(offset, chunkSize, file);
-// }

@@ -30,30 +30,34 @@ class UploadDemo extends React.PureComponent {
             return;
 
         // const toPickData = texts[0];
-        const { data, file, fk } = texts[0];
+        const { data, file } = texts[0];
 
         const toSend = {
             content: data,
             fileName: file.name
         };
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (file.size > _CHUNK_SIZE) {
                 console.error(`file size ${file.size} is over small file size's limit.`);
 
-                const cb = function (data, orderIndex) {
-                    axios
-                        .post('/blog/saveChunkBlog', {
-                            fileName: `${file.name}_${orderIndex}`,
-                            data,
-                            orderIndex
-                        });
+                const cb = function (chunkedFile, orderIndex) {
+                    let formData = new FormData();
+                    let fileName = `${file.name}_${orderIndex}`;
+                    formData.set('chunkedFile', chunkedFile);
+                    formData.set('orderIndex', orderIndex);
+                    axios({
+                        method: 'post',
+                        url: '/blog/saveChunkBlog',
+                        config: { headers: {'Content-Type': 'multipart/form-data' }},
+                        data: formData
+                    });   
                 }
 
                 sendFileByChunk(file, _CHUNK_SIZE, cb)
                     .then(function () {
                         axios
-                            .post('/blog/saveChunkBlog', {
+                            .post('/blog/finalizeChunckFile', {
                                 fileName: `${file.name}`,
                                 finalize: true
                             })
