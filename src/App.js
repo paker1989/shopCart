@@ -8,7 +8,6 @@ import ScrollToTop from './site/utils/ScrollToTop';
 import { getFullPath } from './site/utils/addRoute';
 import navData from './site/navData';
 import ShopCart from './containers/home';
-
 // const prefix =
 //   process.env.NODE_ENV === 'production'
 //     ? '/bxu/api/'
@@ -31,18 +30,19 @@ class App extends React.Component {
         <Router basename="/">
           <ScrollToTop>
             <Switch>
-              <Route 
+              <Route
                 path="/shopCart"
-                component={ShopCart}/>
-              <Route 
+                component={ShopCart} />
+              <Route
                 path={Site.SiteConfig.prefix}
                 render={({ match, ...routeProps }) => (
                   <Site match={match} {...routeProps}>
                     {navData.map((data) => (
                       renderComponent(match, data)
                     ))}
+                    {/* <Redirect from="/demo/*" to="/demo/affix" /> */}
                   </Site>
-                )}/>
+                )} />
               <Redirect from="*" to="/shopCart" />
             </Switch>
           </ScrollToTop>

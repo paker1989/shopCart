@@ -4,13 +4,16 @@ import isArray from 'lodash/isArray';
 import isFunction from 'lodash/isFunction';
 
 import Notify from '../../../notify';
+
 import {
   DEFAULT_ACCEPT,
   getAcceptFromArray,
   isValidFileType,
   isImage,
   _GB_LIMIT,
-  UID_KEY
+  _CHUNK_SIZE,
+  UID_KEY,
+  _MB_LIMIT
 } from '../../utils/util';
 import './FileInput.scss';
 
@@ -18,6 +21,11 @@ class FileInput extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    
+    const { type } = this.props;
+    this.state = ({
+      accept: isArray(type) ? getAcceptFromArray(type) : DEFAULT_ACCEPT[type]
+    });
   }
 
   processFiles = (evt) => {
@@ -61,7 +69,21 @@ class FileInput extends React.PureComponent {
     if (isValidFileType(file) && isFunction(onChange)) {
       let isImageType = isImage(file.type);
       let fileReader = new FileReader();
+
       fileReader.onload = e => {
+        // const mimeType = fileType(
+        //   base64ToArrayBuffer(
+        //     e.target.result.replace(/^(.*?)base64,/, '')
+        //   )
+        // );
+
+        // if (
+        //   accept &&
+        //   (!mimeType ||
+        //     mimeType.mime.match(new RegExp(accept.replace(/, ?/g, '|'))))
+        // ) {
+        //   console.log(mimeType);
+        // }
         if (isImageType) {
           localFiles.push({
             src: e.target.result,
@@ -81,10 +103,9 @@ class FileInput extends React.PureComponent {
       if (isImageType) {
         fileReader.readAsDataURL(file);
       } else {
-        // console.log(file.size);
-        if (file.size > _GB_LIMIT) {
-          fileReader.readAsArrayBuffer(file.slice(0, 1024 * 1024));
-          console.log('read as array buffer');
+        if (file.size > _CHUNK_SIZE) {
+
+          fileReader.readAsArrayBuffer(file.slice(0, _MB_LIMIT));
         } else {
           fileReader.readAsText(file);
         }
@@ -95,9 +116,9 @@ class FileInput extends React.PureComponent {
   }
 
   render() {
-    const { type, maxAmount } = this.props;
-    const accept = isArray(type) ? getAcceptFromArray(type) : DEFAULT_ACCEPT[type];
-
+    const { maxAmount } = this.props;
+    const { accept } = this.state;
+    
     return (
       <input
         className="upload-input"

@@ -1,3 +1,5 @@
+@import "./mixin.scss";
+
 .official-demo_container {
   position: relative;
 
@@ -18,18 +20,8 @@
       padding: 0 40px;
     }
   }
+
+  .bxu-btn {
+    @include btn_basic_style;
+  }
 }
-
-// .markdown-body {
-//   box-sizing: border-box;
-//   min-width: 200px;
-//   max-width: 980px;
-//   margin: 0 auto;
-//   padding: 45px;
-// }
-
-// @media (max-width: 767px) {
-//   .markdown-body {
-//     padding: 15px;
-//   }
-// }

@@ -9,6 +9,8 @@
 |------|------|------|--------|--------|
 | prefix | 前缀 | string | `'bxu'` | '' |
 | withoutModal | 选择打开modal显示或者直接显示 | `boolean` | `false` | null |
+| type | 文件类型 | `string` 或者 `Array` | `['image', 'text']` | `image`, `text` |
+| imageOnly | 只显示图片选择 | `boolean` | `false` | null |
 
 ### 数据类型以及接口
 ```

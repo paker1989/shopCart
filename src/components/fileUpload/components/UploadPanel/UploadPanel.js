@@ -4,6 +4,8 @@ import isFunction from 'lodash/isFunction';
 
 import FileInput from '../FileInput';
 import Uploaded from '../Uploaded';
+import Notify from '../../../notify';
+
 import { checkTypeIncludes, isImage, swapInArray } from '../../utils/util';
 
 import './UploadPanel.scss';
@@ -94,11 +96,8 @@ class UploadPanel extends React.Component {
         const { onClose, exeUpload } = this.props;
         let { localImages, localTexts } = this.state;
 
-        // console.log(localTexts);
-
         if (!exeUpload || !isFunction(exeUpload)) {
-            console.warn('exeUpload method is missing');
-            onClose();
+            Notify.error('exeUpload method is missing');
             return;
         }
 
@@ -155,16 +154,16 @@ class UploadPanel extends React.Component {
             lastFileIndex,
             uploading,
         } = this.state;
-
         // show it when localOnly is false and type contains image
-        const isShowNetwork = !localOnly && checkTypeIncludes(type, 'image');
+        const isImageIncluded = checkTypeIncludes(type, 'image');
+        const isShowNetwork = !localOnly && isImageIncluded;
+
         const isConfirmValid = localImages.length > 0 || localTexts.length > 0;
         const confirmButtonClass = cx({
             [`${prefix}-confirm`]: true,
             ['is-valid']: isConfirmValid,
             ['is-uploading']: uploading,
         });
-        
 
         return (
             <React.Fragment>

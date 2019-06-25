@@ -25,7 +25,7 @@ class Upload extends React.Component {
         withoutModal: false,
         localOnly: false,
         type: ['image', 'text'],
-        maxAmount: 0
+        maxAmount: 0,
     }
 
     constructor(props) {

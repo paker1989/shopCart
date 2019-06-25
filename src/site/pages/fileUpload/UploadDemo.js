@@ -5,6 +5,8 @@ import MarkdownRender from '../../utils/MarkdownRender';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 
 import Upload from '../../../components/fileUpload';
+import { _CHUNK_SIZE } from '../../../components/fileUpload/utils/util';
+import { sendFileByChunk } from '../../utils/chunkFileUtil';
 
 const md_democode =
     `
@@ -27,17 +29,46 @@ class UploadDemo extends React.PureComponent {
         if (texts.length === 0)
             return;
 
-        // console.log(texts);
+        // const toPickData = texts[0];
+        const { data, file, fk } = texts[0];
 
-        const toPickData = texts[0];
-
-        let data = {
-            content: toPickData.data,
-            fileName: toPickData.file.name
+        const toSend = {
+            content: data,
+            fileName: file.name
         };
+
         return new Promise((resolve, reject) => {
+            if (file.size > _CHUNK_SIZE) {
+                console.error(`file size ${file.size} is over small file size's limit.`);
+
+                const cb = function (data, orderIndex) {
+                    axios
+                        .post('/blog/saveChunkBlog', {
+                            fileName: `${file.name}_${orderIndex}`,
+                            data,
+                            orderIndex
+                        });
+                }
+
+                sendFileByChunk(file, _CHUNK_SIZE, cb)
+                    .then(function () {
+                        axios
+                            .post('/blog/saveChunkBlog', {
+                                fileName: `${file.name}`,
+                                finalize: true
+                            })
+                            .then((res) => {
+                                setTimeout(() => {
+                                    resolve();
+                                }, 2000);
+                            });;
+                    });
+
+                return;
+            }
+
             axios
-                .post('/blog/saveSimpleBlog', data)
+                .post('/blog/saveSimpleBlog', toSend)
                 .then((res) => {
                     setTimeout(() => {
                         resolve();
@@ -48,8 +79,7 @@ class UploadDemo extends React.PureComponent {
 
     componentDidMount() {
         const { match } = this.props;
-
-        console.log(match.path);
+        // console.log(match.path);
         axios
             .post(match.path)
             .then((res) => {
@@ -85,7 +115,8 @@ class UploadDemo extends React.PureComponent {
                 <MarkdownRender source={mdDescription} />
                 <DemoCodeRender source={md_democode} title="设置最多上传数量以及上传方法">
                     <div style={{ margin: '20px' }}>
-                        <Upload maxAmount={5} exeUpload={this.handleUpload} />
+                        <Upload maxAmount={5}
+                            exeUpload={this.handleUpload} />
                     </div>
                 </DemoCodeRender>
             </React.Fragment>

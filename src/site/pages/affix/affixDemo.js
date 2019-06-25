@@ -4,6 +4,8 @@ import Affix from '../../../components/affix';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 import axios from 'axios';
 
+import '../../style/index.scss';
+
 const md_democode = 
   `
   \`\`\`javascript

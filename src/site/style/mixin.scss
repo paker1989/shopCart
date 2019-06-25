@@ -16,3 +16,14 @@
     }
   }
 }
+
+@mixin btn_basic_style($bgcolor: #66a6ff, $color: #fff) {
+  cursor: pointer;
+  background: $bgcolor;
+  color: #fff;
+  transition: background ease 0.2s;  
+  border-radius: 3px;
+  border: 1px solid #bbb;
+  padding: 8px 20px;
+  outline: none;
+}
