@@ -1,3 +1,5 @@
+import { resolve } from "url";
+
 /**
  * @see https://stackoverflow.com/questions/33537769/how-to-upload-a-file-with-ajax-in-small-chunks-and-check-for-fails-re-upload-th
  * @param {*} file 
@@ -8,53 +10,31 @@ export function sendFileByChunk(file, chunkSize, cb) {
     let offset = 0;
     let totalSize = file.size;
     let incre = 0;
+    let promises = [];
 
-    return new Promise(function (resolve) {
-        const onload = function (evt) {
-            if (evt.target.error) {
-                console.log('read error: ' + evt.target.error);
-                resolve();
-                return;
-            } else {
-                offset += evt.target.result.length;
-                cb(evt.target.result, ++incre);
-            }
+    return new Promise((resolve) => {
+        const readAsBlock = function (offset, length, file) {
+            let slicedBlob = file.slice(offset, length + offset);
+            let newFile = new File([slicedBlob], `${file.name}_chunk_${incre}`);
+
+            offset += newFile.size;
+            incre += 1;
+
+            promises.push(cb(newFile, incre));
 
             if (offset >= totalSize) {
-                console.log('read done');
-                resolve();
                 return;
             }
-
-            console.log('read as block');
             readAsBlock(offset, chunkSize, file);
         }
 
-        const readAsBlock = function (offset, length, file) {
-            // let fr = new FileReader();
-            // let slicedBlob = file.slice(offset, length + offset);
+        readAsBlock(offset, chunkSize, file, promises);
 
-            // fr.onload = onload;
-            // fr.readAsText(slicedBlob);
-            let slicedBlob = file.slice(offset, length + offset);
-            let newFile = new File([slicedBlob], `${file.name}_${incre}`);
-            console.log(newFile);
-            offset += newFile.size;
-            incre += 1;
-            console.log('offset = ' + offset);
 
-            cb(newFile, incre);
-
-            if (offset >= totalSize) {
-                console.log('read done');
+        Promise
+            .all(promises)
+            .then(() => {
                 resolve();
-                return;
-            }
-
-            console.log('read as block');
-            readAsBlock(offset, chunkSize, file); 
-        }
-
-        readAsBlock(offset, chunkSize, file);
+            })
     })
 }

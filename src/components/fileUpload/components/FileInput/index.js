@@ -11,6 +11,7 @@ import {
   isValidFileType,
   isImage,
   _GB_LIMIT,
+  _BODY_DATA_LIMIT,
   _CHUNK_SIZE,
   UID_KEY,
   _MB_LIMIT
@@ -103,8 +104,7 @@ class FileInput extends React.PureComponent {
       if (isImageType) {
         fileReader.readAsDataURL(file);
       } else {
-        if (file.size > _CHUNK_SIZE) {
-
+        if (file.size >= _BODY_DATA_LIMIT) {
           fileReader.readAsArrayBuffer(file.slice(0, _MB_LIMIT));
         } else {
           fileReader.readAsText(file);
@@ -118,7 +118,7 @@ class FileInput extends React.PureComponent {
   render() {
     const { maxAmount } = this.props;
     const { accept } = this.state;
-    
+
     return (
       <input
         className="upload-input"

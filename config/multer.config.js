@@ -5,23 +5,22 @@ const fs = require('fs');
 const envConfig = require('../blog/env.config');
 
 const tmpDir = path.join(__dirname, '../blog', envConfig._CHUNK_FILE_TEMP);
-// console.log(tmpDir);
-
-if (!fs.existsSync(tmpDir)) {
-    fs.mkdirSync(tmpDir);
-}
+const finalDir =  path.join(__dirname, '../blog', envConfig._ROOT_DIR);
+const chunkFlag = new RegExp(/_chunk_/, 'i');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, tmpDir);
+        if (!fs.existsSync(tmpDir)) {
+            fs.mkdirSync(tmpDir);
+        }
+        if (chunkFlag.test(file.originalname)) {
+            cb(null, tmpDir);
+        } else {
+            cb(null, finalDir);
+        }
     },
 
     filename: function (req, file, cb) {
-        const { orderIndex } = req.body;
-        console.log('orderIndex = ' + orderIndex);
-        console.log('filename = ' + file.filename);
-        console.log('originalname = ' + file.originalname);
-
         cb(null, file.originalname);
     }
 })

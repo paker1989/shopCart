@@ -6,75 +6,32 @@ const router = express.Router();
 const _BLOG_LOCAL_CONFIG = require('../blog/env.config');
 const multerUpload = require('../config/multer.config');
 
-// console.log(multerUpload);
 // 合并分片
 function mergeChunks(fileName, chunks, callback) {
-    console.log('chunks:' + chunks);
     let chunkPaths = chunks.map(function (name) {
-        return path.join(process.env.IMAGESDIR, name)
+        return path.join(__dirname, '../blog',
+            _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP, name)
     });
 
     // 采用Stream方式合并
-    let targetStream = fs.createWriteStream(path.join(process.env.IMAGESDIR, fileName));
+    let targetStream = fs.createWriteStream(path.join(__dirname, '../blog',
+        _BLOG_LOCAL_CONFIG._ROOT_DIR, fileName));
 
     const readStream = function (chunkArray, cb) {
         let path = chunkArray.shift();
         let originStream = fs.createReadStream(path);
         originStream.pipe(targetStream, { end: false });
         originStream.on("end", function () {
-            // 删除文件
-            fs.unlinkSync(path);
+            fs.unlinkSync(path);  // 删除文件
             if (chunkArray.length > 0) {
                 readStream(chunkArray, cb);
             } else {
-                cb()
+                cb();
             }
         });
     };
 
     readStream(chunkPaths, callback);
-}
-
-
-const handleError = (req, res, err) => {
-    // to do
-}
-
-const saveChunkBlog = (req, res) => {
-    // const {
-    //     fileName,
-    //     data,
-    //     orderIndex,
-    //     finalize,
-    //     chunkFile
-    // } = req.body;
-
-    // console.log(chunkFile);
-
-    // if (finalize) {
-    //     // finalize the save
-    //     console.log(`finalize the file for ${fileName}`);
-    //     res.send({
-    //         message: 'finalized'
-    //     })
-    // } else {
-    //     const tmpDir = path.join(__dirname, '../blog', _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP);
-
-    //     if (!fs.existsSync(tmpDir)) {
-    //         fs.mkdirSync(tmpDir);
-    //     }
-
-    //     fs.writeFile(path.join(tmpDir, `${fileName}_${orderIndex}`),
-    //         data, function (err) {
-    //             if (err) {
-    //                 return handleError(req, res, err);
-    //             }
-    //             res.end();
-    //         })
-    // }
-
-    console.log(req.body);
-    res.end();
 }
 
 const saveSimpleBlog = (req, res) => {
@@ -93,14 +50,57 @@ const saveSimpleBlog = (req, res) => {
 }
 
 const finalizeChunckFile = (req, res) => {
-    const { finalize } = req.body;
-    console.log('finalize = ' + finalize);
+    const { finalize, fileName } = req.body;
+    if (finalize) {
+        fs.readdir(path.join(__dirname, '../blog',
+            _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP), function (err, files) {
+                if (err) {
+                    handleError(req, res, err);
+                    return;
+                }
+
+                const getOrderIndex = (_chunK_name) => {
+                    return parseInt(_chunK_name.replace(`${fileName}_chunk_`, ''));
+                }
+
+                let chunks = files
+                    .filter(file => file.startsWith(fileName))
+                    .sort((a, b) => {
+                        return getOrderIndex(a) - getOrderIndex(b);
+                    });
+
+                mergeChunks(fileName, chunks, function (err) {
+                    if (err) {
+                        handleError(req, res, err);
+                        return;
+                    }
+                    res.send({
+                        message: 'OK'
+                    });
+                });
+            });
+    }
+}
+
+const saveBigBlog = (req, res) => {
     res.send({
-        message: 'chunk file finalized'
-    })
+        message: 'OK',
+    });
+}
+
+const saveChunkBlog = (req, res) => {
+    res.end();
+}
+
+const handleError = (req, res, err) => {
+    if (err) {
+        console.log(err);
+    }
+    res.send({ err });
 }
 
 router.post('/saveSimpleBlog', saveSimpleBlog);
+router.post('/saveBigBlog', multerUpload.single('bigFile'), saveBigBlog);
 router.post('/saveChunkBlog', multerUpload.single('chunkedFile'), saveChunkBlog);
 router.post('/finalizeChunckFile', finalizeChunckFile);
 

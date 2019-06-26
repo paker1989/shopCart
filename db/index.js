@@ -4,9 +4,7 @@ mongoose = require('mongoose');
 connectionString = 'mongodb://127.0.0.1:27019/shopCart';
 
 options = {
-	db: {
-		native_parser: true
-	},
+	native_parser: true,
 	server: {
 		auto_reconnect: true,
 		poolSize: 5
