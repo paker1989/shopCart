@@ -50,7 +50,10 @@ class UploadDemo extends React.PureComponent {
                     method: 'post',
                     url: '/blog/saveBigBlog',
                     config: { headers: { 'Content-Type': 'multipart/form-data' } },
-                    data: formData
+                    data: formData,
+                    onUploadProgress: (pevt) => {
+                        console.log(pevt);
+                    }
                 })
                     .then((res) => {
                         resolve();

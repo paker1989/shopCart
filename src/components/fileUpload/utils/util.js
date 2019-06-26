@@ -3,7 +3,7 @@ export const _MB_LIMIT = 1024 * _KB_LIMIT;
 export const _GB_LIMIT = 1024 * _MB_LIMIT;
 
 export const _BODY_DATA_LIMIT = 1 * _MB_LIMIT;
-export const _CHUNK_SIZE = 50 * _MB_LIMIT;
+export const _CHUNK_SIZE = 2 * _GB_LIMIT;
 
 export const DEFAULT_ACCEPT = {
     image: 'image/gif, image/jpeg, image/png, image/bmp',
