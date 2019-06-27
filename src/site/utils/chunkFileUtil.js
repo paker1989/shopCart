@@ -1,5 +1,3 @@
-import { resolve } from "url";
-
 /**
  * @see https://stackoverflow.com/questions/33537769/how-to-upload-a-file-with-ajax-in-small-chunks-and-check-for-fails-re-upload-th
  * @param {*} file 

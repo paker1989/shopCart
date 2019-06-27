@@ -6,6 +6,7 @@ import Modal from '../modal';
 import UploadPanel from './components/UploadPanel/UploadPanel';
 import FileInput from './components/FileInput';
 
+import FilepondMock from './filepondMock';
 import './Upload.scss';
 
 
@@ -95,5 +96,6 @@ class Upload extends React.Component {
 }
 
 Upload.FileInput = FileInput;
+Upload.Filepond = FilepondMock;
 
 export default Upload;

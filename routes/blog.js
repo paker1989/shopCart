@@ -51,6 +51,13 @@ const saveSimpleBlog = (req, res) => {
 
 const finalizeChunckFile = (req, res) => {
     const { finalize, fileName } = req.body;
+    if (!finalize) {
+        res.send({
+            message: 'not finalized'
+        })
+        return;
+    }
+
     if (finalize) {
         fs.readdir(path.join(__dirname, '../blog',
             _BLOG_LOCAL_CONFIG._CHUNK_FILE_TEMP), function (err, files) {
