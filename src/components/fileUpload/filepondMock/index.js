@@ -1,8 +1,16 @@
 
 import React from 'react';
 
-class FilePond extends React.PureComponent {
+import './filepondMock.scss';
 
+class FilePond extends React.PureComponent {
+  render() {
+      return (
+        <div className="file-pond-container">
+          
+        </div>  
+      );
+  }
 }
 
 export default FilePond;

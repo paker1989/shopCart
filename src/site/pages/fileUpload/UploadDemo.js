@@ -51,7 +51,7 @@ class UploadDemo extends React.PureComponent {
                     url: '/blog/saveBigBlog',
                     config: { headers: { 'Content-Type': 'multipart/form-data' } },
                     data: formData,
-                    onUploadProgress: (pevt) => { // test progress bar possibility
+                    onUploadProgress: (pevt) => {
                         console.log(pevt);
                     }
                 })
@@ -122,6 +122,9 @@ class UploadDemo extends React.PureComponent {
                     <div style={{ margin: '20px' }}>
                         <Upload maxAmount={5}
                             exeUpload={this.handleUpload} />
+                    </div>
+                    <div className="filepond-wrapper">
+                       <Upload.Filepond />
                     </div>
                 </DemoCodeRender>
             </React.Fragment>
