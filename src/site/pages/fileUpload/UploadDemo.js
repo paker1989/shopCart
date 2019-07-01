@@ -117,14 +117,14 @@ class UploadDemo extends React.PureComponent {
         const { mdDescription } = this.state;
         return (
             <React.Fragment>
+                <div className="filepond-wrapper">
+                    <Upload.Filepond />
+                </div>
                 <MarkdownRender source={mdDescription} />
                 <DemoCodeRender source={md_democode} title="设置最多上传数量以及上传方法">
                     <div style={{ margin: '20px' }}>
                         <Upload maxAmount={5}
                             exeUpload={this.handleUpload} />
-                    </div>
-                    <div className="filepond-wrapper">
-                       <Upload.Filepond />
                     </div>
                 </DemoCodeRender>
             </React.Fragment>

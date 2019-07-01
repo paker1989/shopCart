@@ -1,0 +1,17 @@
+.image-preview-list {
+  position: relative;
+  width: 100%;
+
+  & .image-preview-container {
+    position: relative;
+    width: 100%;
+    padding: 15px;
+
+    & .image-preview {
+      width: 100%;
+      border-radius: 8px;
+    }
+    // background-size: cover; // 自适应
+    // background-position: 50% 50%;
+  }
+}

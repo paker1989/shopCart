@@ -124,7 +124,7 @@ class FileInput extends React.PureComponent {
         className="upload-input"
         type="file"
         accept={accept}
-        multiple={maxAmount !== 0}
+        multiple={maxAmount !== 1}
         onChange={this.processFiles} />
     );
   }
