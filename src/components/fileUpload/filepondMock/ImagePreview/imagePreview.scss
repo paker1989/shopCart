@@ -7,10 +7,33 @@
     width: 100%;
     padding: 15px;
 
-    & .image-preview {
-      width: 100%;
+    & .image-blur {
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      top: 15px;
+      height: 35%;
       border-radius: 8px;
+      &.is-failure {
+        background: linear-gradient(180deg, #c44e47, rgba(255, 0, 0, 0));
+      }
+      &.is-success {
+        background: linear-gradient(180deg, #369763, rgba(255, 0, 0, 0));
+      }
+      &.is-inprogress {
+        background: linear-gradient(180deg, #282828, rgba(255, 0, 0, 0));
+      }
     }
+
+    & .image-preview-body {
+      position: relative;
+      
+      & .image-preview {
+        width: 100%;
+        border-radius: 8px;
+      }
+    }
+
     // background-size: cover; // 自适应
     // background-position: 50% 50%;
   }
