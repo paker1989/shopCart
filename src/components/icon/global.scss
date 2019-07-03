@@ -1,0 +1,64 @@
+$loading-width: 20px;
+
+.bxu-icon {
+    position: absolute;
+    border: none;
+
+    z-index: 1000;
+    width: 26px;
+    height: 26px;
+    border: 2px solid transparent;
+    transition: border .2s linear;
+    outline: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+    
+    &.is-circle {
+      border-radius: 50%;
+      background: lighten(#282828, 10%);
+      &:hover {
+        background: lighten(#282828, 20%);
+        border: 2px solid white;
+      }
+    }
+
+    & svg {
+      color: white;
+      margin: -2px;
+    }
+
+    & .icon-loading, &.icon-loading {
+      color: transparent;
+      &::after {
+        box-sizing: border-box;
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: $loading-width;
+        height: $loading-width;
+        border-radius: $loading-width/2;
+        border: 2px solid #fff;
+        margin-left: -$loading-width/2;
+        margin-top: -$loading-width/2;
+      }
+
+      &::after {
+        border-color: #fff transparent transparent;
+        animation: btn-spin 0.6s linear;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+
+  @keyframes icon-spin {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }

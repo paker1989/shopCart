@@ -1,19 +1,23 @@
+@import '../../../../style/mixin.scss';
+
 .image-preview-list {
   position: relative;
   width: 100%;
+  padding: 15px;
 
   & .image-preview-container {
     position: relative;
     width: 100%;
-    padding: 15px;
 
     & .image-blur {
       position: absolute;
-      left: 15px;
-      right: 15px;
-      top: 15px;
+      left: 0px;
+      right: 0px;
+      top: 0px;
       height: 35%;
       border-radius: 8px;
+      z-index:999;
+
       &.is-failure {
         background: linear-gradient(180deg, #c44e47, rgba(255, 0, 0, 0));
       }
@@ -32,9 +36,17 @@
         width: 100%;
         border-radius: 8px;
       }
-    }
 
-    // background-size: cover; // 自适应
-    // background-position: 50% 50%;
+      & .preview-icon {
+        &.left {
+          top: 6px;
+          left: 6px;
+        }
+        &.right {
+          top: 6px;
+          right: 6px;
+        }
+      }
+    }
   }
 }
