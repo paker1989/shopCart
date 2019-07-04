@@ -3,6 +3,8 @@ import { faStroopwafel,
          faTimesCircle,
          faSearch } from '@fortawesome/free-solid-svg-icons';
 
+console.log(faSearch);
+
 library.add(faStroopwafel);
 library.add(faTimesCircle);
 library.add(faSearch);

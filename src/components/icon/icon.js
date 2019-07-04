@@ -4,12 +4,16 @@ import './global.scss';
 
 class Icon extends React.PureComponent {
     render() {
-        const { circle, children, className, ...otherProps } = this.props;
+        const { circle, children, className, visible, ...otherProps } = this.props;
 
         const wrapperClass = cx({
             ['bxu-icon']: true,
             ['is-circle']: circle === true
         }, className);
+
+        if (!visible) {
+            return null;
+        }
 
         if (circle) {
             return (

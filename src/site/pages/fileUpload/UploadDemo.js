@@ -28,15 +28,16 @@ class UploadDemo extends React.PureComponent {
     handleUploadFilepond = (element) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                let random = Math.random() * 10;
-                if (random >= 5) {
-                    console.log('resolve');
-                    resolve();
-                } else {
-                    console.log('reject');
-                    reject();
-                }
-            }, 1000);
+                // let random = Math.random() * 10;
+                // if (random >= 5) {
+                //     console.log('resolve');
+                //     resolve();
+                // } else {
+                //     console.log('reject');
+                //     reject();
+                // }
+                reject();
+            }, 2000);
         })
     }
 

@@ -1,9 +1,9 @@
-@import '../../../../style/mixin.scss';
+@import "../../../../style/mixin.scss";
 
 .image-preview-list {
   position: relative;
   width: 100%;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
 
   & .image-preview-container {
     position: relative;
@@ -16,7 +16,7 @@
       top: 0px;
       height: 35%;
       border-radius: 8px;
-      z-index:999;
+      z-index: 999;
 
       &.is-failure {
         background: linear-gradient(180deg, #c44e47, rgba(255, 0, 0, 0));
@@ -31,22 +31,69 @@
 
     & .image-preview-body {
       position: relative;
-      
+
+      & .image-info-header {
+        position: absolute;
+        width: 100%;
+        height: 26px;
+        top: 6px;
+        padding: 0 6px;
+        display: flex;
+        justify-content: space-between;
+
+        & .image-info-part {
+          position: relative;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          overflow: hidden;
+          max-width: 100%;
+
+          &.right {
+            justify-content: flex-end;
+          }
+
+          &.grow {
+            flex-grow: 1;
+          }
+
+          &.no-shrink {
+            flex-shrink: 0;
+          }
+
+          & .image-info-text {
+            position: relative;
+            color: white;
+            // width: 100px;
+            z-index: 999;
+            margin: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 12px;
+            word-break: break-all;
+          }
+        }
+
+        & .preview-icon {
+          position: relative;
+
+          // &.left {
+          //   top: 0px;
+          //   left: 6px;
+          // }
+          // &.right {
+          //   top: 0px;
+          //   right: 6px;
+          // }
+        }
+      }
+
       & .image-preview {
         width: 100%;
         border-radius: 8px;
       }
 
-      & .preview-icon {
-        &.left {
-          top: 6px;
-          left: 6px;
-        }
-        &.right {
-          top: 6px;
-          right: 6px;
-        }
-      }
     }
   }
 }

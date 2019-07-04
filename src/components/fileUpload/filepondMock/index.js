@@ -2,10 +2,10 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Notify from '../../notify';
 import FileInput from '../components/FileInput';
 import './filepondMock.scss';
 import ImagePreview from './ImagePreview';
-
 
 class FilePond extends React.Component {
 
@@ -26,8 +26,74 @@ class FilePond extends React.Component {
         }
     }
 
+    handleUpload = (data, type, cb) => {
+        const { exeUpload } = this.props;
+
+        if (typeof exeUpload !== 'function') {
+            Notify.error('exeUpload is missing');
+            return;
+        }
+
+        let res = exeUpload(data, type);
+        if (res && res.then) {
+            res.then(() => {
+                cb(null, data);
+            }, (err) => {
+                err = err || new Error('upload failed for ' + JSON.stringify(data));
+                cb(err, data);
+            })
+        }
+    }
+
+    /**
+         * @description update a single item
+         * @param {*} data  
+         * @param {*} targetList 
+         * @param {*} type
+     */
+    uploadItem = (data, targetList, type) => {
+        /**
+         * @description update item status according to upload result
+         * @param {*} err 
+         * @param {*} data 
+         */
+        const cb = (err, data) => {
+            if (err) {
+                targetList
+                    .find(e => e.fk === data.fk)
+                    .status = 'fail';
+
+                if (type === '_image_') {
+                    this.setState({
+                        images: targetList
+                    });
+                } else {
+                    this.setState({
+                        texts: targetList
+                    });
+                }
+                return;
+            }
+
+            targetList
+                .find(e => e.fk === data.fk)
+                .status = 'success';
+            if (type === '_image_') {
+                this.setState({
+                    images: targetList
+                });
+            } else {
+                this.setState({
+                    texts: targetList
+                });
+            }
+        }
+
+        this.handleUpload(data, type, cb);
+    }
+
     handleChange = (localFiles) => {
-        const { exeUpload, autoUpload } = this.props;
+        const { autoUpload } = this.props;
         const { texts, images } = this.state;
         const status = autoUpload ? 'progress' : 'standby';
 
@@ -48,60 +114,6 @@ class FilePond extends React.Component {
         let allImages = images.concat(newImages);
         let allTexts = texts.concat(newTexts);
 
-        /**
-         * @description uppload
-         * @param {*} list 
-         * @param {*} targetList 
-         */
-        const continuation = (list, targetList, type) => {
-            list.forEach((data) => {
-                let res = exeUpload(data);
-                if (res && res.then) {
-                    res.then(() => {
-                        targetList
-                            .find(e => e.fk === data.fk)
-                            .status = 'success';
-                        if (type === '_image_') {
-                            this.setState({
-                                images: targetList
-                            });
-                        } else {
-                            this.setState({
-                                texts: targetList
-                            });
-                        }
-                    }, () => {
-                        targetList
-                            .find(e => e.fk === data.fk)
-                            .status = 'fail';
-
-                        if (type === '_image_') {
-                            this.setState({
-                                images: targetList
-                            });
-                        } else {
-                            this.setState({
-                                texts: targetList
-                            });
-                        }
-                    })
-                } else {
-                    targetList.find(e => e.fk === data.fk)
-                        .status = 'is-success';
-
-                    if (type === '_image_') {
-                        this.setState({
-                            images: targetList
-                        });
-                    } else {
-                        this.setState({
-                            texts: targetList
-                        });
-                    }
-                }
-            });
-        }
-
         this.setState({
             images: allImages,
             texts: allTexts
@@ -109,29 +121,53 @@ class FilePond extends React.Component {
             if (!autoUpload)
                 return;
 
-            if (typeof exeUpload === 'undefined') {
-                console.error('exeUpload is undefind');
-                return;
-            }
-
             let { images, texts } = this.state;
 
-            continuation(newImages, images, '_image_');
-            continuation(newTexts, texts, '_text_');
-
+            newImages.forEach((image) => {
+                this.uploadItem(image, images, '_image_');
+            });
+            newTexts.forEach((text) => {
+                this.uploadItem(text, texts, '_text_');
+            });
         });
     }
 
-    handleAction = (fk, action, type) => {
+    /**
+     *@description handle action requested from preview items
+     */
+    handleAction = (data, action, type) => {
         let { texts, images } = this.state;
+
         switch (action) {
             case '_delete_':
                 if (type === '_image_') {
-                    images.splice(images.findIndex(e => e.fk === fk), 1);
+                    images.splice(images.findIndex(e => e.fk === data.fk), 1);
                     this.setState({ images });
+                } else {
+                    texts.splice(texts.findIndex(e => e.fk === data.fk), 1);
+                    this.setState({ texts });
                 }
                 break;
             case '_reload_':
+                if (type === '_image_') {
+                    images
+                        .find(item => item.fk === data.fk)
+                        .status = 'progress';
+                    this.setState({
+                        images
+                    }, () => {
+                        this.uploadItem(data, images, type);
+                    })
+                } else {
+                    texts
+                        .find(item => item.fk === data.fk)
+                        .status = 'progress';
+                    this.setState({
+                        texts
+                    }, () => {
+                        this.uploadItem(data, texts, type);
+                    })
+                }
                 break;
         }
     }
@@ -142,11 +178,14 @@ class FilePond extends React.Component {
 
     render() {
         const { texts, images } = this.state;
+        const isContainFailure = !!(texts.find(item => item.status === 'fail')
+            || images.find(item => item.status === 'fail'));
+
         const wrapperClass = cx({
             ['file-pond-container']: true,
-            ['is-expand']: texts.length + images.length > 0
+            ['is-expand']: texts.length + images.length > 0,
+            ['upload-fail']: isContainFailure
         })
-
 
         return (
             <div className={wrapperClass}>
