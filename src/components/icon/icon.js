@@ -14,7 +14,7 @@ class Icon extends React.PureComponent {
         if (circle) {
             return (
                 <button className={wrapperClass} {...otherProps}>
-                    {React.cloneElement(children)}
+                    {children}
                 </button>
             );
         } else {

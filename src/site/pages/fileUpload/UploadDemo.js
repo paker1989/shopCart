@@ -25,6 +25,24 @@ class UploadDemo extends React.PureComponent {
     /**
      * test only
      */
+    handleUploadFilepond = (element) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                let random = Math.random() * 10;
+                if (random >= 5) {
+                    console.log('resolve');
+                    resolve();
+                } else {
+                    console.log('reject');
+                    reject();
+                }
+            }, 1000);
+        })
+    }
+
+    /**
+     * test only
+     */
     handleUpload = ({ texts = [] }) => {
         if (texts.length === 0)
             return;
@@ -118,7 +136,8 @@ class UploadDemo extends React.PureComponent {
         return (
             <React.Fragment>
                 <div className="filepond-wrapper">
-                    <Upload.Filepond />
+                    <Upload.Filepond
+                        exeUpload={this.handleUploadFilepond} />
                 </div>
                 <MarkdownRender source={mdDescription} />
                 <DemoCodeRender source={md_democode} title="设置最多上传数量以及上传方法">

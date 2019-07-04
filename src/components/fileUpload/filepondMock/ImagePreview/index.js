@@ -13,17 +13,19 @@ class ImagePreview extends React.Component {
     }
 
     render() {
-        const { images, status } = this.props;
-        
+        const { images, handleAction } = this.props;
+
         return (
             <div className="image-preview-list">
                 {images.map(image => {
-                    const { src, fk } = image;
+                    const { src, fk, status } = image;
+
+                    console.log(status);
 
                     const imageBlurClass = cx({
                         ['image-blur']: true,
                         ['is-success']: status === 'success',
-                        ['is-failure']: true, // status === 'fail',
+                        ['is-failure']: status === 'fail',
                         ['is-inprogress']: status === 'progress'
                     })
                     return (
@@ -31,9 +33,17 @@ class ImagePreview extends React.Component {
                             key={fk}>
                             <div className={imageBlurClass}></div>
                             <div className="image-preview-body">
-                                {/* <Reload className="preview-icon right" circle={true}/>
-                                <Delete className="preview-icon left" circle={true}/>
-                                <Loading className="preview-icon right" circle={true}/> */}
+                                <Reload
+                                    className="preview-icon right"
+                                    circle={true}
+                                    onClick={() => handleAction(fk, '_reload_')} />
+                                <Delete
+                                    className="preview-icon left"
+                                    circle={true}
+                                    onClick={() => handleAction(fk, '_delete_')} />
+                                <Loading
+                                    className="preview-icon right"
+                                    circle={true} />
                                 <img src={src} className="image-preview" />
                             </div>
                         </div>
