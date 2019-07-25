@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import './Uploaded.scss';
 import { formatSize } from '../../utils/util';
 import { initSortable } from '../../utils/sortable';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Delete } from '../../../icon';
 
 class Uploaded extends React.Component {
 
@@ -47,6 +48,8 @@ class Uploaded extends React.Component {
             onDelete,
         } = this.props;
 
+        console.log('showDelete = ' + showDelete);
+
         return (
             <div className="uploaded-result-container">
                 <ul className="local-images-list" ref={this.imageRef}>
@@ -54,10 +57,11 @@ class Uploaded extends React.Component {
                         <li key={image.fk}>
                             <div className="local-image-wrapper"
                                 style={{ backgroundImage: `url("${image.src}")` }}>
-                                {showDelete && (
-                                    <span onClick={() => { onDelete(image.fk, '_IMAGE_') }}>
-                                        <FontAwesomeIcon icon="times-circle" />
-                                    </span>)}
+                                <Delete
+                                    visible={showDelete}
+                                    className="preview-icon"
+                                    circle={true}
+                                    onClick={() => { onDelete(image.fk, '_IMAGE_') }} />
                             </div>
                         </li>
                     ))}

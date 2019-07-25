@@ -21,18 +21,13 @@ $local-image-size: 70px;
                 background-size: cover; // 自适应
                 background-position: 50% 50%;
 
-                & svg {
-                    position: absolute;
+                & .preview-icon {
                     top: -8px;
                     right: -8px;
-                    color: #999;
                     opacity: 0;
                     cursor: pointer;
-                    &:hover {
-                        color: darken(#999, 30%);
-                    }
                 }
-                &:hover svg {
+                &:hover .preview-icon  {
                     opacity: 1;
                     transition: opacity ease .3s;
                 }
