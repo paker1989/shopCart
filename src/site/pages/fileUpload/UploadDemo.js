@@ -143,7 +143,7 @@ class UploadDemo extends React.PureComponent {
                 <MarkdownRender source={mdDescription} />
                 <DemoCodeRender source={md_democode} title="设置最多上传数量以及上传方法">
                     <div style={{ margin: '20px' }}>
-                        <Upload maxAmount={5}
+                        <Upload maxAmount={2}
                             exeUpload={this.handleUpload} />
                     </div>
                 </DemoCodeRender>
