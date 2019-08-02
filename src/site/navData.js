@@ -3,8 +3,9 @@ import AffixDemo from './pages/affix/affixDemo';
 import UploadDemo from './pages/fileUpload/UploadDemo';
 import PreviewImage from './pages/previewImage/PreviewImageDemo';
 import StepDemo from './pages/steps/stepDemo';
+import DatePickerDemo from './pages/datePicker/DatePickerDemo';
 
-import DocLoadable from './DocLoadable';
+// import DocLoadable from './DocLoadable';
 
 module.exports = [
   {
@@ -32,5 +33,10 @@ module.exports = [
     name: 'steps',
     path: 'steps',
     source: StepDemo,
+  },
+  {
+    name: 'datePicker',
+    path: 'datePicker',
+    source: DatePickerDemo
   }
 ];

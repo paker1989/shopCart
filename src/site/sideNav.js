@@ -52,6 +52,11 @@ module.exports = [
             "path": "fileUpload"
           },
           {
+            "title": "DatePicker",
+            "subtitle": "日期选择",
+            "path": "datePicker"
+          },
+          {
             "title": "AutoComplete",
             "subtitle": "自动完成",
             "path": "autocomplete"

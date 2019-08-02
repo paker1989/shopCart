@@ -15,6 +15,9 @@ module.exports = {
   plugins: [
     htmlWebPackPlugin,
   ],
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
+  },
   module: {
     rules: [
       { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ },
@@ -25,9 +28,9 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ]
-      },   
+      },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i, 
+        test: /\.(jpe?g|png|gif|svg)$/i,
         loader: "file-loader",
       },
       {
@@ -35,6 +38,20 @@ module.exports = {
         type: 'javascript/auto',
         loader: 'json-loader'
       },
-    ],   
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader"
+          }
+        ]
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      }
+    ],
   }
 }

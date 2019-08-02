@@ -1,9 +1,8 @@
 import React from 'react';
 
-import navData from './data/sideNav';
+import navData from './sideNav';
 import Header from './header';
 import Footer from './footer';
-import SideNav from './sideNav';
 
 import Layout from '../components/layout';
 import CodeHighlighter from './utils/CodeHighlighter';
@@ -11,8 +10,6 @@ import CodeHighlighter from './utils/CodeHighlighter';
 import SiteConfig  from './site.config';
 
 import './style/index.scss';
-
-const { Col, Row } = Layout;
 
 class Site extends React.Component {
 
