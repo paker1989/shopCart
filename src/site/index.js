@@ -1,6 +1,7 @@
 import React from 'react';
 
-import navData from './sideNav';
+import SideNav from './sideNav';
+import navData from './sideNavData';
 import Header from './header';
 import Footer from './footer';
 
