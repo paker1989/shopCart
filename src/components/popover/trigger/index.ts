@@ -1,6 +1,6 @@
 import ClickTrigger from './clickTrigger';
 import FocusTrigger from './focusPopover';
-import Base from './trigger.js';
+import Base from './trigger';
 
 export default {
   ClickTrigger,

@@ -1,6 +1,6 @@
-import React, { Children } from 'react';
-import ReactDOM from 'react-dom';
-import propTypes from 'prop-types';
+import * as React from 'react';
+import { Children } from 'react';
+import * as ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
 
 import Trigger from './trigger/trigger';
@@ -8,22 +8,32 @@ import Content from './content';
 import Placement from './placement';
 import kindOf from '../../utils/kindOf';
 
+export interface IPopoverProps {
+  isVisible?: boolean;
+  onVisibleChange?: (isVisible: boolean) => void,
+  position?: (...options) => any;
+  cushion?: number;
+  containerSelector?: string;
+  className?: string; // trigger additional class
+  wrapperClassName?: string; // popover additional class
+  closeOnOutSide?: boolean;
+  onBeforeShow?: () => void;
+  onBeforeClose?: () => void;
+  onShow?: () => void;
+}
 
-class Popover extends React.Component {
+export interface IPopoverState {
+  isVisible?: boolean;
+}
 
-  static propTypes = {
-    isVisible: propTypes.bool,
-    onVisibleChange: propTypes.func,
-    position: propTypes.func,
-    cushion: propTypes.number,
-    containerSelector: propTypes.string,
-    className: propTypes.string, // trigger additional class
-    wrapperClassName: propTypes.string, // popover additional class
-    closeOnOutSide: propTypes.bool,
-    onBeforeShow: propTypes.func,
-    onBeforeClose: propTypes.func,
-    onShow: propTypes.func,
-  }
+class Popover extends React.Component<IPopoverProps, IPopoverState> {
+  triggerNode: any;
+  contentNode: any;
+  pendingOnBeforeHook: boolean;
+
+  static Trigger?: any;
+  static Content?: any;
+  static Placement?: any;
 
   static defaultProps = {
     cushion: 0,
@@ -35,7 +45,7 @@ class Popover extends React.Component {
   constructor(props) {
     super(props);
     if (!this.isPropVisibleControlled()) {
-      this.state = {isVisible: false};
+      this.state = { isVisible: false };
     }
   }
 
@@ -44,12 +54,12 @@ class Popover extends React.Component {
   }
 
   getVisible() {
-    return this.isPropVisibleControlled()? this.props.isVisible
+    return this.isPropVisibleControlled() ? this.props.isVisible
       : this.state.isVisible;
   }
 
   triggerRefChange = (triggerInstance) => {
-     this.triggerNode = ReactDOM.findDOMNode(triggerInstance);
+    this.triggerNode = ReactDOM.findDOMNode(triggerInstance);
   }
 
   contentRefChange = (contentInstance) => {
@@ -63,11 +73,11 @@ class Popover extends React.Component {
   close = () => {
     this.setVisible(false);
   }
-  
+
   setVisible(isVisible) {
     const { onBeforeShow, onBeforeClose } = this.props,
-          onBeforeHook = isVisible? onBeforeShow: onBeforeClose;
-          
+      onBeforeHook = isVisible ? onBeforeShow : onBeforeClose;
+
     const continuation = () => {
       this.pendingOnBeforeHook = false;
       if (this.isPropVisibleControlled()) {
@@ -102,9 +112,9 @@ class Popover extends React.Component {
 
   isClickOutSide = (evt) => {
     const { target } = evt,
-          triggerNode = this.getTriggerNode(),
-          contentNode = this.getContentNode();
-  
+      triggerNode = this.getTriggerNode(),
+      contentNode = this.getContentNode();
+
     if (!triggerNode.contains(target) && !contentNode.contains(target)) {
       this.close();
     }
@@ -112,20 +122,23 @@ class Popover extends React.Component {
 
   validChildren() {
     const { children } = this.props,
-          childrenArray = Children.toArray(children);
-    
+      childrenArray = Children.toArray(children);
+
     if (childrenArray.length !== 2) {
       throw new Error('you must have one trigger element and one content element');
     }
 
-    const { trigger, content } = childrenArray.reduce((state, c) => {
+    const { trigger, content } = childrenArray.reduce<{
+      trigger: any;
+      content: any;
+    }>((state, c: React.ReactElement<any>) => {
       if (kindOf(c.type, Trigger)) {
         state.trigger = c;
       } else if (kindOf(c.type, Content)) {
         state.content = c;
       }
       return state;
-    }, {trigger: null, content: null});
+    }, { trigger: null, content: null });
 
     if (!trigger) {
       throw new Error('you must have one and only one Trigger element');

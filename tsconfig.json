@@ -1,7 +1,7 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-      "allowSyntheticDefaultImports": false,
+      "allowSyntheticDefaultImports": true,
       "allowUnreachableCode": false,
       "allowUnusedLabels": false,
       "declaration": true,
@@ -19,7 +19,8 @@
       "pretty": true,
       "removeComments": true,
       "skipLibCheck": true,
-      "target": "es5"
+      "target": "es5",
+      "noImplicitAny": false
     },
     "exclude": ["lib", "es", "node_modules", "__tests__"],
     "include": ["src"]

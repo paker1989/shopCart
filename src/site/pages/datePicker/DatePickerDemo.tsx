@@ -25,7 +25,7 @@ class DatePickerDemo extends React.Component<ICommonPageProps, ICommonPageStates
       <React.Fragment>
         <MarkdownRender source={mdDescription}/>
         <DemoCodeRender source={md_democode} title="Date picker展示">
-           <DatePicker />
+           <DatePicker isPopup={false} />
         </DemoCodeRender>
       </React.Fragment>
     );

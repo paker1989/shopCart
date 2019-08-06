@@ -1,19 +1,24 @@
-import React, { Children } from 'react';
-import propTypes from 'prop-types';
+import * as React from 'react';
+import { Children } from 'react';
+import isFunction from 'lodash/isFunction';
 
-class Trigger extends React.Component {
-   static propTypes = {
-    // triggerVisibleChange: propTypes.func.isRequired
-     triggerRefChange: propTypes.func,
-     contentVisible: propTypes.bool,
-     isClickOutSide: propTypes.func
-   }
+export interface IClickTriggerProps {
+  triggerRefChange?: (node: any) => void;
+  contentVisible: boolean;
+  isClickOutSide: (...options) => void;
+  open?: () => void;
+  close?: () => void;
+}
 
+class Trigger extends React.Component<IClickTriggerProps, any> {
    constructor(props) {
      super(props);
    }
 
-   onTriggerProps() {}
+   onTriggerProps(child?: JSX.Element) {
+    return {};
+  }
+  //  onTriggerProps: () => object;
 
    onRefChange = (instance) => {
      const { triggerRefChange } = this.props;
@@ -43,7 +48,7 @@ class Trigger extends React.Component {
        );
      }
 
-     const child = Children.only(this.props.children);
+     const child: any = Children.only(this.props.children);
      if (child.ref && !isFunction(child.ref)) {
        throw new Error('String ref is not allowed on Popover trigger');
      }
