@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 
 namespace DatePickers {
     export type Value = string | number | Date;

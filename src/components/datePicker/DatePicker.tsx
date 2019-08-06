@@ -12,7 +12,7 @@ class DatePicker extends React.PureComponent
         isPopup: true
     }
 
-    constructor(props) {
+    constructor(props: DatePickers.IDatePickerProps) {
         super(props);
         this.state = { currentDate: new Date() };
     }
