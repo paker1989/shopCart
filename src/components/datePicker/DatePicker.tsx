@@ -1,7 +1,13 @@
 import * as React from 'react';
+import noop from 'lodash/noop';
+
+import Input from '../input';
 import Popover from '../popover';
 import DatePickers from './common/types';
 import DatePickerPanel from './components/DatePickerPanel';
+
+
+import './DatePicker.scss';
 
 class DatePicker extends React.PureComponent
     <DatePickers.IDatePickerProps, DatePickers.IDatePickerStates> {
@@ -14,7 +20,7 @@ class DatePicker extends React.PureComponent
 
     constructor(props: DatePickers.IDatePickerProps) {
         super(props);
-        this.state = { currentDate: new Date() };
+        // this.state = { currentDate: new Date() };
     }
 
     componentDidMount() {
@@ -22,27 +28,35 @@ class DatePicker extends React.PureComponent
     }
 
     render() {
-        const { isPopup } = this.props;
+        const { isPopup, placeholder, prefix, value } = this.props;
 
-        const { currentDate } = this.state;
+        const selectedDate = (value === undefined) ? null: new Date(value);
+          
+        // const { currentDate } = this.state;
 
         if (isPopup) {
             return (
-                <Popover position={Popover.Placement.autoBottomLeft}
-                    cushion={2}>
-                    <Popover.Trigger.ClickTrigger>
-                        sd
-                    </Popover.Trigger.ClickTrigger>
-                    <Popover.Content>
-                        <DatePickerPanel currentDate={currentDate} />
-                    </Popover.Content>
-                </Popover>
+                <div className={`${prefix}-datapicker-container`}>
+                    <Popover position={Popover.Placement.autoBottomLeft}
+                        cushion={2}>
+                        <Popover.Trigger.ClickTrigger>
+                            <Input placeholder={placeholder}
+                            value={value || ''}
+                            width={160} 
+                            onChange={noop}/>
+                        </Popover.Trigger.ClickTrigger>
+                        <Popover.Content>
+                            <DatePickerPanel  prefix={prefix}  />
+                        </Popover.Content>
+                    </Popover>
+                </div>
+
             );
         }
 
         return (
-            <div>
-                <DatePickerPanel currentDate={currentDate} />
+            <div className={`${prefix}-datapicker-container`}>
+                <DatePickerPanel prefix={prefix} selectedDate={selectedDate} />
             </div>
         );
 

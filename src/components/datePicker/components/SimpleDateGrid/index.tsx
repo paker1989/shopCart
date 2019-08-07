@@ -6,8 +6,9 @@ import './simpleDateGrid.scss';
 export interface ISimpleDateGridProps {
     value: number;
     isGrey?: boolean;
-    isFocus?: boolean;
-    dimension?: string; // dimension that calendar give
+    isToday?: boolean;
+    isSelected?: boolean;
+    dimension?: string | number; // dimension that calendar give
 }
 
 export default class SimpleDateGrid extends React.PureComponent
@@ -15,23 +16,22 @@ export default class SimpleDateGrid extends React.PureComponent
 
     static defaultProps = {
         isGrey: false,
-        isFocus: false,
-        dimension: '12.5%' // 正常一行8格
+        isToday: false,
+        isSelected: false,
+        dimension: '14%' // 正常一行7格
     }
 
     render() {
-        const { value, isFocus, isGrey, dimension } = this.props;
+        const { value, isToday, isGrey, isSelected } = this.props;
         const valueWraperClass: string = cx({
           ['value-wraper']: true,
-          ['is-focus']: isFocus,
-          ['is-grey']: isGrey
+          ['is-today']: isToday,
+          ['is-grey']: isGrey,
+          ['is-selected']: isSelected
         });
-        const gridContainerStyle = {
-            width: dimension
-        }
 
         return (
-            <div className="simple-calgrid-container" style={gridContainerStyle}>
+            <div className="simple-calgrid-container" /*style={gridContainerStyle}*/>
                 <div className={valueWraperClass}>
                     <span>{value}</span>
                 </div>

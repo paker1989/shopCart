@@ -8,7 +8,8 @@ $height: 30px;
   min-width: 100px;
   height: $height;
   display: flex;
-  border: 1px solid #bbb;
+  // border: 1px solid #bbb;
+  border: 0;
 
   & > * {
     box-sizing: border-box;
@@ -25,14 +26,18 @@ $height: 30px;
   }
 
   & #{$prefix} {
-    padding: 4px 3px;
+    padding: 4px 8px;
     flex-grow: 1;
     height: 100%;
+    max-width: 100%;
     line-height: 14px;
     font-size: 12px;
     outline: none;
     border-radius: 2px;
-    border: 0;
+    border: 1px solid #bbb;
+    &:focus {
+      border: 1px solid #3498db;
+    }
   }
 
   & #{$prefix}-addon-before, & #{$prefix}-addon-after {

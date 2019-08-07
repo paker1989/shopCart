@@ -1,8 +1,10 @@
 $selected-color: #1a73e8;
+$grey-color: #70757a;
 
 .simple-calgrid-container {
   position: relative;
-  // display: flex;
+  padding: 2px;
+
   & .value-wraper {
     position: relative;
     display: flex;
@@ -10,10 +12,17 @@ $selected-color: #1a73e8;
     align-items: center;
     width: 100%;
     height: 100%;
+    font-size: 13px;
     border-radius: 50%;
-    background:  $selected-color; // white;
-    &.is-focus {
+    // background:  $selected-color; // white;
+    &.is-today {
       background: $selected-color;
+    }
+    &.is-selected {
+      background: lighten($selected-color, 20%);
+    }
+    &.is-grey {
+      color: $grey-color;
     }
   }
 }

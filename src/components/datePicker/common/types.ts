@@ -21,7 +21,7 @@ namespace DatePickers {
     }
 
     export interface IDatePickerPanelProps<Val = Value> extends ICommonProps {
-        currentDate: Date;
+        selectedDate?: Date;
         onChange?: (val: Val) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
@@ -31,7 +31,7 @@ namespace DatePickers {
     }
 
     export interface IDatePickerStates {
-        currentDate: Date;
+        // currentDate: Date;
     }
 
     export interface IDatePickerPanelStates {

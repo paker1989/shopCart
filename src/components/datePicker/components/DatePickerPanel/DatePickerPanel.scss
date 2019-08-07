@@ -1,0 +1,22 @@
+$calendar-body-width: 240px;
+
+.bxu-pickerpanel-container {
+  position: relative;
+  width: $calendar-body-width;
+
+  & ul {
+      list-style-type: none;
+  }
+
+  & .calendar-body {
+     & .mondata-row-wrapper .row-data-container {
+       position: relative;
+       display: flex;
+       justify-content: center;
+       & .simple-calgrid-container {
+           width: $calendar-body-width / 7;
+           height: $calendar-body-width / 7;
+       }
+     }
+  }
+}
