@@ -3,7 +3,7 @@ import noop from 'lodash/noop';
 
 import Input from '../input';
 import Popover from '../popover';
-import DatePickers from './common/types';
+import { DatePickers } from './common/types';
 import DatePickerPanel from './components/DatePickerPanel';
 
 
@@ -15,7 +15,7 @@ class DatePicker extends React.PureComponent
     static defaultProps = {
         prefix: 'bxu',
         placeholder: '请选择日期',
-        isPopup: true
+        isPopover: true
     }
 
     constructor(props: DatePickers.IDatePickerProps) {
@@ -28,13 +28,11 @@ class DatePicker extends React.PureComponent
     }
 
     render() {
-        const { isPopup, placeholder, prefix, value } = this.props;
+        const { isPopover, placeholder, prefix, value } = this.props;
 
         const selectedDate = (value === undefined) ? null: new Date(value);
-          
-        // const { currentDate } = this.state;
 
-        if (isPopup) {
+        if (isPopover) {
             return (
                 <div className={`${prefix}-datapicker-container`}>
                     <Popover position={Popover.Placement.autoBottomLeft}
@@ -46,7 +44,7 @@ class DatePicker extends React.PureComponent
                             onChange={noop}/>
                         </Popover.Trigger.ClickTrigger>
                         <Popover.Content>
-                            <DatePickerPanel  prefix={prefix}  />
+                            <DatePickerPanel isPopover={true} prefix={prefix} />
                         </Popover.Content>
                     </Popover>
                 </div>

@@ -1,4 +1,4 @@
-import DatePickers from './types';
+import { DatePickers } from './types';
 
 export function isSameDay(selectedDay: DatePickers.IMonthDataFormat, targetDay: Date): boolean {
     if (targetDay === null || targetDay === undefined) {
@@ -58,6 +58,6 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
         currentMonthData.push({ yearD: yearD, monthD: monthD, showDate: showDate });
     }
     console.log(currentMonthData);
-    
+
     return currentMonthData;
 }

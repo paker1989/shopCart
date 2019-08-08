@@ -1,23 +1,23 @@
 // import * as React from 'react';
 
-namespace DatePickers {
+export namespace DatePickers {
     export type Value = string | number | Date;
 
     export interface ICommonProps {
         prefix?: string;
         className?: string;
+        isPopover?: boolean;
     }
 
     export interface IDatePickerProps<Val = Value> extends ICommonProps {
         placeholder?: string;
-        isPopup?: boolean;
         value?: Val;
         onChange?: (val: Val) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props
         onOpen?: () => void;
-        onClose?: () => void; 
+        onClose?: () => void;
     }
 
     export interface IDatePickerPanelProps<Val = Value> extends ICommonProps {
@@ -27,7 +27,7 @@ namespace DatePickers {
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props
         onOpen?: () => void;
-        onClose?: () => void; 
+        onClose?: () => void;
     }
 
     export interface IDatePickerStates {
@@ -45,6 +45,12 @@ namespace DatePickers {
         monthD: number;
         showDate: number;
     }
+
+    export enum monthChangeType { _prev_, _next_ };
+
+    export type handleMonthChange = (actionType: monthChangeType) => void;
 }
 
-export default DatePickers;
+export const dayNames: Array<string> = [
+    '日', '一', '二', '三', '四', '五', '六'
+]

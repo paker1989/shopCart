@@ -1,5 +1,5 @@
 $selected-color: #1a73e8;
-$grey-color: #70757a;
+$grey-color: #b1b3b4;
 
 .simple-calgrid-container {
   position: relative;
@@ -14,9 +14,16 @@ $grey-color: #70757a;
     height: 100%;
     font-size: 13px;
     border-radius: 50%;
+    transition: background .3s linear;
+
+    &:hover {
+      background: #EEEDED;
+      cursor: pointer;
+    }
     // background:  $selected-color; // white;
     &.is-today {
       background: $selected-color;
+      color: #fff;
     }
     &.is-selected {
       background: lighten($selected-color, 20%);

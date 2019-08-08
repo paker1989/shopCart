@@ -4,10 +4,12 @@ import cx from 'classnames';
 import './simpleDateGrid.scss';
 
 export interface ISimpleDateGridProps {
-    value: number;
+    className?: string;
+    value: number | string;
     isGrey?: boolean;
     isToday?: boolean;
     isSelected?: boolean;
+    isDisable?: boolean;
     dimension?: string | number; // dimension that calendar give
 }
 
@@ -18,17 +20,18 @@ export default class SimpleDateGrid extends React.PureComponent
         isGrey: false,
         isToday: false,
         isSelected: false,
+        isDisable: false,
         dimension: '14%' // 正常一行7格
     }
 
     render() {
-        const { value, isToday, isGrey, isSelected } = this.props;
+        const { className, value, isToday, isGrey, isSelected } = this.props;
         const valueWraperClass: string = cx({
           ['value-wraper']: true,
           ['is-today']: isToday,
           ['is-grey']: isGrey,
           ['is-selected']: isSelected
-        });
+        }, className);
 
         return (
             <div className="simple-calgrid-container" /*style={gridContainerStyle}*/>
