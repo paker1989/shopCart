@@ -48,7 +48,11 @@ export namespace DatePickers {
 
     export enum monthChangeType { _prev_, _next_ };
 
-    export type handleMonthChange = (actionType: monthChangeType) => void;
+    export type GridValueType = Date | string;
+
+    export type FnMonthChange = (actionType: monthChangeType) => void;
+
+    export type FnDateGridSelect = (value: Date) => void;
 }
 
 export const dayNames: Array<string> = [

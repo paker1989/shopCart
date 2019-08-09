@@ -26,6 +26,8 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
     var lastDateC = lastDayOfCurrentMonth.getDate();
     var lastDayOfPrevMonth = new Date(year, month - 1, 0);
     var lastDateP = lastDayOfPrevMonth.getDate();
+    console.log('firstDayC = ' + firstDayC);
+    console.log('lastDateP = ' + lastDateP);
     var currentMonthData: DatePickers.IMonthDataFormat[] = [];
     var yearD: number;
     var monthD: number;
@@ -34,7 +36,7 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
         monthD = month;
         if (i < firstDayC) {
             monthD = month - 1;
-            showDate = lastDateP - firstDayC + (i - 1);
+            showDate = lastDateP - firstDayC + (i + 1); 
         }
         else if (i < firstDayC + lastDateC) {
             monthD = month;
@@ -57,7 +59,45 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
         }
         currentMonthData.push({ yearD: yearD, monthD: monthD, showDate: showDate });
     }
-    console.log(currentMonthData);
 
     return currentMonthData;
+}
+
+export function populateDisplay(date: Date): DatePickers.IDatePickerPanelStates {
+    const displayYear: number = date.getFullYear();
+    const displayMonth: number = date.getMonth() + 1;
+    const monthData: DatePickers.IMonthDataFormat[] = getMonthData(displayYear, displayMonth);
+
+    return { displayYear, displayMonth, monthData };
+}
+
+export function getSiblingMonthData(displayYear: number,
+    displayMonth: number,
+    actionType: DatePickers.monthChangeType): DatePickers.IDatePickerPanelStates {
+
+    let newDisplayMonth;
+    let newDisplayYear;
+    let monthData: DatePickers.IMonthDataFormat[];
+
+    switch (actionType) {
+        case DatePickers.monthChangeType._next_:
+            const isNewYear = displayMonth + 1 > 12;
+            newDisplayMonth = isNewYear ? 1 : displayMonth + 1;
+            newDisplayYear = isNewYear ? displayYear + 1 : displayYear;
+
+            monthData = getMonthData(newDisplayYear, newDisplayMonth);
+            break;
+        case DatePickers.monthChangeType._prev_:
+            const isPrevYear = displayMonth - 1 <= 0;
+            newDisplayMonth = isPrevYear ? 12 : displayMonth - 1;
+            newDisplayYear = isPrevYear ? displayYear - 1 : displayYear;
+
+            monthData = getMonthData(newDisplayYear, newDisplayMonth);
+            break;
+    }
+    return {
+        displayYear: newDisplayYear,
+        displayMonth: newDisplayMonth,
+        monthData
+    };
 }

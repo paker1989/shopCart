@@ -8,7 +8,7 @@ export interface IDatePickerHeaderProps {
     prefix?: string;
     displayYear: string | number;
     displayMonth: string | number;
-    handleMonthChange?: DatePickers.handleMonthChange;
+    handleMonthChange?: DatePickers.FnMonthChange;
 }
 
 export default class DatePickerHeader extends React.PureComponent
