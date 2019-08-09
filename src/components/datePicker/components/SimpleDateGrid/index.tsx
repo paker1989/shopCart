@@ -15,7 +15,6 @@ export interface ISimpleDateGridProps {
     isDisable?: boolean;
     dimension?: string | number; // dimension that calendar give
     onSelect?: DatePickers.FnDateGridSelect;
-    format?: DatePickers.
 }
 
 export default class SimpleDateGrid extends React.PureComponent
