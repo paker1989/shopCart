@@ -7,7 +7,7 @@ import DatePickerHeader from '../DatePickerHeader';
 import './DatePickerPanel.scss';
 
 import { DatePickers, dayNames } from '../../common/types';
-import { getMonthData, isSameDay } from '../../common/util';
+import { isSameDay, populateDisplay, getSiblingMonthData } from '../../common/util';
 
 class DatePickerPanel extends React.Component
     <DatePickers.IDatePickerPanelProps, DatePickers.IDatePickerPanelStates> {
@@ -16,17 +16,9 @@ class DatePickerPanel extends React.Component
         isPopover: false
     }
 
-    static populateDisplay(date: Date): DatePickers.IDatePickerPanelStates {
-        const displayYear: number = date.getFullYear();
-        const displayMonth: number = date.getMonth() + 1;
-        const monthData: DatePickers.IMonthDataFormat[] = getMonthData(displayYear, displayMonth);
-
-        return { displayYear, displayMonth, monthData };
-    }
-
     constructor(props) {
         super(props);
-        const { displayYear, displayMonth, monthData } = DatePickerPanel.populateDisplay(new Date());
+        const { displayYear, displayMonth, monthData } = populateDisplay(new Date());
         this.state = {
             displayYear,
             displayMonth,
@@ -34,13 +26,18 @@ class DatePickerPanel extends React.Component
         };
     }
 
+    handleDateSelect = (selectedDate: Date): void => {
+        console.log(selectedDate);
+    }
+
     handleMonthChange = (actionType: DatePickers.monthChangeType): void => {
-        switch (actionType) {
-            case DatePickers.monthChangeType._next_:
-                break;
-            case DatePickers.monthChangeType._prev_:
-                break;
-        }
+        const { displayYear, displayMonth } = this.state;
+        const updatedStateData = getSiblingMonthData(displayYear, displayMonth, actionType);
+        this.setState({
+            displayYear: updatedStateData.displayYear,
+            displayMonth: updatedStateData.displayMonth,
+            monthData: updatedStateData.monthData
+        });
     }
 
     render() {
@@ -80,6 +77,7 @@ class DatePickerPanel extends React.Component
                                     dayNames.map((dayName, index) => (
                                         <SimpleDateGrid
                                             key={`dayname-grid-${index}`}
+                                            showValue={dayName}
                                             value={dayName}
                                             isDisable={true}
                                             className="dayname"
@@ -97,14 +95,17 @@ class DatePickerPanel extends React.Component
                                             const isGrey: boolean = day.yearD !== displayYear
                                                 || day.monthD !== displayMonth;
                                             const isSelected: boolean = isSameDay(day, selectedDate);
+                                            const gridDate: Date = new Date(day.yearD, day.monthD - 1, day.showDate);
 
                                             return (
                                                 <SimpleDateGrid
                                                     key={`day-grid-${index}`}
-                                                    value={day.showDate}
+                                                    showValue={day.showDate}
+                                                    value={gridDate}
                                                     isToday={isToday}
                                                     isGrey={isGrey}
-                                                    isSelected={isSelected} />
+                                                    isSelected={isSelected}
+                                                    onSelect={this.handleDateSelect} />
                                             )
                                         })
                                         }
