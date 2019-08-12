@@ -7,7 +7,7 @@ import DatePickerHeader from '../DatePickerHeader';
 import './DatePickerPanel.scss';
 
 import { DatePickers, dayNames } from '../../common/types';
-import { isSameDay, populateDisplay, getSiblingMonthData } from '../../common/util';
+import { isSameDay, populateDisplay, getSiblingMonthData, getFormattedDate } from '../../common/util';
 
 class DatePickerPanel extends React.Component
     <DatePickers.IDatePickerPanelProps, DatePickers.IDatePickerPanelStates> {
@@ -27,7 +27,8 @@ class DatePickerPanel extends React.Component
     }
 
     handleDateSelect = (selectedDate: Date): void => {
-        console.log(selectedDate);
+        const { format } = this.props;
+        console.log(getFormattedDate(selectedDate, format));
     }
 
     handleMonthChange = (actionType: DatePickers.monthChangeType): void => {

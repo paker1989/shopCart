@@ -10,6 +10,7 @@ export namespace DatePickers {
     }
 
     export interface IDatePickerProps<Val = Value> extends ICommonProps {
+        format?: string;
         placeholder?: string;
         value?: Val;
         onChange?: (val: Val) => void;
@@ -21,6 +22,7 @@ export namespace DatePickers {
     }
 
     export interface IDatePickerPanelProps<Val = Value> extends ICommonProps {
+        format?: string;
         selectedDate?: Date;
         onChange?: (val: Val) => void;
         disabled?: boolean;

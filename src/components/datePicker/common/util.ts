@@ -1,4 +1,5 @@
 import { DatePickers } from './types';
+import dateFormat from 'dateformat';
 
 export function isSameDay(selectedDay: DatePickers.IMonthDataFormat, targetDay: Date): boolean {
     if (targetDay === null || targetDay === undefined) {
@@ -100,4 +101,13 @@ export function getSiblingMonthData(displayYear: number,
         displayMonth: newDisplayMonth,
         monthData
     };
+}
+
+export function getFormattedDate(date: Date, format = 'default'): string {
+    // console.log(dateFormat);
+    if (format === 'default') {
+        return dateFormat(date, 'isoDate')
+    } else {
+        return dateFormat(date, format);
+    }
 }

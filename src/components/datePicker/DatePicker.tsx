@@ -15,12 +15,12 @@ class DatePicker extends React.PureComponent
     static defaultProps = {
         prefix: 'bxu',
         placeholder: '请选择日期',
-        isPopover: true
+        isPopover: true,
+        format: 'default'
     }
 
     constructor(props: DatePickers.IDatePickerProps) {
         super(props);
-        // this.state = { currentDate: new Date() };
     }
 
     componentDidMount() {
@@ -28,9 +28,9 @@ class DatePicker extends React.PureComponent
     }
 
     render() {
-        const { isPopover, placeholder, prefix, value } = this.props;
+        const { isPopover, placeholder, value, prefix, ...otherProps } = this.props;
 
-        const selectedDate = (value === undefined) ? null: new Date(value);
+        const selectedDate = (value === undefined) ? null : new Date(value);
 
         if (isPopover) {
             return (
@@ -39,12 +39,17 @@ class DatePicker extends React.PureComponent
                         cushion={2}>
                         <Popover.Trigger.ClickTrigger>
                             <Input placeholder={placeholder}
-                            value={value || ''}
-                            width={160} 
-                            onChange={noop}/>
+                                value={value || ''}
+                                width={160}
+                                onChange={noop} />
                         </Popover.Trigger.ClickTrigger>
                         <Popover.Content>
-                            <DatePickerPanel isPopover={true} prefix={prefix} />
+                            <DatePickerPanel
+                                isPopover={true}
+                                prefix={prefix}
+                                selectedDate={selectedDate}
+                                {...otherProps}
+                            />
                         </Popover.Content>
                     </Popover>
                 </div>
@@ -54,7 +59,10 @@ class DatePicker extends React.PureComponent
 
         return (
             <div className={`${prefix}-datapicker-container`}>
-                <DatePickerPanel prefix={prefix} selectedDate={selectedDate} />
+                <DatePickerPanel
+                    selectedDate={selectedDate}
+                    {...otherProps}
+                />
             </div>
         );
 
