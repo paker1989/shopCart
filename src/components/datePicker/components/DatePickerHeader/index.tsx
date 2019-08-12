@@ -28,11 +28,13 @@ export default class DatePickerHeader extends React.PureComponent
                 <div className={`${prefix}-header-action`}>
                     <div className="action-span"
                         onClick={() => handleMonthChange(DatePickers.monthChangeType._prev_)}>
-                        <span>{`<`}</span>
+                        {/* <span>{`<`}</span> */}
+                        {`<`}
                     </div>
                     <div className="action-span"
                         onClick={() => handleMonthChange(DatePickers.monthChangeType._next_)}>
-                        <span>{`>`}</span>
+                        {/* <span>{`>`}</span> */}
+                        {`>`}
                     </div>
                 </div>
             </div>
