@@ -27,10 +27,12 @@ class DatePicker extends React.PureComponent
 
     }
 
+    handleOnChange = (value: Date): 
+
     render() {
         const { isPopover, placeholder, value, prefix, ...otherProps } = this.props;
 
-        const selectedDate = (value === undefined) ? null : new Date(value);
+        const selectedDate = (value === undefined) ? null : value instanceof Date ? value : new Date(value);
 
         if (isPopover) {
             return (
