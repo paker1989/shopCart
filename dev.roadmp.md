@@ -7,11 +7,13 @@
 
 ### date picker component
 
-  - DatePicker.tsx: onChange(): void -> define onChange type, update input value, and call onChange props;
+  - (done) DatePicker.tsx: onChange(): void -> define onChange type, update input value, and call onChange props; 
 
-  - handles the selectedDate-change actions:
+  - (done) handles the selectedDate-change actions:
     > selected simpleDateGrid style;
     > if other-month's date is selected, then trigger monthChange;
+
+  - input date icon. 
 
   - differenciate click && dbclick events;
 

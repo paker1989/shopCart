@@ -13,7 +13,7 @@ export namespace DatePickers {
         format?: string;
         placeholder?: string;
         value?: Val;
-        onChange?: (val: Val) => void;
+        onChange?: (val: Date) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props
@@ -22,9 +22,9 @@ export namespace DatePickers {
     }
 
     export interface IDatePickerPanelProps<Val = Value> extends ICommonProps {
-        format?: string;
+        // format?: string;
         selectedDate?: Date;
-        onChange?: (val: Val) => void;
+        onChange?: (val: Date) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props

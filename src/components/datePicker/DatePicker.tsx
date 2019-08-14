@@ -6,8 +6,11 @@ import Popover from '../popover';
 import { DatePickers } from './common/types';
 import DatePickerPanel from './components/DatePickerPanel';
 
+import { getFormattedDate } from './common/util';
+
 
 import './DatePicker.scss';
+import { format } from 'util';
 
 class DatePicker extends React.PureComponent
     <DatePickers.IDatePickerProps, DatePickers.IDatePickerStates> {
@@ -27,30 +30,33 @@ class DatePicker extends React.PureComponent
 
     }
 
-    handleOnChange = (value: Date): 
-
     render() {
-        const { isPopover, placeholder, value, prefix, ...otherProps } = this.props;
+        const { isPopover, placeholder, value, prefix, format, ...otherProps } = this.props;
 
         const selectedDate = (value === undefined) ? null : value instanceof Date ? value : new Date(value);
 
         if (isPopover) {
+            const inputValue = getFormattedDate(selectedDate, format);
             return (
                 <div className={`${prefix}-datapicker-container`}>
                     <Popover position={Popover.Placement.autoBottomLeft}
                         cushion={2}>
                         <Popover.Trigger.ClickTrigger>
-                            <Input placeholder={placeholder}
-                                value={value || ''}
-                                width={160}
-                                onChange={noop} />
+                            <div className="input-wrapper">
+                                <Input placeholder={placeholder}
+                                    value={inputValue}
+                                    onChange={noop} />
+                                <svg className="ali-icon grey" aria-hidden="true">
+                                    <use xlinkHref="#icon-calendar"></use>
+                                </svg>
+                            </div>
                         </Popover.Trigger.ClickTrigger>
                         <Popover.Content>
                             <DatePickerPanel
                                 isPopover={true}
                                 prefix={prefix}
                                 selectedDate={selectedDate}
-                                {...otherProps}
+                                {...otherProps} //包括onChange
                             />
                         </Popover.Content>
                     </Popover>
@@ -62,6 +68,7 @@ class DatePicker extends React.PureComponent
         return (
             <div className={`${prefix}-datapicker-container`}>
                 <DatePickerPanel
+                    prefix={prefix}
                     selectedDate={selectedDate}
                     {...otherProps}
                 />

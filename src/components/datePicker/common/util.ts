@@ -1,5 +1,9 @@
 import { DatePickers } from './types';
-import dateFormat from 'dateformat';
+// import dateFormat from 'dateformat';
+
+export const _supported_date_format = {
+    default: 'YYYY-MM-DD'
+};
 
 export function isSameDay(selectedDay: DatePickers.IMonthDataFormat, targetDay: Date): boolean {
     if (targetDay === null || targetDay === undefined) {
@@ -27,8 +31,6 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
     var lastDateC = lastDayOfCurrentMonth.getDate();
     var lastDayOfPrevMonth = new Date(year, month - 1, 0);
     var lastDateP = lastDayOfPrevMonth.getDate();
-    console.log('firstDayC = ' + firstDayC);
-    console.log('lastDateP = ' + lastDateP);
     var currentMonthData: DatePickers.IMonthDataFormat[] = [];
     var yearD: number;
     var monthD: number;
@@ -37,7 +39,7 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
         monthD = month;
         if (i < firstDayC) {
             monthD = month - 1;
-            showDate = lastDateP - firstDayC + (i + 1); 
+            showDate = lastDateP - firstDayC + (i + 1);
         }
         else if (i < firstDayC + lastDateC) {
             monthD = month;
@@ -104,10 +106,26 @@ export function getSiblingMonthData(displayYear: number,
 }
 
 export function getFormattedDate(date: Date, format = 'default'): string {
-    // console.log(dateFormat);
-    if (format === 'default') {
-        return dateFormat(date, 'isoDate')
-    } else {
-        return dateFormat(date, format);
+    if (!date) {
+        return '';
     }
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    let _format = format || 'default';
+
+    if (format === 'default') {
+        _format = _supported_date_format.default;
+    }
+
+    switch (_format) {
+        case _supported_date_format.default:
+            return `${year}-${month}-${day}`;
+        case 'YYYY/MM/DD':
+            return `${year}/${month}/${day}`
+    }
+
+    return "";
 }

@@ -1,17 +1,16 @@
-import React from 'react';
-import { findDOMNode } from 'react-dom';
-import PropTypes from 'prop-types';
+import React from "react";
+import { findDOMNode } from "react-dom";
+import PropTypes from "prop-types";
 
-import cx from 'classnames';
-import throttle from 'lodash/throttle';
+import cx from "classnames";
+import throttle from "lodash/throttle";
 
-import getViewPortSize from '../../utils/getViewportSize';
-import WindowEventHandler from '../../utils/components/windowEventHandler';
+import getViewPortSize from "../../utils/getViewportSize";
+import WindowEventHandler from "../../utils/components/windowEventHandler";
 
-import './affix.scss';
+import "./affix.scss";
 
 class Affix extends React.PureComponent {
-
   static propTypes = {
     offsetTop: PropTypes.number,
     offsetBottom: PropTypes.number,
@@ -21,30 +20,30 @@ class Affix extends React.PureComponent {
     className: PropTypes.string,
     placeHoldClassName: PropTypes.string,
     prefix: PropTypes.string
-  }
+  };
 
   static defaultProps = {
-    prefix: 'bxu',
-    zIndex: 10,
-  }
+    prefix: "bxu",
+    zIndex: 10
+  };
 
   constructor(props) {
     super(props);
     this.affix = false;
     this.state = {
-      position: 'static',
+      position: "static",
       left: 0
-    }
+    };
   }
 
   pin() {
     const { onPin } = this.props;
     this.affix = true;
     this.setState({
-      position: 'fixed',
+      position: "fixed",
       // fixed位置会默认使用当前位置，而设置了fixed以后就失去了默认width属性，所以位置就会跳。
       // 所以显式的设置了width就ok了
-      width: `${findDOMNode(this).offsetWidth}px`,
+      width: `${findDOMNode(this).offsetWidth}px`
     });
     onPin && onPin();
   }
@@ -53,25 +52,22 @@ class Affix extends React.PureComponent {
     const { onUnpin } = this.props;
     this.affix = false;
     this.setState({
-      position: 'static'
+      position: "static"
     });
     onUnpin && onUnpin();
   }
 
   updateAffix = () => {
-    const {
-      offsetTop,
-      offsetBottom
-    } = this.props;
+    const { offsetTop, offsetBottom } = this.props;
     const node = findDOMNode(this);
     let realNum, propNum;
 
     if (offsetBottom) {
-    // if bottom fix case
+      // if bottom fix case
       realNum = getViewPortSize().height - node.getBoundingClientRect().bottom;
       propNum = offsetBottom;
     } else {
-    // if top fix case
+      // if top fix case
       realNum = node.getBoundingClientRect().top;
       propNum = offsetTop;
     }
@@ -82,8 +78,7 @@ class Affix extends React.PureComponent {
     if (!this.affix && realNum <= propNum) {
       this.pin();
     }
-
-  }
+  };
 
   getAffixStyle = () => {
     const affix = this.affix;
@@ -93,19 +88,18 @@ class Affix extends React.PureComponent {
     if (affix) {
       affixStyle.width = this.state.width;
       if (offsetTop) {
-        affixStyle.top = `${offsetTop}px`
+        affixStyle.top = `${offsetTop}px`;
       } else if (offsetBottom) {
-        affixStyle.bottom = `${offsetTop}px`
+        affixStyle.bottom = `${offsetTop}px`;
       }
     }
 
     return {
       position: this.state.position,
       zIndex,
-      ...affixStyle,
-
-    }
-  }
+      ...affixStyle
+    };
+  };
 
   handleEvent = throttle(this.updateAffix, 20);
 
@@ -114,24 +108,23 @@ class Affix extends React.PureComponent {
   }
 
   render() {
-    const {
-      placeHoldClassName,
-      className,
-      prefix,
-      children
-    } = this.props;
+    const { placeHoldClassName, className, prefix, children } = this.props;
 
-    const wrapperClass = cx({
-      [`${prefix}-affix`]: true,
-    }, className);
+    const wrapperClass = cx(
+      {
+        [`${prefix}-affix`]: true
+      },
+      className
+    );
 
     return (
       <div className={placeHoldClassName}>
-        <div className={wrapperClass} style={{...this.getAffixStyle()}}>
-          {children}
-        </div>
-        <WindowEventHandler eventName="resize" callbackFn={this.handleEvent}/>
-        <WindowEventHandler eventName="scroll" callbackFn={this.handleEvent}/>
+        <div className={wrapperClass} style={{ ...this.getAffixStyle() }}>
+          {" "}
+          {children}{" "}
+        </div>{" "}
+        <WindowEventHandler eventName="resize" callbackFn={this.handleEvent} />{" "}
+        <WindowEventHandler eventName="scroll" callbackFn={this.handleEvent} />{" "}
       </div>
     );
   }

@@ -28,13 +28,16 @@ export default class DatePickerHeader extends React.PureComponent
                 <div className={`${prefix}-header-action`}>
                     <div className="action-span"
                         onClick={() => handleMonthChange(DatePickers.monthChangeType._prev_)}>
-                        {/* <span>{`<`}</span> */}
-                        {`<`}
+                        <svg className="ali-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-left"></use>
+                        </svg>
                     </div>
                     <div className="action-span"
                         onClick={() => handleMonthChange(DatePickers.monthChangeType._next_)}>
                         {/* <span>{`>`}</span> */}
-                        {`>`}
+                        <svg className="ali-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-right"></use>
+                        </svg>
                     </div>
                 </div>
             </div>

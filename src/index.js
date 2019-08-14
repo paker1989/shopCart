@@ -4,9 +4,14 @@ import App from './App';
 
 import store from './store';
 import './style/markdown.scss';
+import './style/iconfont.scss';
 
-ReactDOM.render(<App store={store}/>, document.getElementById('root'));
+import './iconfont';
 
-if (module.hot) {
-  module.hot.accept();
-}
+
+ReactDOM.render( < App store = { store }
+        />, document.getElementById('root'));
+
+        if (module.hot) {
+            module.hot.accept();
+        }
