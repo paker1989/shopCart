@@ -1,6 +1,6 @@
 import * as React from 'react';
-import MarkdownRender from '../../utils/MarkdownRender';
-import { DatePicker } from '../../../components/datePicker';
+import MarkdownRender from '../../../utils/MarkdownRender';
+import { DatePicker } from '../../../../components/datePicker';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 
 import { ICommonPageProps, ICommonPageStates } from '../types';

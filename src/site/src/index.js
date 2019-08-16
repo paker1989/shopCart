@@ -5,7 +5,7 @@ import navData from './sideNavData';
 import Header from './header';
 import Footer from './footer';
 
-import Layout from '../components/layout';
+import Layout from '../../components/layout';
 import CodeHighlighter from './utils/CodeHighlighter';
 
 import SiteConfig  from './site.config';

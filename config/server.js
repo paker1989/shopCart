@@ -1,7 +1,6 @@
-require ('../db');
+require('../db');
 
 const path = require('path');
-const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -19,18 +18,18 @@ const blogRoutes = require('../routes/blog');
 
 let compiler = webpack(config);
 let devMiddleWare = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
+    publicPath: config.output.publicPath
 });
 
 let hotMiddleWare = webpackHotMiddleware(compiler, {
-  publicPath: config.output.publicPath
-}); 
+    publicPath: config.output.publicPath
+});
 
 const app = express();
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')());
@@ -50,5 +49,5 @@ app.use('/demo', demoRoutes);
 app.use('/blog', blogRoutes);
 
 app.listen(port, () => {
-  console.log(`server listen on ${port}`);
+    console.log(`server listen on ${port}`);
 })
