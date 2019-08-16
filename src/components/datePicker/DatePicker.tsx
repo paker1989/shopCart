@@ -8,9 +8,7 @@ import DatePickerPanel from './components/DatePickerPanel';
 
 import { getFormattedDate } from './common/util';
 
-
 import './DatePicker.scss';
-import { format } from 'util';
 
 class DatePicker extends React.PureComponent
     <DatePickers.IDatePickerProps, DatePickers.IDatePickerStates> {

@@ -1,6 +1,6 @@
 import React from 'react';
 import MarkdownRender from '../../utils/MarkdownRender';
-import Steps from '../../../components/Steps';
+import Steps from '../../../components/steps';
 import DemoCodeRender from '../../utils/DemoCodeRender/DemoCodeRender';
 import axios from 'axios';
 

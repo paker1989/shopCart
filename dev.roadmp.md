@@ -13,9 +13,9 @@
     > selected simpleDateGrid style;
     > if other-month's date is selected, then trigger monthChange;
 
-  - input date icon. 
+  - （done）input date icon. 
 
-  - differenciate click && dbclick events;
+  - differenciate click && dbclick events (later);
 
  - date picker -- date dragger --> (later);
 

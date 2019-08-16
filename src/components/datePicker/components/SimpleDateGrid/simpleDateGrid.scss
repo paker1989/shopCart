@@ -22,7 +22,7 @@ $grey-color: #b1b3b4;
             background: $selected-color;
             color: #fff;
         }
-        &.is-selected {
+        &.is-selected:not(.is-today) {
             background: lighten($selected-color, 30%);
         }
         &.is-grey {

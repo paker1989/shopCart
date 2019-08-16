@@ -9,9 +9,9 @@ import './style/iconfont.scss';
 import './iconfont';
 
 
-ReactDOM.render( < App store = { store }
-        />, document.getElementById('root'));
+ReactDOM.render(< App store={store}
+/>, document.getElementById('root'));
 
-        if (module.hot) {
-            module.hot.accept();
-        }
+if (module.hot) {
+    module.hot.accept();
+}

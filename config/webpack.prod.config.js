@@ -6,7 +6,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackProdConfig = merge(webpackBaseConfig, {
-  mode: 'development',
+  mode: 'production',
   entry: ['webpack-hot-middleware/client.js', './src/index.js'],
   // entry: ['./src/index.js'],
   output: {

@@ -2,7 +2,7 @@
 import cx from 'classnames';
 import React from 'react';
 import { Delete, Loading, Reload } from '../../../icon';
-import './ImagePreview.scss';
+import './imagePreview.scss';
 
 
 // const _STATUS_TYPES = ['success', 'standby', 'progress', 'fail'];
