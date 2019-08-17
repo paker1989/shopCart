@@ -7,8 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackProdConfig = merge(webpackBaseConfig, {
   mode: 'production',
-  entry: ['webpack-hot-middleware/client.js', './src/index.js'],
-  // entry: ['./src/index.js'],
+  entry: ['webpack-hot-middleware/client.js', './src/modules/site/main.js'],
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle_[hash].js',
@@ -22,7 +21,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../data'),
+        from: path.resolve(__dirname, '../assets'),
         to: '' //可以从devServer.publicPath + to访问
       }
     ])   

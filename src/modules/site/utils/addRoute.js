@@ -1,5 +1,4 @@
-import SiteConfig from '../site.config';
-import siteConfig from '../site.config';
+import SiteConfig from '../scripts/site.config';
 
 const routes = [];
 

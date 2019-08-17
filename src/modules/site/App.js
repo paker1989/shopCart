@@ -1,6 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+  } from "react-router-dom";
+  
 import Site from "./pages/Site";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { getFullPath } from "./utils/addRoute";

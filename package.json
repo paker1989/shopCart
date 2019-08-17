@@ -63,6 +63,7 @@
     "server-dev": "set NODE_ENV=dev && node server.js",
     "build": "set NODE_ENV=production && node config/server.js",
     "dev": "webpack-dev-server --progress --inline --config config/webpack.dev.config.js",
-    "dev-sc": "webpack-dev-server --progress --inline --config config/webpack.shopCart.dev.config.js"
+    "dev-sc": "webpack-dev-server --progress --inline --config src/modules/shopCart/config/webpack.shopCart.dev.config.js",
+    "start-site": "set NODE_ENV=production && node src/modules/site/config/server.js"
   }
 }

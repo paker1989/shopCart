@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
   filename: 'index.html',
-  template: path.join(__dirname, '..', 'src/_templates_/shopCart.html')
+  template: path.join(__dirname, '../../../', '_templates_/shopCart.html')
 });
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
     htmlWebPackPlugin,
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, '..', './src/modules/shopCart/assets'),
+        from: path.join(__dirname, '..', 'assets'),
         to: '' //可以从devServer.publicPath + to访问
       }
     ])

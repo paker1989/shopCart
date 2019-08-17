@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const router = express.Router();
-const _BLOG_LOCAL_CONFIG = require('../assets/scripts/blog.env.config');
-const multerUpload = require('../assets/scripts/multer.config');
+const _BLOG_LOCAL_CONFIG = require('../scripts/blog.env.config');
+const multerUpload = require('../scripts/multer.config');
 
 // 合并分片
 function mergeChunks(fileName, chunks, callback) {

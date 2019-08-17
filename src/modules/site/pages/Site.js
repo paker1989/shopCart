@@ -1,15 +1,15 @@
 import React from 'react';
 
 import SideNav from '../components/sideNav';
-import navData from '../assets/scripts/sideNavData';
+import navData from '../scripts/sideNavData';
 import Header from '../components/header';
 import Footer from '../components/footer';
 
 import CodeHighlighter from '../components/common/codeHighlighter';
 
-import SiteConfig  from '../assets/scripts/site.config';
+import SiteConfig  from '../scripts/site.config';
 
-import './style/index.scss';
+import '../style/index.scss';
 
 class Site extends React.Component {
 

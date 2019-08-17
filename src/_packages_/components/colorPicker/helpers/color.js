@@ -1,5 +1,5 @@
 import tinyColor from 'tinycolor2';
-import isNumber from '../../utils/isValidNumber';
+import isNumber from '../../../utils/isValidNumber';
 
 export function toState(color) {
   let tnColor = new tinyColor(color);

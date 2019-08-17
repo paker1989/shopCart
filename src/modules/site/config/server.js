@@ -1,4 +1,4 @@
-require('../db');
+require('./db');
 
 const path = require('path');
 const express = require('express');
@@ -11,7 +11,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.prod.config');
 
 const createAlias = require('./createAlias');
-const componentAlias = createAlias(path.resolve(__dirname, '../src/components'));
+const componentAlias = createAlias(path.resolve(__dirname, '../components'));
 const demoRoutes = require('../routes/demo')(componentAlias);
 
 const blogRoutes = require('../routes/blog');
@@ -40,10 +40,7 @@ app.use(hotMiddleWare);
 
 app.use('/static', express.static('/'));
 
-const port = 1218;
-
-// console.log(demoRoutes);
-// console.log(blogRoutes);
+const port = 1219;
 
 app.use('/demo', demoRoutes);
 app.use('/blog', blogRoutes);

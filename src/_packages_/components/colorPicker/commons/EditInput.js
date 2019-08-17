@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import isValidNumber from '../../utils/isValidNumber';
+import isValidNumber from '../../../utils/isValidNumber';
 
 class EditInput extends React.Component {
   static propTypes = {
