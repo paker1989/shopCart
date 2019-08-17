@@ -1,0 +1,66 @@
+@import '../../style/mixin.scss';
+
+.filter-container {
+  padding-right: 1.5em;
+  width: 250px;
+  
+  @media only screen and (max-width: 900px) {
+    width: 100%;
+  }
+
+  & .title {
+    text-align: left;
+    margin-bottom: 1em;
+  }
+}
+
+.checkboxs {
+  @include flex;
+  justify-content: flex-start;
+  width: 100%;
+  & > * {
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+.checkbox {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  user-select: none;
+  cursor: pointer;
+
+  & input[type='checkbox'] {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+
+    ~ .checkmark {
+      position: absolute;
+      width: 35px;
+      height: 35px;    
+      border-radius: 50%;  
+      top: 0px;
+      left: 0px;      
+      line-height: 35px;
+      text-align: center;
+      color: black;
+      background: #ececec;
+      font-size: 0.8em;
+      &:hover {
+        border: 1px solid black;
+      }
+    }
+
+    &:checked ~.checkmark {
+      background: black;
+      color: white;
+      &:hover {
+        border: 1px solid white;
+      }
+    }
+  }
+}

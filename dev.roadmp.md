@@ -15,9 +15,9 @@
 
   - （done）input date icon. 
 
-  - differenciate click && dbclick events (later);
+  - (later) differenciate click && dbclick events 
 
- - date picker -- date dragger --> (later);
+ - (later) date picker -- date dragger
 
 
 ### BxuCalendar app
@@ -28,8 +28,8 @@
     > db model design
     > redux model design
 
-
-
-
+- 调整项目结构，重写入口文件:
+  > 分别写shopcart和site的webpack.config.js， 确保结构调整没有问题;
+  > integrate the two above;
 
   

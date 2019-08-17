@@ -1,0 +1,61 @@
+$notify-error: rgba(255, 68, 68, 0.8);
+$notify-success: rgba(68, 187, 136, 0.8);
+
+.infiniteScroller-container {
+  padding: 20px 30px;
+  text-align: left;
+
+  & .infinite-scroller-demo {
+    position: relative;
+    margin: 30px 0 100px 0;
+    width: 500px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #bbb;
+
+    & .loading {
+      position: relative;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: grey;
+    }
+  }
+
+  & .bxu-btn {
+    border-radius: 4px;
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    // background: $notify-success;
+    // color: whitesmoke;
+    font-size: 13px;
+  
+    &.bxu-success {
+      background: $notify-success;
+      color: whitesmoke;
+    }
+
+    &.bxu-action {
+      background: #38f;
+      color: whitesmoke;
+      margin: 0 10px;
+    }
+  
+    &.bxu-error {
+      background: $notify-error;
+      color: whitesmoke;
+    }
+  
+    &:hover {
+      opacity: .8;
+    }
+  
+    &.btn-affix {
+      color: white;
+      background: #38f;
+    }
+  }
+
+}

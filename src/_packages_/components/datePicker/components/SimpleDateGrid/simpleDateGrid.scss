@@ -1,0 +1,36 @@
+$selected-color: #1a73e8;
+$grey-color: #b1b3b4;
+.simple-calgrid-container {
+    position: relative;
+    padding: 2px;
+    & .value-wraper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 13px;
+        border-radius: 50%;
+        transition: background .3s linear;
+        &:hover {
+            background: #EEEDED;
+            cursor: pointer;
+        }
+        // background:  $selected-color; // white;
+        &.is-today {
+            background: $selected-color;
+            color: #fff;
+        }
+        &.is-selected:not(.is-today) {
+            background: lighten($selected-color, 30%);
+        }
+        &.is-grey {
+            color: $grey-color;
+            &.is-selected,
+            &.is-today {
+                color: #fff;
+            }
+        }
+    }
+}

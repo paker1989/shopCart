@@ -1,0 +1,27 @@
+.bxu-row {
+  position: relative;
+  width: 100%;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.bxu-col {
+  float: left;
+  box-sizing: border-box;
+
+  @for $var from 1 to 24 {
+    $percent: calc(#{$var} / 24 * 100%);
+
+    &.bxu-col-#{$var} {
+      width: $percent;
+    }
+
+    &.bxu-col-offset-#{$var} {
+      margin-left: $percent;
+    }
+  }
+}

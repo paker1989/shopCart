@@ -1,0 +1,23 @@
+.bxu-searchinput_container {
+  position: relative;
+
+  & .search-icon {
+    position: absolute;
+    line-height: 30px;
+    left: 0;
+    top: 0;
+    font-size: 13px;
+    color: #bbb;
+  }
+  
+  & .bxu-input-wrapper {
+    border: none;
+    & input {
+      border: none;
+      padding: 0 17px;
+      &:focus {
+        border-bottom: 1px solid #4775B8;
+      }
+    }
+  }
+}

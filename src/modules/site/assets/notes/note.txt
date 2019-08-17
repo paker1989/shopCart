@@ -1,0 +1,79 @@
+- render()
+   The render() function should be pure, meaning that it does not modify component state,
+   it returns the same result each time it’s invoked, and it does not directly interact with the browser.
+   render() will not be invoked if shouldComponentUpdate() returns false.
+
+- componentDidMount():
+You may call setState() immediately in componentDidMount(). It will trigger 
+an extra rendering, but it will happen before the browser updates the screen. 
+It can, however, be necessary for cases like modals and tooltips when you need to
+ measure a DOM node before rendering something that depends on its size or position.
+
+ - componentDidUpdate():
+ componentDidUpdate() is invoked immediately after updating occurs. This method is not called for the initial render.
+ This method is not called for the initial render.
+ This is also a good place to do network requests as long as you compare the current props to previous props 
+
+ - componentWillUnmount():
+  Perform any necessary cleanup in this method.
+  You should not call setState() in componentWillUnmount().
+
+  Rarely used lifecycle methods:
+  - shouldComponentUpdate()
+  - static getDerivedStateFromProps()
+  - getSnapshotBeforeUpdate():
+  invoked right before the most recently rendered output is committed to e.g. the DOM. It enables your component to capture 
+  some information from the DOM (e.g. scroll position) before it is potentially changed. Any value returned by this lifecycle 
+  will be passed as a parameter to componentDidUpdate().
+
+  Error boundaries:
+  - static getDerivedStateFromError():
+    This lifecycle is invoked after an error has been thrown by a descendant component. It receives the error
+     that was thrown as a parameter and should return a value to update state.
+     it is called during the 'rendering' phase;
+  - componentDidCatch();
+    This lifecycle is invoked after an error has been thrown by a descendant component.
+    componentDidCatch() is called during the “commit” phase, so side-effects are permitted. It should be
+    used for things like logging errors:
+
+  Only use error boundaries for recovering from unexpected exceptions; don’t try to use them for control flow.
+  Error boundaries only catch errors in the components below them in the tree. An error boundary can’t catch an error within 
+  itself.
+
+  Legacy lifecycle methods:
+  - UNSAFE_componentWillMount(): This is the only lifecycle method called on server rendering.
+  - UNSAFE_componentWillReceiveProps()
+  - UNSAFE_componentWillUpdate():
+    Typically, this method can be replaced by componentDidUpdate(). If you were reading from the DOM in this method
+    (e.g. to save a scroll position), you can move that logic to getSnapshotBeforeUpdate().
+
+  Other APIs:
+  - setState(updater, callback),
+    setState((state, props) => {
+      //to do
+    }, () => {
+      //to do
+    })
+
+  - forceUpdate(cb)
+
+ 
+
+
+
+  为了在移动到另一项（如密码管理器场景）时可以重新赋值，我们可以使用“key”这个React的特殊属性。当一个“key”发生变化时，React将创建一个新的组件实例，
+  而不是更新当前的一个实例。 在大多数情况下，这是处理有重置要求的状态的最好方法。
+  <EmailInput
+  defaultEmail={this.props.user.email}
+  key={this.props.user.id}
+  />
+
+  ReactDOM:
+  - render()
+  - unmountComponentAtNode(): 从DOM元素中移除已挂载的React组件，清除它的事件处理器和state。如果容器内没有挂载任何组件，这个函数什么都不会干。
+   有组件被卸载的时候返回true，没有组件可供卸载时返回 false。
+  - findDOMNode():  是用于操作底层DOM节点的备用方案。在大部分情况下都不提倡使用这个方案，因为它破坏了组件的抽象化。
+
+  DOM Elements
+
+  

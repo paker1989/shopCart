@@ -1,0 +1,39 @@
+ #### video 2: interface
+ - group (command + G), ungroup (command + shift + G)
+ - menu bar en haut
+ - views : show grid/pixels/rulers, etc
+ - export: change background & other options.
+ 
+ #### video 3: artboard
+ - insert: artboard， command+D = duplicate
+ - File - export - export all || export any one of them.
+ 
+ #### video 4: page
+- create page
+- 右下角 make it exportable， 然后 command + shift + E， 这样exportable的就可以exporter了。否则默认export的时候是不包括这些的。
+
+ #### video 5: styling sharps with Inspectors (就是右侧各种选项) 
+- multiple borders, etc.
+
+ #### video 6: using text styles
+- 复用text style. manage text style.
+
+ #### video 7: Grid and layouts
+- 右上角 view - show grids / layout - manage grid / layout
+
+ #### video 8: Alignment & distribution
+- 选中多个object，然后右上角一系列图标。align top什么的之类的。
+
+#### video 9: shape in sketch
+- 可以新建 星形。多边形等。图形之间可以union, diff等。
+
+#### video 10: create symbol
+- 可以grouper一组组件，然后点create symbol，这样可以插入symbol，右侧manage symbol。所有使用组件的都会sync。
+- useful shortcut: command + G (grouper), A - artboard, T - text, R - rectangle, etc.
+
+#### video 11: iOS design tools
+- file - from new template - ios design.
+
+#### video 12:  Foundation 5 UI Kit
+https://github.com/stephenway/sketch-foundation-kit
+- 从上文的网址下载，

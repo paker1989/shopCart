@@ -1,0 +1,60 @@
+$timing-fn-ease-in-out: cubic-bezier(0.5, 0, 0.5, 0.1); // 组件内变化
+$timing-fn-ease-in: cubic-bezier(0.17, 0.84, 0.44, 0.1); // 入场
+$timing-fn-ease-out: cubic-bezier(0.18, 0.66, 0.6, 0.82); // 出场
+$timing-fn-linear: cubic-bezier(0, 0, 0.1, 0.1); // 线性
+
+.bxu-zoom-appear,
+.bxu-zoom-exit {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.bxu-zoom-appear.bxu-zoom-appear-active {
+  //   animation: 400ms $timing-fn-ease-in 0s 1 normal both running bxu-zoomin,
+  //     400ms $timing-fn-ease-in 300ms 1 normal both running bxu-fadein;
+  animation: bxu-zoomin 0.4s ease;
+}
+
+.bxu-zoom-exit.bxu-zoom-exit-active {
+  animation: bxu-zoomout 0.4s ease-out;
+}
+
+@keyframes bxu-zoomin {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bxu-zoomout {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes bxu-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bxu-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
