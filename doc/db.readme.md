@@ -6,7 +6,7 @@
 ```
 * macbook
   ```
-  mongod --port 27019 -dbpath /Users/binxu/Desktop/react/projects/shopCart/blog/db
+  mongod --port 27019 -dbpath /Users/binxu/Desktop/react/projects/binWorkspace/db
   ```
 
   macbook下kill mongod命令:
