@@ -9,6 +9,8 @@ import '../../lib/scripts/iconfont';
 
 ReactDOM.render(< App />, document.getElementById('root'));
 
-if (module.hot) {
+console.log(process.env.NODE_ENV);
+
+if (module.hot && process.env.NODE_ENV === 'development') {
   module.hot.accept();
 }

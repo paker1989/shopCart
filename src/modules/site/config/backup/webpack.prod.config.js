@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackProdConfig = merge(webpackBaseConfig, {
   mode: 'production',
-  entry: ['./main.js'],
+  entry: ['webpack-hot-middleware/client.js', './src/modules/site/main.js'],
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle_[hash].js',
@@ -15,6 +15,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
     publicPath: '/'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': '"production"'
     }),
@@ -23,8 +24,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
         from: path.resolve(__dirname, '../assets'),
         to: '' //可以从devServer.publicPath + to访问
       }
-    ]),
-    new webpack.HotModuleReplacementPlugin(),
+    ])   
   ]
 });
 

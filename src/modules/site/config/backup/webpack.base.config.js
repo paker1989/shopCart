@@ -3,28 +3,20 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
   filename: 'index.html',
-  template: path.join(__dirname, '../../../', '_templates_/site.html'),
-  inject: true
+  template: path.join(__dirname, '../../../', '_templates_/site.html')
 });
 
 module.exports = {
-  context: path.resolve(__dirname, '../'), // site 目录
-  entry: {
-    app: './main.js'
-  },
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
+    path: path.resolve(__dirname, './dist'),
+    filename: 'main.js',
     publicPath: '/'
   },
   plugins: [
     htmlWebPackPlugin,
   ],
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
-    alias: {
-      '@component': path.join(__dirname, '../../../_packages_/components') // to test
-    }
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
     rules: [
