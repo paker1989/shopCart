@@ -1,6 +1,5 @@
 import * as React from 'react';
 import MarkdownRender from '../../components/common/MarkdownRender';
-// import { DatePicker } from '../../../../_packages_/components/datePicker';
 import DemoCodeRender from '../../components/common/DemoCodeRender';
 import { DatePicker } from '@component/datePicker';
 

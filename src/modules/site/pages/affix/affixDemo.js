@@ -1,6 +1,6 @@
 import React from 'react';
 import MarkdownRender from '../../components/common/MarkdownRender';
-import Affix from '../../../../_packages_/components/affix';
+import Affix from '@component/affix';
 import DemoCodeRender from '../../components/common/DemoCodeRender';
 import axios from 'axios';
 

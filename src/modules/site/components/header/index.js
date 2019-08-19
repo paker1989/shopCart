@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import SearchInput from '../../../../_packages_/components/searchInput';
-import Popover from '../../../../_packages_/components/popover';
+import SearchInput from '@component/searchInput';
+import Popover from '@component/popover';
 import ComponentSelectable from './componentSelectable';
 
 import logo from '../../assets/images/logo1.png';

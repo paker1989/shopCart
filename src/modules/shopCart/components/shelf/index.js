@@ -8,7 +8,7 @@ import fetchProducts from '../../store/actions/fetchProducts';
 import Filter from '../filter';
 import Product from '../product';
 import ShelfHeader from './shelfHeader';
-import Spinner from '../../../../_packages_/components/spinner';
+import Spinner from '@component/spinner';
 
 
 /**

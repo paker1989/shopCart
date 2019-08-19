@@ -2,7 +2,7 @@ import React from 'react';
 import MarkdownRender from '../../components/common/MarkdownRender';
 import DemoCodeRender from '../../components/common/DemoCodeRender';
 
-import Steps from '../../../../_packages_/components/steps';
+import Steps from '@component/steps';
 
 import axios from 'axios';
 

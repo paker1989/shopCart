@@ -4,7 +4,7 @@ import util from '../utils';
 
 import { connect } from 'react-redux';
 import { addProduct } from '../../store/actions/floatCarts';
-import Tooltip from '../../../../_packages_/components/tooltip';
+import Tooltip from '@component/tooltip';
 
 class Product extends React.Component {
   render() {

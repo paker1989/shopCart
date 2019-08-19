@@ -4,8 +4,8 @@ import axios from 'axios';
 import MarkdownRender from '../../components/common/MarkdownRender';
 import DemoCodeRender from '../../components/common/DemoCodeRender';
 
-import Upload from '../../../../_packages_/components/fileUpload';
-import { _CHUNK_SIZE, _BODY_DATA_LIMIT } from '../../../../_packages_/components/fileUpload/utils/util';
+import Upload from '@component/fileUpload';
+import { _CHUNK_SIZE, _BODY_DATA_LIMIT } from '@component/fileUpload/utils/util';
 import { sendFileByChunk } from '../../utils/chunkFileUtil';
 
 const md_democode =

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { loadCarts, updateCarts, removeProduct } from '../../store/actions/floatCarts';
 import CardProduct from './cardProduct';
-import Modal from '../../../../_packages_/components/modal'; 
+import Modal from '@component/modal'; 
 // import ReactModal from 'react-modal';
 
 import utils from '../utils';

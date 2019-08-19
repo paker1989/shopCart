@@ -1,5 +1,5 @@
 import React from 'react';
-import previewImage from '../../../../_packages_/components/previewImage';
+import previewImage from '@component/previewImage';
 
 const imgArr = [
   'http://img.yzcdn.cn/public_files/2017/6/30/b0717bad7ad3ebd025e175d624ade39f.png',
