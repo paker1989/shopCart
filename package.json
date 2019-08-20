@@ -9,19 +9,28 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "chalk": "^2.4.2",
+    "compression-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.10.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "ora": "^3.4.0",
     "react-transition-group": "^2.9.0",
+    "rimraf": "^3.0.0",
     "sass-loader": "^7.1.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.26.1",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-hot-middleware": "^2.25.0",
@@ -60,10 +69,8 @@
     "webpack-dev-middleware": "^3.7.0"
   },
   "scripts": {
-    "server-dev": "set NODE_ENV=dev && node server.js",
-    "build": "set NODE_ENV=production && node config/server.js",
-    "dev": "webpack-dev-server --progress --inline --config config/webpack.dev.config.js",
-    "dev-sc": "webpack-dev-server --progress --inline --config src/modules/shopCart/config/webpack.shopCart.dev.config.js",
-    "site-start": "node src/modules/site/config/dev-server.js"
+    "shopcart-dev": "webpack-dev-server --progress --inline --config src/modules/shopCart/config/webpack.shopCart.dev.config.js",
+    "start-site": "node src/modules/site/config/dev-server.js",
+    "build-site": "node src/modules/site/config/build.js"
   }
 }
