@@ -38,6 +38,7 @@
   "dependencies": {
     "@types/classnames": "^2.2.9",
     "@types/lodash": "^4.14.136",
+    "@types/react-router-dom": "^4.3.4",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
@@ -67,6 +68,7 @@
   "scripts": {
     "shopcart-dev": "webpack-dev-server --progress --inline --config src/modules/shopCart/config/webpack.shopCart.dev.config.js",
     "start-site": "node src/modules/site/config/dev-server.js",
-    "build-site": "node src/modules/site/config/build.js"
+    "build-site": "node src/modules/site/config/build.js",
+    "cal-dev": "webpack-dev-server --progress --inline --config src/modules/calendar/config/webpack.dev.config.js"
   }
 }

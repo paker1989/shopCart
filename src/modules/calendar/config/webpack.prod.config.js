@@ -42,13 +42,6 @@ const webpackProdConfig = merge(webpackBaseConfig, {
           test: '/(react|react-dom)/',
           priority: 100,         
         },
-        highlightjs: { // 项目基本框架等
-          chunks: 'all',
-          // test: /(react|react-dom|react-dom-router|babel-polyfill|mobx)/,
-          test: /(highlightjs)/,
-          priority: 100,
-          name: 'highlightjs',
-        },
         'async-commons': {  // 异步加载公共包、组件等
           chunks: 'async',
           minChunks: 1,
