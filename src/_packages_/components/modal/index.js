@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CSSTransition } from 'react-transition-group';
 
 import "./modal.scss";
@@ -138,7 +137,10 @@ class Modal extends React.Component {
                     {isClose && (
                         <div className="modal-close" onClick={onClose}>
                             <span className="modal-close-icon">
-                                <FontAwesomeIcon icon="times-circle" />
+                                {/* <FontAwesomeIcon icon="times-circle" /> */}
+                                <svg className="ali-icon grey" aria-hidden="true">
+                                    <use xlinkHref="#icon-49shurushanchu-2"></use>
+                                </svg>
                             </span>
                         </div>
                     )}
@@ -150,12 +152,12 @@ class Modal extends React.Component {
                         classNames="bxu-zoom"
                         onExited={onClose}
                         unmountOnExit>
-                    <div className={modalContentProps.className} style={modalContentProps.style}>
-                        {children}
-                    </div>
-                        </CSSTransition>
-                    </div>
-  
+                        <div className={modalContentProps.className} style={modalContentProps.style}>
+                            {children}
+                        </div>
+                    </CSSTransition>
+                </div>
+
             </React.Fragment >
         );
         return visible ? ReactDOM.createPortal(modalLayer, this.node) : null;

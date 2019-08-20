@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import './Uploaded.scss';
 import { formatSize } from '../../utils/util';
 import { initSortable } from '../../utils/sortable';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Delete } from '../../../icon';
 
 class Uploaded extends React.Component {
@@ -74,7 +73,10 @@ class Uploaded extends React.Component {
                                 <p className="size-label">{formatSize(item.file.size)}</p>
                                 {showDelete && (
                                     <span onClick={() => { onDelete(item.fk, '_TEXT_') }}>
-                                        <FontAwesomeIcon icon="times-circle" />
+                                        {/* <FontAwesomeIcon icon="times-circle" /> */}
+                                        <svg className="ali-icon grey" aria-hidden="true">
+                                            <use xlinkHref="#icon-49shurushanchu-2"></use>
+                                        </svg>
                                     </span>)}
                             </div>
                         </li>

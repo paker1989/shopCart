@@ -18,7 +18,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: 'js/[name].[chunkhash].js',
-    chunkFilename: 'js/[name][id].[chunkhash].js',
+    chunkFilename: 'js/[name]~[id].[chunkhash].js',
     publicPath: '/'
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
@@ -48,10 +48,10 @@ const webpackProdConfig = merge(webpackBaseConfig, {
           name: 'async-commons',
           priority: 90,
         },
-        commons: { // 其他同步加载公共包
+        vendors: { // 其他同步加载公共包
           chunks: 'all',
           minChunks: 1,
-          name: 'commons',
+          name: 'vendors',
           priority: 80,
         }
       }

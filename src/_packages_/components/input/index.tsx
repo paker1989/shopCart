@@ -7,7 +7,6 @@ import Textarea from './textarea';
 import omit from 'lodash/omit';
 import isFunction from 'lodash/isFunction';
 import getWidth from '../../utils/getWidth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface IInputChangeEvent {
     target: IInputProps;
@@ -157,7 +156,10 @@ class Input extends React.Component<IInputProps, any> {
                     <span className="clear-icon"
                         onClick={this.clearInput}
                         onMouseDown={this.retainInputFocus}>
-                        <FontAwesomeIcon icon="times-circle" />
+                        {/* <FontAwesomeIcon icon="times-circle" /> */}
+                        <svg className="ali-icon grey" aria-hidden="true">
+                            <use xlinkHref="#icon-49shurushanchu-2"></use>
+                        </svg>
                     </span>
                 )}
                 {addonAfter && (
