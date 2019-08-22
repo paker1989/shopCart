@@ -11,10 +11,10 @@
     > 再预留一个placeholader，给customized options;
 
 - content:
-  - 左侧 datepicker panel, 
-  - 中部 so called *dateGridLayout*
+  - 左侧 datepicker panel - 这个是固定width的， 
+  - 中部 so called *dateGridLayout*: 这个是dynamic的，瓜分剩下的所有面积
     > 
-  - 最右侧 预留一小列: links to my apps, my site.
+  - 最右侧 预留一小列: links to my apps, my site:  这个是固定width的
 
 - footer (预留，暂时不做)
   > to be decided.

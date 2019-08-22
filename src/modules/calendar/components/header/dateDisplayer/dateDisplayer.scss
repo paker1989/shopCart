@@ -1,0 +1,40 @@
+@import '../../../assets/style/theme.scss';
+
+.header-dateDisplayer-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    &__left {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    &__today span {
+        line-height: 36px;
+        padding: 0 10px;
+    }
+
+    &__dateSwitch {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    &__monthArrow {
+      margin: 0 20px;
+    }
+
+    &__monthDisplay {
+        text-align: left;
+        &-text {
+            font-size: $fontSizeGrand;
+            font-weight: 500;
+            line-height: $fontSizeGrand;
+        }
+    }
+
+}

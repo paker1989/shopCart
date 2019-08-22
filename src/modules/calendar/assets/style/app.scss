@@ -1,14 +1,26 @@
+@import '../style/theme.scss';
+
+$headerPadding: 6px;
+$headerContainerHeight: 64px;
+
 .calendar {
   position: relative;
-  width: 100%;
+  width: 100vw;
+  height: 100%;
 
   &-header {
     position: relative;
     width: 100%;
+    height: $headerContainerHeight;
+    padding: $headerPadding;
+    border-bottom: 1px solid $appFrameBorderColor;
   }
 
   &-body {
     position: relative;
     width: 100%;
+    height: calc(100%-$headerContainerHeight);
   }
 }
+
+

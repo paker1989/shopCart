@@ -1,4 +1,43 @@
+@import "../../assets/style/theme.scss";
+
+$logoFlexBasis: 200px;
+$dateDisplayerFlexBasis: 282px;
+$layoutPickerFlexBasis: 140px;
+
 .header-container {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
+  height: 100%;
+
+//   & > * {
+//     border: 1px solid black;
+//   }
+
+  &-logo {
+    flex-basis: $logoFlexBasis;
+    padding-left: 20px;
+    
+    & a {
+      display: flex;
+      align-items: center;
+    }
+    &__title {
+      font-size: $fontSizeGrand;
+    }
+
+    @media screen and (max-width: 780px) {
+      display: none;
+    }
+  }
+
+  &-dateDisplayer {
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: $dateDisplayerFlexBasis;
+  }
+
+  &-layoutPicker {
+    flex-shrink: 0;
+    flex-basis: $layoutPickerFlexBasis;
+  }
 }

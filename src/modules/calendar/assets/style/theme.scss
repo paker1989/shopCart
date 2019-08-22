@@ -1,0 +1,33 @@
+/* common */
+$fontSizeBasic: 14px;
+$fontSizeSmall: $fontSizeBasic * 0.8;
+$fontSizeMedium: $fontSizeBasic * 1.2;
+$fontSizeGrand: $fontSizeBasic * 1.5;
+
+/* color */
+$appFrameBorderColor:#dadce0; // app主体框架的border color
+$fontSubTitleColor: #164879;
+
+$btnBorderRadius: 4px;
+
+.btn {
+ border-radius: $btnBorderRadius;
+ border: 1px solid $appFrameBorderColor;
+ font-size: $fontSizeBasic;
+ font-weight: 500;
+ letter-spacing: .25px;
+}
+
+.font-subtitle {
+    font-size: $fontSizeSmall;
+    font-weight: 400;
+    color: $fontSubTitleColor;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.is-grey {
+    color: $fontSubTitleColor;
+}
