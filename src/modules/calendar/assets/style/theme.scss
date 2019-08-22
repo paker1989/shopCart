@@ -5,17 +5,25 @@ $fontSizeMedium: $fontSizeBasic * 1.2;
 $fontSizeGrand: $fontSizeBasic * 1.5;
 
 /* color */
-$appFrameBorderColor:#dadce0; // app主体框架的border color
+$fontColor: #3c4043;
+$appFrameBorderColor: #dadce0; // app主体框架的border color
 $fontSubTitleColor: #164879;
 
+/* shape */
 $btnBorderRadius: 4px;
+$focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 
 .btn {
- border-radius: $btnBorderRadius;
- border: 1px solid $appFrameBorderColor;
- font-size: $fontSizeBasic;
- font-weight: 500;
- letter-spacing: .25px;
+    border-radius: $btnBorderRadius;
+    border: 1px solid $appFrameBorderColor;
+    font-size: $fontSizeBasic;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+}
+
+.is-ellipse {
+    border-radius: 30px;
 }
 
 .font-subtitle {

@@ -7,6 +7,7 @@ $headerContainerHeight: 64px;
   position: relative;
   width: 100vw;
   height: 100%;
+  color: $fontColor;
 
   &-header {
     position: relative;
@@ -19,7 +20,7 @@ $headerContainerHeight: 64px;
   &-body {
     position: relative;
     width: 100%;
-    height: calc(100%-$headerContainerHeight);
+    height: calc(100% - #{$headerContainerHeight});
   }
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import { BrowserRouter as Router, Route, } from "react-router-dom";
 import Header from './components/header';
-import CalBody from './components/CalBody';
+import CalBody from './components/calBody';
 
 import './assets/style/app.scss';
 

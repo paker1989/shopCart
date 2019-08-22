@@ -7,7 +7,7 @@ module.exports = {
         env: {
             NODE_ENV: '"development"',
         },
-        port: "1219",
+        port: "1220",
         devtool: 'cheap-module-eval-source-map',
         assetsSubDirectory: "static"
     },
