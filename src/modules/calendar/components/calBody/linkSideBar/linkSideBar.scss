@@ -1,0 +1,29 @@
+@import "../../../assets/style/theme.scss";
+
+$sectionMinHeight: 80px;
+$logoWidth: 26px;
+$linkbarHorizonPadding: ($calBodyLinkSideBarWidth - $logoWidth) / 2;
+
+.calbody-linksidebar-container {
+  position: relative;
+  width: $calBodyLinkSideBarWidth;
+  height: 100%;
+  flex-shrink: 0; //不缩小
+  border-left: 1px solid $appFrameBorderColor;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 $linkbarHorizonPadding;
+
+  &-section {
+    position: relative;
+    width: 100%;
+    min-height: $sectionMinHeight;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+    border-bottom: 1px solid $appFrameBorderColor;
+  }
+}

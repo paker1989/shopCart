@@ -1,7 +1,9 @@
-export interface ICommonPageProps {
-    match?: string;
-}
-
-export interface ICommonPageStates {
-    mdDescription?: string;
+export namespace CalendarNS {
+    
+    export interface ISingleDayDefaultHeaderProps {
+        textAlign?: 'left' | 'right' | 'center';
+        dayAt?: string;
+        dateNumber?: number | string;
+        cnCalendarNb?: string; //农历
+    }
 }

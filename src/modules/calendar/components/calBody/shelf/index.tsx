@@ -31,7 +31,7 @@ export default class CalendarBody extends React.Component {
                         </span>
                     </div>
                 </div>
-                <div className="calbody-container-shelf__main">
+                <div className="calbody-shelf-container__main">
                     <div className="calbody-container-shelf__datepicker">
                         <DatePicker
                             value={_test_date_value_}

@@ -14,12 +14,27 @@ $btnBorderRadius: 4px;
 $focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 
+/* layout */
+$headerContainerHeight: 64px; // header width;
+
+$calBodyShelfWidth: 280px; // body shelf width;
+$calBodyShelfCreatePanelHeight: 70px; // body shelf create panel height;
+
+$calBodyLinkSideBarWidth: 60px; // body linksidebar width;
+
+$calBodyContentColumnLayoutHeaderHeight: 70px; // main body header height
+$calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
+
 .btn {
     border-radius: $btnBorderRadius;
     border: 1px solid $appFrameBorderColor;
     font-size: $fontSizeBasic;
     font-weight: 500;
     letter-spacing: 0.25px;
+}
+
+.img {
+    max-width: 100%;
 }
 
 .is-ellipse {
@@ -39,3 +54,8 @@ $focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
 .is-grey {
     color: $fontSubTitleColor;
 }
+
+.is-lighter-gey {
+    color: #80868b;
+}
+

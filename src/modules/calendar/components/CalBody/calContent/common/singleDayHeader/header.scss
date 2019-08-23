@@ -1,0 +1,28 @@
+@import '../../../../../assets/style/theme.scss';
+
+.singleDayCol-defaultHeader-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: $calBodyContentColumnLayoutHeaderHeight;
+
+    &.is-left {
+        align-items: flex-start;
+    }
+
+    &.is-right {
+        align-items: flex-end;
+    }
+
+    &.is-center {
+        align-items: center;
+    }
+
+    &__wrapper {
+      & > * {
+          display: block;
+      }
+      text-align: center;
+    }
+}

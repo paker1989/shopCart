@@ -1,5 +1,3 @@
-import { DetailedHTMLProps } from 'react';
-
 // import * as React from 'react';
 
 export namespace DatePickers {

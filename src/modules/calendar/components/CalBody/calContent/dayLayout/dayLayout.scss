@@ -1,0 +1,26 @@
+
+@import '../../../../assets/style/theme.scss';
+
+.calbody-content-dayLayout-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    &__timeline {
+      padding-top: $calBodyContentColumnLayoutHeaderHeight; 
+      width: $calBodyContentColumnLayoutSideWidth;
+      position: relative;
+    }
+
+    &__main {
+        position: relative;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__columnbody {
+        flex-grow: 1;
+      }
+}

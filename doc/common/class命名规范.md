@@ -43,5 +43,6 @@ BEM 是一种真正消除不确定性的命名方式，它使得结构样式更�
 例：error_report.html
 
 ## reference
+https://seesparkbox.com/foundry/bem_by_example (比较直观的BEM英文范例)
 https://www.jianshu.com/p/5e018c7f0bc6 (解释的比较清楚的BEM规范)
 https://www.kancloud.cn/digest/code-guide/42602

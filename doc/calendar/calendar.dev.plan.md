@@ -13,8 +13,18 @@
 - content:
   - 左侧 datepicker panel - 这个是固定width的， 
   - 中部 so called *dateGridLayout*: 这个是dynamic的，瓜分剩下的所有面积
-    > 
+    > 日，周是一种layout， 月是一种layout
+    日和周的case需要支持: 点击知道具体是哪个区间: 15分钟为一档。2
+    日和周应该是以column为单位，props -> 几个case (天).
+    column_day  = default header | custo header + [reminder_case] + body;
+    colmun_day's props: isHeader: 显示时间。
+
+
   - 最右侧 预留一小列: links to my apps, my site:  这个是固定width的
+
+
+
+
 
 - footer (预留，暂时不做)
   > to be decided.
