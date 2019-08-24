@@ -1,0 +1,13 @@
+@import '../../../../../assets/style/theme.scss';
+
+.calbody-content-singleHourGrid-container {
+  position: relative;
+  width: 100%;
+  height: $singleHourGridMaxHeight;
+  border-left: 1px solid $appFrameBorderColor;
+  border-bottom: 1px solid $appFrameBorderColor;
+
+  &.is-first {
+    border-top: 1px solid $appFrameBorderColor;
+  }
+}

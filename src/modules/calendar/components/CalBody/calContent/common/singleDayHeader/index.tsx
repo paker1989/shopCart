@@ -15,10 +15,6 @@ export default class DefaultHeader extends React.Component<
     render() {
         const { textAlign, cnCalendarNb, dateNumber, dayAt } = this.props;
 
-        console.log(cnCalendarNb);
-        console.log(dateNumber);
-        console.log(dayAt);
-
         const wrapperClass = cx({
             ['singleDayCol-defaultHeader-container']: true,
             [`is-${textAlign}`]: true,
@@ -26,23 +22,22 @@ export default class DefaultHeader extends React.Component<
         return (
             <div className={wrapperClass}>
                 <div className="singleDayCol-defaultHeader-container__wrapper">
-                {dayAt && (
-                    <span className="singleDayCol-defaultHeader-container__dayAt font-subtitle">
-                        {dayAt}
-                    </span>
-                )}
-                {dateNumber && (
-                    <span className="singleDayCol-defaultHeader-container__dateNumber">
-                        {dateNumber}
-                    </span>
-                )}
-                {cnCalendarNb && (
-                    <span className="singleDayCol-defaultHeader-container__cnCalendarNb is-lighter-gey">
-                        {cnCalendarNb}
-                    </span>
-                )}
+                    {dayAt && (
+                        <span className="singleDayCol-defaultHeader-container__dayAt font-subtitle">
+                            {dayAt}
+                        </span>
+                    )}
+                    {dateNumber && (
+                        <span className="singleDayCol-defaultHeader-container__dateNumber">
+                            {dateNumber}
+                        </span>
+                    )}
+                    {cnCalendarNb && (
+                        <span className="singleDayCol-defaultHeader-container__cnCalendarNb is-lighter-gey">
+                            {cnCalendarNb}
+                        </span>
+                    )}
                 </div>
-
             </div>
         );
     }

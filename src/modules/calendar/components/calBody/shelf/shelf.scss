@@ -1,12 +1,13 @@
 @import '../../../assets/style/theme.scss';
 @import '../../../assets/style/mixin.scss';
 
-
 .calbody-shelf-container {
     position: relative;
     width: $calBodyShelfWidth;
     height: 100%;
-    flex-shrink: 0;  //不缩小
+    flex-shrink: 0; //不缩小
+
+    @include customizeScrollbar('.calbody-shelf-container__main');
 
     &__createWrapper {
         position: relative;
@@ -43,26 +44,5 @@
         height: calc(100% - #{$calBodyShelfCreatePanelHeight});
         overflow-y: auto;
         overflow-x: hidden;
-        &::-webkit-scrollbar {
-            width: 10px;
-            background: transparent;
-        }
-        
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-            background: $appFrameBorderColor;
-            border-radius: 5px;
-        }
-        
-        &::-webkit-scrollbar-button:start {
-            display: none;
-        }
-        
-        &::-webkit-scrollbar-button:end {
-            display: none;
-        }  
     }
 }

@@ -23,6 +23,6 @@
       "noImplicitAny": false
     },
     "exclude": ["lib", "es", "node_modules", "__tests__"],
-    "include": ["src"]
+    "include": ["src", "doc/calendar/archive/dayLayout", "doc/calendar/archive/dayLayout"]
   }
   

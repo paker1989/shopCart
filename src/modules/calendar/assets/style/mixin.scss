@@ -1,5 +1,32 @@
+@import './theme.scss';
+
 @mixin centralizeFlex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin customizeScrollbar($ref) {
+    #{$ref}::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background: transparent;
+    }
+
+    #{$ref}::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #{$ref}::-webkit-scrollbar-thumb {
+        background: $appScrollBarColor;
+        border-radius: 5px;
+    }
+
+    #{$ref}::-webkit-scrollbar-button:start {
+        display: none;
+    }
+
+    #{$ref}::-webkit-scrollbar-button:end {
+        display: none;
+    }
 }

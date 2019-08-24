@@ -7,7 +7,8 @@ $fontSizeGrand: $fontSizeBasic * 1.5;
 /* color */
 $fontColor: #3c4043;
 $appFrameBorderColor: #dadce0; // app主体框架的border color
-$fontSubTitleColor: #164879;
+$appScrollBarColor: darken(#dadce0, 10%);
+$fontSubTitleColor: #70757a;
 
 /* shape */
 $btnBorderRadius: 4px;
@@ -24,6 +25,10 @@ $calBodyLinkSideBarWidth: 60px; // body linksidebar width;
 
 $calBodyContentColumnLayoutHeaderHeight: 70px; // main body header height
 $calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
+$calBodyContentColumnLayoutPlaceholderLineWidth: 6px; // 左侧突出线头的长度
+
+// $singleHourGridMinHeight: 40px;
+$singleHourGridMaxHeight: 48px;
 
 .btn {
     border-radius: $btnBorderRadius;
@@ -35,6 +40,10 @@ $calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
 
 .img {
     max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .is-ellipse {
@@ -58,4 +67,5 @@ $calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
 .is-lighter-gey {
     color: #80868b;
 }
+
 

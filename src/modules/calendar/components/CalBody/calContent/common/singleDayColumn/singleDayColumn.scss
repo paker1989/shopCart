@@ -1,8 +1,6 @@
-$oneHourGridHeight: 40px;
+@import '../../../../../assets/style/theme.scss';
 
 .calbody-content-singleDayCol-container {
     position: relative;
-    height: 100%;
     width: 100%; //总是占据给与container的满格
-
 }
