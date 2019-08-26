@@ -15,12 +15,12 @@ export interface ISingleDayColumnProps {
 
 const _test_headers_props = [
     { dayAt: '周日', cnCalendarNb: '初三', dateNumber: 1 },
-    // { dayAt: '周一', cnCalendarNb: '初四', dateNumber: 2 },
-    // { dayAt: '周二', cnCalendarNb: '初五', dateNumber: 3 },
-    // { dayAt: '周三', cnCalendarNb: '初六', dateNumber: 4 },
-    // { dayAt: '周四', cnCalendarNb: '初七', dateNumber: 5 },
-    // { dayAt: '周五', cnCalendarNb: '初八', dateNumber: 6 },
-    // { dayAt: '周六', cnCalendarNb: '初九', dateNumber: 7 },
+    { dayAt: '周一', cnCalendarNb: '初四', dateNumber: 2 },
+    { dayAt: '周二', cnCalendarNb: '初五', dateNumber: 3 },
+    { dayAt: '周三', cnCalendarNb: '初六', dateNumber: 4 },
+    { dayAt: '周四', cnCalendarNb: '初七', dateNumber: 5 },
+    { dayAt: '周五', cnCalendarNb: '初八', dateNumber: 6 },
+    { dayAt: '周六', cnCalendarNb: '初九', dateNumber: 7 },
 ];
 const _test_headers_nb = _test_headers_props.length;
 const _is_single_day = _test_headers_nb === 1;

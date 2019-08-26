@@ -1,8 +1,8 @@
 import * as React from 'react';
-
-import { CalendarNS } from '../../../../../utils/types';
 import CalConfig from '../../../../../assets/scripts/calendar.config';
 import { getTimeRange } from '../../../../../utils/timeRangeHelper';
+import { CalendarNS } from '../../../../../utils/types';
+import CalEventPop from '../calEventPop';
 import SingleHourGrid from '../singleHourGrid';
 import './singleDayColumn.scss';
 
@@ -15,8 +15,12 @@ export interface ISingleDayColumnState {
 }
 
 class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
+    colRef?: React.RefObject<HTMLDivElement>;
+
     constructor(props) {
         super(props);
+        this.colRef = React.createRef();
+
         this.state = {
             isOnDragging: false,
             triggerTiming: null,
@@ -28,65 +32,71 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
         timing: CalendarNS.ITimingFormat,
         eventType: CalendarNS.TMinSplitterEventType
     ): void => {
-        const { isOnDragging, triggerTiming, draggingTimeRange } = this.state;
+        const { isOnDragging, triggerTiming } = this.state;
         const { hourSplitter } = CalConfig;
+
         switch (eventType) {
             case 'click':
                 console.log('click');
                 break;
             case 'mousedown':
-                this.setState(
-                    {
-                        isOnDragging: true,
-                        triggerTiming: timing,
-                        draggingTimeRange: getTimeRange(
-                            timing,
-                            timing,
-                            hourSplitter
-                        ),
-                    },
-                    () => {
-                        console.log('mousedown, trigger currentTimerange: ');
-                        console.log(this.state.draggingTimeRange);
-                    }
-                );
+                this.setState({
+                    isOnDragging: true,
+                    triggerTiming: timing,
+                    draggingTimeRange: getTimeRange(
+                        timing,
+                        timing,
+                        hourSplitter
+                    ),
+                }, () => {
+                    window.addEventListener('mouseup', this.stopDragging);
+                });
                 break;
             case 'mouseup':
                 if (isOnDragging) {
-                    console.log('mouseup, final Timerange: ');
-                    console.log(
-                        getTimeRange(triggerTiming, timing, hourSplitter)
-                    );
-                    this.setState({
-                        isOnDragging: false,
-                        triggerTiming: null,
-                        draggingTimeRange: null,
-                    });
+                    this.stopDragging();
                 }
                 break;
             case 'mouseenter':
                 if (!isOnDragging) {
                     return;
                 } else {
-                    this.setState(
-                        {
-                            draggingTimeRange: getTimeRange(
-                                triggerTiming,
-                                timing,
-                                hourSplitter
-                            ),
-                        },
-                        () => {
-                            console.log('mouseenter, currentTimerange: ');
-                            console.log(this.state.draggingTimeRange);
-                        }
-                    );
+                    this.setState({
+                        draggingTimeRange: getTimeRange(
+                            triggerTiming,
+                            timing,
+                            hourSplitter
+                        ),
+                    });
                 }
                 break;
         }
     };
 
+    stopDragging = () => {
+        const { isOnDragging } = this.state;
+
+        if (isOnDragging) {
+            this.setState({
+                isOnDragging: false,
+                triggerTiming: null,
+                draggingTimeRange: null,
+            }, () => {
+                window.removeEventListener('mouseup', this.stopDragging);
+            });
+        }
+    }
+
     render() {
+        const { isOnDragging, draggingTimeRange } = this.state;
+
+        let minSplitterHeight;
+        let _self = this.colRef.current;
+        if (_self) {
+            minSplitterHeight =
+                _self.clientHeight / (24 * CalConfig.hourSplitter);
+        }
+
         let hourGrids = [];
         for (let i = 0; i < _test_nb_cases; i++) {
             hourGrids.push(
@@ -100,10 +110,20 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
         }
 
         return (
-            <div className="calbody-content-singleDayCol-container">
+            <div
+                ref={this.colRef}
+                className="calbody-content-singleDayCol-container"
+            >
                 <ul className="calbody-content-singleDayCol-container_hourWrapper">
                     {hourGrids}
                 </ul>
+                {isOnDragging && (
+                    <CalEventPop
+                        type="dragging"
+                        timeRange={draggingTimeRange}
+                        heightPerUnit={minSplitterHeight}
+                    />
+                )}
             </div>
         );
     }

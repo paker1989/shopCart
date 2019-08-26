@@ -16,6 +16,11 @@ export namespace CalendarNS {
         to: ITimingFormat;
     }
 
+    export interface ICalEventPopDynamicStyleFormat {
+        top?: number;
+        height?: number;
+    }
+
     export type TMinSplitterEventType = 'mousedown' | 'mouseenter' | 'mouseup' | 'click';
 
     export type FnOnMinuteSplitter = (
