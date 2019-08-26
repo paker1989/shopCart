@@ -1,5 +1,6 @@
 /* common */
 $fontSizeBasic: 14px;
+$fontSizeExtraSmall: $fontSizeBasic * 0.7;
 $fontSizeSmall: $fontSizeBasic * 0.8;
 $fontSizeMedium: $fontSizeBasic * 1.2;
 $fontSizeGrand: $fontSizeBasic * 1.5;
@@ -56,6 +57,12 @@ ul {
     color: $fontSubTitleColor;
 }
 
+.font-calEvent {
+    font-size: $fontSizeExtraSmall;
+    font-weight: 300;
+    color: #fff;
+}
+
 .inline-block {
     display: inline-block;
 }
@@ -66,6 +73,10 @@ ul {
 
 .is-lighter-gey {
     color: #80868b;
+}
+
+.no-uselect {
+  user-select: none;
 }
 
 

@@ -1,10 +1,28 @@
+@import '../../../../../assets/style/theme.scss';
+
 .calevent-pop-container {
-  &.is-dragging {
     pointer-events: none;
-    width: 97%;
-  }
-//   border-top-left-radius: 4px;
-//   border-bottom-left-radius: 4px;
-  border-radius: 4px;
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    padding: 4px 7px;
+    border-radius: 4px;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+        0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+
+    &.is-dragging {
+        width: 97%;
+    }
+
+    &.is-holding {
+        width: 90%;
+    }
+
+    &__main {
+      display: flex;
+      flex-wrap: wrap;
+      text-align: left;
+    }
+
+    &__title {
+      margin: 0 12px;
+      // max-height: 30px;
+    }
 }
