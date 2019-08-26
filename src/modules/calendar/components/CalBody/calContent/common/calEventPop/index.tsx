@@ -9,7 +9,7 @@ import './calEventPop.scss';
 export interface ICalEventProps {
     className?: string;
     modalStyle?: {};
-    type?: 'dragging' | 'defined'; // dragging to define or defined event
+    type?: 'dragging' | 'holding' |  'defined'; // dragging to define or defined event
     title?: string;
     heightPerUnit?: number; // height per min splitter, calculate abs position accordingly
     timeRange?: CalendarNS.ITimeRangeFormat;
