@@ -20,6 +20,9 @@ $focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
 
 /* layout */
 $headerContainerHeight: 64px; // header width;
+$logoFlexBasis: 200px;
+$dateDisplayerFlexBasis: 282px;
+$layoutPickerFlexBasis: 180px;
 
 $calBodyShelfWidth: 280px; // body shelf width;
 $calBodyShelfCreatePanelHeight: 70px; // body shelf create panel height;
@@ -71,7 +74,7 @@ a {
 
 .font-layout-option {
     font-size: $fontSizeBasic;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .inline-block {
