@@ -1,4 +1,5 @@
 @import "../../../assets/style/theme.scss";
+@import "../../../assets/style/mixin.scss";
 
 .header-layoutPicker-container {
   position: relative;
@@ -8,12 +9,12 @@
   align-items: center;
 
   &__trigger {
-      padding-right: 8px;
+    padding-right: 8px;
+    @include select-effect();
 
-      & span {
-        line-height: 36px;
-        padding: 0 10px;
-      }
-
+    & span {
+      line-height: 36px;
+      padding: 0 10px;
+    }
   }
 }

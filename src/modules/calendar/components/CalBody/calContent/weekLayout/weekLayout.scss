@@ -6,7 +6,7 @@ $columnBodyOffset: $calBodyContentColumnLayoutSideWidth +
 $columBodyMainPaddingRight: 12px;
 $minGridDifferWidth: 80px;
 
-.calbody-content-columnLayout-container {
+.calbody-content-weekLayout-container {
     position: relative;
     height: 100%;
     width: 100%;
@@ -14,11 +14,11 @@ $minGridDifferWidth: 80px;
     flex-direction: column;
 
     @include customizeScrollbar(
-        '.calbody-content-columnLayout-container__main'
+        '.calbody-content-weekLayout-container__main'
     );
 
     @include customizeScrollbar(
-        '.calbody-content-columnLayout-container__columnbody'
+        '.calbody-content-weekLayout-container__columnbody'
     );
 
     &__timeline {

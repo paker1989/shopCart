@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-import './columnLayout.scss';
+import './weekLayout.scss';
 
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 import { CalendarNS } from '../../../../utils/types';
 
-export interface ISingleDayColumnProps {
+export interface IWeekLayoutProps {
     singleDayHeader?: React.ComponentType<
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
@@ -25,18 +25,18 @@ const _test_headers_props = [
 const _test_headers_nb = _test_headers_props.length;
 const _is_single_day = _test_headers_nb === 1;
 
-class ColumnLayout extends React.Component<ISingleDayColumnProps, any> {
+class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     render() {
         const { singleDayHeader } = this.props;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
 
         return (
-            <div className="calbody-content-columnLayout-container">
-                <div className="calbody-content-columnLayout-container__headerWrapper">
+            <div className="calbody-content-weekLayout-container">
+                <div className="calbody-content-weekLayout-container__headerWrapper">
                     {_test_headers_props.map((headerProps, index) => (
                         <div
-                            className="calbody-content-columnLayout-container__headerDifferWrapper"
+                            className="calbody-content-weekLayout-container__headerDifferWrapper"
                             style={{ width: `${100 / _test_headers_nb}%` }}
                             key={`headGridWrapper-${index}`}
                         >
@@ -51,11 +51,11 @@ class ColumnLayout extends React.Component<ISingleDayColumnProps, any> {
                         </div>
                     ))}
                 </div>
-                <div className="calbody-content-columnLayout-container__main">
-                    <div className="calbody-content-columnLayout-container__timeline">
+                <div className="calbody-content-weekLayout-container__main">
+                    <div className="calbody-content-weekLayout-container__timeline">
                         {timeLineLabels.map((label, index) => (
                             <div
-                                className="calbody-content-columnLayout-container__timelineGrid"
+                                className="calbody-content-weekLayout-container__timelineGrid"
                                 key={`timelineLabels-${index}`}
                             >
                                 <span className="timelineLabel__text font-subtitle">
@@ -64,18 +64,18 @@ class ColumnLayout extends React.Component<ISingleDayColumnProps, any> {
                             </div>
                         ))}
                     </div>
-                    <div className="calbody-content-columnLayout-container__placeholderLine">
+                    <div className="calbody-content-weekLayout-container__placeholderLine">
                         {timeLineLabels.map((label, index) => (
                             <div
-                                className="calbody-content-columnLayout-container__timelineGrid"
+                                className="calbody-content-weekLayout-container__timelineGrid"
                                 key={`placeholderGrid-${index}`}
                             />
                         ))}
                     </div>
-                    <div className="calbody-content-columnLayout-container__columnbody">
+                    <div className="calbody-content-weekLayout-container__columnbody">
                         {_test_headers_props.map((headerProps, index) => (
                             <div
-                                className="calbody-content-columnLayout-container__dayDifferWrapper"
+                                className="calbody-content-weekLayout-container__dayDifferWrapper"
                                 style={{
                                     width: `${100 / _test_headers_nb}%`,
                                 }}
@@ -91,4 +91,4 @@ class ColumnLayout extends React.Component<ISingleDayColumnProps, any> {
     }
 }
 
-export default ColumnLayout;
+export default WeekLayout;

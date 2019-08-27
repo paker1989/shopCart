@@ -1,32 +1,45 @@
-@import './theme.scss';
+@import "./theme.scss";
 
 @mixin centralizeFlex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin customizeScrollbar($ref) {
-    #{$ref}::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-        background: transparent;
-    }
+  #{$ref}::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: transparent;
+  }
 
-    #{$ref}::-webkit-scrollbar-track {
-        background: transparent;
-    }
+  #{$ref}::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-    #{$ref}::-webkit-scrollbar-thumb {
-        background: $appScrollBarColor;
-        border-radius: 5px;
-    }
+  #{$ref}::-webkit-scrollbar-thumb {
+    background: $appScrollBarColor;
+    border-radius: 5px;
+  }
 
-    #{$ref}::-webkit-scrollbar-button:start {
-        display: none;
-    }
+  #{$ref}::-webkit-scrollbar-button:start {
+    display: none;
+  }
 
-    #{$ref}::-webkit-scrollbar-button:end {
-        display: none;
-    }
+  #{$ref}::-webkit-scrollbar-button:end {
+    display: none;
+  }
+}
+
+@mixin select-effect {
+  cursor: pointer;
+  transition: background 0.2s ease-in;
+
+  &:hover {
+    background: $hoverBgColor;
+  }
+
+  &:active {
+    background: $activeBgColor;
+  }
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Popover from '../../../../../_packages_/components/popover';
+import LayoutPickerContent from './content';
 
 import './layoutPicker.scss';
 
@@ -35,13 +36,16 @@ export default class LayoutPicker extends React.Component<any, any> {
                             className="btn header-layoutPicker-container__trigger"
                         >
                             <span>{_test_selected_value}</span>
-                            <svg className="ali-icon is-grey" aria-hidden="true">
+                            <svg
+                                className="ali-icon is-grey"
+                                aria-hidden="true"
+                            >
                                 <use xlinkHref="#icon-dropdown" />
                             </svg>
                         </div>
                     </Popover.Trigger.ClickTrigger>
                     <Popover.Content>
-                        <div>占位符</div>
+                        <LayoutPickerContent />
                     </Popover.Content>
                 </Popover>
             </div>

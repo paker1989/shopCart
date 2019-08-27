@@ -10,6 +10,8 @@ $fontColor: #3c4043;
 $appFrameBorderColor: #dadce0; // app主体框架的border color
 $appScrollBarColor: darken(#dadce0, 10%);
 $fontSubTitleColor: #70757a;
+$hoverBgColor: lighten(#dadce0, 5%);
+$activeBgColor: darken(#dadce0, 14%);
 
 /* shape */
 $btnBorderRadius: 4px;
@@ -47,6 +49,10 @@ ul {
   list-style-type: none;
 }
 
+a {
+    text-decoration: none;
+}
+
 .is-ellipse {
     border-radius: 30px;
 }
@@ -58,9 +64,14 @@ ul {
 }
 
 .font-calEvent {
-    font-size: $fontSizeExtraSmall;
+    font-size: $fontSizeSmall;
     font-weight: 300;
     color: #fff;
+}
+
+.font-layout-option {
+    font-size: $fontSizeBasic;
+    font-weight: 300;
 }
 
 .inline-block {

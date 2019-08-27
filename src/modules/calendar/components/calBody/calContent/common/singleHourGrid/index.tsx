@@ -13,6 +13,7 @@ export interface ISingleHourGridProps {
 
 class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
     gridRef: React.RefObject<HTMLDivElement>;
+    mouseDownTimer: any;
 
     constructor(props) {
         super(props);
@@ -27,7 +28,6 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
         const { hourAt, onMouseEventChange } = this.props;
         const { hourSplitter } = calConfig;
         const minAt = (60 / hourSplitter) * minSplitIndex;
-
         onMouseEventChange && onMouseEventChange({ hourAt, minAt }, eventType);
     };
 

@@ -1,0 +1,62 @@
+@import "../../../../assets/style/theme.scss";
+
+$itemsPadding: 0 14px;
+$optionsWidth: 170px;
+
+.layoutPicker-content-container {
+  padding: 8px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+
+  & .ali-icon {
+    font-size: $fontSizeGrand;
+    margin-right: 10px;
+  }
+
+  & .item-title {
+    line-height: 38px;
+  }
+
+  & .item-wrapper {
+    color: $fontColor;
+    display: flex;
+    align-items: center;
+    padding: $itemsPadding;
+    transition: background 0.2s ease-in;
+
+    &:not(.is-disabled):hover {
+      background: $hoverBgColor;
+    }
+
+    &:not(.is-disabled):active {
+      background: $activeBgColor;
+    }
+  }
+
+  &-options {
+    &__main,
+    &__extra {
+      width: $optionsWidth;
+    }
+
+    &__main .item-wrapper {
+      justify-content: space-between;
+    }
+
+    &__extra {
+      border-top: 1px solid $appFrameBorderColor;
+      & .item-wrapper {
+        &.is-disabled {
+          color: #b8b8b8;
+          cursor: no-drop;
+        }
+        &.is-enabled {
+          & .ali-icon {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+}
