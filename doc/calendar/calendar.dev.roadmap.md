@@ -6,6 +6,9 @@
 
 > todo list:
 -   layout dropdown list;
+    > 点击toggle popover，
+    > bloquer all events when popover displayed;
+    > cursion of the popover;
 -   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
 -   db model design (导入农历 | 法国节日);
     > 显示 defined events;
