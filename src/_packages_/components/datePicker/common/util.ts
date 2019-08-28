@@ -2,10 +2,13 @@ import { DatePickers } from './types';
 // import dateFormat from 'dateformat';
 
 export const _supported_date_format = {
-    default: 'YYYY-MM-DD'
+    default: 'YYYY-MM-DD',
 };
 
-export function isSameDay(selectedDay: DatePickers.IMonthDataFormat, targetDay: Date): boolean {
+export function isSameDay(
+    selectedDay: DatePickers.IMonthDataFormat,
+    targetDay: Date
+): boolean {
     if (targetDay === null || targetDay === undefined) {
         return false;
     }
@@ -22,7 +25,11 @@ export function isSameDay(selectedDay: DatePickers.IMonthDataFormat, targetDay: 
         showDate === targetShowDate
     );
 }
-export function getMonthData(year: number, month: number): DatePickers.IMonthDataFormat[] {
+
+export function getMonthData(
+    year: number,
+    month: number,
+): DatePickers.IMonthDataFormat[] {
     // 本月第一天
     var firstDayOfCurrentMonth = new Date(year, month - 1, 1);
     var firstDayC = firstDayOfCurrentMonth.getDay();
@@ -40,44 +47,66 @@ export function getMonthData(year: number, month: number): DatePickers.IMonthDat
         if (i < firstDayC) {
             monthD = month - 1;
             showDate = lastDateP - firstDayC + (i + 1);
-        }
-        else if (i < firstDayC + lastDateC) {
+        } else if (i < firstDayC + lastDateC) {
             monthD = month;
-            showDate = (i + 1) - firstDayC;
-        }
-        else {
+            showDate = i + 1 - firstDayC;
+        } else {
             monthD = month + 1;
-            showDate = (i + 1) - (firstDayC + lastDateC);
+            showDate = i + 1 - (firstDayC + lastDateC);
         }
         if (monthD < 1) {
             yearD = year - 1;
             monthD += 12;
-        }
-        else if (monthD > 12) {
+        } else if (monthD > 12) {
             yearD = year + 1;
             monthD -= 12;
-        }
-        else {
+        } else {
             yearD = year;
         }
-        currentMonthData.push({ yearD: yearD, monthD: monthD, showDate: showDate });
+        currentMonthData.push({
+            yearD: yearD,
+            monthD: monthD,
+            showDate: showDate,
+        });
     }
 
     return currentMonthData;
 }
 
-export function populateDisplay(date: Date): DatePickers.IDatePickerPanelStates {
+export function getRowMonthData(
+    monthData: DatePickers.IMonthDataFormat[],
+    nbPerRow = 7
+): DatePickers.IMonthDataFormat[][] {
+    const nbRows = monthData.length / nbPerRow;
+    const monthDataPerRow = new Array(nbRows);
+
+    for (let rowIndex = 0; rowIndex < nbRows; rowIndex++) {
+        monthDataPerRow[rowIndex] = monthData.slice(
+            rowIndex * nbPerRow,
+            rowIndex * nbPerRow + nbPerRow
+        );
+    }
+    return monthDataPerRow;
+}
+
+export function populateDisplay(
+    date: Date
+): DatePickers.IDatePickerPanelStates {
     const displayYear: number = date.getFullYear();
     const displayMonth: number = date.getMonth() + 1;
-    const monthData: DatePickers.IMonthDataFormat[] = getMonthData(displayYear, displayMonth);
+    const monthData: DatePickers.IMonthDataFormat[] = getMonthData(
+        displayYear,
+        displayMonth
+    );
 
     return { displayYear, displayMonth, monthData };
 }
 
-export function getSiblingMonthData(displayYear: number,
+export function getSiblingMonthData(
+    displayYear: number,
     displayMonth: number,
-    actionType: DatePickers.monthChangeType): DatePickers.IDatePickerPanelStates {
-
+    actionType: DatePickers.monthChangeType
+): DatePickers.IDatePickerPanelStates {
     let newDisplayMonth;
     let newDisplayYear;
     let monthData: DatePickers.IMonthDataFormat[];
@@ -101,7 +130,7 @@ export function getSiblingMonthData(displayYear: number,
     return {
         displayYear: newDisplayYear,
         displayMonth: newDisplayMonth,
-        monthData
+        monthData,
     };
 }
 
@@ -124,8 +153,8 @@ export function getFormattedDate(date: Date, format = 'default'): string {
         case _supported_date_format.default:
             return `${year}-${month}-${day}`;
         case 'YYYY/MM/DD':
-            return `${year}/${month}/${day}`
+            return `${year}/${month}/${day}`;
     }
 
-    return "";
+    return '';
 }

@@ -6,6 +6,7 @@
     flex-direction: column;
     width: 100%;
     height: $calBodyContentColumnLayoutHeaderHeight;
+    padding-top: 12px;
 
     &.is-left {
         align-items: flex-start;

@@ -37,7 +37,7 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
 
         const wrapperClass = cx({
             ['calbody-content-singleHourGrid-container']: true,
-            ['is-first']: hourAt === 1,
+            ['is-first']: hourAt === 0,
         });
 
         let minSplitters = [];

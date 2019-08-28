@@ -27,4 +27,6 @@ export namespace CalendarNS {
         timing: ITimingFormat,
         eventType: TMinSplitterEventType
     ) => void;
+
+    export type FnDateGridSelect = (value: Date) => void;
 }

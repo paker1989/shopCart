@@ -11,6 +11,7 @@ import {
     isSameDay,
     populateDisplay,
     getSiblingMonthData,
+    getRowMonthData
 } from "../../common/util";
 
 class DatePickerPanel extends React.Component<
@@ -73,14 +74,15 @@ class DatePickerPanel extends React.Component<
 
         const { monthData, displayMonth, displayYear } = this.state;
 
-        const nbRows = monthData.length / 7;
-        let monthDataPerRow = new Array(nbRows);
-        for (let rowIndex = 0; rowIndex < nbRows; rowIndex++) {
-            monthDataPerRow[rowIndex] = monthData.slice(
-                rowIndex * 7,
-                rowIndex * 7 + 7
-            );
-        }
+        // const nbRows = monthData.length / 7;
+        // let monthDataPerRow = new Array(nbRows);
+        // for (let rowIndex = 0; rowIndex < nbRows; rowIndex++) {
+        //     monthDataPerRow[rowIndex] = monthData.slice(
+        //         rowIndex * 7,
+        //         rowIndex * 7 + 7
+        //     );
+        // }
+        const monthDataPerRow: DatePickers.IMonthDataFormat[][] = getRowMonthData(monthData);
 
         const pickerPanelContainerCx = cx(
             {
