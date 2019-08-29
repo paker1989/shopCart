@@ -3,18 +3,37 @@ import * as React from 'react';
 import './weekLine.scss';
 
 export interface IWeekLineProps {
-  weekLabels?: string[]
+    firstWeek: number;
+    nbWeeks: number;
 }
 
 const _test_data_props = [];
 
 class WeekLine extends React.PureComponent<IWeekLineProps, any> {
-
     render() {
-        return (
-          <div className="weekLine-container">
+        const { firstWeek, nbWeeks } = this.props;
+        const weekLabes = [];
 
-          </div>
+        const itemStyle: React.CSSProperties = {
+            height: `${100 / nbWeeks}%`,
+        };
+
+        for (let i = 0; i < nbWeeks; i++) {
+            weekLabes.push(
+                <div
+                    key={`weekLabel-${i}`}
+                    className="weekLine-container-item"
+                    style={itemStyle}
+                >
+                    {firstWeek + i}
+                </div>
+            );
+        }
+        return (
+            <div className="weekLine-container">
+                <div className="weekLine-container__placeholder"></div>
+                <div className="weekLine-container__items">{weekLabes}</div>
+            </div>
         );
     }
 }

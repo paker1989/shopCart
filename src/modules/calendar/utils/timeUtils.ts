@@ -8,7 +8,9 @@ import {
  * @return the week of given date
  * @param date
  */
-export function getWeekOfDate(date: Date): number {
+export function getWeekOfDate(_date_m: DatePickers.IMonthDataFormat): number {
+    const date = new Date(_date_m.yearD, _date_m.monthD - 1, _date_m.showDate);
+    console.log(date);
     const dateOfDayone = new Date(date.getFullYear(), 0, 1);
     const dayOfDayone = dateOfDayone.getDay() === 0 ? 7 : dateOfDayone.getDay();
 
@@ -16,7 +18,7 @@ export function getWeekOfDate(date: Date): number {
 
     let totalDaysOfNow =
         (date.getTime() - dateOfDayone.getTime()) / (24 * 60 * 60 * 1000);
-    return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 1;
+    return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 2;
 }
 
 /**

@@ -1,7 +1,7 @@
 /* common */
 $fontSizeBasic: 14px;
 $fontSizeExtraSmall: $fontSizeBasic * 0.7;
-$fontSizeSmall: $fontSizeBasic * 0.8;
+$fontSizeSmall: $fontSizeBasic * 0.9;
 $fontSizeMedium: $fontSizeBasic * 1.2;
 $fontSizeGrand: $fontSizeBasic * 1.5;
 
@@ -12,6 +12,8 @@ $appScrollBarColor: darken(#dadce0, 10%);
 $fontSubTitleColor: #70757a;
 $hoverBgColor: lighten(#dadce0, 5%);
 $activeBgColor: darken(#dadce0, 14%);
+
+$weekLineBgColor: #f1f3f4;
 
 /* shape */
 $btnBorderRadius: 4px;
@@ -34,9 +36,8 @@ $calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
 $calBodyContentColumnLayoutPlaceholderLineWidth: 6px; // 左侧突出线头的长度
 
 $calBodyContentMonthLayoutHeaderHeight: 30px;
-$calBodyContentMonthLayoutSideWidth: 30px; // main body sidebar weekline width;
+$calBodyContentMonthLayoutSideWidth: 26px; // main body sidebar weekline width;
 
-// $singleHourGridMinHeight: 40px;
 $singleHourGridMaxHeight: 48px;
 
 .btn {
