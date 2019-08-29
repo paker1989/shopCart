@@ -29,10 +29,12 @@
     width: 100%;
     display: flex;
     flex-basis: $calBodyContentMonthLayoutHeaderHeight;
+    line-height: $calBodyContentMonthLayoutHeaderHeight;
     flex-shrink: 0;
 
     &--item {
       flex-grow: 1;
+      font-size: $fontSizeSmall;
       &:not(:last-child) {
         border-right: 1px solid $appFrameBorderColor;
       }

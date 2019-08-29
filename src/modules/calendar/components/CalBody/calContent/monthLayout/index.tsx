@@ -4,20 +4,20 @@ import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
 
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
-import { getMonthLayoutRows, getWeekOfDate } from '../../../../utils/timeUtils';
+import { getMonthLayoutRows } from '../../../../utils/timeUtils';
 import { CalendarNS } from '../../../../utils/types';
 
 import './monthLayout.scss';
 
 const _test_display_we_flag = true;
-const _display_year = 2018;
-const _display_month = 4;
+const _display_year = 2019;
+const _display_month = 6;
 const _test_month_data_rows = getMonthLayoutRows(
     _display_year,
     _display_month,
     _test_display_we_flag
 );
-const firstWeek = getWeekOfDate(_test_month_data_rows[0][0]);
+const weeks = _test_month_data_rows.weeks;
 
 const _select_date = new Date(2019, 7, 14);
 
@@ -42,7 +42,7 @@ class MonthLayout extends React.Component<any, any> {
         return (
             <div className="calbody-content-monthLayout-container">
                 <div className="calbody-content-monthLayout-container__slide">
-                    <WeekLine firstWeek={firstWeek} nbWeeks={_test_month_data_rows.length}/>
+                    <WeekLine weeks={weeks}/>
                 </div>
                 <div className="calbody-content-monthLayout-container__main">
                     <div className="calbody-content-monthLayout-container__header">
@@ -56,7 +56,7 @@ class MonthLayout extends React.Component<any, any> {
                         ))}
                     </div>
                     <div className="calbody-content-monthLayout-container__rows">
-                        {_test_month_data_rows.map((row, index) => (
+                        {_test_month_data_rows.rows.map((row, index) => (
                             <div
                                 key={`monthLayout-rows-item-${index}`}
                                 className="calbody-content-monthLayout-container__row"

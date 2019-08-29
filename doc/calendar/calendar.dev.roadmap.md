@@ -6,20 +6,19 @@
 
 > todo list:
 -   layout dropdown list;
-    > 点击toggle popover，
-    > bloquer all events when popover displayed;
-    > the animation of toggle popover;
+      > 点击toggle popover，
+      > bloquer all events when popover displayed;
+      > the animation of toggle popover;
 -   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
 -   db model design (导入农历 | 法国节日);
-    > 显示 defined events;
-    > 显示日历等；
+      > 显示 defined events;
+      > 显示日历等；
 -   redux design (解决一系列 date toggle 问题);
     > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
 -   `react-intl`国际化
 -   `monthLayout`
-    > monthGrid
-    > `CalEventPop - dragging`在`monthLayout`下的实现;
-    > `monthLayout`;
+      > monthGrid
+      > `CalEventPop - dragging`在`monthLayout`下的实现;
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`.

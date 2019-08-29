@@ -48,6 +48,11 @@ export namespace DatePickers {
         showDate: number;
     }
 
+    export interface IMonthDataRowFormat {
+        rows: DatePickers.IMonthDataFormat[][];
+        weeks: number[];
+    }
+
     export enum monthChangeType { _prev_, _next_ };
 
     export type GridValueType = Date | string;
