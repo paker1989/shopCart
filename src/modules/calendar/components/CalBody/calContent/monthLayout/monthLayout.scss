@@ -35,6 +35,7 @@
     &--item {
       flex-grow: 1;
       font-size: $fontSizeSmall;
+      color: $fontSubTitleColor;
       &:not(:last-child) {
         border-right: 1px solid $appFrameBorderColor;
       }

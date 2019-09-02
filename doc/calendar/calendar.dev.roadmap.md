@@ -6,7 +6,6 @@
 
 > todo list:
 -   layout dropdown list;
-      > 点击toggle popover，
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
 -   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
@@ -31,3 +30,4 @@
 
 *done*:
  - cursion of the popover;
+ - 点击toggle popover，

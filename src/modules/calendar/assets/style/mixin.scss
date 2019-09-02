@@ -43,3 +43,7 @@
     background: $activeBgColor;
   }
 }
+
+@mixin circle-bg($bgColor: #EEEDED) {
+  border-radius: 50%;
+}

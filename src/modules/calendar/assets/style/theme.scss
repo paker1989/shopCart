@@ -12,6 +12,9 @@ $appScrollBarColor: darken(#dadce0, 10%);
 $fontSubTitleColor: #70757a;
 $hoverBgColor: lighten(#dadce0, 5%);
 $activeBgColor: darken(#dadce0, 14%);
+$singleDayGridTodayBgColor: #1a73e8;
+$singleDayGridSelectedBgColor: lighten($singleDayGridTodayBgColor, 30%);
+
 
 $weekLineBgColor: #f1f3f4;
 

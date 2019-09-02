@@ -26,8 +26,8 @@ export default class LayoutPicker extends React.Component<any, any> {
             <div className="header-layoutPicker-container">
                 <Popover
                     position={Popover.Placement.autoBottomMiddle}
-                    // horCushion={5}
                     verCushion={5}
+                    // horCushion={5}
                     // cushion={5}
                     isVisible={isVisible}
                     onVisibleChange={this.onVisibleChange}
