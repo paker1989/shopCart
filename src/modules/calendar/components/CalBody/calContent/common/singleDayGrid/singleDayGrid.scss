@@ -1,38 +1,50 @@
-@import '../../../../../assets/style/theme.scss';
-@import '../../../../../assets/style/mixin.scss';
+@import "../../../../../assets/style/theme.scss";
+@import "../../../../../assets/style/mixin.scss";
 
-$singleGridValueMinHeight: 33px;
+$singleGridValueMinHeight: 28px;
+$circleDimension: 25px;
 
 .singleday-grid-container {
-    position: relative;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; // important
+
+  &-showValue {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    overflow: hidden; // important
-
-    &-showValue {
-        width: 100%;
-        height: $singleGridValueMinHeight;
-        color: $fontColor;
-        font-size: 12px;
-        font-weight: 500;
-
-        &.is-today {
-            & .showValue__base {
-                @include circle-bg($singleDayGridTodayBgColor);
-            }
-        }
-        &.is-grey {
-            color: $fontSubTitleColor;
-        }
-        &.is-selected:not(.is-today) {
-            & .showValue__base {
-                @include circle-bg($singleDayGridSelectedBgColor);
-            }
-        }
-        &.is-disabled {
-            color: $fontSubTitleColor;
-            user-select: none;
-        }
+    justify-content: center;
+    width: 100%;
+    height: $singleGridValueMinHeight;
+    color: $fontColor;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    
+    & .showValue__base:hover {
+        @include circle-bg($hoverBgColor, $fontColor, $circleDimension);
     }
+
+    &.is-today {
+      & .showValue__base {
+        @include circle-bg($singleDayGridTodayBgColor, #fff, $circleDimension);
+      }
+    }
+
+    &.is-grey {
+      color: $fontSubTitleColor;
+    }
+
+    &.is-selected:not(.is-today) {
+      & .showValue__base {
+        @include circle-bg($singleDayGridSelectedBgColor, #fff, $circleDimension);
+      }
+    }
+    &.is-disabled {
+      color: $fontSubTitleColor;
+      user-select: none;
+    }
+  }
 }

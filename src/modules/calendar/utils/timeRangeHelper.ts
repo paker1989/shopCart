@@ -1,5 +1,7 @@
 import CalConfig from '../assets/scripts/calendar.config.js';
 import { CalendarNS } from './types';
+import { func } from 'prop-types';
+import { cpus } from 'os';
 
 const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -104,4 +106,14 @@ export function getTimeRangeDisplay(
         )}`;
     }
     return message;
+}
+
+export function getDateRange(
+    date1: Date,
+    date2: Date
+): CalendarNS.IDateRangeFormat {
+    return {
+        from: date1.getTime() < date2.getTime() ? date1 : date2,
+        to: date1.getTime() < date2.getTime() ? date2 : date1,
+    };
 }

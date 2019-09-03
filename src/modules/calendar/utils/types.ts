@@ -16,16 +16,27 @@ export namespace CalendarNS {
         to: ITimingFormat;
     }
 
+    export interface IDateRangeFormat {
+        from: Date;
+        to: Date; 
+    }
+
     export interface ICalEventPopDynamicStyleFormat {
         top?: number;
         height?: number;
     }
 
-    export type TMinSplitterEventType = 'mousedown' | 'mouseenter' | 'mouseup' | 'click';
+    // TMinSplitterEventType
+    export type TDefineEventType = 'mousedown' | 'mouseenter' | 'mouseup' | 'click';
 
     export type FnOnMinuteSplitter = (
         timing: ITimingFormat,
-        eventType: TMinSplitterEventType
+        eventType: TDefineEventType
+    ) => void;
+
+    export type FnOnDaySplitter = (
+        date: Date,
+        eventType: TDefineEventType
     ) => void;
 
     export type FnDateGridSelect = (value: Date) => void;

@@ -13,7 +13,8 @@ export interface ISingleDayGridProps {
     isToday?: boolean;
     isSelected?: boolean;
     isDisable?: boolean;
-    onSelect?: CalendarNS.FnDateGridSelect;
+    onSelect?: CalendarNS.FnDateGridSelect,
+    onMouseEventChange?: CalendarNS.FnOnDaySplitter;
 }
 
 /**
@@ -24,6 +25,15 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         isSelected: false,
         isDisable: false,
     };
+
+    handleDefineEvent = (
+        evt: React.MouseEvent<HTMLDivElement>,
+        eventType: CalendarNS.TDefineEventType
+    ): void => {
+        const { value, onMouseEventChange } = this.props;
+        onMouseEventChange && onMouseEventChange(value, eventType);
+    };
+
 
     render() {
         const {
@@ -42,14 +52,34 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
             ['is-selected']: isSelected,
         });
 
+        // const calEventPopEventClass = cx({
+        //   []
+        // })
+
         return (
-            <div className="singleday-grid-container">
+            <div className="singleday-grid-container"
+                onMouseDown={(evt: React.MouseEvent<HTMLDivElement>) => {
+                    this.handleDefineEvent(evt, 'mousedown');
+                }}
+                onMouseEnter={(evt: React.MouseEvent<HTMLDivElement>) => {
+                    this.handleDefineEvent(evt, 'mouseenter');
+                }}
+                onMouseUp={(evt: React.MouseEvent<HTMLDivElement>) => {
+                    this.handleDefineEvent(evt, 'mouseup');
+                }}
+                onClick={(evt: React.MouseEvent<HTMLDivElement>) => {
+                    this.handleDefineEvent(evt, 'click');
+                }}
+            >
                 <div className={showValueClass}>
-                    <span className="showValue__base">
-                        {showValue}
-                    </span>
+                    <div className="showValue__base">
+                        <span>{showValue}</span>
+                    </div>
                     {/* value supplementaire */}
                 </div>
+                {/* <div className={calEventPopEventClass}>
+
+                </div> */}
             </div>
         );
     }

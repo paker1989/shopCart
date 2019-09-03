@@ -6,6 +6,7 @@
   height: $singleHourGridMaxHeight;
   border-left: 1px solid $appFrameBorderColor;
   border-bottom: 1px solid $appFrameBorderColor;
+  cursor: pointer;
 
   &.is-first {
     border-top: 1px solid $appFrameBorderColor;

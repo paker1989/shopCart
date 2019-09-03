@@ -30,7 +30,7 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
 
     onMouseEventChange = (
         timing: CalendarNS.ITimingFormat,
-        eventType: CalendarNS.TMinSplitterEventType
+        eventType: CalendarNS.TDefineEventType
     ): void => {
         const { isOnDragging, triggerTiming } = this.state;
         const { hourSplitter } = CalConfig;

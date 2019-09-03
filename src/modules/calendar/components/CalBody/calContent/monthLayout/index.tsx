@@ -5,13 +5,14 @@ import WeekLine from './weekLine';
 
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 import { getMonthLayoutRows } from '../../../../utils/timeUtils';
+import { getDateRange } from '../../../../utils/timeRangeHelper';
 import { CalendarNS } from '../../../../utils/types';
 
 import './monthLayout.scss';
 
 const _test_display_we_flag = true;
 const _display_year = 2019;
-const _display_month = 6;
+const _display_month = 9;
 const _test_month_data_rows = getMonthLayoutRows(
     _display_year,
     _display_month,
@@ -32,6 +33,77 @@ const _test_headers = [
 ];
 
 class MonthLayout extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOnDragging: false,
+            triggerTiming: null,
+            draggingDateRange: null,
+        };
+    }
+
+    handleMouseEvent = (
+        selectedDate: Date,
+        eventType: CalendarNS.TDefineEventType
+    ): void => {
+        const { isOnDragging, triggerTiming } = this.state;
+
+        switch (eventType) {
+            case 'click':
+                console.log('click');
+                break;
+            case 'mousedown':
+                this.setState(
+                    {
+                        isOnDragging: true,
+                        triggerTiming: selectedDate,
+                        draggingDateRange: getDateRange(
+                            selectedDate,
+                            selectedDate
+                        ),
+                    },
+                    () => {
+                        window.addEventListener('mouseup', this.stopDragging);
+                    }
+                );
+                break;
+            case 'mouseup':
+                if (isOnDragging) {
+                    this.stopDragging();
+                }
+                break;
+            case 'mouseenter':
+                if (!isOnDragging) {
+                    return;
+                } else {
+                    this.setState({
+                        draggingDateRange: getDateRange(
+                            triggerTiming,
+                            selectedDate
+                        ),
+                    });
+                }
+                break;
+        }
+    };
+
+    stopDragging = () => {
+        const { isOnDragging } = this.state;
+
+        if (isOnDragging) {
+            this.setState(
+                {
+                    isOnDragging: false,
+                    triggerTiming: null,
+                    draggingDateRange: null,
+                },
+                () => {
+                    window.removeEventListener('mouseup', this.stopDragging);
+                }
+            );
+        }
+    };
+
     render() {
         const headers = _test_display_we_flag
             ? _test_headers
@@ -42,7 +114,7 @@ class MonthLayout extends React.Component<any, any> {
         return (
             <div className="calbody-content-monthLayout-container">
                 <div className="calbody-content-monthLayout-container__slide">
-                    <WeekLine weeks={weeks}/>
+                    <WeekLine weeks={weeks} />
                 </div>
                 <div className="calbody-content-monthLayout-container__main">
                     <div className="calbody-content-monthLayout-container__header">
@@ -93,6 +165,9 @@ class MonthLayout extends React.Component<any, any> {
                                                 isToday={isToday}
                                                 isGrey={isGrey}
                                                 isSelected={isSelected}
+                                                onMouseEventChange={
+                                                    this.handleMouseEvent
+                                                }
                                             />
                                         </div>
                                     );
