@@ -6,18 +6,30 @@ export const _supported_date_format = {
 };
 
 export function isSameDay(
-    selectedDay: DatePickers.IMonthDataFormat,
+    selectedDay: DatePickers.IMonthDataFormat | Date,
     targetDay: Date
 ): boolean {
     if (targetDay === null || targetDay === undefined) {
         return false;
     }
 
+    let monthD;
+    let yearD;
+    let showDate;
+
+    if (selectedDay instanceof Date) {
+        monthD = selectedDay.getMonth() + 1;
+        yearD = targetDay.getFullYear();
+        showDate = targetDay.getDate();
+    } else {
+        monthD = selectedDay.monthD;
+        yearD = selectedDay.yearD;
+        showDate = selectedDay.showDate;
+    }
+
     const targetMonth = targetDay.getMonth() + 1;
     const targetYear = targetDay.getFullYear();
     const targetShowDate = targetDay.getDate();
-
-    const { monthD, yearD, showDate } = selectedDay;
 
     return (
         monthD === targetMonth &&
@@ -28,7 +40,7 @@ export function isSameDay(
 
 export function getMonthData(
     year: number,
-    month: number,
+    month: number
 ): DatePickers.IMonthDataFormat[] {
     // 本月第一天
     var firstDayOfCurrentMonth = new Date(year, month - 1, 1);

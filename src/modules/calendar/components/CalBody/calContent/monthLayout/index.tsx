@@ -5,7 +5,10 @@ import WeekLine from './weekLine';
 
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 import { getMonthLayoutRows } from '../../../../utils/timeUtils';
-import { getDateRange } from '../../../../utils/timeRangeHelper';
+import {
+    getDateRange,
+    getCalEventProps,
+} from '../../../../utils/timeRangeHelper';
 import { CalendarNS } from '../../../../utils/types';
 
 import './monthLayout.scss';
@@ -48,6 +51,7 @@ class MonthLayout extends React.Component<any, any> {
     ): void => {
         const { isOnDragging, triggerTiming } = this.state;
 
+        console.log('selected date = ' + selectedDate);
         switch (eventType) {
             case 'click':
                 console.log('click');
@@ -63,13 +67,13 @@ class MonthLayout extends React.Component<any, any> {
                         ),
                     },
                     () => {
-                        window.addEventListener('mouseup', this.stopDragging);
+                        // window.addEventListener('mouseup', this.stopDragging);
                     }
                 );
                 break;
             case 'mouseup':
                 if (isOnDragging) {
-                    this.stopDragging();
+                    // this.stopDragging();
                 }
                 break;
             case 'mouseenter':
@@ -110,6 +114,7 @@ class MonthLayout extends React.Component<any, any> {
             : _test_headers.filter(
                   day => day.dayIndex !== 0 && day.dayIndex !== 6
               );
+        const { isOnDragging, draggingDateRange } = this.state;
 
         return (
             <div className="calbody-content-monthLayout-container">
@@ -150,6 +155,13 @@ class MonthLayout extends React.Component<any, any> {
                                         day.monthD - 1,
                                         day.showDate
                                     );
+                                    const calEventProps: CalendarNS.IMonthCalEventProps = isOnDragging
+                                        ? getCalEventProps(
+                                              draggingDateRange,
+                                              index,
+                                              gridDate
+                                          )
+                                        : { isInvolved: false };
 
                                     return (
                                         <div
@@ -168,6 +180,7 @@ class MonthLayout extends React.Component<any, any> {
                                                 onMouseEventChange={
                                                     this.handleMouseEvent
                                                 }
+                                                {...calEventProps}
                                             />
                                         </div>
                                     );

@@ -1,7 +1,6 @@
 import CalConfig from '../assets/scripts/calendar.config.js';
 import { CalendarNS } from './types';
-import { func } from 'prop-types';
-import { cpus } from 'os';
+import { isSameDay } from '../../../_packages_/components/datePicker/common/util';
 
 const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -112,8 +111,28 @@ export function getDateRange(
     date1: Date,
     date2: Date
 ): CalendarNS.IDateRangeFormat {
-    return {
+    const dateRange = {
         from: date1.getTime() < date2.getTime() ? date1 : date2,
         to: date1.getTime() < date2.getTime() ? date2 : date1,
     };
+    // dateRange.from.setHours(1, 0, 0);
+    // dateRange.to.setHours(23, 59, 59);
+    console.log('date range: ' + JSON.stringify(dateRange));
+    return dateRange;
+}
+
+export function getCalEventProps(
+    dateRange: CalendarNS.IDateRangeFormat,
+    rowIndex: number,
+    target: Date
+): CalendarNS.IMonthCalEventProps {
+    console.log('dateRange = ' + JSON.stringify(dateRange));
+    const isInvolved =
+        target.getTime() >= dateRange.from.getTime() &&
+        target.getTime() <= dateRange.to.getTime();
+    const isWeekStart = rowIndex === 0;
+    const isStart = isSameDay(target, dateRange.from);
+    const isEnd = isSameDay(target, dateRange.to);
+
+    return { isInvolved, isWeekStart, isStart, isEnd };
 }

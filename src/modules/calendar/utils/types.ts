@@ -26,6 +26,13 @@ export namespace CalendarNS {
         height?: number;
     }
 
+    export interface IMonthCalEventProps {
+        isInvolved?: boolean;
+        isWeekStart?: boolean;
+        isStart?: boolean;
+        isEnd?: boolean;
+    }
+
     // TMinSplitterEventType
     export type TDefineEventType = 'mousedown' | 'mouseenter' | 'mouseup' | 'click';
 

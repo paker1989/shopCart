@@ -1,50 +1,90 @@
-@import "../../../../../assets/style/theme.scss";
-@import "../../../../../assets/style/mixin.scss";
+@import '../../../../../assets/style/theme.scss';
+@import '../../../../../assets/style/mixin.scss';
 
 $singleGridValueMinHeight: 28px;
 $circleDimension: 25px;
+$calEventBodyHeight: 20px;
+$calEventBodyEndLeftPadding: 20px;
 
 .singleday-grid-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden; // important
-
-  &-showValue {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     width: 100%;
-    height: $singleGridValueMinHeight;
-    color: $fontColor;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    
-    & .showValue__base:hover {
-        @include circle-bg($hoverBgColor, $fontColor, $circleDimension);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; // important
+
+    &-showValue {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: $singleGridValueMinHeight;
+        color: $fontColor;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+
+        & .showValue__base:hover {
+            @include circle-bg($hoverBgColor, $fontColor, $circleDimension);
+        }
+
+        &.is-today {
+            & .showValue__base {
+                @include circle-bg(
+                    $singleDayGridTodayBgColor,
+                    #fff,
+                    $circleDimension
+                );
+            }
+        }
+
+        &.is-grey {
+            color: $fontSubTitleColor;
+        }
+
+        &.is-selected:not(.is-today) {
+            & .showValue__base {
+                @include circle-bg(
+                    $singleDayGridSelectedBgColor,
+                    #fff,
+                    $circleDimension
+                );
+            }
+        }
+        &.is-disabled {
+            color: $fontSubTitleColor;
+            user-select: none;
+        }
     }
 
-    &.is-today {
-      & .showValue__base {
-        @include circle-bg($singleDayGridTodayBgColor, #fff, $circleDimension);
-      }
-    }
+    &-calEvent {
+        width: 100%;
+        height: $singleGridValueMinHeight;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-    &.is-grey {
-      color: $fontSubTitleColor;
-    }
+        &__body {
+            width: 100%;
+            height: $calEventBodyHeight;
+            text-align: left;
 
-    &.is-selected:not(.is-today) {
-      & .showValue__base {
-        @include circle-bg($singleDayGridSelectedBgColor, #fff, $circleDimension);
-      }
+            &.is-start {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            &.is-end {
+                padding-left: $calEventBodyEndLeftPadding;
+            }
+        }
+
+        &__title {
+            line-height: $calEventBodyHeight;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            user-select: none;
+        }
     }
-    &.is-disabled {
-      color: $fontSubTitleColor;
-      user-select: none;
-    }
-  }
 }

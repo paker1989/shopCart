@@ -5,7 +5,7 @@ import { CalendarNS } from '../../../../../utils/types';
 
 import './singleDayGrid.scss';
 
-export interface ISingleDayGridProps {
+export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     className?: string;
     showValue: string | number;
     value: Date;
@@ -13,9 +13,12 @@ export interface ISingleDayGridProps {
     isToday?: boolean;
     isSelected?: boolean;
     isDisable?: boolean;
-    onSelect?: CalendarNS.FnDateGridSelect,
+    onSelect?: CalendarNS.FnDateGridSelect;
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
 }
+
+const _test_drag_title = '(无标题)';
+const _test_calEventBody_bg = 'rgb(188, 195, 229)';
 
 /**
  * @description for month layout use
@@ -34,7 +37,6 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         onMouseEventChange && onMouseEventChange(value, eventType);
     };
 
-
     render() {
         const {
             showValue,
@@ -42,6 +44,10 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
             isGrey,
             isDisable,
             isSelected,
+            isInvolved,
+            isWeekStart,
+            isEnd,
+            isStart,
         } = this.props;
 
         const showValueClass = cx({
@@ -52,12 +58,19 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
             ['is-selected']: isSelected,
         });
 
-        // const calEventPopEventClass = cx({
-        //   []
-        // })
+        const calEventPopEventClass = cx({
+            ['singleday-grid-container-calEvent__body']: isInvolved,
+            ['is-start']: isWeekStart || isStart,
+            ['is-end']: isEnd,
+        });
+
+        const calEventBodyStyle: React.CSSProperties = {
+            background: _test_calEventBody_bg,
+        };
 
         return (
-            <div className="singleday-grid-container"
+            <div
+                className="singleday-grid-container"
                 onMouseDown={(evt: React.MouseEvent<HTMLDivElement>) => {
                     this.handleDefineEvent(evt, 'mousedown');
                 }}
@@ -77,9 +90,20 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                     </div>
                     {/* value supplementaire */}
                 </div>
-                {/* <div className={calEventPopEventClass}>
-
-                </div> */}
+                {isInvolved && (
+                    <div className="singleday-grid-container-calEvent">
+                        <div
+                            className={calEventPopEventClass}
+                            style={calEventBodyStyle}
+                        >
+                            {(isStart || isWeekStart) && (
+                                <span className="singleday-grid-container-calEvent__title">
+                                    {_test_drag_title}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
