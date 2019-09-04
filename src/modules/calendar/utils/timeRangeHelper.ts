@@ -115,9 +115,7 @@ export function getDateRange(
         from: date1.getTime() < date2.getTime() ? date1 : date2,
         to: date1.getTime() < date2.getTime() ? date2 : date1,
     };
-    // dateRange.from.setHours(1, 0, 0);
-    // dateRange.to.setHours(23, 59, 59);
-    console.log('date range: ' + JSON.stringify(dateRange));
+    // console.log('date range:' + dateRange.from + " to " + dateRange.to);
     return dateRange;
 }
 
@@ -126,7 +124,6 @@ export function getCalEventProps(
     rowIndex: number,
     target: Date
 ): CalendarNS.IMonthCalEventProps {
-    console.log('dateRange = ' + JSON.stringify(dateRange));
     const isInvolved =
         target.getTime() >= dateRange.from.getTime() &&
         target.getTime() <= dateRange.to.getTime();

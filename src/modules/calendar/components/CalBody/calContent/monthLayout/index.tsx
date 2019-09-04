@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import cx from 'classnames';
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
 
@@ -51,7 +51,6 @@ class MonthLayout extends React.Component<any, any> {
     ): void => {
         const { isOnDragging, triggerTiming } = this.state;
 
-        console.log('selected date = ' + selectedDate);
         switch (eventType) {
             case 'click':
                 console.log('click');
@@ -67,13 +66,13 @@ class MonthLayout extends React.Component<any, any> {
                         ),
                     },
                     () => {
-                        // window.addEventListener('mouseup', this.stopDragging);
+                        window.addEventListener('mouseup', this.stopDragging);
                     }
                 );
                 break;
             case 'mouseup':
                 if (isOnDragging) {
-                    // this.stopDragging();
+                    this.stopDragging();
                 }
                 break;
             case 'mouseenter':
@@ -115,9 +114,13 @@ class MonthLayout extends React.Component<any, any> {
                   day => day.dayIndex !== 0 && day.dayIndex !== 6
               );
         const { isOnDragging, draggingDateRange } = this.state;
+        const wrapperClass = cx({
+            ['calbody-content-monthLayout-container']: true,
+            ['is-ondragging']: isOnDragging,
+        });
 
         return (
-            <div className="calbody-content-monthLayout-container">
+            <div className={wrapperClass}>
                 <div className="calbody-content-monthLayout-container__slide">
                     <WeekLine weeks={weeks} />
                 </div>

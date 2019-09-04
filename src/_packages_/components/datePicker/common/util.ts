@@ -19,8 +19,8 @@ export function isSameDay(
 
     if (selectedDay instanceof Date) {
         monthD = selectedDay.getMonth() + 1;
-        yearD = targetDay.getFullYear();
-        showDate = targetDay.getDate();
+        yearD = selectedDay.getFullYear();
+        showDate = selectedDay.getDate();
     } else {
         monthD = selectedDay.monthD;
         yearD = selectedDay.yearD;

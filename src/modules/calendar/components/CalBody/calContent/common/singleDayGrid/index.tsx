@@ -18,7 +18,7 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
 }
 
 const _test_drag_title = '(无标题)';
-const _test_calEventBody_bg = 'rgb(188, 195, 229)';
+const _test_calEventBody_bg = 'rgb(121, 134, 203)';
 
 /**
  * @description for month layout use
@@ -59,7 +59,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         });
 
         const calEventPopEventClass = cx({
-            ['singleday-grid-container-calEvent__body']: isInvolved,
+            ['singleday-grid-container-calEvent']: isInvolved,
             ['is-start']: isWeekStart || isStart,
             ['is-end']: isEnd,
         });
@@ -88,12 +88,11 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                     <div className="showValue__base">
                         <span>{showValue}</span>
                     </div>
-                    {/* value supplementaire */}
                 </div>
                 {isInvolved && (
-                    <div className="singleday-grid-container-calEvent">
+                    <div className={calEventPopEventClass}>
                         <div
-                            className={calEventPopEventClass}
+                            className="calEvent__body"
                             style={calEventBodyStyle}
                         >
                             {(isStart || isWeekStart) && (
