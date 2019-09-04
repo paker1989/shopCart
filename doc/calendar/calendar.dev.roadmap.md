@@ -18,7 +18,7 @@
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`.
-    > add `week of datePicker` for `DatePicker`
+    > *add `week of datePicker` for `DatePicker`*
 -   提醒的真正后台服务.
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
