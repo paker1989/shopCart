@@ -43,6 +43,22 @@
 
   - 最右侧 预留一小列: links to my apps, my site:  这个是固定width的
 
+- events modal:
+  > modal: modal`position` define: 
+  > fields：
+    - title
+    - eventType: 活动 (default) | 提醒
+    - options
+      - 活动:
+        > timeRange
+        > location
+        > description
+      - reminder
+        > timing
+        > remindOption
+    -  action
+  
+  events modal的position定义函数.
 
 
 

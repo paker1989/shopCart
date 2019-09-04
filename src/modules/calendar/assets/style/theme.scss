@@ -15,13 +15,14 @@ $activeBgColor: darken(#dadce0, 14%);
 $singleDayGridTodayBgColor: #1a73e8;
 $singleDayGridSelectedBgColor: lighten($singleDayGridTodayBgColor, 30%);
 
-
 $weekLineBgColor: #f1f3f4;
 
 /* shape */
 $btnBorderRadius: 4px;
 $focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+$calEventDefinerShadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
 
 /* layout */
 $headerContainerHeight: 64px; // header width;
@@ -56,7 +57,7 @@ $singleHourGridMaxHeight: 48px;
 }
 
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 a {
@@ -97,7 +98,5 @@ a {
 }
 
 .no-uselect {
-  user-select: none;
+    user-select: none;
 }
-
-

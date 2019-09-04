@@ -18,7 +18,7 @@ export namespace CalendarNS {
 
     export interface IDateRangeFormat {
         from: Date;
-        to: Date; 
+        to: Date;
     }
 
     export interface ICalEventPopDynamicStyleFormat {
@@ -33,8 +33,17 @@ export namespace CalendarNS {
         isEnd?: boolean;
     }
 
+    export interface ICalEventInitOptions {
+        timeRange: ITimeRangeFormat;
+        positionner: (...options) => {};
+    }
+
     // TMinSplitterEventType
-    export type TDefineEventType = 'mousedown' | 'mouseenter' | 'mouseup' | 'click';
+    export type TDefineEventType =
+        | 'mousedown'
+        | 'mouseenter'
+        | 'mouseup'
+        | 'click';
 
     export type FnOnMinuteSplitter = (
         timing: ITimingFormat,

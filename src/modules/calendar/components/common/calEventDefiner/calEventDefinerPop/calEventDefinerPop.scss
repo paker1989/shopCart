@@ -1,0 +1,15 @@
+@import '../../../../assets/style/theme.scss';
+
+$containerWidth: 400px;
+$containerMinHeight: 300px;
+
+.calevent-define-pop-container {
+    position: fixed;
+    width: $containerWidth;
+    min-height: $containerMinHeight;
+    top: 20px; // test
+    left: 20px; // test
+    background: white;
+    border-radius: 5px;
+    box-shadow: $calEventDefinerShadow;
+}
