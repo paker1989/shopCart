@@ -20,7 +20,7 @@ class DatePickerDemo extends React.Component<ICommonPageProps, IDatePickerDemoSt
     }
   }
 
-  handleOnChange = (newDate: Date): void => {
+  handleOnSelect = (newDate: Date): void => {
     this.setState({
       value: newDate
     })
@@ -33,9 +33,9 @@ class DatePickerDemo extends React.Component<ICommonPageProps, IDatePickerDemoSt
       <React.Fragment>
         <MarkdownRender source={mdDescription} />
         <DemoCodeRender source={md_democode} title="Date picker展示">
-          <DatePicker value={value} onChange={this.handleOnChange}  />
+          <DatePicker value={value} onSelect={this.handleOnSelect}  />
           <br/>
-          <DatePicker value={value} isPopover={false} onChange={this.handleOnChange} format="YYYY/MM/DD" />
+          <DatePicker value={value} isPopover={false} onSelect={this.handleOnSelect} format="YYYY/MM/DD" />
         </DemoCodeRender>
       </React.Fragment>
     );

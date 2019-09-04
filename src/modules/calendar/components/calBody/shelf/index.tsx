@@ -10,7 +10,7 @@ export default class CalendarBody extends React.Component {
     /**
      * test
      */
-    handleOnChange = (newDate: Date): void => {};
+    handleOnSelect = (newDate: Date): void => {};
 
     render() {
         return (
@@ -36,7 +36,7 @@ export default class CalendarBody extends React.Component {
                         <DatePicker
                             value={_test_date_value_}
                             isPopover={false}
-                            onChange={this.handleOnChange}
+                            onSelect={this.handleOnSelect}
                             format="YYYY/MM/DD"
                         />
                     </div>

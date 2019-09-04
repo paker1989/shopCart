@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 import WeekLayout from './weekLayout';
 import MonthLayout from './monthLayout';
+import YearLayout from './yearLayout';
 
 import './calContent.scss';
 
@@ -13,6 +14,7 @@ export default class CalendarBodyContent extends React.Component {
                 <Switch>
                     <Route path="/week" component={WeekLayout} />
                     <Route path="/month" component={MonthLayout} />
+                    <Route path="/year" component={YearLayout} />
                     <Redirect from="*" to="/month" />
                 </Switch>
             </div>

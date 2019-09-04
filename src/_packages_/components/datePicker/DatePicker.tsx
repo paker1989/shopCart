@@ -17,15 +17,12 @@ class DatePicker extends React.PureComponent
         prefix: 'bxu',
         placeholder: '请选择日期',
         isPopover: true,
-        format: 'default'
+        format: 'default',
+        presentOnly: false
     }
 
     constructor(props: DatePickers.IDatePickerProps) {
         super(props);
-    }
-
-    componentDidMount() {
-
     }
 
     render() {

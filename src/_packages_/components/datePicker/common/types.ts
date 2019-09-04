@@ -7,13 +7,19 @@ export namespace DatePickers {
         prefix?: string;
         className?: string;
         isPopover?: boolean;
+        onSelect?: (val: Date) => void;
+        //optimize for yearLayout usage
+        customizedHeader?: JSX.Element;
+        presentOnly?: boolean; // if yes, only emit this.props.onChange
+        displayYear?: number;
+        displayMonth?: number;
+        monthData?: IMonthDataFormat[];
     }
 
     export interface IDatePickerProps<Val = Value> extends ICommonProps {
         format?: string;
         placeholder?: string;
         value?: Val;
-        onChange?: (val: Date) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props
@@ -22,9 +28,7 @@ export namespace DatePickers {
     }
 
     export interface IDatePickerPanelProps<Val = Value> extends ICommonProps {
-        // format?: string;
         selectedDate?: Date;
-        onChange?: (val: Date) => void;
         disabled?: boolean;
         returnValueType?: 'date' | 'string' | 'number';
         // 次级props
@@ -53,7 +57,10 @@ export namespace DatePickers {
         weeks: number[];
     }
 
-    export enum monthChangeType { _prev_, _next_ };
+    export enum monthChangeType {
+        _prev_,
+        _next_,
+    }
 
     export type GridValueType = Date | string;
 
@@ -63,5 +70,11 @@ export namespace DatePickers {
 }
 
 export const dayNames: Array<string> = [
-    '日', '一', '二', '三', '四', '五', '六'
-]
+    '日',
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+];

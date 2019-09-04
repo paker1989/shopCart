@@ -15,14 +15,14 @@
 -   redux design (解决一系列 date toggle 问题);
     > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
 -   `react-intl`国际化
--   `monthLayout`
-      > monthGrid
-      > `CalEventPop - dragging`在`monthLayout`下的实现;
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`.
+    > add `week of datePicker` for `DatePicker`
 -   提醒的真正后台服务.
 -   手机模式下的显示问题。同样一个px显示不一样。
+-   Notify
+-   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
 
 > to optimize:
 - 区分`click`和`mousedown`和`mouseup`事件. (throtte `mousedown`， 半秒不 up 就发`mousedown`,否则发`click`事件)；
@@ -31,3 +31,6 @@
 *done*:
  - cursion of the popover;
  - 点击toggle popover，
+ - `monthLayout`
+      > monthGrid 
+      > `CalEventPop - dragging`在`monthLayout`下的实现;

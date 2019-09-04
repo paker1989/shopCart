@@ -66,3 +66,18 @@ export function getMonthLayoutRows(
         weeks,
     };
 }
+
+/**
+ * @returns the monthData array of target year
+ * @param year 
+ */
+export function getMonthDataOfYear(
+    year: number
+): DatePickers.IMonthDataFormat[][] {
+    const nbOfMonth = 12;
+    const monthDataOfYear: DatePickers.IMonthDataFormat[][] = new Array();
+    for (let i = 0; i < nbOfMonth; i++) {
+        monthDataOfYear.push(getMonthData(year, i+1));
+    }
+    return monthDataOfYear;
+}
