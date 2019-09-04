@@ -19,6 +19,9 @@
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`.
     > *add `week of datePicker` for `DatePicker`*
+    > zoomer的时候尾部space betweend导致不aligné
+-   `monthLayout`
+    > 点击title的时候不应该触发drag事件
 -   提醒的真正后台服务.
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
