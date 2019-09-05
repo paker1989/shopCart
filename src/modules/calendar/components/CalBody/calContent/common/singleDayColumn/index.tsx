@@ -17,6 +17,7 @@ export interface ISingleDayColumnState {
     dragStatus: CalendarNS.TCalEventPopDragStatusType;
     triggerTiming: CalendarNS.ITimingFormat;
     draggingTimeRange: CalendarNS.ITimeRangeFormat;
+    definePopId?: number;
 }
 
 class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
@@ -31,14 +32,43 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
             dragStatus: 'none',
             triggerTiming: null,
             draggingTimeRange: null,
+            definePopId: -1,
         };
     }
+
+    initDragging = (timing: CalendarNS.ITimingFormat) => {
+        const { hourSplitter } = CalConfig;
+        this.setState({
+            dragStatus: 'dragging',
+            triggerTiming: timing,
+            draggingTimeRange: getTimeRange(timing, timing, hourSplitter),
+        });
+        window.addEventListener('mouseup', this.holdonDragging);
+    };
+
+    holdonDragging = () => {
+        const { dragStatus, draggingTimeRange } = this.state;
+
+        if (dragStatus === 'dragging') {
+            let definePopId = CalEventDefiner.initDefine({
+                timeRange: draggingTimeRange,
+                positionner: CalEventDefiner.Position.autoMiddle,
+                dragPopNode: this.eventPopRef.current,
+                bottomCurshion: 50,
+                topCurshion: 30,
+            });
+
+            this.setState({ dragStatus: 'holdon', definePopId }, () => {
+                window.removeEventListener('mouseup', this.holdonDragging);
+            });
+        }
+    };
 
     onMouseEventChange = (
         timing: CalendarNS.ITimingFormat,
         eventType: CalendarNS.TDefineEventType
     ): void => {
-        const { dragStatus, triggerTiming } = this.state;
+        const { dragStatus, triggerTiming, definePopId } = this.state;
         const { hourSplitter } = CalConfig;
 
         switch (eventType) {
@@ -46,20 +76,22 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
                 console.log('click');
                 break;
             case 'mousedown':
-                this.setState(
-                    {
-                        dragStatus: 'dragging',
-                        triggerTiming: timing,
-                        draggingTimeRange: getTimeRange(
-                            timing,
-                            timing,
-                            hourSplitter
-                        ),
-                    },
-                    () => {
-                        window.addEventListener('mouseup', this.holdonDragging);
-                    }
-                );
+                if (dragStatus === 'holdon') {
+                    CalEventDefiner.destroyDefiner(definePopId);
+                    this.setState(
+                        {
+                            dragStatus: 'none',
+                            triggerTiming: null,
+                            draggingTimeRange: null,
+                            definePopId: -1,
+                        },
+                        () => {
+                            this.initDragging(timing);
+                        }
+                    );
+                } else {
+                    this.initDragging(timing);
+                }
                 break;
             case 'mouseup':
                 if (dragStatus === 'dragging') {
@@ -82,32 +114,9 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
         }
     };
 
-    holdonDragging = () => {
-        const { dragStatus, draggingTimeRange } = this.state;
-
-        if (dragStatus === 'dragging') {
-            CalEventDefiner.initDefine({
-                timeRange: draggingTimeRange,
-                positionner: CalEventDefiner.Position.autoMiddle,
-                dragPopNode: this.eventPopRef.current
-            });
-
-            this.setState(
-                {
-                    dragStatus: 'holdon',
-                    // triggerTiming: null,
-                    // draggingTimeRange: null,
-                },
-                () => {
-                    window.removeEventListener('mouseup', this.holdonDragging);
-                }
-            );
-        }
-    };
-
     getDragPopNode = (ref: React.RefObject<HTMLDivElement>): void => {
         this.eventPopRef = ref;
-    }
+    };
 
     render() {
         const { dragStatus, draggingTimeRange } = this.state;

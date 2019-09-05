@@ -38,6 +38,7 @@ export namespace CalendarNS {
         positionner: (...args) => {};
         dragPopNode: Element;
         bottomCurshion?: number;
+        topCurshion?: number;
     }
 
     // TMinSplitterEventType

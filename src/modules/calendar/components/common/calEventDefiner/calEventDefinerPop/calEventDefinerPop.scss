@@ -1,15 +1,22 @@
 @import '../../../../assets/style/theme.scss';
+@import '../../../../assets/style/mixin.scss';
 
-$containerWidth: 400px;
-$containerMinHeight: 300px;
+$containerWidth: 448px;
+$containerMinHeight: 200px;
+$bodyMaxHeight: 350px;
 
 .calevent-define-pop-container {
-    position: fixed;
+    position: absolute;
     width: $containerWidth;
-    min-height: $containerMinHeight;
-    top: 0px; // test
-    left: 20px; // test
     background: white;
     border-radius: 5px;
     box-shadow: $calEventDefinerShadow;
+    @include customizeScrollbar('.calevent-define-pop-container__body');
+
+    &__body {
+      position: relative;
+      width: $containerWidth;
+      max-height: $bodyMaxHeight;
+      overflow-y: auto;
+    }
 }

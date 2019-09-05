@@ -25,8 +25,9 @@ function getContainerNode() {
 /**
  * @description create caleventpop
  * @param initOptions
+ * @returns popId
  */
-function initDefine(initOptions: CalendarNS.ICalEventInitOptions): void {
+function initDefine(initOptions: CalendarNS.ICalEventInitOptions): number {
     const container = document.createElement('div');
     const containerNode = getContainerNode();
     ReactDOM.render(
@@ -44,6 +45,14 @@ function initDefine(initOptions: CalendarNS.ICalEventInitOptions): void {
     calEventDefineManager[_CAL_EVENT_CURRENT_ID] = {
         container,
     };
+    return _CAL_EVENT_CURRENT_ID;
 }
 
-export default { initDefine, Position };
+function destroyDefiner(popId: number) {
+    const { container } = calEventDefineManager[popId];
+    if (container) {
+        ReactDOM.unmountComponentAtNode(container);
+    }
+}
+
+export default { initDefine, Position, destroyDefiner };
