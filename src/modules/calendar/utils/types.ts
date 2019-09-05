@@ -35,7 +35,9 @@ export namespace CalendarNS {
 
     export interface ICalEventInitOptions {
         timeRange: ITimeRangeFormat;
-        positionner: (...options) => {};
+        positionner: (...args) => {};
+        dragPopNode: Element;
+        bottomCurshion?: number;
     }
 
     // TMinSplitterEventType
@@ -56,4 +58,6 @@ export namespace CalendarNS {
     ) => void;
 
     export type FnDateGridSelect = (value: Date) => void;
+
+    export type TCalEventPopDragStatusType = 'dragging' | 'holdon' | 'none';
 }

@@ -58,7 +58,12 @@
         > remindOption
     -  action
   
-  events modal的position定义函数.
+  events modal的position定义函数.返回top, left:
+  > autoMiddle: for dayColumn: 
+    - 总是尽量和CaleventPops上部alignée.
+    - 可以定义一个bottomCushion: 
+    - 响应resizes事件，但是不响应scroll事件
+    - 
 
 
 

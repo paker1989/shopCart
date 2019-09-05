@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import CalEventDefinerPop from './calEventDefinerPop';
 import Position from './position';
 
+import CalConfig from '../../../assets/scripts/calendar.config.js';
 import { CalendarNS } from '../../../utils/types';
 
 let _CAL_EVENT_CURRENT_ID = 0;
@@ -31,13 +32,16 @@ function initDefine(initOptions: CalendarNS.ICalEventInitOptions): void {
     ReactDOM.render(
         <CalEventDefinerPop
             containerNode={containerNode}
+            id={`${
+                CalConfig.calEventDefinerIdPrefix
+            }-${++_CAL_EVENT_CURRENT_ID}`}
             zIndex={++_CAL_EVENT_Z_INDEX}
             {...initOptions}
         />,
         container
     );
 
-    calEventDefineManager[++_CAL_EVENT_CURRENT_ID] = {
+    calEventDefineManager[_CAL_EVENT_CURRENT_ID] = {
         container,
     };
 }

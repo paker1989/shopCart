@@ -1,3 +1,4 @@
 export default {
-  hourSplitter: 2 // devide n times of 1 hour
+  hourSplitter: 2, // devide n times of 1 hour
+  calEventDefinerIdPrefix: 'cal-event-definer'
 }

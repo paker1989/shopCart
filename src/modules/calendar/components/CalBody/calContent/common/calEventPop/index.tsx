@@ -12,7 +12,8 @@ import './calEventPop.scss';
 export interface ICalEventProps {
     className?: string;
     modalStyle?: {};
-    type?: 'dragging' | 'holding' | 'defined'; // dragging to define or defined event
+    getDragPopNode?: (ref: React.RefObject<HTMLDivElement>) => void;
+    type?: CalendarNS.TCalEventPopDragStatusType; // dragging to define or defined event
     title?: string;
     heightPerUnit?: number; // height per min splitter, calculate abs position accordingly
     timeRange?: CalendarNS.ITimeRangeFormat;
@@ -25,10 +26,23 @@ export default class CalendarEventPop extends React.Component<
     ICalEventProps,
     any
 > {
+    popRef?: React.RefObject<HTMLDivElement>;
+
     static defaultProps = {
         title: _test_no_title,
-        type: 'defined',
+        type: 'dragging',
     };
+
+    constructor(props) {
+        super(props);
+        this.popRef = React.createRef();
+    }
+
+    componentDidMount() {
+        const { getDragPopNode } = this.props;
+        getDragPopNode && getDragPopNode(this.popRef);
+    }
+
     render() {
         const {
             type,
@@ -58,7 +72,7 @@ export default class CalendarEventPop extends React.Component<
             : defaultModalStyle;
 
         return (
-            <div className={modalClass} style={wrapperStyle}>
+            <div ref={this.popRef} className={modalClass} style={wrapperStyle}>
                 <div className="calevent-pop-container__main">
                     <div className="calevent-pop-container__title no-uselect font-calEvent ">
                         {title}
