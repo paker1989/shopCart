@@ -1,7 +1,12 @@
-$calEventDefinerPanelPaddingTop: 30px;
+$calEventDefinerPanelPadding: 30px 10px 10px 10px;
+$titleContainerHeight: 50px;
 
 .calevent-definer-panel {
   position: relative;
   width: 100%;
-  padding-top: $calEventDefinerPanelPaddingTop;
+  padding: $calEventDefinerPanelPadding;
+  &__title {
+    width: 100%;
+    height: $titleContainerHeight;
+  }
 }

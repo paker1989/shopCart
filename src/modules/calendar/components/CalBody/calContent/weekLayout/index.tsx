@@ -2,10 +2,13 @@ import * as React from 'react';
 
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-import './weekLayout.scss';
 
+import { getDayRangeOfWeek } from '../../../../utils/timeUtils';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
+
 import { CalendarNS } from '../../../../utils/types';
+
+import './weekLayout.scss';
 
 export interface IWeekLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -13,21 +16,42 @@ export interface IWeekLayoutProps {
     >;
 }
 
+export interface IWeekLayoutStat {
+  draggingDate?: Date;
+}
+
+const _test_year_ = 2019;
+const _test_week_ = 22;
+const _is_display_we = true;
+
+const daysOfWeek = getDayRangeOfWeek(_test_year_, _test_week_, _is_display_we);
+
 const _test_headers_props = [
     { dayAt: '周日', cnCalendarNb: '初三', dateNumber: 1 },
-    // { dayAt: '周一', cnCalendarNb: '初四', dateNumber: 2 },
-    // { dayAt: '周二', cnCalendarNb: '初五', dateNumber: 3 },
-    // { dayAt: '周三', cnCalendarNb: '初六', dateNumber: 4 },
-    // { dayAt: '周四', cnCalendarNb: '初七', dateNumber: 5 },
-    // { dayAt: '周五', cnCalendarNb: '初八', dateNumber: 6 },
-    // { dayAt: '周六', cnCalendarNb: '初九', dateNumber: 7 },
+    { dayAt: '周一', cnCalendarNb: '初四', dateNumber: 2 },
+    { dayAt: '周二', cnCalendarNb: '初五', dateNumber: 3 },
+    { dayAt: '周三', cnCalendarNb: '初六', dateNumber: 4 },
+    { dayAt: '周四', cnCalendarNb: '初七', dateNumber: 5 },
+    { dayAt: '周五', cnCalendarNb: '初八', dateNumber: 6 },
+    { dayAt: '周六', cnCalendarNb: '初九', dateNumber: 7 },
 ];
 const _test_headers_nb = _test_headers_props.length;
-const _is_single_day = _test_headers_nb === 1;
 
 class WeekLayout extends React.Component<IWeekLayoutProps, any> {
+    constructor(props) {
+        super(props);
+        this.state = { draggingDate: null};
+    }
+
+    handleInitDragging = (draggingDate: Date) => {
+      if (draggingDate!==null) {
+          this.setState({ draggingDate });
+      }
+    }
+
     render() {
         const { singleDayHeader } = this.props;
+        const { draggingDate } = this.state;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
 
@@ -43,9 +67,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
                             {
                                 <DateDisplayHeader
                                     {...headerProps}
-                                    textAlign={
-                                        _is_single_day ? 'left' : 'center'
-                                    }
+                                    textAlign="center"
                                 />
                             }
                         </div>
@@ -73,7 +95,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
                         ))}
                     </div>
                     <div className="calbody-content-weekLayout-container__columnbody">
-                        {_test_headers_props.map((headerProps, index) => (
+                        {daysOfWeek.map((date, index) => (
                             <div
                                 className="calbody-content-weekLayout-container__dayDifferWrapper"
                                 style={{
@@ -81,7 +103,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
                                 }}
                                 key={`dateColWrapper-${index}`}
                             >
-                                <SingleDayColumn />
+                                <SingleDayColumn value={date} draggingDate={draggingDate} onInitDragging={this.handleInitDragging}/>
                             </div>
                         ))}
                     </div>

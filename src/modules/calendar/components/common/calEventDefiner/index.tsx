@@ -27,32 +27,46 @@ function getContainerNode() {
  * @param initOptions
  * @returns popId
  */
-function initDefine(initOptions: CalendarNS.ICalEventInitOptions): number {
+function initDefine(initOptions: CalendarNS.ICalEventInitOptions): string {
     const container = document.createElement('div');
     const containerNode = getContainerNode();
+    const id = `${
+        CalConfig.calEventDefinerIdPrefix
+    }-${++_CAL_EVENT_CURRENT_ID}`;
+
     ReactDOM.render(
         <CalEventDefinerPop
             containerNode={containerNode}
-            id={`${
-                CalConfig.calEventDefinerIdPrefix
-            }-${++_CAL_EVENT_CURRENT_ID}`}
+            id={id}
             zIndex={++_CAL_EVENT_Z_INDEX}
             {...initOptions}
         />,
         container
     );
 
-    calEventDefineManager[_CAL_EVENT_CURRENT_ID] = {
+    calEventDefineManager[id] = {
         container,
     };
-    return _CAL_EVENT_CURRENT_ID;
+    return id;
 }
 
-function destroyDefiner(popId: number) {
+function destroyDefiner(popId: string): void {
     const { container } = calEventDefineManager[popId];
     if (container) {
         ReactDOM.unmountComponentAtNode(container);
+        delete calEventDefineManager[popId];
     }
 }
 
-export default { initDefine, Position, destroyDefiner };
+function destroyAll(): void {
+    if (!calEventDefineManager) {
+        return;
+    }
+    Object.keys(calEventDefineManager).forEach(key => {
+        if (key.startsWith(CalConfig.calEventDefinerIdPrefix)) {
+            destroyDefiner(key);
+        }
+    });
+}
+
+export default { initDefine, Position, destroyDefiner, destroyAll };

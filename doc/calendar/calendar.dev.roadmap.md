@@ -27,6 +27,9 @@
 -   Notify
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
 
+> todo *optimization*
+  - 移动holdon的`calEventPop`
+
 > to optimize:
 - 区分`click`和`mousedown`和`mouseup`事件. (throtte `mousedown`， 半秒不 up 就发`mousedown`,否则发`click`事件)；
 - `calEventPop`在初始时文字在不在第一行的问题
@@ -37,3 +40,8 @@
  - `monthLayout`
       > monthGrid 
       > `CalEventPop - dragging`在`monthLayout`下的实现;
+
+## global variable:
+
+-  initWeek: week of today,  然后independant;
+- 

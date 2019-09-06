@@ -69,7 +69,7 @@ export function getMonthLayoutRows(
 
 /**
  * @returns the monthData array of target year
- * @param year 
+ * @param year
  */
 export function getMonthDataOfYear(
     year: number
@@ -77,7 +77,26 @@ export function getMonthDataOfYear(
     const nbOfMonth = 12;
     const monthDataOfYear: DatePickers.IMonthDataFormat[][] = new Array();
     for (let i = 0; i < nbOfMonth; i++) {
-        monthDataOfYear.push(getMonthData(year, i+1));
+        monthDataOfYear.push(getMonthData(year, i + 1));
     }
     return monthDataOfYear;
+}
+
+export function getDayRangeOfWeek(
+    year: number,
+    week: number,
+    displayWE: boolean
+): Date[] {
+    const datesOfWeek = [];
+    const date = new Date(year, 0, 1); // first day of the year;
+    const offset = displayWE ? 0 : 1;
+    const length = displayWE ? 7 : 5;
+
+    date.setDate(date.getDate() + (week - 1) * 7 - date.getDay() + offset);
+    datesOfWeek.push(new Date(date));
+    for (let i = 0; i < length - 1; i++) {
+        date.setDate(date.getDate() + 1);
+        datesOfWeek.push(new Date(date));
+    }
+    return datesOfWeek;
 }

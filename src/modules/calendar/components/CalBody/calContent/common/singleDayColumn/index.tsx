@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
 
 import CalEventPop from '../calEventPop';
 import SingleHourGrid from '../singleHourGrid';
@@ -7,33 +6,55 @@ import CalEventDefiner from '../../../../common/calEventDefiner';
 
 import CalConfig from '../../../../../assets/scripts/calendar.config';
 import { getTimeRange } from '../../../../../utils/timeRangeHelper';
+import { isSameDay } from '@component/datePicker/common/util';
 import { CalendarNS } from '../../../../../utils/types';
 
 import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
 
-export interface ISingleDayColumnState {
-    dragStatus: CalendarNS.TCalEventPopDragStatusType;
-    triggerTiming: CalendarNS.ITimingFormat;
-    draggingTimeRange: CalendarNS.ITimeRangeFormat;
-    definePopId?: number;
+export interface ISingleDayColumnProps {
+    value: Date;
+    draggingDate?: Date;
+    onInitDragging?: (draggingDate: Date) => void;
+    positionner?: (...args) => {};
 }
 
-class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
+export interface ISingleDayColumnState {
+    dragStatus?: CalendarNS.TCalEventPopDragStatusType;
+    triggerTiming: CalendarNS.ITimingFormat;
+    draggingTimeRange: CalendarNS.ITimeRangeFormat;
+    definePopId?: string;
+}
+
+class SingleDayColumn extends React.Component<
+    ISingleDayColumnProps,
+    ISingleDayColumnState
+> {
     colRef?: React.RefObject<HTMLDivElement>;
     eventPopRef?: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
         super(props);
-        this.colRef = React.createRef();
-
         this.state = {
             dragStatus: 'none',
             triggerTiming: null,
             draggingTimeRange: null,
-            definePopId: -1,
+            definePopId: null,
         };
+        this.colRef = React.createRef();
+    }
+
+    componentDidUpdate() {
+        const { value, draggingDate } = this.props;
+        const { dragStatus } = this.state;
+        if (
+            draggingDate &&
+            isSameDay(value, draggingDate) === false &&
+            dragStatus !== 'none'
+        ) {
+            this.cancelDragging();
+        }
     }
 
     initDragging = (timing: CalendarNS.ITimingFormat) => {
@@ -48,20 +69,34 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
 
     holdonDragging = () => {
         const { dragStatus, draggingTimeRange } = this.state;
+        const { positionner } = this.props;
 
         if (dragStatus === 'dragging') {
             let definePopId = CalEventDefiner.initDefine({
                 timeRange: draggingTimeRange,
-                positionner: CalEventDefiner.Position.autoMiddle,
+                positionner: positionner || CalEventDefiner.Position.autoMiddle,
                 dragPopNode: this.eventPopRef.current,
                 bottomCurshion: 50,
                 topCurshion: 30,
             });
-
             this.setState({ dragStatus: 'holdon', definePopId }, () => {
                 window.removeEventListener('mouseup', this.holdonDragging);
             });
         }
+    };
+
+    cancelDragging = (cb?: any) => {
+        const { definePopId } = this.state;
+        CalEventDefiner.destroyDefiner(definePopId);
+        this.setState(
+            {
+                dragStatus: 'none',
+                triggerTiming: null,
+                draggingTimeRange: null,
+                definePopId: null,
+            },
+            cb
+        );
     };
 
     onMouseEventChange = (
@@ -69,6 +104,7 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
         eventType: CalendarNS.TDefineEventType
     ): void => {
         const { dragStatus, triggerTiming, definePopId } = this.state;
+        const { onInitDragging, value } = this.props;
         const { hourSplitter } = CalConfig;
 
         switch (eventType) {
@@ -77,21 +113,10 @@ class SingleDayColumn extends React.Component<any, ISingleDayColumnState> {
                 break;
             case 'mousedown':
                 if (dragStatus === 'holdon') {
-                    CalEventDefiner.destroyDefiner(definePopId);
-                    this.setState(
-                        {
-                            dragStatus: 'none',
-                            triggerTiming: null,
-                            draggingTimeRange: null,
-                            definePopId: -1,
-                        },
-                        () => {
-                            this.initDragging(timing);
-                        }
-                    );
-                } else {
-                    this.initDragging(timing);
+                    CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
                 }
+                onInitDragging && onInitDragging(value); // inform parent to clean other
+                this.initDragging(timing); // init
                 break;
             case 'mouseup':
                 if (dragStatus === 'dragging') {
