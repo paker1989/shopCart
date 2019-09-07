@@ -1,0 +1,45 @@
+@import '../../../assets/style/theme.scss';
+
+$containerHeight: 33px;
+
+.calInput-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    & input {
+        position: relative;
+        font-size: 23px;
+        font-weight: 400;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    & .grey-border {
+      display: block;
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      bottom: 0px;
+      background: $hoverBgColor;
+    }
+    
+    & .expand-border {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      bottom: 1px;
+      background: $singleDayGridTodayBgColor;
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin:  88px center;
+    }
+    
+    & input:focus + .expand-border, &:focus .expand-border {
+      transform: scaleX(1);
+    }
+}

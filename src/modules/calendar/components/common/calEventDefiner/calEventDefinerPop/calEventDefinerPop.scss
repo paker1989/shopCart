@@ -3,7 +3,7 @@
 
 $containerWidth: 448px;
 $containerMinHeight: 200px;
-$bodyMaxHeight: 350px;
+$bodyMaxHeight: 360px;
 
 .calevent-define-pop-container {
     position: absolute;
@@ -16,7 +16,7 @@ $bodyMaxHeight: 350px;
     &__body {
       position: relative;
       width: $containerWidth;
-      max-height: $bodyMaxHeight;
+      height: 100%;
       overflow-y: auto;
     }
 }

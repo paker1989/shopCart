@@ -5,6 +5,11 @@
 # 2019/08/26
 
 > todo list:
+-   `caleventDefinerPanel`
+    > `timeRange` option
+    > `reminder` sub-panel
+    > google map API for `calEventDefiner`;
+    > 出现动画;
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
@@ -26,6 +31,7 @@
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
+
 
 > todo *optimization*
   - 移动holdon的`calEventPop`

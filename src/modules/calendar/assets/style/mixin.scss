@@ -1,58 +1,61 @@
-@import "./theme.scss";
+@import './theme.scss';
 
 @mixin centralizeFlex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @mixin customizeScrollbar($ref) {
-  #{$ref}::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background: transparent;
-  }
+    #{$ref}::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background: transparent;
+    }
 
-  #{$ref}::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    #{$ref}::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-  #{$ref}::-webkit-scrollbar-thumb {
-    background: $appScrollBarColor;
-    border-radius: 5px;
-  }
+    #{$ref}::-webkit-scrollbar-thumb {
+        background: $appScrollBarColor;
+        border-radius: 5px;
+    }
 
-  #{$ref}::-webkit-scrollbar-button:start {
-    display: none;
-  }
+    #{$ref}::-webkit-scrollbar-button:start {
+        display: none;
+    }
 
-  #{$ref}::-webkit-scrollbar-button:end {
-    display: none;
-  }
+    #{$ref}::-webkit-scrollbar-button:end {
+        display: none;
+    }
 }
 
-@mixin select-effect {
-  cursor: pointer;
-  transition: background 0.2s ease-in;
+@mixin select-effect(
+    $hoverBgColor: #{$hoverBgColor},
+    $activeBgColor: #{$activeBgColor}
+) {
+    cursor: pointer;
+    transition: background 0.2s ease-in;
 
-  &:hover {
-    background: $hoverBgColor;
-  }
+    &:hover {
+        background: $hoverBgColor;
+    }
 
-  &:active {
-    background: $activeBgColor;
-  }
+    &:active {
+        background: $activeBgColor;
+    }
 }
 
-@mixin circle-bg( $bgColor: #eeeded, $textColor: #fff, $dimension: 100%) {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: $dimension;
-  height: $dimension;
-  border-radius: 50%;
-  background-color: $bgColor;
-  color: $textColor;
-  transition: background 0.3s linear;
+@mixin circle-bg($bgColor: #eeeded, $textColor: #fff, $dimension: 100%) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $dimension;
+    height: $dimension;
+    border-radius: 50%;
+    background-color: $bgColor;
+    color: $textColor;
+    transition: background 0.3s linear;
 }

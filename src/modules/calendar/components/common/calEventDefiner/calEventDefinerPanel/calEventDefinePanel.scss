@@ -1,12 +1,65 @@
+@import '../../../../assets/style/theme.scss';
+@import '../../../../assets/style/mixin.scss';
+
 $calEventDefinerPanelPadding: 30px 10px 10px 10px;
-$titleContainerHeight: 50px;
+$titleContainerHeight: 35px;
+$actionContainerHeight: 60px;
 
 .calevent-definer-panel {
   position: relative;
   width: 100%;
   padding: $calEventDefinerPanelPadding;
+
   &__title {
     width: 100%;
     height: $titleContainerHeight;
+    padding-left: $calEventDefinerLeftOffset;
+    margin-bottom: 10px;
+  }
+
+  &__types {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: $titleContainerHeight;
+    padding-left: $calEventDefinerLeftOffset;
+    margin-bottom: 10px;
+  }
+
+  &__type {
+    display: inline-block;
+    padding: 8px 10px;
+    border-radius: 4px;
+    color: $optionFontColor;
+    font-size: $fontSizeBasic;
+    cursor: pointer;
+    transition: background 0.2s ease-in;
+
+    &.is-active {
+      color: $singleDayGridTodayBgColor;
+      background: lighten($singleDayGridTodayBgColor, 40%);
+      &:active {
+        background: lighten($singleDayGridTodayBgColor, 30%);
+      }
+    }
+
+    &:not(.is-active) {
+      @include select-effect();
+    }
+
+    &:first-child {
+      margin-right: 10px;
+    }
+  } // end __type
+
+  &__options {
+    width: 100%;
+  }
+
+  &__actions {
+    height: $actionContainerHeight;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
   }
 }

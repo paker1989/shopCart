@@ -1,0 +1,51 @@
+@import '../../../../../assets/style/theme.scss';
+
+.calActivity-definer-container {
+    position: relative;
+    width: 100%;
+
+    &__option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: $calEventDefinerOptionHeight;
+        margin-bottom: 8px;
+
+        &--main {
+            flex-grow: 1;
+            height: 100%;
+        }
+
+        //   &--comment {
+        //     width: 100%;
+        //     padding-top: 5px;
+        //     border-top: 1px solid $appFrameBorderColor;
+        //     border-bottom: 1px solid $appFrameBorderColor;
+        // }
+    }
+    
+    &__icon {
+        display: inline-block;
+        width: $calEventDefinerLeftOffset;
+        & .ali-icon {
+            font-size: 20px;
+            color: $optionFontColor;
+        }
+    }
+
+    &__input {
+        border-radius: 3px;
+        &.is-focus {
+            background: #f1f3f4;
+        }
+        & input {
+            font-size: $fontSizeBasic;
+            padding-left: 10px;
+        }
+
+        & .grey-border {
+            display: none;
+        }
+    }
+}
