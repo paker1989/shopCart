@@ -1,6 +1,7 @@
 import CalConfig from '../assets/scripts/calendar.config.js';
 import { CalendarNS } from './types';
 import { isSameDay } from '../../../_packages_/components/datePicker/common/util';
+import { func } from 'prop-types';
 
 const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -33,9 +34,19 @@ export function convertMinAddToTiming(
 ): CalendarNS.ITimingFormat {
     let minAt = (timing.minAt + addedMin) % 60;
     let addHour = Math.floor((timing.minAt + addedMin) / 60);
-    let newHour = timing.hourAt + addHour > 23 ? 0 : timing.hourAt + addHour;
+
+    const isNewDay = timing.hourAt + addHour > 23;
+    let newHour = isNewDay
+        ? (timing.hourAt + addHour) % 23
+        : timing.hourAt + addHour;
+    if (isNewDay) {
+        timing.dayAt.setDate(
+            timing.dayAt.getDate() + Math.floor((timing.hourAt + addHour) / 23)
+        );
+    }
 
     return {
+        dayAt: timing.dayAt,
         hourAt: newHour,
         minAt,
     };
@@ -84,10 +95,27 @@ export function isSameTiming(
     return isStrict ? addedMin === 0 : addedMin <= _MIN_SPLITTER_;
 }
 
-export function getTimingDisplay(timing: CalendarNS.ITimingFormat): string {
-    return (
-        `${timing.hourAt}点` + (timing.minAt === 0 ? '' : `${timing.minAt}分`)
-    );
+export function getTimingDisplay(
+    timing: CalendarNS.ITimingFormat,
+    pattern: CalendarNS.TTimingDisplayPattern = '24h'
+): string {
+    switch (pattern) {
+        case '24h':
+            return (
+                `${timing.hourAt}点` +
+                (timing.minAt === 0 ? '' : `${timing.minAt}分`)
+            );
+        case '12h':
+            const isMorning = timing.hourAt < 12;
+            const dayDisplay = isMorning ? '上午' : '下午';
+            const hourDisplay =
+                timing.hourAt > 12 ? timing.hourAt - 12 : timing.hourAt;
+            const minDisplay = timing.minAt < 10 ? `0${timing.minAt}`:`${timing.minAt}`
+            return (
+                `${dayDisplay}${hourDisplay}:${minDisplay}`
+            );
+    }
+    return '';
 }
 
 export function getTimeRangeDisplay(

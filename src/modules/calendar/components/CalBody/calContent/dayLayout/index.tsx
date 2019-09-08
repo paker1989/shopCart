@@ -62,7 +62,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                     </div>
                     <div className="calbody-content-dayLayout-container__columnbody">
                         <div className="calbody-content-dayLayout-container__dayDifferWrapper">
-                            <SingleDayColumn value={_test_date_} />
+                            <SingleDayColumn value={_test_date_} topCurshion={30} bottomCurshion={50} />
                         </div>
                     </div>
                 </div>

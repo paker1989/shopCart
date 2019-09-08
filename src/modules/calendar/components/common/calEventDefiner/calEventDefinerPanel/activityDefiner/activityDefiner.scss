@@ -41,7 +41,7 @@
         }
         & input {
             font-size: $fontSizeBasic;
-            padding-left: 10px;
+            padding-left: $calEventDefinerOptionMainLeftPadding;
         }
 
         & .grey-border {

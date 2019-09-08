@@ -1,7 +1,9 @@
 import * as React from 'react';
 import cx from 'classnames';
+
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
+import CalEventDefiner from '../../../common/calEventDefiner';
 
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 import { getMonthLayoutRows } from '../../../../utils/timeUtils';
@@ -35,30 +37,71 @@ const _test_headers = [
     { dayIndex: 6, label: '周六' },
 ];
 
-class MonthLayout extends React.Component<any, any> {
+export interface IMonthLayoutState {
+    dragStatus: CalendarNS.TCalEventPopDragStatusType;
+    triggerTiming: Date;
+    draggingDateRange: CalendarNS.IDateRangeFormat;
+    definePopId?: string;
+}
+
+class MonthLayout extends React.Component<any, IMonthLayoutState> {
+    private startRef?: React.RefObject<HTMLDivElement>;
+    private endRef?: React.RefObject<HTMLDivElement>;
+
     constructor(props) {
         super(props);
         this.state = {
-            isOnDragging: false,
+            dragStatus: 'none',
             triggerTiming: null,
             draggingDateRange: null,
+            definePopId: null,
         };
     }
+
+    setDateRangeRef = (
+        ref: React.RefObject<HTMLDivElement>,
+        type: 'start' | 'end'
+    ): void => {
+        switch (type) {
+            case 'start':
+                this.startRef = ref;
+                return;
+            case 'end':
+                this.endRef = ref;
+                return;
+        }
+    };
+
+    getSimuDragPopNode = (): CalendarNS.ISimuBoundingClientRect => {
+        if (!this.startRef || !this.endRef) {
+            return {};
+        }
+        const startNodeBdBox = this.startRef.current.getBoundingClientRect();
+        const endNodeBdBox = this.endRef.current.getBoundingClientRect();
+        return {
+            top: startNodeBdBox.top,
+            bottom: endNodeBdBox.bottom,
+            left: startNodeBdBox.left,
+            right: endNodeBdBox.right,
+        };
+    };
 
     handleMouseEvent = (
         selectedDate: Date,
         eventType: CalendarNS.TDefineEventType
     ): void => {
-        const { isOnDragging, triggerTiming } = this.state;
-
+        const { dragStatus, triggerTiming, definePopId } = this.state;
         switch (eventType) {
             case 'click':
                 console.log('click');
                 break;
             case 'mousedown':
+                if (dragStatus === 'holdon') {
+                    CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
+                }
                 this.setState(
                     {
-                        isOnDragging: true,
+                        dragStatus: 'dragging',
                         triggerTiming: selectedDate,
                         draggingDateRange: getDateRange(
                             selectedDate,
@@ -66,17 +109,17 @@ class MonthLayout extends React.Component<any, any> {
                         ),
                     },
                     () => {
-                        window.addEventListener('mouseup', this.stopDragging);
+                        window.addEventListener('mouseup', this.holdonDragging);
                     }
                 );
                 break;
             case 'mouseup':
-                if (isOnDragging) {
-                    this.stopDragging();
+                if (dragStatus === 'dragging') {
+                    this.holdonDragging();
                 }
                 break;
             case 'mouseenter':
-                if (!isOnDragging) {
+                if (dragStatus !== 'dragging') {
                     return;
                 } else {
                     this.setState({
@@ -90,20 +133,21 @@ class MonthLayout extends React.Component<any, any> {
         }
     };
 
-    stopDragging = () => {
-        const { isOnDragging } = this.state;
+    holdonDragging = () => {
+        const { dragStatus, draggingDateRange } = this.state;
 
-        if (isOnDragging) {
-            this.setState(
-                {
-                    isOnDragging: false,
-                    triggerTiming: null,
-                    draggingDateRange: null,
-                },
-                () => {
-                    window.removeEventListener('mouseup', this.stopDragging);
-                }
-            );
+        if (dragStatus === 'dragging') {
+            let definePopId = CalEventDefiner.initDefine({
+                timeRange: draggingDateRange,
+                positionner: CalEventDefiner.Position.autoAside,
+                simuDragPopNode: this.getSimuDragPopNode(),
+                bottomCurshion: 50,
+                topCurshion: 30,
+                asideCurshion: 10,
+            });
+            this.setState({ dragStatus: 'holdon', definePopId }, () => {
+                window.removeEventListener('mouseup', this.holdonDragging);
+            });
         }
     };
 
@@ -113,10 +157,10 @@ class MonthLayout extends React.Component<any, any> {
             : _test_headers.filter(
                   day => day.dayIndex !== 0 && day.dayIndex !== 6
               );
-        const { isOnDragging, draggingDateRange } = this.state;
+        const { dragStatus, draggingDateRange } = this.state;
         const wrapperClass = cx({
             ['calbody-content-monthLayout-container']: true,
-            ['is-ondragging']: isOnDragging,
+            ['is-ondragging']: dragStatus === 'dragging',
         });
 
         return (
@@ -158,14 +202,14 @@ class MonthLayout extends React.Component<any, any> {
                                         day.monthD - 1,
                                         day.showDate
                                     );
-                                    const calEventProps: CalendarNS.IMonthCalEventProps = isOnDragging
-                                        ? getCalEventProps(
-                                              draggingDateRange,
-                                              index,
-                                              gridDate
-                                          )
-                                        : { isInvolved: false };
-
+                                    const calEventProps: CalendarNS.IMonthCalEventProps =
+                                        dragStatus === 'none'
+                                            ? { isInvolved: false }
+                                            : getCalEventProps(
+                                                  draggingDateRange,
+                                                  index,
+                                                  gridDate
+                                              );
                                     return (
                                         <div
                                             key={`monthLayout-row-item-${index}`}
@@ -180,6 +224,9 @@ class MonthLayout extends React.Component<any, any> {
                                                 isToday={isToday}
                                                 isGrey={isGrey}
                                                 isSelected={isSelected}
+                                                setDateRangeRef={
+                                                    this.setDateRangeRef
+                                                }
                                                 onMouseEventChange={
                                                     this.handleMouseEvent
                                                 }

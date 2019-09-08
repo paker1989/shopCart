@@ -14,6 +14,10 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     isSelected?: boolean;
     isDisable?: boolean;
     onSelect?: CalendarNS.FnDateGridSelect;
+    setDateRangeRef?: (
+        ref: React.RefObject<HTMLDivElement>,
+        type: 'start' | 'end'
+    ) => void;
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
 }
 
@@ -28,6 +32,25 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         isSelected: false,
         isDisable: false,
     };
+    private dragRef: React.RefObject<HTMLDivElement>;
+
+    constructor(props) {
+        super(props);
+        this.dragRef = React.createRef();
+    }
+
+    componentDidUpdate() {
+        const { isInvolved, isStart, isEnd, setDateRangeRef } = this.props;
+        if (!this.dragRef || !isInvolved || !setDateRangeRef) {
+            return;
+        }
+        if (isStart) {
+            setDateRangeRef(this.dragRef, 'start');
+        }
+        if (isEnd) {
+            setDateRangeRef(this.dragRef, 'end');
+        }
+    }
 
     handleDefineEvent = (
         evt: React.MouseEvent<HTMLDivElement>,
@@ -90,7 +113,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                     </div>
                 </div>
                 {isInvolved && (
-                    <div className={calEventPopEventClass}>
+                    <div ref={this.dragRef} className={calEventPopEventClass}>
                         <div
                             className="calEvent__body"
                             style={calEventBodyStyle}

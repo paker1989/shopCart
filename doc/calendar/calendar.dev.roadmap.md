@@ -6,10 +6,11 @@
 
 > todo list:
 -   `caleventDefinerPanel`
-    > `timeRange` option
+    > close option 
     > `reminder` sub-panel
     > google map API for `calEventDefiner`;
     > 出现动画;
+    > 点击`timeRange`可以换时间.
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
@@ -31,6 +32,7 @@
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
+-   test `convertMinAddToTiming`: 过一天的
 
 
 > todo *optimization*
@@ -46,6 +48,8 @@
  - `monthLayout`
       > monthGrid 
       > `CalEventPop - dragging`在`monthLayout`下的实现;
+-   `caleventDefinerPanel`
+    > `timeRange` option
 
 ## global variable:
 

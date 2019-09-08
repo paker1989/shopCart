@@ -10,13 +10,15 @@ export interface ICalInputProps {
     className?: string;
     placeholder?: string;
     value?: string;
-    onChange?: (val: string) => void;
+    onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 class CalInput extends React.Component<ICalInputProps, any> {
     static defaultProps = {
         placeholder: _test_default_placeholder,
         value: '',
+        onChange: (evt: React.ChangeEvent<HTMLInputElement>) => {}
     };
+    
     inputRef: React.RefObject<HTMLInputElement>;
 
     constructor(props) {
@@ -30,7 +32,7 @@ class CalInput extends React.Component<ICalInputProps, any> {
     };
 
     render() {
-        const { placeholder, value, className } = this.props;
+        const { placeholder, value, className, onChange } = this.props;
         const { isFocus } = this.state;
         const wrapperClass = cx(
             {
@@ -46,6 +48,7 @@ class CalInput extends React.Component<ICalInputProps, any> {
                     ref={this.inputRef}
                     placeholder={placeholder}
                     value={value}
+                    onChange={onChange}
                     onFocus={() => {
                         this.setState({ isFocus: true });
                     }}

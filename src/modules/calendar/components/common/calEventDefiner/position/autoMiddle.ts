@@ -11,7 +11,8 @@ export default (
 ) => {
     const { bottomCurshion, topCurshion } = options;
     const viewportSize = getViewportSize();
-    const left = (viewportSize.width - definer.width) / 2;
+
+    const left = (viewportSize.width - definer.width) / 2; // defined left
 
     let _bottomCurshion_ = bottomCurshion || 0;
     let _topCurshion_ = topCurshion || 0;
@@ -23,6 +24,7 @@ export default (
     if (nearBottom >= 0) {
         return {
             top,
+            // height: definer.height,
             left,
         };
     }
@@ -41,5 +43,3 @@ export default (
         left,
     };
 };
-
-// export default autoMiddle;

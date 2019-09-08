@@ -48,18 +48,24 @@ class CalEventDefinerPop extends React.Component<
     }
 
     adjustPosition = () => {
-        const { positionner, id, dragPopNode, ...otherProps } = this.props;
+        const {
+            positionner,
+            id,
+            dragPopNode,
+            simuDragPopNode,
+            ...otherProps
+        } = this.props;
         if (this.node === null) {
             this.node = document.getElementById(id);
         }
-        if (!this.node || !dragPopNode) {
+        if (!this.node || (!dragPopNode && !simuDragPopNode)) {
             return;
         }
         const definerBoundingBox = wrapperDimension(
             this.node.getBoundingClientRect()
         );
         const refBoundingBox = wrapperDimension(
-            dragPopNode.getBoundingClientRect()
+            dragPopNode ? dragPopNode.getBoundingClientRect() : simuDragPopNode
         );
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,

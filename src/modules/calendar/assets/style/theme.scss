@@ -47,6 +47,7 @@ $singleHourGridMaxHeight: 48px;
 
 $calEventDefinerLeftOffset: 50px;
 $calEventDefinerOptionHeight: 35px;
+$calEventDefinerOptionMainLeftPadding: 10px;
 
 .btn {
     border-radius: $btnBorderRadius;
@@ -54,6 +55,18 @@ $calEventDefinerOptionHeight: 35px;
     font-size: $fontSizeBasic;
     font-weight: 500;
     letter-spacing: 0.25px;
+    outline: none;
+    cursor: pointer;
+    &.is-inform {
+        line-height: 36px;
+        padding: 0 24px;
+        transition: background 0.2s ease-in;
+        background: #1a73e8;
+        color: #fff;
+        &:hover {
+            background: lighten(#1a73e8, 10%);
+        }
+    }
 }
 
 .img {
@@ -110,23 +123,4 @@ a {
 
 .no-uselect {
     user-select: none;
-}
-
-.btn {
-    border-radius: 4px;
-    font-size: $fontSizeBasic;
-    line-height: 36px;
-    font-weight: 500;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: background 0.2s ease-in;
-    outline: none;
-
-    &.is-inform {
-        background: #1a73e8;
-        color: #fff;
-        &:hover {
-            background: lighten(#1a73e8, 10%);
-        }
-    }
 }

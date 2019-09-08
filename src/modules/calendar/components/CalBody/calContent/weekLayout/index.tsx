@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
+import CalEventDefiner from '../../../common/calEventDefiner';
 
 import { getDayRangeOfWeek } from '../../../../utils/timeUtils';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
@@ -17,7 +18,7 @@ export interface IWeekLayoutProps {
 }
 
 export interface IWeekLayoutStat {
-  draggingDate?: Date;
+    draggingDate?: Date;
 }
 
 const _test_year_ = 2019;
@@ -40,14 +41,14 @@ const _test_headers_nb = _test_headers_props.length;
 class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     constructor(props) {
         super(props);
-        this.state = { draggingDate: null};
+        this.state = { draggingDate: null };
     }
 
     handleInitDragging = (draggingDate: Date) => {
-      if (draggingDate!==null) {
-          this.setState({ draggingDate });
-      }
-    }
+        if (draggingDate !== null) {
+            this.setState({ draggingDate });
+        }
+    };
 
     render() {
         const { singleDayHeader } = this.props;
@@ -103,7 +104,17 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
                                 }}
                                 key={`dateColWrapper-${index}`}
                             >
-                                <SingleDayColumn value={date} draggingDate={draggingDate} onInitDragging={this.handleInitDragging}/>
+                                <SingleDayColumn
+                                    value={date}
+                                    draggingDate={draggingDate}
+                                    onInitDragging={this.handleInitDragging}
+                                    positionner={
+                                        CalEventDefiner.Position.autoAside
+                                    }
+                                    asideCurshion={10}
+                                    bottomCurshion={50}
+                                    topCurshion={30}
+                                />
                             </div>
                         ))}
                     </div>

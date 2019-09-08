@@ -166,6 +166,8 @@ export function getFormattedDate(date: Date, format = 'default'): string {
             return `${year}-${month}-${day}`;
         case 'YYYY/MM/DD':
             return `${year}/${month}/${day}`;
+        case '年月日':
+            return `${year}年${month}月${day}日`;
     }
 
     return '';

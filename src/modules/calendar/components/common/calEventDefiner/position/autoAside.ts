@@ -1,4 +1,5 @@
 import getViewportSize from '../../../../../../_packages_/utils/getViewportSize';
+import autoMiddle from './autoMiddle';
 import { CalendarNS } from '../../../../utils/types';
 
 /**
@@ -9,37 +10,23 @@ export default (
     ref: ClientRect | DOMRect,
     options?: CalendarNS.ICalEventInitOptions
 ) => {
-    const { bottomCurshion, topCurshion } = options;
+    const { asideCurshion } = options;
     const viewportSize = getViewportSize();
-    const left = (viewportSize.width - definer.width) / 2;
+    const { top, height, left } = autoMiddle(definer, ref, options);
+    let _asideCurshion = asideCurshion || 0;
+    let _left: number;
 
-    let _bottomCurshion_ = bottomCurshion || 0;
-    let _topCurshion_ = topCurshion || 0;
-    let top = Math.max(ref.top, _topCurshion_);
-
-    const nearBottom =
-        viewportSize.height - top - definer.height - _bottomCurshion_;
-
-    if (nearBottom >= 0) {
-        return {
-            top,
-            left,
-        };
+    const nearLeft = ref.left - definer.width - _asideCurshion;
+    const nearRight =
+        viewportSize.width - ref.right - definer.width - _asideCurshion;
+    if (nearLeft < 0 && nearRight < 0) {
+        _left = left;
+    } else {
+        if (nearLeft > nearRight) {
+            _left = nearLeft;
+        } else {
+            _left = ref.right + _asideCurshion;
+        }
     }
-
-    let maxDefinerHeight = viewportSize.height - _bottomCurshion_ - _topCurshion_;
-    if (maxDefinerHeight < 0) {
-        maxDefinerHeight = 0;
-    }
-    const height = Math.min(maxDefinerHeight, definer.height);
-    
-    top = viewportSize.height - _bottomCurshion_  - height;
-
-    return {
-        top,
-        height,
-        left,
-    };
+    return { top, left: _left, height };
 };
-
-// export default autoMiddle;

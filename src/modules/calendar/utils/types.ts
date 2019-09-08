@@ -7,6 +7,7 @@ export namespace CalendarNS {
     }
 
     export interface ITimingFormat {
+        dayAt: Date;
         hourAt: number;
         minAt: number;
     }
@@ -14,6 +15,7 @@ export namespace CalendarNS {
     export interface ITimeRangeFormat {
         from: ITimingFormat;
         to: ITimingFormat;
+        // dayAt: Date;
     }
 
     export interface IDateRangeFormat {
@@ -26,6 +28,11 @@ export namespace CalendarNS {
         height?: number;
     }
 
+    // export interface ICalEventTimingDisplayOptions {
+    //     displayDaySplit?: boolean;
+    //     pattern?: TTimingDisplayPattern;
+    // }
+
     export interface IMonthCalEventProps {
         isInvolved?: boolean;
         isWeekStart?: boolean;
@@ -33,13 +40,24 @@ export namespace CalendarNS {
         isEnd?: boolean;
     }
 
+    export interface ISimuBoundingClientRect {
+        left?: number;
+        right?: number;
+        top?: number;
+        bottom?: number;
+    }
+
     export interface ICalEventInitOptions {
-        timeRange: ITimeRangeFormat;
-        positionner: (...args) => {};
-        dragPopNode: Element;
+        timeRange?: ITimeRangeFormat | IDateRangeFormat;
+        positionner?: (...args) => {};
+        dragPopNode?: Element;
+        simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
         bottomCurshion?: number;
         topCurshion?: number;
+        asideCurshion?: number;
     }
+
+    export type TTimingDisplayPattern = '12h' | '24h';
 
     // TMinSplitterEventType
     export type TDefineEventType =
@@ -61,4 +79,9 @@ export namespace CalendarNS {
     export type FnDateGridSelect = (value: Date) => void;
 
     export type TCalEventPopDragStatusType = 'dragging' | 'holdon' | 'none';
+
+    export type TtimeDisplaySupportType =
+        | CalendarNS.IDateRangeFormat
+        | CalendarNS.ITimeRangeFormat
+        | CalendarNS.ITimingFormat;
 }

@@ -6,18 +6,17 @@ import CalEventDefiner from '../../../../common/calEventDefiner';
 
 import CalConfig from '../../../../../assets/scripts/calendar.config';
 import { getTimeRange } from '../../../../../utils/timeRangeHelper';
-import { isSameDay } from '@component/datePicker/common/util';
+import { isSameDay } from '../../../../../../../_packages_/components/datePicker/common/util';
 import { CalendarNS } from '../../../../../utils/types';
 
 import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
 
-export interface ISingleDayColumnProps {
+export interface ISingleDayColumnProps extends CalendarNS.ICalEventInitOptions {
     value: Date;
     draggingDate?: Date;
     onInitDragging?: (draggingDate: Date) => void;
-    positionner?: (...args) => {};
 }
 
 export interface ISingleDayColumnState {
@@ -69,15 +68,21 @@ class SingleDayColumn extends React.Component<
 
     holdonDragging = () => {
         const { dragStatus, draggingTimeRange } = this.state;
-        const { positionner } = this.props;
+        const {
+            positionner,
+            bottomCurshion,
+            topCurshion,
+            asideCurshion,
+        } = this.props;
 
         if (dragStatus === 'dragging') {
             let definePopId = CalEventDefiner.initDefine({
                 timeRange: draggingTimeRange,
                 positionner: positionner || CalEventDefiner.Position.autoMiddle,
                 dragPopNode: this.eventPopRef.current,
-                bottomCurshion: 50,
-                topCurshion: 30,
+                bottomCurshion,
+                topCurshion,
+                asideCurshion,
             });
             this.setState({ dragStatus: 'holdon', definePopId }, () => {
                 window.removeEventListener('mouseup', this.holdonDragging);
@@ -145,6 +150,7 @@ class SingleDayColumn extends React.Component<
 
     render() {
         const { dragStatus, draggingTimeRange } = this.state;
+        const { value } = this.props;
 
         let minSplitterHeight;
         let _self = this.colRef.current;
@@ -158,6 +164,7 @@ class SingleDayColumn extends React.Component<
             hourGrids.push(
                 <li key={`key${i}`}>
                     <SingleHourGrid
+                        dayAt={value}
                         hourAt={i}
                         onMouseEventChange={this.onMouseEventChange}
                     />
