@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import TimeRangeDisplayer from '../timeRangeDisplayer';
 import CalInput from '../../../../common/calInput';
+import GooglePlaceAPIManager from '../../../googlePlaceAPIManager';
 
 import { CalendarNS } from '../../../../../utils/types';
 import './activityDefiner.scss';
@@ -18,6 +19,7 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
         const { timeRange } = this.props;
         return (
             <div className="calActivity-definer-container">
+                <GooglePlaceAPIManager/>
                 <div className="calActivity-definer-container__option">
                     <span className="calActivity-definer-container__icon">
                         <svg className="ali-icon" aria-hidden="true">
