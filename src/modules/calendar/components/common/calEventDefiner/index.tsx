@@ -39,6 +39,7 @@ function initDefine(initOptions: CalendarNS.ICalEventInitOptions): string {
             containerNode={containerNode}
             id={id}
             zIndex={++_CAL_EVENT_Z_INDEX}
+            onDestroy={destroyDefiner}
             {...initOptions}
         />,
         container

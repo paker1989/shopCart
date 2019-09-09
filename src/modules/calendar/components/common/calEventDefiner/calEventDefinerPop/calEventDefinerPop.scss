@@ -1,22 +1,49 @@
-@import '../../../../assets/style/theme.scss';
-@import '../../../../assets/style/mixin.scss';
+@import "../../../../assets/style/theme.scss";
+@import "../../../../assets/style/mixin.scss";
 
 $containerWidth: 448px;
 $containerMinHeight: 200px;
 $bodyMaxHeight: 360px;
 
 .calevent-define-pop-container {
-    position: absolute;
-    width: $containerWidth;
-    background: white;
-    border-radius: 5px;
-    box-shadow: $calEventDefinerShadow;
-    @include customizeScrollbar('.calevent-define-pop-container__body');
+  position: absolute;
+  width: $containerWidth;
+  background: white;
+  border-radius: 5px;
+  box-shadow: $calEventDefinerShadow;
+  @include customizeScrollbar(".calevent-define-pop-container__body");
 
-    &__body {
-      position: relative;
-      width: $containerWidth;
-      height: 100%;
-      overflow-y: auto;
+  &__body {
+    position: relative;
+    width: $containerWidth;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &__close {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    padding-top: 10px;
+    padding-right: 20px;
+
+    &--wrapper {
+      width: 35px;
+      height: 35px;
+      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: $fontColor;
+      cursor: pointer;
+      transition: background .2s ease-in;
+  
+      &:hover {
+        background: $hoverBgColor;
+      }
     }
+  }
+
+
 }

@@ -6,7 +6,7 @@
 
 > todo list:
 -   `caleventDefinerPanel`
-    > close option 
+    > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
     > `reminder` sub-panel
     > google map API for `calEventDefiner`;
     > 出现动画;
@@ -23,7 +23,7 @@
 -   `react-intl`国际化
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
--   `yearLayout`.
+-   `yearLayout`
     > *add `week of datePicker` for `DatePicker`*
     > zoomer的时候尾部space betweend导致不aligné
 -   `monthLayout`
