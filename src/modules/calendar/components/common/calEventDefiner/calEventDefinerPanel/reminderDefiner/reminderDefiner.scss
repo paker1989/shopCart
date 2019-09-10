@@ -1,0 +1,39 @@
+@import '../../../../../assets/style/theme.scss';
+
+.calReminder-definer-container {
+    position: relative;
+    width: 100%;
+
+    &__option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: $calEventDefinerOptionHeight;
+        margin-bottom: 8px;
+
+        &--main {
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        &--repeat, &--check {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+        &--check {
+            margin-left: 10px;
+        }
+    }
+    
+    &__icon {
+        display: inline-block;
+        width: $calEventDefinerLeftOffset;
+        & .ali-icon {
+            font-size: 20px;
+            color: $optionFontColor;
+        }
+    }
+}

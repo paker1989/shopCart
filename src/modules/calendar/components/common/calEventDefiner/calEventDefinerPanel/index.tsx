@@ -14,7 +14,7 @@ const _test_reminder_text = '提醒';
 const _test_save_text = '保存';
 
 export interface ICalEventDefinerPanelProps {
-    timeRange?: CalendarNS.ITimeRangeFormat | CalendarNS.IDateRangeFormat;
+    timeRange?: CalendarNS.TtimeDisplaySupportType;
 }
 
 class CalEventDefinerPanel extends React.Component<
@@ -39,7 +39,7 @@ class CalEventDefinerPanel extends React.Component<
                 </div>
                 <div className="calevent-definer-panel__options">
                     <ActivityDefiner timeRange={timeRange} />
-                    {/* <ReminderDefiner /> */}
+                    {/* <ReminderDefiner timeRange={timeRange}/> */}
                 </div>
                 <div className="calevent-definer-panel__actions">
                     <div className="calevent-definer-panel__actions--main">

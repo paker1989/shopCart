@@ -10,7 +10,7 @@ const _test_add_location_placeholder = '添加一个有意思的地点';
 const _test_add_comment_placeholder = '添加一个暖心的说明';
 
 export interface IActivityDefinerProps {
-    timeRange: CalendarNS.ITimeRangeFormat | CalendarNS.IDateRangeFormat;
+    timeRange: CalendarNS.TtimeDisplaySupportType;
 }
 
 class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {

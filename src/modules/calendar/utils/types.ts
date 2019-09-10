@@ -83,5 +83,5 @@ export namespace CalendarNS {
     export type TtimeDisplaySupportType =
         | CalendarNS.IDateRangeFormat
         | CalendarNS.ITimeRangeFormat
-        | CalendarNS.ITimingFormat;
+        // | CalendarNS.ITimingFormat;
 }

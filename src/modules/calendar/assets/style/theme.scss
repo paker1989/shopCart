@@ -20,10 +20,9 @@ $weekLineBgColor: #f1f3f4;
 
 /* shape */
 $btnBorderRadius: 4px;
-$focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-$calEventDefinerShadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14),
-    0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+$focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+$calEventDefinerShadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+  0 11px 15px -7px rgba(0, 0, 0, 0.2);
 
 /* layout */
 $headerContainerHeight: 64px; // header width;
@@ -50,77 +49,83 @@ $calEventDefinerOptionHeight: 35px;
 $calEventDefinerOptionMainLeftPadding: 10px;
 
 .btn {
-    border-radius: $btnBorderRadius;
-    border: 1px solid $appFrameBorderColor;
-    font-size: $fontSizeBasic;
-    font-weight: 500;
-    letter-spacing: 0.25px;
-    outline: none;
-    cursor: pointer;
-    &.is-inform {
-        line-height: 36px;
-        padding: 0 24px;
-        transition: background 0.2s ease-in;
-        background: #1a73e8;
-        color: #fff;
-        &:hover {
-            background: lighten(#1a73e8, 10%);
-        }
+  border-radius: $btnBorderRadius;
+  border: 1px solid $appFrameBorderColor;
+  font-size: $fontSizeBasic;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  outline: none;
+  cursor: pointer;
+  &.is-inform {
+    line-height: 36px;
+    padding: 0 24px;
+    transition: background 0.2s ease-in;
+    background: #1a73e8;
+    color: #fff;
+    &:hover {
+      background: lighten(#1a73e8, 10%);
     }
+  }
+  &.is-silent {
+    border: none;
+    &:hover {
+      background: $hoverBgColor;
+    }
+  }
 }
 
 .img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .is-ellipse {
-    border-radius: 30px;
+  border-radius: 30px;
 }
 
 .is-separator {
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: $appFrameBorderColor;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: $appFrameBorderColor;
 }
 
 .font-subtitle {
-    font-size: $fontSizeSmall;
-    font-weight: 400;
-    color: $fontSubTitleColor;
+  font-size: $fontSizeSmall;
+  font-weight: 400;
+  color: $fontSubTitleColor;
 }
 
 .font-calEvent {
-    font-size: $fontSizeSmall;
-    font-weight: 300;
-    color: #fff;
+  font-size: $fontSizeSmall;
+  font-weight: 300;
+  color: #fff;
 }
 
 .font-layout-option {
-    font-size: $fontSizeBasic;
-    font-weight: 400;
+  font-size: $fontSizeBasic;
+  font-weight: 400;
 }
 
 .inline-block {
-    display: inline-block;
+  display: inline-block;
 }
 
 .is-grey {
-    color: $fontSubTitleColor;
+  color: $fontSubTitleColor;
 }
 
 .is-lighter-gey {
-    color: #80868b;
+  color: #80868b;
 }
 
 .no-uselect {
-    user-select: none;
+  user-select: none;
 }

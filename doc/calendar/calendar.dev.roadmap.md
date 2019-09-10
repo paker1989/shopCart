@@ -11,6 +11,9 @@
     > google map API for `calEventDefiner`;
     > 出现动画;
     > 点击`timeRange`可以换时间.
+    > `activityDefiner`
+       - 根据选择的时间显示repeat选项;
+       - reminderRange根据if `isDayEvt`来决定`timeRangeDisplayer`显示。如果初始是all day, 切换成not all dayd的话，那么时间就是当前时间.
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
