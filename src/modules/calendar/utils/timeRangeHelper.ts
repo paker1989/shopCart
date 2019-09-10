@@ -140,6 +140,14 @@ export function getDateRange(
 ): CalendarNS.ITimeRangeFormat {
     const fromDate = date1.getTime() < date2.getTime() ? date1 : date2;
     const toDate = date1.getTime() < date2.getTime() ? date2 : date1;
+    const now = new Date();
+
+    fromDate.setHours(now.getHours());
+    fromDate.setMinutes(now.getMinutes());
+
+    toDate.setHours(now.getHours());
+    toDate.setMinutes(now.getMinutes());
+
     return {
         from: {
             dayAt: fromDate,
@@ -159,9 +167,17 @@ export function getCalEventProps(
     rowIndex: number,
     target: Date
 ): CalendarNS.IMonthCalEventProps {
+    const fromForCompare = new Date(dateRange.from.dayAt);
+    fromForCompare.setHours(0);
+    fromForCompare.setMinutes(0);
+    const toForCompare = new Date(dateRange.to.dayAt);
+    toForCompare.setHours(0);
+    toForCompare.setMinutes(0);
+
     const isInvolved =
-        target.getTime() >= dateRange.from.dayAt.getTime() &&
-        target.getTime() <= dateRange.to.dayAt.getTime();
+        target.getTime() >= fromForCompare.getTime() &&
+        target.getTime() <= toForCompare.getTime();
+
     const isWeekStart = rowIndex === 0;
     const isStart = isSameDay(target, dateRange.from.dayAt);
     const isEnd = isSameDay(target, dateRange.to.dayAt);

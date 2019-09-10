@@ -54,6 +54,7 @@ export namespace CalendarNS {
         bottomCurshion?: number;
         topCurshion?: number;
         asideCurshion?: number;
+        initDayEvtValue?: boolean;
     }
 
     export type TTimingDisplayPattern = '12h' | '24h';

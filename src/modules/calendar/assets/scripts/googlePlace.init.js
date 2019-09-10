@@ -7,19 +7,19 @@
 export function initGoogleService() {
     var service = new google.maps.places.AutocompleteService();
 
-    var displaySuggestions = function(predictions, status) {
-        if (status != google.maps.places.PlacesServiceStatus.OK) {
-            alert(status);
-            return;
-        }
+    // var displaySuggestions = function(predictions, status) {
+    //     if (status != google.maps.places.PlacesServiceStatus.OK) {
+    //         alert(status);
+    //         return;
+    //     }
 
-        predictions.forEach(function(prediction) {
-            console.log(prediction);
-        });
-    };
-    service.getQueryPredictions(
-        { input: '164 avenue victor hugo' },
-        displaySuggestions
-    );
+    //     predictions.forEach(function(prediction) {
+    //         console.log(prediction);
+    //     });
+    // };
+    // service.getQueryPredictions(
+    //     { input: '164 avenue victor hugo' },
+    //     displaySuggestions
+    // );
     window.GoogleAutocompleteService = service;
 }

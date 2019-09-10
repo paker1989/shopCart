@@ -24,7 +24,6 @@ export default (
     if (nearBottom >= 0) {
         return {
             top,
-            // height: definer.height,
             left,
         };
     }

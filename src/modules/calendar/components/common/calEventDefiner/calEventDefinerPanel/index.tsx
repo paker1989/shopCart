@@ -15,19 +15,25 @@ const _test_save_text = '保存';
 
 export interface ICalEventDefinerPanelProps {
     timeRange?: CalendarNS.ITimeRangeFormat;
+    initDayEvtValue?: boolean;
 }
 
 export interface ICalEventDefinerPanelState {
     type?: 'activity' | 'reminder';
+    isDayEvt?: boolean;
 }
 
 class CalEventDefinerPanel extends React.Component<
     ICalEventDefinerPanelProps,
     ICalEventDefinerPanelState
 > {
+    static defaultProps = {
+        initDayEvtValue: false,
+    };
+
     constructor(props) {
         super(props);
-        this.state = { type: 'activity' };
+        this.state = { type: 'activity', isDayEvt: this.props.initDayEvtValue };
     }
 
     changeType = newType => {
@@ -38,9 +44,13 @@ class CalEventDefinerPanel extends React.Component<
         }
     };
 
+    handleDayEvtChange = (isDayEvt: boolean): void => {
+        this.setState({ isDayEvt });
+    };
+
     render() {
         const { timeRange } = this.props;
-        const { type } = this.state;
+        const { type, isDayEvt } = this.state;
         const activityWrapperClass = cx({
             ['calevent-definer-panel__type']: true,
             [`is-active`]: type === 'activity',
@@ -71,10 +81,17 @@ class CalEventDefinerPanel extends React.Component<
                 </div>
                 <div className="calevent-definer-panel__options">
                     {type === 'activity' && (
-                        <ActivityDefiner timeRange={timeRange} />
+                        <ActivityDefiner
+                            timeRange={timeRange}
+                            initDayEvtValue={isDayEvt}
+                        />
                     )}
                     {type === 'reminder' && (
-                        <ReminderDefiner timeRange={timeRange} />
+                        <ReminderDefiner
+                            timeRange={timeRange}
+                            initDayEvtValue={isDayEvt}
+                            onDayEvtChange={this.handleDayEvtChange}
+                        />
                     )}
                 </div>
                 <div className="calevent-definer-panel__actions">

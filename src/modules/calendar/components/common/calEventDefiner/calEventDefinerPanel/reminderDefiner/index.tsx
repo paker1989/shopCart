@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import { withRouter } from 'react-router-dom';
 
 import TimeRangeDisplayer from '../timeRangeDisplayer';
 import Checkbox from '../../../../../../../_packages_/components/checkbox';
@@ -10,35 +11,56 @@ import './reminderDefiner.scss';
 
 export interface IReminderDefinerProps {
     timeRange: CalendarNS.ITimeRangeFormat;
+    initDayEvtValue?: boolean;
+    onDayEvtChange?: (val: boolean) => void;
 }
 
 export interface IReminderDefinerStat {
-    isDayEvt?: boolean;
+    isWholeDayEvt?: boolean;
 }
 
 class ReminderDefiner extends React.Component<
     IReminderDefinerProps,
     IReminderDefinerStat
 > {
-    static defaultProps = {};
+    static defaultProps = {
+        initDayEvtValue: false,
+    };
 
     constructor(props) {
         super(props);
-        // const isDayEvt =
-        //     (this.props.timeRange as CalendarNS.ITimeRangeFormat).from
-        //         .getDate !== undefined; // init dayEvt depends on the timeRange type
-        this.state = { isDayEvt: true };
+        if (!this.isDayEvtControlled()) {
+            this.state = { isWholeDayEvt: this.props.initDayEvtValue };
+        }
+    }
+
+    isDayEvtControlled = () => {
+        return this.props.onDayEvtChange !== undefined;
+    };
+
+    getDayRvtValue = () => {
+        if (this.isDayEvtControlled()) {
+            return this.props.initDayEvtValue;
+        } else {
+            return this.state.isWholeDayEvt;
+        }
     }
 
     toggleDayEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            isDayEvt: e.target.checked,
-        });
+        const { onDayEvtChange } = this.props;
+
+        if (this.isDayEvtControlled()) {
+            onDayEvtChange(e.target.checked);
+        } else {
+            this.setState({
+                isWholeDayEvt: e.target.checked,
+            });
+        }
     };
 
     render() {
         const { timeRange } = this.props;
-        const { isDayEvt } = this.state;
+        const isWholeDayEvt = this.getDayRvtValue();
         return (
             <div>
                 <div className="calReminder-definer-container">
@@ -52,7 +74,7 @@ class ReminderDefiner extends React.Component<
                             <TimeRangeDisplayer
                                 time={timeRange}
                                 isReminder={true}
-                                isWholeDayEvt={isDayEvt}
+                                isWholeDayEvt={isWholeDayEvt}
                             />
                         </div>
                     </div>
@@ -68,7 +90,7 @@ class ReminderDefiner extends React.Component<
                             </div>
                             <Checkbox
                                 className="calReminder-definer-container__option--check"
-                                checked={isDayEvt}
+                                checked={isWholeDayEvt}
                                 onChange={this.toggleDayEvent}
                             >
                                 全天
@@ -81,4 +103,5 @@ class ReminderDefiner extends React.Component<
     }
 }
 
+// export default withRouter(ReminderDefiner);
 export default ReminderDefiner;

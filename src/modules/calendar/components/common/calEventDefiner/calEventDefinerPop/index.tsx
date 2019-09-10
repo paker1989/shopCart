@@ -88,12 +88,18 @@ class CalEventDefinerPop extends React.Component<
     onWindowScroll = throttle(this.adjustPosition, 500);
 
     onClose = () => {
-    //   const { onDestroy, id } = this.props;
-    //   onDestroy && onDestroy(id);
-    }
+        //   const { onDestroy, id } = this.props;
+        //   onDestroy && onDestroy(id);
+    };
 
     render() {
-        const { containerNode, id, zIndex, timeRange } = this.props;
+        const {
+            containerNode,
+            id,
+            zIndex,
+            timeRange,
+            initDayEvtValue
+        } = this.props;
         const { style } = this.state;
         const wrapperStyle: React.CSSProperties = {
             ...style,
@@ -106,14 +112,17 @@ class CalEventDefinerPop extends React.Component<
                 style={wrapperStyle}
             >
                 <div className="calevent-define-pop-container__body">
-                    <div className="calevent-define-pop-container__close" onClick={this.onClose}>
+                    <div
+                        className="calevent-define-pop-container__close"
+                        onClick={this.onClose}
+                    >
                         <div className="calevent-define-pop-container__close--wrapper">
                             <svg className="ali-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-close"></use>
                             </svg>
                         </div>
                     </div>
-                    <CalEventDefinerPanel timeRange={timeRange} />
+                    <CalEventDefinerPanel timeRange={timeRange} initDayEvtValue={initDayEvtValue}/>
                 </div>
                 <WindowResizeHandler onResize={this.onWindowResize} />
                 <WindowEventHandler

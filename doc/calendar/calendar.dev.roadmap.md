@@ -5,19 +5,18 @@
 # 2019/08/26
 
 > todo list:
+-  `popup` for `yearlayout`；
+- 
 -   `caleventDefinerPanel`
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
-    > `reminder` sub-panel
     > google map API for `calEventDefiner`;
     > 出现动画;
     > 点击`timeRange`可以换时间.
     > `activityDefiner`
        - 根据选择的时间显示repeat选项;
-       - reminderRange根据if `isDayEvt`来决定`timeRangeDisplayer`显示。如果初始是all day, 切换成not all dayd的话，那么时间就是当前时间.
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
--   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
 -   db model design (导入农历 | 法国节日);
       > 显示 defined events;
       > 显示日历等；
@@ -27,10 +26,10 @@
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`
-    > *add `week of datePicker` for `DatePicker`*
-    > zoomer的时候尾部space betweend导致不aligné
+      > *add `week of datePicker` for `DatePicker`*
+      > zoomer的时候尾部space betweend导致不aligné
 -   `monthLayout`
-    > 点击title的时候不应该触发drag事件
+      > 点击title的时候不应该触发drag事件
 -   提醒的真正后台服务.
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
@@ -53,6 +52,9 @@
       > `CalEventPop - dragging`在`monthLayout`下的实现;
 -   `caleventDefinerPanel`
     > `timeRange` option
+    - reminderRange根据if `isDayEvt`来决定`timeRangeDisplayer`显示。如果初始是all day, 切换成not all dayd的话，那么时间就是当前时间.
+    > `reminder` sub-panel
+-   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
 
 ## global variable:
 

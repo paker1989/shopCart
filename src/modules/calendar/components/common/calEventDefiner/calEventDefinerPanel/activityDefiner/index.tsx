@@ -12,15 +12,18 @@ const _test_add_comment_placeholder = '添加一个暖心的说明';
 
 export interface IActivityDefinerProps {
     timeRange: CalendarNS.ITimeRangeFormat;
+    initDayEvtValue?: boolean;
 }
 
 class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
-
+    static defaultProps = {
+        initDayEvtValue: false,
+    };
     render() {
-        const { timeRange } = this.props;
+        const { timeRange, initDayEvtValue } = this.props;
         return (
             <div className="calActivity-definer-container">
-                <GooglePlaceAPIManager/>
+                <GooglePlaceAPIManager />
                 <div className="calActivity-definer-container__option">
                     <span className="calActivity-definer-container__icon">
                         <svg className="ali-icon" aria-hidden="true">
@@ -28,7 +31,10 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         </svg>
                     </span>
                     <div className="calActivity-definer-container__option--main">
-                        <TimeRangeDisplayer time={timeRange} />
+                        <TimeRangeDisplayer
+                            time={timeRange}
+                            isWholeDayEvt={initDayEvtValue}
+                        />
                     </div>
                 </div>
                 <div className="calActivity-definer-container__option">

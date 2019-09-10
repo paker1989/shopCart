@@ -10,7 +10,6 @@ export interface ITimeRangeDisplayerProps {
     time: CalendarNS.ITimeRangeFormat;
     isReminder?: boolean;
     isWholeDayEvt?: boolean;
-    
 }
 class TimeRangeDisplayer extends React.Component<
     ITimeRangeDisplayerProps,
@@ -22,50 +21,25 @@ class TimeRangeDisplayer extends React.Component<
     };
     render() {
         const { time, isReminder, isWholeDayEvt } = this.props;
-
-        let timeRangeBody;
-
-        if ((time as CalendarNS.ITimeRangeFormat).from.getDate) {
-            const dateRange = time as CalendarNS.ITimeRangeFormat;
-            timeRangeBody = (
-                <div className="timeRange-diplayer-body">
-                    <div className="timeRange-diplayer-part">
-                        <span>
-                            {getFormattedDate(dateRange.from, '年月日')}
-                        </span>
-                    </div>
-                    {!isReminder && <span>-</span>}
-                    {!isReminder && (
-                        <div className="timeRange-diplayer-part">
-                            <span>
-                                {getFormattedDate(dateRange.to, '年月日')}
-                            </span>
-                        </div>
+        let timeRangeBody = (
+            <div className="timeRange-diplayer-body">
+                <div className="timeRange-diplayer-part">
+                    <span>{getFormattedDate(time.from.dayAt, '年月日')}</span>
+                    {!isWholeDayEvt && (
+                        <span>{getTimingDisplay(time.from, '12h')}</span>
                     )}
                 </div>
-            );
-        } else if ((time as CalendarNS.ITimeRangeFormat).from.dayAt) {
-            const timeRange = time as CalendarNS.ITimeRangeFormat;
-            timeRangeBody = (
-                <div className="timeRange-diplayer-body">
+                {!isReminder && <span>-</span>}
+                {!isReminder && (
                     <div className="timeRange-diplayer-part">
-                        <span>
-                            {getFormattedDate(timeRange.from.dayAt, '年月日')}
-                        </span>
-                        <span>{getTimingDisplay(timeRange.from, '12h')}</span>
+                        {!isWholeDayEvt && (
+                            <span>{getTimingDisplay(time.to, '12h')}</span>
+                        )}
+                        <span>{getFormattedDate(time.to.dayAt, '年月日')}</span>
                     </div>
-                    {!isReminder && <span>-</span>}
-                    {!isReminder && (
-                        <div className="timeRange-diplayer-part">
-                            <span>{getTimingDisplay(timeRange.to, '12h')}</span>
-                            <span>
-                                {getFormattedDate(timeRange.to.dayAt, '年月日')}
-                            </span>
-                        </div>
-                    )}
-                </div>
-            );
-        }
+                )}
+            </div>
+        );
 
         return <div className="timeRange-diplayer">{timeRangeBody}</div>;
     }

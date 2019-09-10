@@ -144,6 +144,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                 bottomCurshion: 50,
                 topCurshion: 30,
                 asideCurshion: 10,
+                initDayEvtValue: true,
             });
             this.setState({ dragStatus: 'holdon', definePopId }, () => {
                 window.removeEventListener('mouseup', this.holdonDragging);
