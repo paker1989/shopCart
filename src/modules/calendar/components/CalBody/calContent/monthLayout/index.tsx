@@ -40,7 +40,7 @@ const _test_headers = [
 export interface IMonthLayoutState {
     dragStatus: CalendarNS.TCalEventPopDragStatusType;
     triggerTiming: Date;
-    draggingDateRange: CalendarNS.IDateRangeFormat;
+    draggingDateRange: CalendarNS.ITimeRangeFormat;
     definePopId?: string;
 }
 

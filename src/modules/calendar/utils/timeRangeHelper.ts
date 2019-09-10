@@ -110,10 +110,9 @@ export function getTimingDisplay(
             const dayDisplay = isMorning ? '上午' : '下午';
             const hourDisplay =
                 timing.hourAt > 12 ? timing.hourAt - 12 : timing.hourAt;
-            const minDisplay = timing.minAt < 10 ? `0${timing.minAt}`:`${timing.minAt}`
-            return (
-                `${dayDisplay}${hourDisplay}:${minDisplay}`
-            );
+            const minDisplay =
+                timing.minAt < 10 ? `0${timing.minAt}` : `${timing.minAt}`;
+            return `${dayDisplay}${hourDisplay}:${minDisplay}`;
     }
     return '';
 }
@@ -138,26 +137,35 @@ export function getTimeRangeDisplay(
 export function getDateRange(
     date1: Date,
     date2: Date
-): CalendarNS.IDateRangeFormat {
-    const dateRange = {
-        from: date1.getTime() < date2.getTime() ? date1 : date2,
-        to: date1.getTime() < date2.getTime() ? date2 : date1,
+): CalendarNS.ITimeRangeFormat {
+    const fromDate = date1.getTime() < date2.getTime() ? date1 : date2;
+    const toDate = date1.getTime() < date2.getTime() ? date2 : date1;
+    return {
+        from: {
+            dayAt: fromDate,
+            hourAt: fromDate.getHours(),
+            minAt: fromDate.getMinutes(),
+        },
+        to: {
+            dayAt: toDate,
+            hourAt: toDate.getHours(),
+            minAt: toDate.getMinutes(),
+        },
     };
-    // console.log('date range:' + dateRange.from + " to " + dateRange.to);
-    return dateRange;
 }
 
 export function getCalEventProps(
-    dateRange: CalendarNS.IDateRangeFormat,
+    dateRange: CalendarNS.ITimeRangeFormat,
     rowIndex: number,
     target: Date
 ): CalendarNS.IMonthCalEventProps {
     const isInvolved =
-        target.getTime() >= dateRange.from.getTime() &&
-        target.getTime() <= dateRange.to.getTime();
+        target.getTime() >= dateRange.from.dayAt.getTime() &&
+        target.getTime() <= dateRange.to.dayAt.getTime();
     const isWeekStart = rowIndex === 0;
-    const isStart = isSameDay(target, dateRange.from);
-    const isEnd = isSameDay(target, dateRange.to);
+    const isStart = isSameDay(target, dateRange.from.dayAt);
+    const isEnd = isSameDay(target, dateRange.to.dayAt);
 
+    dateRange.from.dayAt.getMinutes();
     return { isInvolved, isWeekStart, isStart, isEnd };
 }

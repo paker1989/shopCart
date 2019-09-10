@@ -15,13 +15,12 @@ export namespace CalendarNS {
     export interface ITimeRangeFormat {
         from: ITimingFormat;
         to: ITimingFormat;
-        // dayAt: Date;
     }
 
-    export interface IDateRangeFormat {
-        from: Date;
-        to: Date;
-    }
+    // export interface IDateRangeFormat {
+    //     from: Date;
+    //     to: Date;
+    // }
 
     export interface ICalEventPopDynamicStyleFormat {
         top?: number;
@@ -48,7 +47,7 @@ export namespace CalendarNS {
     }
 
     export interface ICalEventInitOptions {
-        timeRange?: ITimeRangeFormat | IDateRangeFormat;
+        timeRange?: ITimeRangeFormat;
         positionner?: (...args) => {};
         dragPopNode?: Element;
         simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
@@ -80,8 +79,7 @@ export namespace CalendarNS {
 
     export type TCalEventPopDragStatusType = 'dragging' | 'holdon' | 'none';
 
-    export type TtimeDisplaySupportType =
-        | CalendarNS.IDateRangeFormat
-        | CalendarNS.ITimeRangeFormat
-        // | CalendarNS.ITimingFormat;
+    // export type TtimeDisplaySupportType =
+    //     | CalendarNS.IDateRangeFormat
+    //     | CalendarNS.ITimeRangeFormat
 }

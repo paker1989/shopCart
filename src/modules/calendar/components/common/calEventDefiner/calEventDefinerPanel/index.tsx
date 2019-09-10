@@ -14,15 +14,41 @@ const _test_reminder_text = '提醒';
 const _test_save_text = '保存';
 
 export interface ICalEventDefinerPanelProps {
-    timeRange?: CalendarNS.TtimeDisplaySupportType;
+    timeRange?: CalendarNS.ITimeRangeFormat;
+}
+
+export interface ICalEventDefinerPanelState {
+    type?: 'activity' | 'reminder';
 }
 
 class CalEventDefinerPanel extends React.Component<
     ICalEventDefinerPanelProps,
-    any
+    ICalEventDefinerPanelState
 > {
+    constructor(props) {
+        super(props);
+        this.state = { type: 'activity' };
+    }
+
+    changeType = newType => {
+        const { type } = this.state;
+        if (type !== newType) {
+            // todo
+            this.setState({ type: newType });
+        }
+    };
+
     render() {
         const { timeRange } = this.props;
+        const { type } = this.state;
+        const activityWrapperClass = cx({
+            ['calevent-definer-panel__type']: true,
+            [`is-active`]: type === 'activity',
+        });
+        const reminderWrapperClass = cx({
+            ['calevent-definer-panel__type']: true,
+            [`is-active`]: type === 'reminder',
+        });
 
         return (
             <div className="calevent-definer-panel">
@@ -30,16 +56,26 @@ class CalEventDefinerPanel extends React.Component<
                     <CalInput placeholder="添加标题" />
                 </div>
                 <div className="calevent-definer-panel__types">
-                    <span className="calevent-definer-panel__type is-active">
+                    <span
+                        className={activityWrapperClass}
+                        onClick={() => this.changeType('activity')}
+                    >
                         {_test_activity_text}
                     </span>
-                    <span className="calevent-definer-panel__type">
+                    <span
+                        className={reminderWrapperClass}
+                        onClick={() => this.changeType('reminder')}
+                    >
                         {_test_reminder_text}
                     </span>
                 </div>
                 <div className="calevent-definer-panel__options">
-                    <ActivityDefiner timeRange={timeRange} />
-                    {/* <ReminderDefiner timeRange={timeRange}/> */}
+                    {type === 'activity' && (
+                        <ActivityDefiner timeRange={timeRange} />
+                    )}
+                    {type === 'reminder' && (
+                        <ReminderDefiner timeRange={timeRange} />
+                    )}
                 </div>
                 <div className="calevent-definer-panel__actions">
                     <div className="calevent-definer-panel__actions--main">

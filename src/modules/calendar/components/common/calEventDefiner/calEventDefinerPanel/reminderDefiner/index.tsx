@@ -9,7 +9,7 @@ import { CalendarNS } from '../../../../../utils/types';
 import './reminderDefiner.scss';
 
 export interface IReminderDefinerProps {
-    timeRange: CalendarNS.TtimeDisplaySupportType;
+    timeRange: CalendarNS.ITimeRangeFormat;
 }
 
 export interface IReminderDefinerStat {
@@ -24,10 +24,10 @@ class ReminderDefiner extends React.Component<
 
     constructor(props) {
         super(props);
-        const isDayEvt =
-            (this.props.timeRange as CalendarNS.IDateRangeFormat).from
-                .getDate !== undefined; // init dayEvt depends on the timeRange type
-        this.state = { isDayEvt };
+        // const isDayEvt =
+        //     (this.props.timeRange as CalendarNS.ITimeRangeFormat).from
+        //         .getDate !== undefined; // init dayEvt depends on the timeRange type
+        this.state = { isDayEvt: true };
     }
 
     toggleDayEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +52,7 @@ class ReminderDefiner extends React.Component<
                             <TimeRangeDisplayer
                                 time={timeRange}
                                 isReminder={true}
+                                isWholeDayEvt={isDayEvt}
                             />
                         </div>
                     </div>

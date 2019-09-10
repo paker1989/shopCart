@@ -7,8 +7,9 @@ import { getFormattedDate } from '../../../../../../../_packages_/components/dat
 import './timeRangeDisplayer.scss';
 
 export interface ITimeRangeDisplayerProps {
-    time: CalendarNS.TtimeDisplaySupportType;
+    time: CalendarNS.ITimeRangeFormat;
     isReminder?: boolean;
+    isWholeDayEvt?: boolean;
     
 }
 class TimeRangeDisplayer extends React.Component<
@@ -17,14 +18,15 @@ class TimeRangeDisplayer extends React.Component<
 > {
     static defaultProps = {
         isReminder: false,
+        isWholeDayEvt: false,
     };
     render() {
-        const { time, isReminder } = this.props;
+        const { time, isReminder, isWholeDayEvt } = this.props;
 
         let timeRangeBody;
 
-        if ((time as CalendarNS.IDateRangeFormat).from.getDate) {
-            const dateRange = time as CalendarNS.IDateRangeFormat;
+        if ((time as CalendarNS.ITimeRangeFormat).from.getDate) {
+            const dateRange = time as CalendarNS.ITimeRangeFormat;
             timeRangeBody = (
                 <div className="timeRange-diplayer-body">
                     <div className="timeRange-diplayer-part">
@@ -64,19 +66,6 @@ class TimeRangeDisplayer extends React.Component<
                 </div>
             );
         }
-        //  else {
-        //     const timeRange = time as CalendarNS.ITimingFormat;
-        //     timeRangeBody = (
-        //         <div className="timeRange-diplayer-body">
-        //             <div className="timeRange-diplayer-part">
-        //                 <span>
-        //                     {getFormattedDate(timeRange.dayAt, '年月日')}
-        //                 </span>
-        //                 <span>{getTimingDisplay(timeRange)}</span>
-        //             </div>
-        //         </div>
-        //     );
-        // }
 
         return <div className="timeRange-diplayer">{timeRangeBody}</div>;
     }
