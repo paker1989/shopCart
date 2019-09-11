@@ -76,7 +76,7 @@ class SingleDayColumn extends React.Component<
         } = this.props;
 
         if (dragStatus === 'dragging') {
-            let definePopId = CalEventDefiner.initDefine({
+            let definePopId = CalEventDefiner.initEventDefiner({
                 timeRange: draggingTimeRange,
                 positionner: positionner || CalEventDefiner.Position.autoMiddle,
                 dragPopNode: this.eventPopRef.current,

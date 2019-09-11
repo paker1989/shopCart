@@ -8,7 +8,7 @@ import CalConfirmPanel from '../../calConfirmPanel';
 
 import WindowEventHandler from '../../../../../../_packages_/utils/components/windowEventHandler';
 import WindowResizeHandler from '../../../../../../_packages_/utils/components/windowResizeHandler';
-import Position from '../position';
+import Position from '../../position';
 
 import { CalendarNS } from '../../../../utils/types';
 
@@ -94,7 +94,7 @@ class CalEventDefinerPop extends React.Component<
         CalModalManager.initModal(CalConfirmPanel, {
             visible: true,
             isClose: false,
-            contentClass: 'cal-confirm-panel-wrapper'
+            contentClass: 'cal-confirm-panel-wrapper',
         });
     };
 
@@ -104,7 +104,7 @@ class CalEventDefinerPop extends React.Component<
             id,
             zIndex,
             timeRange,
-            initDayEvtValue
+            initDayEvtValue,
         } = this.props;
         const { style } = this.state;
         const wrapperStyle: React.CSSProperties = {
@@ -128,7 +128,10 @@ class CalEventDefinerPop extends React.Component<
                             </svg>
                         </div>
                     </div>
-                    <CalEventDefinerPanel timeRange={timeRange} initDayEvtValue={initDayEvtValue}/>
+                    <CalEventDefinerPanel
+                        timeRange={timeRange}
+                        initDayEvtValue={initDayEvtValue}
+                    />
                 </div>
                 <WindowResizeHandler onResize={this.onWindowResize} />
                 <WindowEventHandler

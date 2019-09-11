@@ -33,9 +33,9 @@ class DatePickerDemo extends React.Component<ICommonPageProps, IDatePickerDemoSt
       <React.Fragment>
         <MarkdownRender source={mdDescription} />
         <DemoCodeRender source={md_democode} title="Date picker展示">
-          <DatePicker value={value} onSelect={this.handleOnSelect}  />
+          <DatePicker value={value} onClick={this.handleOnSelect}  />
           <br/>
-          <DatePicker value={value} isPopover={false} onSelect={this.handleOnSelect} format="YYYY/MM/DD" />
+          <DatePicker value={value} isPopover={false} onClick={this.handleOnSelect} format="YYYY/MM/DD" />
         </DemoCodeRender>
       </React.Fragment>
     );

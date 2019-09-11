@@ -7,7 +7,8 @@ export namespace DatePickers {
         prefix?: string;
         className?: string;
         isPopover?: boolean;
-        onSelect?: (val: Date) => void;
+        onClick?: FnDateGridSelect;
+        onDbClick?: FnDateGridSelect;
         //optimize for yearLayout usage
         customizedHeader?: JSX.Element;
         presentOnly?: boolean; // if yes, only emit this.props.onChange
@@ -68,7 +69,10 @@ export namespace DatePickers {
 
     export type FnMonthChange = (actionType: monthChangeType) => void;
 
-    export type FnDateGridSelect = (value: Date) => void;
+    export type FnDateGridSelect = (
+        value: Date,
+        evt?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => void;
 }
 
 export const dayNames: Array<string> = [

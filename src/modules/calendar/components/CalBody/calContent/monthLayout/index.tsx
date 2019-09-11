@@ -137,7 +137,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         const { dragStatus, draggingDateRange } = this.state;
 
         if (dragStatus === 'dragging') {
-            let definePopId = CalEventDefiner.initDefine({
+            let definePopId = CalEventDefiner.initEventDefiner({
                 timeRange: draggingDateRange,
                 positionner: CalEventDefiner.Position.autoAside,
                 simuDragPopNode: this.getSimuDragPopNode(),

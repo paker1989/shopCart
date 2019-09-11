@@ -1,5 +1,5 @@
-import getViewportSize from '../../../../../../_packages_/utils/getViewportSize';
-import { CalendarNS } from '../../../../utils/types';
+import getViewportSize from '../../../../../_packages_/utils/getViewportSize';
+import { CalendarNS } from '../../../utils/types';
 
 /**
  * @description for single day layout

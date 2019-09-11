@@ -48,15 +48,24 @@ export namespace CalendarNS {
         bottom?: number;
     }
 
-    export interface ICalEventInitOptions {
-        timeRange?: ITimeRangeFormat;
+    export interface ICalPopoverCommonProps {
         positionner?: (...args) => {};
         dragPopNode?: Element;
         simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
         bottomCurshion?: number;
         topCurshion?: number;
         asideCurshion?: number;
+    }
+
+    export interface ICalEventInitOptions extends ICalPopoverCommonProps {
+        timeRange?: ITimeRangeFormat;
         initDayEvtValue?: boolean;
+    }
+
+    export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
+        id?: string;
+        zIndex?: number;
+        containerNode?: Element; 
     }
 
     export interface IModalOptions {

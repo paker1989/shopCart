@@ -1,0 +1,17 @@
+@import '../../../assets/style/theme.scss';
+
+$panelPadding: 20px 15px;
+
+.dayEvent-presenter-panel{
+    position: absolute;
+    background: #fff;
+    padding: $panelPadding;
+    color: $fontColor;
+    font-size: $fontSizeBasic;
+    border-radius: 8px;
+    box-shadow: $calEventDefinerShadow;
+
+    //test
+    min-height: 60px;
+    min-width: 100px;
+}

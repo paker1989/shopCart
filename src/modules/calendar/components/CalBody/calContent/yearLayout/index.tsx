@@ -1,11 +1,15 @@
 import * as React from 'react';
 
+import CalEventPresenter from '../../../common/calEventPresenter';
+import DayEvtPresenter from '../../../common/dayEvtPresenter';
+
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
 import { DatePickers } from '../../../../../../_packages_/components/datePicker/common/types';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';
 import { CalendarNS } from '../../../../utils/types';
 
 import './yearLayout.scss';
+import calEventPresenter from '../../../common/calEventPresenter';
 
 export interface IYearLayoutProps {
     displayYear?: number;
@@ -36,21 +40,35 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
         displayYear: new Date().getFullYear(),
     };
 
-    handleDateSelect = (selectedDate: Date): void => {
+    handleDateClick = (
+        selectedDate: Date,
+        evt: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ): void => {
+        calEventPresenter.initPresenter(DayEvtPresenter, {
+            dragPopNode: evt.target as Element,
+            asideCurshion: 5,
+            bottomCurshion: 10,
+            topCurshion: 10,
+        });
+    };
+
+    handleDateDoubleClick = (
+        selectedDate: Date,
+        evt: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ): void => {
         // todo
+        console.log('on db click');
+        console.log(evt);
     };
 
     render() {
         const { displayYear } = this.props;
         const { months } = this.state;
 
-        console.log(months);
-
         return (
             <div className="calbody-content-yearLayout-container">
                 <div className="calbody-content-yearLayout-container__months">
                     {months.map((monthData, index) => {
-                        console.log(monthData === null);
                         const header = (
                             <CustomizeHeader>
                                 {`${index + 1}月`}
@@ -66,7 +84,8 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
                                 displayYear={displayYear}
                                 displayMonth={index + 1}
                                 monthData={monthData}
-                                onSelect={this.handleDateSelect}
+                                onClick={this.handleDateClick}
+                                onDbClick={this.handleDateDoubleClick}
                                 displayWeeks={true}
                             />
                         );

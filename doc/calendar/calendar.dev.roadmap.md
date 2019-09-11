@@ -5,7 +5,8 @@
 # 2019/08/26
 
 > todo list:
--  `popup` for `yearlayout`；
+-   `calEventDefinerPop`和`dayEvtPresenter`共同方法需要提取到一个parent class里;
+-   `popup` for `yearlayout`；
 -   `timeline`显示的方式根本不对，需要放到同一行里
 -   `caleventDefinerPanel`
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 

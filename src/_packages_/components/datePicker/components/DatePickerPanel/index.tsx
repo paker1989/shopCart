@@ -50,8 +50,11 @@ class DatePickerPanel extends React.Component<
         }
     }
 
-    handleDateSelect = (selectedDate: Date): void => {
-        const { onSelect, presentOnly } = this.props;
+    handleDateClick = (
+        selectedDate: Date,
+        evt: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ): void => {
+        const { presentOnly, onClick } = this.props;
         // if presentOnly is false, then do automatic toggle
         if (!presentOnly) {
             const { displayMonth, displayYear } = this.state;
@@ -76,7 +79,7 @@ class DatePickerPanel extends React.Component<
             }
         }
 
-        onSelect && onSelect(selectedDate);
+        onClick && onClick(selectedDate, evt);
     };
 
     handleMonthChange = (actionType: DatePickers.monthChangeType): void => {
@@ -103,6 +106,7 @@ class DatePickerPanel extends React.Component<
             customizedHeader,
             presentOnly,
             displayWeeks,
+            onDbClick,
         } = this.props;
         const { monthData, displayMonth, displayYear } = this.state;
 
@@ -195,10 +199,8 @@ class DatePickerPanel extends React.Component<
                                                         } // if presentonly, then only display the one in the same month
                                                         isGrey={isGrey}
                                                         isSelected={isSelected}
-                                                        onSelect={
-                                                            this
-                                                                .handleDateSelect
-                                                        }
+                                                        onClick={this.handleDateClick}
+                                                        onDbClick={onDbClick}
                                                     />
                                                 );
                                             })}

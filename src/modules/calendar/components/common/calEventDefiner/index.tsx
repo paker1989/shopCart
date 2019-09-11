@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import CalEventDefinerPop from './calEventDefinerPop';
-import Position from './position';
+import Position from '../position';
 
 import CalConfig from '../../../assets/scripts/calendar.config.js';
 import { CalendarNS } from '../../../utils/types';
@@ -27,12 +27,12 @@ function getContainerNode() {
  * @param initOptions
  * @returns popId
  */
-function initDefine(initOptions: CalendarNS.ICalEventInitOptions): string {
+function initEventDefiner(
+    initOptions: CalendarNS.ICalEventInitOptions
+): string {
     const container = document.createElement('div');
     const containerNode = getContainerNode();
-    const id = `${
-        CalConfig.calEventDefinerIdPrefix
-    }-${++_CAL_EVENT_CURRENT_ID}`;
+    const id = `${CalConfig.calEventDefinerIdPrefix}-${++_CAL_EVENT_CURRENT_ID}`;
 
     ReactDOM.render(
         <CalEventDefinerPop
@@ -70,4 +70,4 @@ function destroyAll(): void {
     });
 }
 
-export default { initDefine, Position, destroyDefiner, destroyAll };
+export default { initEventDefiner, Position, destroyDefiner, destroyAll };

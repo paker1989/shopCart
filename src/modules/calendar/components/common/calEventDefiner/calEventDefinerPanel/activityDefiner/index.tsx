@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import TimeRangeDisplayer from '../timeRangeDisplayer';
-import CalInput from '../../../../common/calInput';
+import CalInput from '../../../calInput';
 import GooglePlaceAPIManager from '../../../googlePlaceAPIManager';
 
 import { CalendarNS } from '../../../../../utils/types';
