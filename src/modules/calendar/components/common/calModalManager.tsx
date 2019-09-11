@@ -1,9 +1,9 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-import Modal from '../../../../../_packages_/components/modal';
-import CalConfig from '../../../assets/scripts/calendar.config.js';
-import { CalendarNS } from '../../../utils/types';
+import Modal from '../../../../_packages_/components/modal';
+import CalConfig from '../../assets/scripts/calendar.config.js';
+import { CalendarNS } from '../../utils/types';
 
 let _CAL_EVENT_CURRENT_ID = 0;
 

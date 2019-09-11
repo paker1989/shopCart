@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import throttle from 'lodash/throttle';
 
 import CalEventDefinerPanel from '../calEventDefinerPanel';
-import CalModalManager from '../../calModal';
+import CalModalManager from '../../calModalManager';
 import CalConfirmPanel from '../../calConfirmPanel';
 
 import WindowEventHandler from '../../../../../../_packages_/utils/components/windowEventHandler';
