@@ -6,7 +6,7 @@
 
 > todo list:
 -  `popup` for `yearlayout`；
-- 
+-   `timeline`显示的方式根本不对，需要放到同一行里
 -   `caleventDefinerPanel`
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
     > google map API for `calEventDefiner`;
@@ -26,7 +26,6 @@
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`
-      > *add `week of datePicker` for `DatePicker`*
       > zoomer的时候尾部space betweend导致不aligné
 -   `monthLayout`
       > 点击title的时候不应该触发drag事件
@@ -36,9 +35,11 @@
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
 -   test `convertMinAddToTiming`: 过一天的
 -   `saga`到底是什么
+-   禁止弹出modal时候的鼠标滚轮事件
 
 > todo *optimization*
   - 移动holdon的`calEventPop`
+  - 移动defined好的提醒到别的jour。drag & drop
 
 > to optimize:
 - 区分`click`和`mousedown`和`mouseup`事件. (throtte `mousedown`， 半秒不 up 就发`mousedown`,否则发`click`事件)；
@@ -55,6 +56,8 @@
     - reminderRange根据if `isDayEvt`来决定`timeRangeDisplayer`显示。如果初始是all day, 切换成not all dayd的话，那么时间就是当前时间.
     > `reminder` sub-panel
 -   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
+-   `yearLayout`
+      > *add `week of datePicker` for `DatePicker`*
 
 ## global variable:
 

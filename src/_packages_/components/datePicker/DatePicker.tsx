@@ -18,7 +18,8 @@ class DatePicker extends React.PureComponent
         placeholder: '请选择日期',
         isPopover: true,
         format: 'default',
-        presentOnly: false
+        presentOnly: false,
+        displayWeeks: true,
     }
 
     constructor(props: DatePickers.IDatePickerProps) {

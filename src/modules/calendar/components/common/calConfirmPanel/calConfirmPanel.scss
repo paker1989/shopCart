@@ -1,0 +1,38 @@
+@import '../../../assets/style/theme.scss';
+
+$panelPadding: 20px 15px;
+$contentMinHeight: 45px;
+
+.cal-confirm-panel {
+    position: relative;
+    background: #fff;
+    padding: $panelPadding;
+    color: $fontColor;
+    font-size: $fontSizeBasic;
+    border-radius: 8px;
+    font-weight: 300;
+    box-shadow: $calEventDefinerShadow;
+
+    &--content {
+        padding: 0 10px;
+        font-size: $fontSizeMedium;
+        min-height: $contentMinHeight;
+    }
+    
+    &--actions {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    &--item {
+        display: inline-block;
+        line-height: 35px;
+        padding: 0 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+            background: lighten($hoverBgColor, 5%);
+        }
+    }
+}

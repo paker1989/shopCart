@@ -3,6 +3,9 @@ import { createPortal } from 'react-dom';
 import throttle from 'lodash/throttle';
 
 import CalEventDefinerPanel from '../calEventDefinerPanel';
+import CalModalManager from '../../calModal';
+import CalConfirmPanel from '../../calConfirmPanel';
+
 import WindowEventHandler from '../../../../../../_packages_/utils/components/windowEventHandler';
 import WindowResizeHandler from '../../../../../../_packages_/utils/components/windowResizeHandler';
 import Position from '../position';
@@ -88,8 +91,11 @@ class CalEventDefinerPop extends React.Component<
     onWindowScroll = throttle(this.adjustPosition, 500);
 
     onClose = () => {
-        //   const { onDestroy, id } = this.props;
-        //   onDestroy && onDestroy(id);
+        CalModalManager.initModal(CalConfirmPanel, {
+            visible: true,
+            isClose: false,
+            contentClass: 'cal-confirm-panel-wrapper'
+        });
     };
 
     render() {

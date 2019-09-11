@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -55,6 +57,16 @@ export namespace CalendarNS {
         topCurshion?: number;
         asideCurshion?: number;
         initDayEvtValue?: boolean;
+    }
+
+    export interface IModalOptions {
+        visible?: boolean;
+        isClose?: boolean;
+        contentStyle?: React.CSSProperties;
+        layerStyle?:React.CSSProperties;
+        contentClass?:  string;
+        layerClass?: string;
+        onClose?: (modalId?: string) => void,
     }
 
     export type TTimingDisplayPattern = '12h' | '24h';

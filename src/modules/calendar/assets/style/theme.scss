@@ -30,7 +30,7 @@ $logoFlexBasis: 200px;
 $dateDisplayerFlexBasis: 282px;
 $layoutPickerFlexBasis: 180px;
 
-$calBodyShelfWidth: 280px; // body shelf width;
+$calBodyShelfWidth: 260px; // body shelf width;
 $calBodyShelfCreatePanelHeight: 70px; // body shelf create panel height;
 
 $calBodyLinkSideBarWidth: 60px; // body linksidebar width;
@@ -120,6 +120,10 @@ a {
 
 .is-grey {
   color: $fontSubTitleColor;
+}
+
+.is-blue {
+  color:  $singleDayGridTodayBgColor;
 }
 
 .is-lighter-gey {

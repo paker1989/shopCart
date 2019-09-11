@@ -106,11 +106,16 @@ export function populateDisplay(
 ): DatePickers.IDatePickerPanelStates {
     const displayYear: number = date.getFullYear();
     const displayMonth: number = date.getMonth() + 1;
-    const monthData: DatePickers.IMonthDataFormat[] = getMonthData(
+    // const monthData: DatePickers.IMonthDataFormat[] = getMonthData(
+    //     displayYear,
+    //     displayMonth
+    // );
+    const monthData: DatePickers.IMonthDataRowFormat = getMonthLayoutRows(
         displayYear,
-        displayMonth
-    );
-
+        displayMonth,
+        true,
+        true
+    )
     return { displayYear, displayMonth, monthData };
 }
 
@@ -121,7 +126,7 @@ export function getSiblingMonthData(
 ): DatePickers.IDatePickerPanelStates {
     let newDisplayMonth;
     let newDisplayYear;
-    let monthData: DatePickers.IMonthDataFormat[];
+    let monthData: DatePickers.IMonthDataRowFormat ;
 
     switch (actionType) {
         case DatePickers.monthChangeType._next_:
@@ -129,14 +134,14 @@ export function getSiblingMonthData(
             newDisplayMonth = isNewYear ? 1 : displayMonth + 1;
             newDisplayYear = isNewYear ? displayYear + 1 : displayYear;
 
-            monthData = getMonthData(newDisplayYear, newDisplayMonth);
+            monthData = getMonthLayoutRows(newDisplayYear, newDisplayMonth, true, true);
             break;
         case DatePickers.monthChangeType._prev_:
             const isPrevYear = displayMonth - 1 <= 0;
             newDisplayMonth = isPrevYear ? 12 : displayMonth - 1;
             newDisplayYear = isPrevYear ? displayYear - 1 : displayYear;
 
-            monthData = getMonthData(newDisplayYear, newDisplayMonth);
+            monthData = getMonthLayoutRows(newDisplayYear, newDisplayMonth, true, true);
             break;
     }
     return {
@@ -171,4 +176,71 @@ export function getFormattedDate(date: Date, format = 'default'): string {
     }
 
     return '';
+}
+
+/**
+ *
+ * @param year
+ * @param month
+ * @param isDisplayWE is display weekend
+ * @param includeAllRow if no, then filter only a row contains at least one day of the target month
+ */
+export function getMonthLayoutRows(
+    year: number,
+    month: number,
+    isDisplayWE: boolean,
+    includeAllRow = false,
+): DatePickers.IMonthDataRowFormat {
+    function isKeepRow(row) {
+        return (
+            row.findIndex(
+                item => item.yearD === year && item.monthD === month
+            ) !== -1
+        );
+    }
+
+    const rawMonthData = getMonthData(year, month);
+    let rows: DatePickers.IMonthDataFormat[][] = getRowMonthData(rawMonthData);
+    let weeks: number[] = rows.map(row => getWeekOfRow(row));
+
+    if (!isDisplayWE) {
+        const filteredMonthData = rawMonthData.filter(
+            (data, index) => index % 7 !== 0 && index % 7 !== 6
+        );
+        rows = getRowMonthData(filteredMonthData, 5);
+    }
+
+    // drop rows which does not contain any date in target month
+    if (!includeAllRow) {
+        weeks = weeks.filter((week, index) => isKeepRow(rows[index]));
+        rows = rows.filter(row => isKeepRow(row));
+    }
+
+    return {
+        rows,
+        weeks,
+    };
+}
+
+/**
+ * @return the week of given date
+ * @param date
+ */
+export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
+    const rowMaxDate = row[row.length - 1]; // 以最大日期来算;
+
+    const date = new Date(
+        rowMaxDate.yearD,
+        rowMaxDate.monthD - 1,
+        rowMaxDate.showDate
+    );
+
+    const dateOfDayone = new Date(date.getFullYear(), 0, 1);
+    const dayOfDayone = dateOfDayone.getDay() === 0 ? 7 : dateOfDayone.getDay();
+
+    let dayOfGivenDate = date.getDay() === 0 ? 7 : date.getDay();
+
+    let totalDaysOfNow =
+        (date.getTime() - dateOfDayone.getTime()) / (24 * 60 * 60 * 1000);
+    return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 1;
 }

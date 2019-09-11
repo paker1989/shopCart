@@ -11,7 +11,6 @@ import {
     isSameDay,
     populateDisplay,
     getSiblingMonthData,
-    getRowMonthData,
 } from '../../common/util';
 
 class DatePickerPanel extends React.Component<
@@ -34,7 +33,6 @@ class DatePickerPanel extends React.Component<
             if (monthData === undefined) {
                 throw new Error('monthData is required if presentOnly is true');
             }
-
             this.state = {
                 displayYear,
                 displayMonth,
@@ -104,11 +102,11 @@ class DatePickerPanel extends React.Component<
             isPopover,
             customizedHeader,
             presentOnly,
+            displayWeeks,
         } = this.props;
         const { monthData, displayMonth, displayYear } = this.state;
-        const monthDataPerRow: DatePickers.IMonthDataFormat[][] = getRowMonthData(
-            monthData
-        );
+
+        // console.log(monthData);
         const pickerPanelContainerCx = cx(
             {
                 [`${prefix}-pickerpanel-container`]: true,
@@ -136,61 +134,78 @@ class DatePickerPanel extends React.Component<
                 <div className="calendar-body">
                     <ul className="mondata-row-wrapper">
                         <li>
-                            <div className="row-data-container">
-                                {dayNames.map((dayName, index) => (
-                                    <SimpleDateGrid
-                                        key={`dayname-grid-${index}`}
-                                        showValue={dayName}
-                                        value={dayName}
-                                        isDisable={true}
-                                        className="dayname"
-                                    />
-                                ))}
+                            <div className="row-data-container is-header">
+                                {displayWeeks && (
+                                    <div className="row-data-container--week"></div>
+                                )}
+                                <div className="row-data-container--main">
+                                    {dayNames.map((dayName, index) => (
+                                        <SimpleDateGrid
+                                            key={`dayname-grid-${index}`}
+                                            showValue={dayName}
+                                            value={dayName}
+                                            isDisable={true}
+                                            className="dayname"
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </li>
-                        {monthDataPerRow.map(
-                            (row: DatePickers.IMonthDataFormat[], index) => (
-                                <li key={`monDateRow-${index}`}>
-                                    <div className="row-data-container">
-                                        {row.map((day, index) => {
-                                            const isToday: boolean = isSameDay(
-                                                day,
-                                                new Date()
-                                            );
-                                            const isGrey: boolean =
-                                                day.yearD !== displayYear ||
-                                                day.monthD !== displayMonth;
-                                            const isSelected: boolean = isSameDay(
-                                                day,
-                                                selectedDate
-                                            );
-                                            const gridDate: Date = new Date(
-                                                day.yearD,
-                                                day.monthD - 1,
-                                                day.showDate
-                                            );
+                        {monthData.rows.map(
+                            (row: DatePickers.IMonthDataFormat[], index) => {
+                                return (
+                                    <li
+                                        className="row-data-container"
+                                        key={`monDateRow-${index}`}
+                                    >
+                                        {displayWeeks && (
+                                            <div className="row-data-container--week">
+                                                {monthData.weeks[index]}
+                                            </div>
+                                        )}
+                                        <div className="row-data-container--main">
+                                            {row.map((day, index) => {
+                                                const isToday: boolean = isSameDay(
+                                                    day,
+                                                    new Date()
+                                                );
+                                                const isGrey: boolean =
+                                                    day.yearD !== displayYear ||
+                                                    day.monthD !== displayMonth;
+                                                const isSelected: boolean = isSameDay(
+                                                    day,
+                                                    selectedDate
+                                                );
+                                                const gridDate: Date = new Date(
+                                                    day.yearD,
+                                                    day.monthD - 1,
+                                                    day.showDate
+                                                );
 
-                                            return (
-                                                <SimpleDateGrid
-                                                    key={`day-grid-${index}`}
-                                                    showValue={day.showDate}
-                                                    value={gridDate}
-                                                    isToday={
-                                                        presentOnly
-                                                            ? isToday && !isGrey
-                                                            : isToday
-                                                    } // if presentonly, then only display the one in the same month
-                                                    isGrey={isGrey}
-                                                    isSelected={isSelected}
-                                                    onSelect={
-                                                        this.handleDateSelect
-                                                    }
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </li>
-                            )
+                                                return (
+                                                    <SimpleDateGrid
+                                                        key={`day-grid-${index}`}
+                                                        showValue={day.showDate}
+                                                        value={gridDate}
+                                                        isToday={
+                                                            presentOnly
+                                                                ? isToday &&
+                                                                  !isGrey
+                                                                : isToday
+                                                        } // if presentonly, then only display the one in the same month
+                                                        isGrey={isGrey}
+                                                        isSelected={isSelected}
+                                                        onSelect={
+                                                            this
+                                                                .handleDateSelect
+                                                        }
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </li>
+                                );
+                            }
                         )}
                     </ul>
                 </div>

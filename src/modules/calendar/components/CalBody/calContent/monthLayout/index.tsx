@@ -5,8 +5,8 @@ import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
 import CalEventDefiner from '../../../common/calEventDefiner';
 
-import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
-import { getMonthLayoutRows } from '../../../../utils/timeUtils';
+import { isSameDay, getMonthLayoutRows } from '../../../../../../_packages_/components/datePicker/common/util';
+
 import {
     getDateRange,
     getCalEventProps,

@@ -41,6 +41,7 @@ class Modal extends React.Component {
     componentWillUnmount() {
         const { closeOnEsc } = this.props;
         if (closeOnEsc) {
+            console.log('remove keyup listener');
             window.removeEventListener('keyup', this.handleCloseOnEsc);
         }
 
@@ -57,11 +58,10 @@ class Modal extends React.Component {
         if (this.timeID) {
             this.timeID = null;
         }
-        const { onClose } = this.props;
+        const { onClose, id } = this.props;
         if (typeof onClose === 'function') {
-            this.props.onClose();
+            this.props.onClose(id);
         } else {
-            console.log('remove modal');
             document.body.removeChild(this.node);
         }
     }
@@ -105,8 +105,6 @@ class Modal extends React.Component {
             onClose,
             visible
         } = this.props;
-
-        // console.log(visible);
 
         if (contentStyle) {
             modalContentProps.style = Object.assign(modalContentProps.style, contentStyle);

@@ -2,6 +2,7 @@ import { DatePickers } from '../../../_packages_/components/datePicker/common/ty
 import {
     getMonthData,
     getRowMonthData,
+    getMonthLayoutRows
 } from '../../../_packages_/components/datePicker/common/util';
 
 /**
@@ -28,56 +29,16 @@ export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
 }
 
 /**
- *
- * @param year
- * @param month
- * @param isDisplayWE is display weekend
- */
-export function getMonthLayoutRows(
-    year: number,
-    month: number,
-    isDisplayWE: boolean
-): DatePickers.IMonthDataRowFormat {
-    function isKeepRow(row) {
-        return (
-            row.findIndex(
-                item => item.yearD === year && item.monthD === month
-            ) !== -1
-        );
-    }
-
-    const rawMonthData = getMonthData(year, month);
-    let rows: DatePickers.IMonthDataFormat[][] = getRowMonthData(rawMonthData);
-    let weeks: number[] = rows.map(row => getWeekOfRow(row));
-
-    if (!isDisplayWE) {
-        const filteredMonthData = rawMonthData.filter(
-            (data, index) => index % 7 !== 0 && index % 7 !== 6
-        );
-        rows = getRowMonthData(filteredMonthData, 5);
-    }
-
-    // drop rows which does not contain any date in target month
-    weeks = weeks.filter((week, index) => isKeepRow(rows[index]));
-    rows = rows.filter(row => isKeepRow(row));
-
-    return {
-        rows,
-        weeks,
-    };
-}
-
-/**
  * @returns the monthData array of target year
  * @param year
  */
 export function getMonthDataOfYear(
     year: number
-): DatePickers.IMonthDataFormat[][] {
+): DatePickers.IMonthDataRowFormat[] {
     const nbOfMonth = 12;
-    const monthDataOfYear: DatePickers.IMonthDataFormat[][] = new Array();
+    const monthDataOfYear: DatePickers.IMonthDataRowFormat[] = new Array();
     for (let i = 0; i < nbOfMonth; i++) {
-        monthDataOfYear.push(getMonthData(year, i + 1));
+        monthDataOfYear.push(getMonthLayoutRows(year, i + 1, true, true));
     }
     return monthDataOfYear;
 }

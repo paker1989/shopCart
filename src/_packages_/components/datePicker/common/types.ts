@@ -13,7 +13,9 @@ export namespace DatePickers {
         presentOnly?: boolean; // if yes, only emit this.props.onChange
         displayYear?: number;
         displayMonth?: number;
-        monthData?: IMonthDataFormat[];
+        // monthData?: IMonthDataFormat[];
+        monthData?: IMonthDataRowFormat;
+        displayWeeks?: boolean;
     }
 
     export interface IDatePickerProps<Val = Value> extends ICommonProps {
@@ -43,7 +45,7 @@ export namespace DatePickers {
     export interface IDatePickerPanelStates {
         displayYear: number;
         displayMonth: number;
-        monthData: DatePickers.IMonthDataFormat[];
+        monthData: IMonthDataRowFormat;
     }
 
     export interface IMonthDataFormat {
