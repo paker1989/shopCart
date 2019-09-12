@@ -1,4 +1,5 @@
 import * as React from 'react';
+const config = require('../../../../../local.config');
 
 class googlePlaceAPIManager extends React.PureComponent {
     componentDidMount() {
@@ -7,8 +8,7 @@ class googlePlaceAPIManager extends React.PureComponent {
         }
         let script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src =
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ICkjtw0AptNFUp2Cps7x1nRuKBDsaSc&libraries=places&callback=initGoogleService';
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.placeAPIKey}&libraries=places&callback=initGoogleService`;
         document.body.appendChild(script);
     }
 
