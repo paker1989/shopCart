@@ -21,7 +21,7 @@ function initModal(
     let { onClose, ...otherProps } = initOptions;
     if (!onClose) {
         onClose = (modalId: string) => {
-            destroyDefiner(modalId);
+            destroyModal(modalId);
         };
     }
     ReactDOM.render(
@@ -37,7 +37,7 @@ function initModal(
     return id;
 }
 
-function destroyDefiner(popId: string): void {
+function destroyModal(popId: string): void {
     const { container } = calEventDefineManager[popId];
     if (container) {
         ReactDOM.unmountComponentAtNode(container);

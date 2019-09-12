@@ -1,17 +1,83 @@
-@import '../../../assets/style/theme.scss';
+@import "../../../assets/style/theme.scss";
+@import "../../../assets/style/mixin.scss";
 
-$panelPadding: 20px 15px;
+$containerMinWidth: 220px;
+$containerMinHeight: 90px;
+$containerMaxHeight: 300px;
 
-.dayEvent-presenter-panel{
-    position: absolute;
-    background: #fff;
-    padding: $panelPadding;
-    color: $fontColor;
-    font-size: $fontSizeBasic;
-    border-radius: 8px;
-    box-shadow: $calEventDefinerShadow;
+$panelPadding: 8px 10px;
+$closeDimension: 30px;
 
-    //test
-    min-height: 60px;
-    min-width: 100px;
+.dayEvent-presenter-panel {
+  position: absolute;
+  background: #fff;
+  padding: $panelPadding;
+  color: $fontColor;
+  font-size: $fontSizeBasic;
+  border-radius: 8px;
+  box-shadow: $calDayEvtPresenterShadow;
+
+  & .dayEvent-presenter-content {
+    position: relative;
+    min-width: $containerMinWidth;
+    min-height: $containerMinHeight;
+    max-height: $containerMaxHeight;
+    overflow-y: auto;
+
+    &__main {
+        position: relative;
+        width: 100%; 
+    }
+
+    &__dateDisplay {
+       position: relative;
+       width: 100%;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       &--showDay {
+         font-size: 11px;
+         color: $fontSubTitleColor;
+         line-height: $closeDimension;
+       }
+       &--showDate {
+         font-size: 26px;
+         font-weight: 400;
+        @include circle-bg-hover(#eeeded,  #80868b, 40px);
+       }
+    }
+
+    &__events {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__close {
+      position: absolute;
+      width: 100%;
+      height: $closeDimension;
+      z-index: 999;
+
+      &--wrapper {
+        width: $closeDimension;
+        height: $closeDimension;
+        float: right;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: $fontColor;
+        font-size: $fontSizeMedium;
+        cursor: pointer;
+        transition: background 0.2s ease-in;
+
+        &:hover {
+          background: $hoverBgColor;
+        }
+      }
+    }
+  }
 }

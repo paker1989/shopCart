@@ -36,6 +36,10 @@
 -   test `convertMinAddToTiming`: 过一天的
 -   `saga`到底是什么
 -   禁止弹出modal时候的鼠标滚轮事件
+-   `dayEvtPresenter`
+    > 动画
+    > `reminder`和`activity`条目
+
 
 > todo *optimization*
   - 移动holdon的`calEventPop`
@@ -61,6 +65,5 @@
 -   `calEventDefinerPop`和`dayEvtPresenter`共同方法需要提取到一个parent class里;
 
 ## global variable:
-
 -  initWeek: week of today,  然后independant;
 - 

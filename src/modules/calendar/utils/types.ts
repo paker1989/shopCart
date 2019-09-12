@@ -58,7 +58,10 @@ export namespace CalendarNS {
         onDestroy?: (popId: string) => void;
     }
 
-    export interface ICalEventPresenterProps extends ICalPopoverCommonProps {}
+    export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
+        date: Date;
+        showClose?: boolean;
+    }
 
     export interface IModalOptions {
         visible?: boolean;

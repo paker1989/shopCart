@@ -32,7 +32,9 @@ function initEventDefiner(
 ): string {
     const container = document.createElement('div');
     const containerNode = getContainerNode();
-    const id = `${CalConfig.calEventDefinerIdPrefix}-${++_CAL_EVENT_CURRENT_ID}`;
+    const id = `${
+        CalConfig.calEventDefinerIdPrefix
+    }-${++_CAL_EVENT_CURRENT_ID}`;
 
     ReactDOM.render(
         <CalEventDefinerPop
@@ -52,10 +54,12 @@ function initEventDefiner(
 }
 
 function destroyDefiner(popId: string): void {
-    const { container } = calEventDefineManager[popId];
-    if (container) {
-        ReactDOM.unmountComponentAtNode(container);
-        delete calEventDefineManager[popId];
+    if (calEventDefineManager[popId]) {
+        const { container } = calEventDefineManager[popId];
+        if (container) {
+            ReactDOM.unmountComponentAtNode(container);
+            delete calEventDefineManager[popId];
+        }
     }
 }
 

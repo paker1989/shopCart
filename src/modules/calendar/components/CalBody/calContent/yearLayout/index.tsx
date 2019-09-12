@@ -49,6 +49,8 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
             asideCurshion: 5,
             bottomCurshion: 10,
             topCurshion: 10,
+            date: selectedDate
+            // showClose: false
         });
     };
 

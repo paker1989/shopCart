@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import CalPopover from '../calPopover';
 import Position from '../position';
+import DayEvtPresenterContent from './content';
 import WindowEventHandler from '../../../../../_packages_/utils/components/windowEventHandler';
 import WindowResizeHandler from '../../../../../_packages_/utils/components/windowResizeHandler';
 
@@ -16,7 +17,7 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
     };
 
     render() {
-        const { containerNode, zIndex, id } = this.props;
+        const { containerNode, zIndex, id, ...otherProps } = this.props;
         const { style } = this.state;
 
         const wrapperStyle: React.CSSProperties = {
@@ -29,7 +30,7 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
                 style={wrapperStyle}
                 id={id}
             >
-                <div>just for test</div>
+                <DayEvtPresenterContent {...otherProps}/>
                 <WindowResizeHandler onResize={this.onWindowResize} />
                 <WindowEventHandler
                     eventName="scroll"
