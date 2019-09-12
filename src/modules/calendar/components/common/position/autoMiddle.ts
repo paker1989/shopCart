@@ -7,7 +7,7 @@ import { CalendarNS } from '../../../utils/types';
 export default (
     definer: ClientRect | DOMRect,
     ref: ClientRect | DOMRect,
-    options?: CalendarNS.ICalEventInitOptions
+    options?: CalendarNS.ICalPopoverPositionProps
 ) => {
     const { bottomCurshion, topCurshion } = options;
     const viewportSize = getViewportSize();

@@ -8,10 +8,8 @@ import { CalendarNS } from '../../../utils/types';
 export default (
     definer: ClientRect | DOMRect,
     ref: ClientRect | DOMRect,
-    options?: CalendarNS.ICalEventInitOptions
+    options?: CalendarNS.ICalPopoverPositionProps
 ) => {
-    console.log(JSON.stringify(ref));
-    
     const { asideCurshion } = options;
     const viewportSize = getViewportSize();
     const { top, height, left } = autoMiddle(definer, ref, options);
@@ -19,8 +17,7 @@ export default (
     let _left: number;
 
     const nearLeft = ref.left - definer.width - _asideCurshion;
-    const nearRight =
-        viewportSize.width - ref.right - definer.width - _asideCurshion;
+    const nearRight = viewportSize.width - ref.right - definer.width - _asideCurshion;
     if (nearLeft < 0 && nearRight < 0) {
         _left = left;
     } else {

@@ -5,7 +5,6 @@
 # 2019/08/26
 
 > todo list:
--   `calEventDefinerPop`和`dayEvtPresenter`共同方法需要提取到一个parent class里;
 -   `popup` for `yearlayout`；
 -   `timeline`显示的方式根本不对，需要放到同一行里
 -   `caleventDefinerPanel`
@@ -59,6 +58,7 @@
 -   拖拽`CalEventPop`以后 hold on，弹出`eventEditor` (根据`referencer`位置弹出`popup`);
 -   `yearLayout`
       > *add `week of datePicker` for `DatePicker`*
+-   `calEventDefinerPop`和`dayEvtPresenter`共同方法需要提取到一个parent class里;
 
 ## global variable:
 

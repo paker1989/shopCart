@@ -1,5 +1,3 @@
-import { CSSProperties } from 'react';
-
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -19,20 +17,10 @@ export namespace CalendarNS {
         to: ITimingFormat;
     }
 
-    // export interface IDateRangeFormat {
-    //     from: Date;
-    //     to: Date;
-    // }
-
     export interface ICalEventPopDynamicStyleFormat {
         top?: number;
         height?: number;
     }
-
-    // export interface ICalEventTimingDisplayOptions {
-    //     displayDaySplit?: boolean;
-    //     pattern?: TTimingDisplayPattern;
-    // }
 
     export interface IMonthCalEventProps {
         isInvolved?: boolean;
@@ -48,39 +36,42 @@ export namespace CalendarNS {
         bottom?: number;
     }
 
-    export interface ICalPopoverCommonProps {
-        positionner?: (...args) => {};
-        dragPopNode?: Element;
-        simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
+    export interface ICalPopoverPositionProps {
         bottomCurshion?: number;
         topCurshion?: number;
         asideCurshion?: number;
     }
 
-    export interface ICalEventInitOptions extends ICalPopoverCommonProps {
-        timeRange?: ITimeRangeFormat;
-        initDayEvtValue?: boolean;
+    export interface ICalPopoverCommonProps extends ICalPopoverPositionProps {
+        id?: string;
+        positionner?: (...args) => {};
+        dragPopNode?: Element;
+        simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
+        zIndex?: number;
+        containerNode?: Element;
     }
 
-    export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
-        id?: string;
-        zIndex?: number;
-        containerNode?: Element; 
+    export interface ICalEventDefinerPopProps
+        extends CalendarNS.ICalPopoverCommonProps {
+        timeRange?: CalendarNS.ITimeRangeFormat;
+        initDayEvtValue?: boolean;
+        onDestroy?: (popId: string) => void;
     }
+
+    export interface ICalEventPresenterProps extends ICalPopoverCommonProps {}
 
     export interface IModalOptions {
         visible?: boolean;
         isClose?: boolean;
         contentStyle?: React.CSSProperties;
-        layerStyle?:React.CSSProperties;
-        contentClass?:  string;
+        layerStyle?: React.CSSProperties;
+        contentClass?: string;
         layerClass?: string;
-        onClose?: (modalId?: string) => void,
+        onClose?: (modalId?: string) => void;
     }
 
     export type TTimingDisplayPattern = '12h' | '24h';
 
-    // TMinSplitterEventType
     export type TDefineEventType =
         | 'mousedown'
         | 'mouseenter'
@@ -100,8 +91,4 @@ export namespace CalendarNS {
     export type FnDateGridSelect = (value: Date) => void;
 
     export type TCalEventPopDragStatusType = 'dragging' | 'holdon' | 'none';
-
-    // export type TtimeDisplaySupportType =
-    //     | CalendarNS.IDateRangeFormat
-    //     | CalendarNS.ITimeRangeFormat
 }

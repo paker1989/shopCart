@@ -28,7 +28,7 @@ function getContainerNode() {
  * @returns popId
  */
 function initEventDefiner(
-    initOptions: CalendarNS.ICalEventInitOptions
+    initOptions: CalendarNS.ICalEventDefinerPopProps
 ): string {
     const container = document.createElement('div');
     const containerNode = getContainerNode();

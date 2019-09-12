@@ -13,7 +13,7 @@ import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
 
-export interface ISingleDayColumnProps extends CalendarNS.ICalEventInitOptions {
+export interface ISingleDayColumnProps extends CalendarNS.ICalEventDefinerPopProps {
     value: Date;
     draggingDate?: Date;
     onInitDragging?: (draggingDate: Date) => void;
