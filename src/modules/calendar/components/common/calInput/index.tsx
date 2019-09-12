@@ -15,9 +15,9 @@ class CalInput extends React.Component<ICalInputProps, any> {
     static defaultProps = {
         placeholder: _test_default_placeholder,
         value: '',
-        onChange: (evt: React.ChangeEvent<HTMLInputElement>) => {}
+        onChange: (evt: React.ChangeEvent<HTMLInputElement>) => {},
     };
-    
+
     inputRef: React.RefObject<HTMLInputElement>;
 
     constructor(props) {
@@ -26,9 +26,9 @@ class CalInput extends React.Component<ICalInputProps, any> {
         this.inputRef = React.createRef();
     }
 
-    handleKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
-        //  todo
-    };
+    // handleKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+    //     //  todo
+    // };
 
     render() {
         const { placeholder, value, className, onChange } = this.props;
@@ -36,7 +36,7 @@ class CalInput extends React.Component<ICalInputProps, any> {
         const wrapperClass = cx(
             {
                 ['calInput-container']: true,
-                ['is-focus']: isFocus
+                ['is-focus']: isFocus,
             },
             className
         );

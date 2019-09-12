@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { func } from 'prop-types';
 
 class googlePlaceAPIManager extends React.PureComponent {
     componentDidMount() {
@@ -9,7 +8,7 @@ class googlePlaceAPIManager extends React.PureComponent {
         let script = document.createElement('script');
         script.type = 'text/javascript';
         script.src =
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyAoiamadv0o9BtUB2TT_sB_K1diM_VozFE&libraries=places&callback=initGoogleService';
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ICkjtw0AptNFUp2Cps7x1nRuKBDsaSc&libraries=places&callback=initGoogleService';
         document.body.appendChild(script);
     }
 
