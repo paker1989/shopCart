@@ -23,6 +23,8 @@ export interface IPopoverContentProps {
     visible?: boolean;
     containerSelector?: string; // trigger additional class
     contentRefChange?: (contentRefInstance: any) => void;
+    disableEvents?: string[];
+    isMouseEvtOutSide: (evt: Event) => boolean;
 }
 
 export interface IPopoverContentState {
@@ -39,8 +41,22 @@ class Content extends React.Component<
     }
 
     componentDidMount() {
+        // const { disableEvents } = this.props;
+        // disableEvents.forEach(evtName => {
+        //     window.addEventListener(evtName, this.handleDisableEvents);
+        // });
         this.adjustPosition();
     }
+
+    componentWillUnmount() {
+        // const { disableEvents } = this.props;
+        // disableEvents.forEach(evtName => {
+        //     window.removeEventListener(evtName, this.handleDisableEvents);
+        // });
+    }
+
+    // handleDisableEvents = (evt: Event) => {
+    // };
 
     componentDidUpdate(prevProps) {
         if (this.props.visible && prevProps.visible !== this.props.visible) {
@@ -53,6 +69,9 @@ class Content extends React.Component<
     };
 
     adjustPosition = () => {
+        // console.log('adJustPosition');
+        // console.log((this.props.getContentNode()));
+
         const {
             getTriggerNode,
             getContentNode,
@@ -99,12 +118,19 @@ class Content extends React.Component<
     onWindowResize = throttle((evt, delta) => {
         const { visible } = this.props;
         if (visible && (delta.x !== 0 || delta.y !== 0)) {
-            console.log('resize');
             this.adjustPosition();
         }
     }, 16);
 
     onWindowScroll = throttle(this.adjustPosition, 16);
+    // onWindowResize = (evt) => {
+    //     evt.preventDefault();
+    // }
+
+    // onWindowScroll = (evt) => {
+    //     evt.preventDefault();
+    // };
+    
 
     render() {
         const { visible, containerSelector, className } = this.props;

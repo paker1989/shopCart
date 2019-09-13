@@ -45,10 +45,6 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         </svg>
                     </span>
                     <span className="calActivity-definer-container__option--main">
-                        {/* <CalInput
-                            className="calActivity-definer-container__input"
-                            placeholder={_test_add_location_placeholder}
-                        /> */}
                         <AddressPicker />
                     </span>
                 </div>

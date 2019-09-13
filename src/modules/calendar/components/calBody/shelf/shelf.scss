@@ -7,8 +7,6 @@
     height: 100%;
     flex-shrink: 0; //不缩小
 
-    @include customizeScrollbar('.calbody-shelf-container__main');
-
     &__createWrapper {
         position: relative;
         width: 100%;
@@ -44,5 +42,6 @@
         height: calc(100% - #{$calBodyShelfCreatePanelHeight});
         overflow-y: auto;
         overflow-x: hidden;
+        @include customizeScrollbar();
     }
 }

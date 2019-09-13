@@ -5,10 +5,7 @@ export default (
     parentBoundingBox,
     options
 ) => {
-    // const horCushion = options.horCushion || options.cushion;
     const verCushion = options.verCushion || options.cushion;
-
-    console.log('bottomMiddle');
     const top = triggerBoundingBox.bottom + verCushion - parentBoundingBox.top;
     const left =
         triggerBoundingBox.left -

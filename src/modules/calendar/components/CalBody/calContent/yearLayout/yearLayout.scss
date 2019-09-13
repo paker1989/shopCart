@@ -6,9 +6,6 @@ $containerPadding: 0 20px 0 0;
 .calbody-content-yearLayout-container {
   height: 100%;
   overflow: hidden;
-  @include customizeScrollbar(
-      '.calbody-content-yearLayout-container__months'
-  );
 
   &__months {
     display: flex;
@@ -18,6 +15,7 @@ $containerPadding: 0 20px 0 0;
     height: 100%;
     overflow-y: auto;
     padding: $containerPadding;
+    @include customizeScrollbar();
   }
 
   &__monthHeader {

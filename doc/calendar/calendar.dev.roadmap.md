@@ -39,6 +39,7 @@
 -   `dayEvtPresenter`
     > 动画
     > `reminder`和`activity`条目
+-   `popover` (e.g. `dayEvtPresenter`)  displayd的时候需要静止别的滚轮事件，否则popover的位置相对trigger就不对了。
 
 
 > todo *optimization*

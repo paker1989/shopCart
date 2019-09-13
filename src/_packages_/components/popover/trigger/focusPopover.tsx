@@ -1,4 +1,5 @@
 import Trigger from './trigger';
+import { cpus } from 'os';
 
 class FocusTrigger extends Trigger {
 
@@ -9,6 +10,10 @@ class FocusTrigger extends Trigger {
       },
       onBlur: () => {
         this.props.close();
+        // const { isClickOutSide } = this.props;
+        // if (isClickOutSide()) {
+        //   this.props.close();
+        // }
       }
     }
   }

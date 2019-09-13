@@ -11,13 +11,13 @@ $bodyMaxHeight: 360px;
   background: white;
   border-radius: 5px;
   box-shadow: $calEventDefinerShadow;
-  @include customizeScrollbar(".calevent-define-pop-container__body");
 
   &__body {
     position: relative;
     width: $containerWidth;
     height: 100%;
     overflow-y: auto;
+    @include customizeScrollbar();
   }
 
   &__close {

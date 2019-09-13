@@ -64,7 +64,6 @@ class CalPopover<T extends CalendarNS.ICalPopoverCommonProps> extends React.Comp
 
     onWindowResize = throttle((evt, delta) => {
         if (delta.x !== 0 || delta.y !== 0) {
-            console.log('resize');
             this.adjustPosition();
         }
     }, 500);

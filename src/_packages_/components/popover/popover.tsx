@@ -22,6 +22,7 @@ export interface IPopoverProps {
     onBeforeShow?: () => void;
     onBeforeClose?: () => void;
     onShow?: () => void;
+    disableEvents?: string[];
 }
 
 export interface IPopoverState {
@@ -42,6 +43,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
         position: Placement.belowRight,
         containerSelector: 'body',
         closeOnOutSide: true,
+        disableEvents: []
     };
 
     constructor(props) {
@@ -116,14 +118,12 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
         return this.contentNode;
     };
 
-    isClickOutSide = evt => {
+    isMouseEvtOutSide = (evt: Event) => {
         const { target } = evt,
             triggerNode = this.getTriggerNode(),
             contentNode = this.getContentNode();
 
-        if (!triggerNode.contains(target) && !contentNode.contains(target)) {
-            this.close();
-        }
+        return !triggerNode.contains(target) && !contentNode.contains(target);
     };
 
     validChildren() {
@@ -169,6 +169,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
             position,
             className,
             wrapperClassName,
+            disableEvents
         } = this.props;
 
         const visible = this.getVisible();
@@ -181,7 +182,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
                     close: this.close,
                     triggerRefChange: this.triggerRefChange,
                     contentVisible: visible,
-                    isClickOutSide: this.isClickOutSide,
+                    isMouseEvtOutSide: this.isMouseEvtOutSide,
                 })}
                 {React.cloneElement(content, {
                     open: this.open,
@@ -195,6 +196,8 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
                     horCushion,
                     verCushion,
                     className,
+                    disableEvents,
+                    isMouseEvtOutSide: this.isMouseEvtOutSide,
                 })}
             </div>
         );

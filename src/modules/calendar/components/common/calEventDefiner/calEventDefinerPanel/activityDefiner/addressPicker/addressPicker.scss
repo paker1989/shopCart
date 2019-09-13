@@ -1,3 +1,10 @@
+@import "../../../../../../assets/style/theme.scss";
+@import "../../../../../../assets/style/mixin.scss";
+
+$itemsPadding: 0 14px;
+$optionsWidth: 370px;
+$optionsMaxHeight: 300px;
+
 .address-picker-container {
   position: relative;
   width: 100%;
@@ -6,5 +13,51 @@
   &__inputWrapper {
     width: 100%;
     height: 100%;
+  }
+
+  &-predictions {
+    position: relative;
+    overflow-y: auto;
+    max-height: $optionsMaxHeight;
+
+    padding: 8px 0;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    @include customizeScrollbar();
+
+    &__options {
+      width: $optionsWidth;
+    }
+
+    & .item-wrapper {
+      color: $fontColor;
+      display: flex;
+      align-items: center;
+      padding: $itemsPadding;
+      cursor: pointer;
+      line-height: 38px;
+      transition: background 0.2s ease-in;
+
+      &:not(.is-disabled):hover {
+        background: $hoverBgColor;
+      }
+
+      &:not(.is-disabled):active {
+        background: $activeBgColor;
+      }
+
+      & .item-icon {
+        color: $fontColor;
+        font-size: 18px;
+        padding-right: 20px;
+      }
+
+      & .item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 }

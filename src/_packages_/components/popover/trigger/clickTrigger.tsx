@@ -17,9 +17,16 @@ class ClickTrigger extends Trigger {
         const { contentVisible } = this.props;
 
         if (contentVisible) {
-            window.addEventListener('click', this.props.isClickOutSide);
+            window.addEventListener('click', this.handleClickOutSide);
         } else {
-            window.removeEventListener('click', this.props.isClickOutSide);
+            window.removeEventListener('click', this.handleClickOutSide);
+        }
+    }
+
+    handleClickOutSide = (evt) => {
+        const { isMouseEvtOutSide, close } = this.props;
+        if (isMouseEvtOutSide(evt)) {
+            close();
         }
     }
 
@@ -32,7 +39,7 @@ class ClickTrigger extends Trigger {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('click', this.props.isClickOutSide);
+        window.removeEventListener('click', this.handleClickOutSide);
     }
 }
 

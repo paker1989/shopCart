@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 export interface IClickTriggerProps {
   triggerRefChange?: (node: any) => void;
   contentVisible: boolean;
-  isClickOutSide: (...options) => void;
+  isMouseEvtOutSide: (evt: Event) => boolean;
   open?: () => void;
   close?: () => void;
 }
@@ -18,11 +18,9 @@ class Trigger extends React.Component<IClickTriggerProps, any> {
    onTriggerProps(child?: JSX.Element) {
     return {};
   }
-  //  onTriggerProps: () => object;
 
    onRefChange = (instance) => {
      const { triggerRefChange } = this.props;
-
      triggerRefChange(instance);
    }
 
