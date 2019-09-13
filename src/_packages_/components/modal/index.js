@@ -36,6 +36,8 @@ class Modal extends React.Component {
         if (closeOnEsc) { // handle esc event
             window.addEventListener('keyup', this.handleCloseOnEsc);
         }
+        this.preOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
     }
 
     componentWillUnmount() {
@@ -46,6 +48,7 @@ class Modal extends React.Component {
         }
 
         document.body.removeChild(this.node);
+        document.body.style.overflow = this.preOverflow;
     }
 
     handleCloseOnEsc = (evt) => {

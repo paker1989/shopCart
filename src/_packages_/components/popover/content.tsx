@@ -48,6 +48,7 @@ class Content extends React.Component<
         this.adjustPosition();
     }
 
+
     componentWillUnmount() {
         // const { disableEvents } = this.props;
         // disableEvents.forEach(evtName => {
@@ -69,9 +70,6 @@ class Content extends React.Component<
     };
 
     adjustPosition = () => {
-        // console.log('adJustPosition');
-        // console.log((this.props.getContentNode()));
-
         const {
             getTriggerNode,
             getContentNode,
@@ -138,7 +136,7 @@ class Content extends React.Component<
 
         let wrapperStyle: React.CSSProperties = {
             ...style,
-            zIndex: 9999,
+            zIndex: 1000,
             visibility: visible ? 'visible' : 'hidden',
         };
 
