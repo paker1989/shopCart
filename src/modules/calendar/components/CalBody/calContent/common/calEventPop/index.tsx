@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import assign from 'lodash/assign';
+
 import {
     getCalEventPopPosition,
     getTimeRangeDisplay,
@@ -19,7 +21,7 @@ export interface ICalEventProps {
     timeRange?: CalendarNS.ITimeRangeFormat;
 }
 
-const _test_no_title = '(无标题)';
+const _test_no_title = <FormattedMessage id="cal.noTitle"/>;
 const _test_bg_color = 'rgb(121, 134, 203)';
 
 export default class CalendarEventPop extends React.Component<

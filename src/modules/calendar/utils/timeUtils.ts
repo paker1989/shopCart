@@ -1,9 +1,5 @@
 import { DatePickers } from '../../../_packages_/components/datePicker/common/types';
-import {
-    getMonthData,
-    getRowMonthData,
-    getMonthLayoutRows
-} from '../../../_packages_/components/datePicker/common/util';
+import { getMonthLayoutRows } from '../../../_packages_/components/datePicker/common/util';
 
 /**
  * @return the week of given date

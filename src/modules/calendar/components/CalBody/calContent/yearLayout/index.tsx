@@ -1,12 +1,11 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import CalEventPresenter from '../../../common/calEventPresenter';
 import DayEvtPresenter from '../../../common/dayEvtPresenter';
 
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
 import { DatePickers } from '../../../../../../_packages_/components/datePicker/common/types';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';
-import { CalendarNS } from '../../../../utils/types';
 
 import './yearLayout.scss';
 import calEventPresenter from '../../../common/calEventPresenter';
@@ -50,7 +49,6 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
             bottomCurshion: 10,
             topCurshion: 10,
             date: selectedDate
-            // showClose: false
         });
     };
 
@@ -73,7 +71,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
                     {months.map((monthData, index) => {
                         const header = (
                             <CustomizeHeader>
-                                {`${index + 1}月`}
+                                {`${index + 1}`}
                             </CustomizeHeader>
                         );
                         return (

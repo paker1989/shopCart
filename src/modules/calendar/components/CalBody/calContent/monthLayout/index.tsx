@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { DayConverter } from '../../../../utils/i18nProvider';
 
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
@@ -29,13 +30,13 @@ const weeks = _test_month_data_rows.weeks;
 const _select_date = new Date(2019, 7, 14);
 
 const _test_headers = [
-    { dayIndex: 0, label: '周日' },
-    { dayIndex: 1, label: '周一' },
-    { dayIndex: 2, label: '周二' },
-    { dayIndex: 3, label: '周三' },
-    { dayIndex: 4, label: '周四' },
-    { dayIndex: 5, label: '周五' },
-    { dayIndex: 6, label: '周六' },
+    { dayIndex: 0, label: <FormattedMessage id={DayConverter[0]}/> },
+    { dayIndex: 1, label: <FormattedMessage id={DayConverter[1]}/> },
+    { dayIndex: 2, label: <FormattedMessage id={DayConverter[2]}/> },
+    { dayIndex: 3, label: <FormattedMessage id={DayConverter[3]}/> },
+    { dayIndex: 4, label: <FormattedMessage id={DayConverter[4]}/> },
+    { dayIndex: 5, label: <FormattedMessage id={DayConverter[5]}/> },
+    { dayIndex: 6, label: <FormattedMessage id={DayConverter[6]}/> },
 ];
 
 export interface IMonthLayoutState {
@@ -176,6 +177,9 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                         {headers.map((header, index) => (
                             <div
                                 className="calbody-content-monthLayout-container__header--item"
+                                style={{
+                                    width: `${100 / headers.length}%`,
+                                }}
                                 key={`monthLayout-header-item-${index}`}
                             >
                                 {header.label}

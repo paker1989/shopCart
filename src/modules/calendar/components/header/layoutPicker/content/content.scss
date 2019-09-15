@@ -37,7 +37,7 @@ $optionsWidth: 170px;
   &-options {
     &__main,
     &__extra {
-      width: $optionsWidth;
+      min-width: $optionsWidth;
     }
 
     &__main .item-wrapper {

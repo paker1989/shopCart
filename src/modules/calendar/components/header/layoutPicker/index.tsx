@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import Popover from '../../../../../_packages_/components/popover';
 import LayoutPickerContent from './content';
@@ -37,7 +38,9 @@ export default class LayoutPicker extends React.Component<any, any> {
                             role="button"
                             className="btn header-layoutPicker-container__trigger"
                         >
-                            <span>{_test_selected_value}</span>
+                            <span>
+                                <FormattedMessage id="cal.month"/>
+                            </span>
                             <svg
                                 className="ali-icon is-grey"
                                 aria-hidden="true"

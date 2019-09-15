@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 import { CalendarNS } from '../../../../../utils/types';
 
@@ -21,7 +22,7 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
 }
 
-const _test_drag_title = '(无标题)';
+const _test_drag_title = <FormattedMessage id="cal.noTitle" />;;
 const _test_calEventBody_bg = 'rgb(121, 134, 203)';
 
 /**

@@ -86,7 +86,7 @@ class ReminderDefiner extends React.Component<
                         </span>
                         <div className="calReminder-definer-container__option--main">
                             <div className="calReminder-definer-container__option--repeat">
-                                <RepeatPicker />
+                                <RepeatPicker date={timeRange.from.dayAt} />
                             </div>
                             <Checkbox
                                 className="calReminder-definer-container__option--check"

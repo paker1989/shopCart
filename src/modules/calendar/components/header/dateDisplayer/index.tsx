@@ -1,8 +1,11 @@
-import * as React from 'react'
-import './dateDisplayer.scss'
+import * as React from 'react';
+import { FormattedMessage, FormattedDate } from 'react-intl';
+import './dateDisplayer.scss';
 
-const _test_month_Display = '2019年8月'
-const _test_chinese_month_Display = '农历七月 ~ 八月'
+const _test_month_Display = (
+    <FormattedDate value={new Date()} year="numeric" month="long" />
+);
+const _test_chinese_month_Display = '农历七月 ~ 八月';
 
 export default class DateDisplayer extends React.Component<any, any> {
     render() {
@@ -14,7 +17,9 @@ export default class DateDisplayer extends React.Component<any, any> {
                         arial-label="today"
                         className="btn header-dateDisplayer-container__today"
                     >
-                        <span>今天</span>
+                        <span>
+                            <FormattedMessage id="cal.today" />
+                        </span>
                     </div>
                     <div className="header-dateDisplayer-container__dateSwitch">
                         <div className="header-dateDisplayer-container__monthArrow">
@@ -29,11 +34,13 @@ export default class DateDisplayer extends React.Component<any, any> {
                             <div className="header-dateDisplayer-container__monthDisplay-text">
                                 {_test_month_Display}
                             </div>
-                            <div className="font-subtitle">{_test_chinese_month_Display}</div>
+                            <div className="font-subtitle">
+                                {_test_chinese_month_Display}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

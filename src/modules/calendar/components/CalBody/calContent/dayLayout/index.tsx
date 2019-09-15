@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {} from 'react-intl';
 
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';

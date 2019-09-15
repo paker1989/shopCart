@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
 import cx from 'classnames';
 
 import './content.scss';
 
 const _test_layout_options = [
-    { title: '日', abbr: 'D', link: '#' },
-    { title: '周', abbr: 'W', link: '#' },
-    { title: '月', abbr: 'M', link: '#' },
-    { title: '年', abbr: 'Y', link: '#' },
-    { title: '4天', abbr: 'X', link: '#' },
+    { title: <FormattedMessage id='cal.day' />, abbr: 'D', link: '#' },
+    { title: <FormattedMessage id='cal.week' />, abbr: 'W', link: '#' },
+    { title: <FormattedMessage id='cal.month' />, abbr: 'M', link: '#' },
+    { title: <FormattedMessage id='cal.year' />, abbr: 'Y', link: '#' },
+    { title: <FormattedMessage id='cal.4days' />, abbr: 'X', link: '#' },
 ];
 
 const _test_extra_options = [
     {
-        title: '显示周末',
+        title: <FormattedMessage id='cal.displaywe' />,
         status: 'enabled',
     },
 ]; // possible status: disabled, selected, enabled

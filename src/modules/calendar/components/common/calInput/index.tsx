@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import debounce from 'lodash/debounce';
 
 import './calInput.scss';
 
-const _test_default_placeholder = '无标题';
+const _test_default_placeholder = <FormattedMessage id="cal.noTitle" />;
 
 export interface ICalInputProps {
     className?: string;

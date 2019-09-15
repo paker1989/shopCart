@@ -1,17 +1,23 @@
 import * as React from 'react';
+import { FormattedMessage, FormattedDate } from 'react-intl';
+import { DayConverter } from '../../../../../../utils/i18nProvider';
 import Popover from '../../../../../../../../_packages_/components/popover';
 
 const _test_selected_value = '每个工作日(星期一到星期五)';
-const _test_options_props = [
-    { title: '每天', code: 'eday' }, // every day
-    { title: '每周星期二', code: 'esdayofweek' }, // every same day of week
-    { title: '每个工作日(星期一到星期五)', code: 'ewday' }, // every work day
-    { title: '每年的9月10日', code: 'sdateofyear' }, // same date of every year
-];
+// const _test_options_props = [
+//     { title: '每天', code: 'eday' }, // every day
+//     { title: '每周星期二', code: 'esdayofweek' }, // every same day of week
+//     { title: '每个工作日(星期一到星期五)', code: 'ewday' }, // every work day
+//     { title: '每年的9月10日', code: 'sdateofyear' }, // same date of every year
+// ];
 
 import './repeatPicker.scss';
 
-class RepeatPicker extends React.PureComponent<any, any> {
+export interface IRepeatPickerProps {
+    date: Date;
+}
+
+class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
     constructor(props) {
         super(props);
         this.state = { isVisible: false };
@@ -21,8 +27,56 @@ class RepeatPicker extends React.PureComponent<any, any> {
         this.setState({ isVisible });
     };
 
+    populateOptions = (date: Date): any[] => {
+        const options = [];
+        options[0] = {
+            title: <FormattedMessage id="cal.everyDay" />,
+            code: 'eday',
+        };
+        options[1] = {
+            title: (
+                <FormattedMessage
+                    id="cal.everySameDay"
+                    values={{
+                        day: (
+                            <FormattedMessage
+                                id={DayConverter[date.getDay()]}
+                            />
+                        ),
+                    }}
+                />
+            ),
+            code: 'esdayofweek',
+        };
+        options[2] = {
+            title: <FormattedMessage id="cal.everyWorkDay" />,
+            code: 'ewday',
+        };
+        options[3] = {
+            title: (
+                <FormattedMessage
+                    id="cal.everySameDate"
+                    values={{
+                        date: (
+                            <FormattedDate
+                                value={date}
+                                month="long"
+                                day="2-digit"
+                            />
+                        ),
+                    }}
+                />
+            ),
+            code: 'sdateofyear',
+        };
+        return options;
+    };
+
     render() {
         const { isVisible } = this.state;
+        const { date } = this.props;
+
+        const options = this.populateOptions(date);
 
         return (
             <div className="repeatPicker-container">
@@ -37,7 +91,7 @@ class RepeatPicker extends React.PureComponent<any, any> {
                             role="button"
                             className="btn is-silent repeatPicker-container__trigger"
                         >
-                            <span>{_test_selected_value}</span>
+                            <span>{options[2].title}</span>
                             <svg
                                 className="ali-icon is-grey"
                                 aria-hidden="true"
@@ -49,7 +103,7 @@ class RepeatPicker extends React.PureComponent<any, any> {
                     <Popover.Content>
                         <div className="repeatPicker-container__content">
                             <div className="repeatPicker-container-options">
-                                {_test_options_props.map((option, index) => (
+                                {options.map((option, index) => (
                                     <div
                                         className="item-wrapper"
                                         key={`repeat-option-${index}`}

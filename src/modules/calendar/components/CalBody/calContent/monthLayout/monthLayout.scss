@@ -33,7 +33,7 @@
     flex-shrink: 0;
 
     &--item {
-      flex-grow: 1;
+      flex-grow: 0;
       font-size: $fontSizeSmall;
       color: $fontSubTitleColor;
       &:not(:last-child) {
