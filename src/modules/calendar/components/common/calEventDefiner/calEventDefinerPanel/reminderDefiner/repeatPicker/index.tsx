@@ -1,10 +1,6 @@
 import * as React from 'react';
-
 import Popover from '../../../../../../../../_packages_/components/popover';
-// import TimeRangeDisplayer from '../timeRangeDisplayer';
-// import CalInput from '../../../../common/calInput';
 
-// import { CalendarNS } from '../../../../../utils/types';
 const _test_selected_value = '每个工作日(星期一到星期五)';
 const _test_options_props = [
     { title: '每天', code: 'eday' }, // every day

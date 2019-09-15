@@ -70,7 +70,7 @@ export default (
         horDimension = 'Middle';
     }
 
-    console.log(`${vertDimension}${horDimension}`);
+    // console.log(`${vertDimension}${horDimension}`);
     return placementMap[`${vertDimension}${horDimension}`](
         triggerBoundingBox,
         contentBoundingBox,

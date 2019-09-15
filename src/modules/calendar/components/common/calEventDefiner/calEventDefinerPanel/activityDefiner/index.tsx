@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IntlShape, injectIntl } from 'react-intl';
 
 import AddressPicker from './addressPicker';
 import TimeRangeDisplayer from '../timeRangeDisplayer';
@@ -8,12 +9,10 @@ import GooglePlaceAPIManager from '../../../googlePlaceAPIManager';
 import { CalendarNS } from '../../../../../utils/types';
 import './activityDefiner.scss';
 
-const _test_add_location_placeholder = '添加一个有意思的地点';
-const _test_add_comment_placeholder = '添加一个暖心的说明';
-
 export interface IActivityDefinerProps {
     timeRange: CalendarNS.ITimeRangeFormat;
     initDayEvtValue?: boolean;
+    intl: IntlShape;
 }
 
 class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
@@ -21,7 +20,7 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
         initDayEvtValue: false,
     };
     render() {
-        const { timeRange, initDayEvtValue } = this.props;
+        const { timeRange, initDayEvtValue, intl } = this.props;
         return (
             <div className="calActivity-definer-container">
                 <GooglePlaceAPIManager />
@@ -58,7 +57,9 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         <span className="calActivity-definer-container__option--main">
                             <CalInput
                                 className="calActivity-definer-container__input"
-                                placeholder={_test_add_comment_placeholder}
+                                placeholder={intl.formatMessage({
+                                    id: 'cal.addDescription',
+                                })}
                             />
                         </span>
                     </div>
@@ -68,4 +69,4 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
     }
 }
 
-export default ActivityDefiner;
+export default injectIntl(ActivityDefiner);

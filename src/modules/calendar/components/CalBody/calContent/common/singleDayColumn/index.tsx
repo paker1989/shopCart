@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { injectIntl } from 'react-intl';
 import CalEventPop from '../calEventPop';
 import SingleHourGrid from '../singleHourGrid';
 import CalEventDefiner from '../../../../common/calEventDefiner';
@@ -13,7 +14,8 @@ import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
 
-export interface ISingleDayColumnProps extends CalendarNS.ICalEventDefinerPopProps {
+export interface ISingleDayColumnProps
+    extends CalendarNS.ICalEventDefinerPopProps {
     value: Date;
     draggingDate?: Date;
     onInitDragging?: (draggingDate: Date) => void;
@@ -193,4 +195,4 @@ class SingleDayColumn extends React.Component<
     }
 }
 
-export default SingleDayColumn;
+export default injectIntl(SingleDayColumn);

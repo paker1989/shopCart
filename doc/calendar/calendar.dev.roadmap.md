@@ -23,6 +23,8 @@
 -   redux design (解决一系列 date toggle 问题);
     > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
 -   `react-intl`国际化
+    > 日期国际化
+    > string template with value
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`
@@ -42,7 +44,9 @@
 -   `popover` (e.g. `dayEvtPresenter`)  displayd的时候需要静止别的滚轮事件，否则popover的位置相对trigger就不对了。
      > toggle event的控制还不对: isVisible: focus on evt || clickNotOutSide;
 
-
+> webpack
+  - seprate `Intl` api | Intl.js polyfill in webpack;
+  
 > todo *optimization*
   - 移动holdon的`calEventPop`
   - 移动defined好的提醒到别的jour。drag & drop

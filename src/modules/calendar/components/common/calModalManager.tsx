@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
+import I18nProvider from '../../utils/i18nProvider';
 import Modal from '../../../../_packages_/components/modal';
 import CalConfig from '../../assets/scripts/calendar.config.js';
 import { CalendarNS } from '../../utils/types';
@@ -11,14 +12,14 @@ const calEventDefineManager = {};
 
 function initModal(
     RawComponent: React.ComponentType,
-    initOptions: CalendarNS.IModalOptions
+    initModalOptions: CalendarNS.IModalOptions
 ): string {
     const container = document.createElement('div');
     const id = `${
         CalConfig.calEventDefinerIdPrefix
     }-${++_CAL_EVENT_CURRENT_ID}`;
 
-    let { onClose, ...otherProps } = initOptions;
+    let { onClose, ...otherProps } = initModalOptions;
     if (!onClose) {
         onClose = (modalId: string) => {
             destroyModal(modalId);
@@ -26,7 +27,9 @@ function initModal(
     }
     ReactDOM.render(
         <Modal {...otherProps} onClose={onClose} id={id}>
-            <RawComponent />
+            <I18nProvider>
+                <RawComponent />
+            </I18nProvider>
         </Modal>,
         container
     );

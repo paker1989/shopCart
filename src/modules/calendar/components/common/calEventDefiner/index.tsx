@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+import I18nProvider from '../../../utils/i18nProvider';
 
 import CalEventDefinerPop from './calEventDefinerPop';
 import Position from '../position';
@@ -37,13 +38,15 @@ function initEventDefiner(
     }-${++_CAL_EVENT_CURRENT_ID}`;
 
     ReactDOM.render(
-        <CalEventDefinerPop
-            containerNode={containerNode}
-            id={id}
-            zIndex={++_CAL_EVENT_Z_INDEX}
-            onDestroy={destroyDefiner}
-            {...initOptions}
-        />,
+        <I18nProvider>
+            <CalEventDefinerPop
+                containerNode={containerNode}
+                id={id}
+                zIndex={++_CAL_EVENT_Z_INDEX}
+                onDestroy={destroyDefiner}
+                {...initOptions}
+            />
+        </I18nProvider>,
         container
     );
 

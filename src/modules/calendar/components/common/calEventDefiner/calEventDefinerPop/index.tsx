@@ -14,7 +14,9 @@ import { CalendarNS } from '../../../../utils/types';
 
 import './calEventDefinerPop.scss';
 
-class CalEventDefinerPop extends CalPopover<CalendarNS.ICalEventDefinerPopProps> {
+class CalEventDefinerPop extends CalPopover<
+    CalendarNS.ICalEventDefinerPopProps
+> {
     static defaultProps = {
         positionner: Position.autoMiddle,
     };

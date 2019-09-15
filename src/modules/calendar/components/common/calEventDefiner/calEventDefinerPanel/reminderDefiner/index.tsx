@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import TimeRangeDisplayer from '../timeRangeDisplayer';
 import Checkbox from '../../../../../../../_packages_/components/checkbox';
@@ -44,7 +44,7 @@ class ReminderDefiner extends React.Component<
         } else {
             return this.state.isWholeDayEvt;
         }
-    }
+    };
 
     toggleDayEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { onDayEvtChange } = this.props;
@@ -93,7 +93,7 @@ class ReminderDefiner extends React.Component<
                                 checked={isWholeDayEvt}
                                 onChange={this.toggleDayEvent}
                             >
-                                全天
+                                <FormattedMessage id="cal.wholeDay" />
                             </Checkbox>
                         </div>
                     </div>
@@ -103,5 +103,4 @@ class ReminderDefiner extends React.Component<
     }
 }
 
-// export default withRouter(ReminderDefiner);
 export default ReminderDefiner;

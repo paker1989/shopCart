@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { injectIntl } from 'react-intl';
 
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
@@ -135,6 +136,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
 
     holdonDragging = () => {
         const { dragStatus, draggingDateRange } = this.state;
+        const { intl } = this.props;
 
         if (dragStatus === 'dragging') {
             let definePopId = CalEventDefiner.initEventDefiner({
@@ -245,4 +247,4 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
     }
 }
 
-export default MonthLayout;
+export default injectIntl(MonthLayout);

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { IntlShape, FormattedMessage, injectIntl } from 'react-intl';
 
 import CalInput from '../../calInput';
 import ReminderDefiner from './reminderDefiner';
@@ -9,13 +10,10 @@ import { CalendarNS } from '../../../../utils/types';
 
 import './calEventDefinePanel.scss';
 
-const _test_activity_text = '活动';
-const _test_reminder_text = '提醒';
-const _test_save_text = '保存';
-
 export interface ICalEventDefinerPanelProps {
     timeRange?: CalendarNS.ITimeRangeFormat;
     initDayEvtValue?: boolean;
+    intl: IntlShape;
 }
 
 export interface ICalEventDefinerPanelState {
@@ -49,7 +47,7 @@ class CalEventDefinerPanel extends React.Component<
     };
 
     render() {
-        const { timeRange } = this.props;
+        const { timeRange, intl } = this.props;
         const { type, isDayEvt } = this.state;
         const activityWrapperClass = cx({
             ['calevent-definer-panel__type']: true,
@@ -63,20 +61,22 @@ class CalEventDefinerPanel extends React.Component<
         return (
             <div className="calevent-definer-panel">
                 <div className="calevent-definer-panel__title">
-                    <CalInput placeholder="添加标题" />
+                    <CalInput
+                        placeholder={intl.formatMessage({ id: 'cal.addTitle' })}
+                    />
                 </div>
                 <div className="calevent-definer-panel__types">
                     <span
                         className={activityWrapperClass}
                         onClick={() => this.changeType('activity')}
                     >
-                        {_test_activity_text}
+                        <FormattedMessage id="cal.activity" />
                     </span>
                     <span
                         className={reminderWrapperClass}
                         onClick={() => this.changeType('reminder')}
                     >
-                        {_test_reminder_text}
+                        <FormattedMessage id="cal.reminder" />
                     </span>
                 </div>
                 <div className="calevent-definer-panel__options">
@@ -97,7 +97,7 @@ class CalEventDefinerPanel extends React.Component<
                 <div className="calevent-definer-panel__actions">
                     <div className="calevent-definer-panel__actions--main">
                         <button className="btn is-inform">
-                            {_test_save_text}
+                            <FormattedMessage id="cal.save" />
                         </button>
                     </div>
                 </div>
@@ -106,4 +106,4 @@ class CalEventDefinerPanel extends React.Component<
     }
 }
 
-export default CalEventDefinerPanel;
+export default injectIntl(CalEventDefinerPanel);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
 
@@ -27,7 +28,7 @@ export default class CalendarBody extends React.Component {
                             <use xlinkHref="#icon-create" />
                         </svg>
                         <span className="calbody-shelf-container__createText">
-                            创建
+                            <FormattedMessage id="cal.create"/>
                         </span>
                     </div>
                 </div>

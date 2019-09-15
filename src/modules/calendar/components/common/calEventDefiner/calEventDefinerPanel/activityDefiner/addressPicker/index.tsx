@@ -1,12 +1,11 @@
 import * as React from 'react';
-import debounce from 'lodash/debounce';
+import {  injectIntl } from 'react-intl';
 
 import CalInput from '../../../../../common/calInput';
 import Popover from '../../../../../../../../_packages_/components/popover';
 
 import './addressPicker.scss';
 
-const _test_add_location_placeholder = '添加一个有意思的地点';
 const _test_predictions = [
     { description: '164 Avenue Victor Hugo, Valence, France' },
     { description: '164 Avenue Victor Hugo, Dijon, France' },
@@ -78,6 +77,7 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
 
     render() {
         const { isVisible, value, predictions } = this.state;
+        const { intl} = this.props;
         return (
             <Popover
                 wrapperClassName="address-picker-container"
@@ -92,7 +92,7 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
                         <CalInput
                             value={value}
                             className="calActivity-definer-container__input"
-                            placeholder={_test_add_location_placeholder}
+                            placeholder={intl.formatMessage({id: 'cal.addLocation'})}
                             onChange={this.onChange}
                         />
                     </div>
@@ -128,4 +128,4 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
     }
 }
 
-export default AddressPicker;
+export default injectIntl(AddressPicker);
