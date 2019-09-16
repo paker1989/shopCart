@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 
+import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import CalEventDefiner from '../../../common/calEventDefiner';
@@ -50,16 +52,27 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
         }
     };
 
+    populateHeaderProps = (dates: Date[]) => {
+        const headerProps = dates.map(date => ({
+            dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
+            cnCalendarNb: '初三',
+            dateNumber: date.getDate(),
+        }))
+
+        return headerProps;
+    }
+
     render() {
         const { singleDayHeader } = this.props;
         const { draggingDate } = this.state;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
+        const headerProps = this.populateHeaderProps(daysOfWeek);
 
         return (
             <div className="calbody-content-weekLayout-container">
                 <div className="calbody-content-weekLayout-container__headerWrapper">
-                    {_test_headers_props.map((headerProps, index) => (
+                    {headerProps.map((headerProps, index) => (
                         <div
                             className="calbody-content-weekLayout-container__headerDifferWrapper"
                             style={{ width: `${100 / _test_headers_nb}%` }}

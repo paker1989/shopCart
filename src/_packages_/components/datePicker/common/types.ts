@@ -14,9 +14,9 @@ export namespace DatePickers {
         presentOnly?: boolean; // if yes, only emit this.props.onChange
         displayYear?: number;
         displayMonth?: number;
-        // monthData?: IMonthDataFormat[];
         monthData?: IMonthDataRowFormat;
         displayWeeks?: boolean;
+        locale?: TSupportedLocales;
     }
 
     export interface IDatePickerProps<Val = Value> extends ICommonProps {
@@ -65,7 +65,7 @@ export namespace DatePickers {
         _next_,
     }
 
-    export type GridValueType = Date | string;
+    export type GridValueType = Date | string | JSX.Element;
 
     export type FnMonthChange = (actionType: monthChangeType) => void;
 
@@ -74,6 +74,8 @@ export namespace DatePickers {
         evt?: React.MouseEvent<HTMLDivElement, MouseEvent>
     ) => void;
 }
+
+export type TSupportedLocales = 'fr' | 'en' | 'zh';
 
 export const dayNames: Array<string> = [
     '日',

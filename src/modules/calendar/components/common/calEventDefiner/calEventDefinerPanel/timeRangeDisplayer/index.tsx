@@ -24,7 +24,7 @@ class TimeRangeDisplayer extends React.Component<
         let timeRangeBody = (
             <div className="timeRange-diplayer-body">
                 <div className="timeRange-diplayer-part">
-                    <span>{getFormattedDate(time.from.dayAt, '年月日')}</span>
+                    <span>{getFormattedDate(time.from.dayAt, 'literal')}</span>
                     {!isWholeDayEvt && (
                         <span>{getTimingDisplay(time.from, '12h')}</span>
                     )}
@@ -35,7 +35,7 @@ class TimeRangeDisplayer extends React.Component<
                         {!isWholeDayEvt && (
                             <span>{getTimingDisplay(time.to, '12h')}</span>
                         )}
-                        <span>{getFormattedDate(time.to.dayAt, '年月日')}</span>
+                        <span>{getFormattedDate(time.to.dayAt, 'literal')}</span>
                     </div>
                 )}
             </div>

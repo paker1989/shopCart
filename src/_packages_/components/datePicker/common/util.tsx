@@ -1,4 +1,7 @@
+import { FormattedDate } from 'react-intl';
 import { DatePickers } from './types';
+import * as React from 'react';
+
 // import dateFormat from 'dateformat';
 
 export const _supported_date_format = {
@@ -115,7 +118,7 @@ export function populateDisplay(
         displayMonth,
         true,
         true
-    )
+    );
     return { displayYear, displayMonth, monthData };
 }
 
@@ -126,7 +129,7 @@ export function getSiblingMonthData(
 ): DatePickers.IDatePickerPanelStates {
     let newDisplayMonth;
     let newDisplayYear;
-    let monthData: DatePickers.IMonthDataRowFormat ;
+    let monthData: DatePickers.IMonthDataRowFormat;
 
     switch (actionType) {
         case DatePickers.monthChangeType._next_:
@@ -134,14 +137,24 @@ export function getSiblingMonthData(
             newDisplayMonth = isNewYear ? 1 : displayMonth + 1;
             newDisplayYear = isNewYear ? displayYear + 1 : displayYear;
 
-            monthData = getMonthLayoutRows(newDisplayYear, newDisplayMonth, true, true);
+            monthData = getMonthLayoutRows(
+                newDisplayYear,
+                newDisplayMonth,
+                true,
+                true
+            );
             break;
         case DatePickers.monthChangeType._prev_:
             const isPrevYear = displayMonth - 1 <= 0;
             newDisplayMonth = isPrevYear ? 12 : displayMonth - 1;
             newDisplayYear = isPrevYear ? displayYear - 1 : displayYear;
 
-            monthData = getMonthLayoutRows(newDisplayYear, newDisplayMonth, true, true);
+            monthData = getMonthLayoutRows(
+                newDisplayYear,
+                newDisplayMonth,
+                true,
+                true
+            );
             break;
     }
     return {
@@ -151,7 +164,7 @@ export function getSiblingMonthData(
     };
 }
 
-export function getFormattedDate(date: Date, format = 'default'): string {
+export function getFormattedDate(date: Date, format = 'default'): any {
     if (!date) {
         return '';
     }
@@ -171,8 +184,15 @@ export function getFormattedDate(date: Date, format = 'default'): string {
             return `${year}-${month}-${day}`;
         case 'YYYY/MM/DD':
             return `${year}/${month}/${day}`;
-        case '年月日':
-            return `${year}年${month}月${day}日`;
+        case 'literal':
+            return (
+                <FormattedDate
+                    value={date}
+                    year="numeric"
+                    month="long"
+                    day="2-digit"
+                />
+            );
     }
 
     return '';
@@ -189,7 +209,7 @@ export function getMonthLayoutRows(
     year: number,
     month: number,
     isDisplayWE: boolean,
-    includeAllRow = false,
+    includeAllRow = false
 ): DatePickers.IMonthDataRowFormat {
     function isKeepRow(row) {
         return (

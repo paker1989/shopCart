@@ -80,7 +80,7 @@ export default class CalendarEventPop extends React.Component<
                         {title}
                     </div>
                     <div className="calevent-pop-container__timeRange no-uselect font-calEvent ">
-                        {getTimeRangeDisplay(timeRange)}
+                        {getTimeRangeDisplay(timeRange, '12h')}
                     </div>
                 </div>
             </div>

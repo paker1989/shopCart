@@ -15,7 +15,7 @@ const fr_FR = {
   'cal.week': 'Semaine',
   'cal.4days': '4 jours',
   'cal.displaywe': 'Afficher les week-ends',
-  'cal.noTitle': 'Pas de titre',
+  'cal.noTitle': 'Sans titre',
   'cal.morning': 'Matin',
   'cal.afternoon': 'Après midi',
   'cal.addTitle': 'Ajouter title',
@@ -32,6 +32,13 @@ const fr_FR = {
   'cal.confirmDiscard': 'Ignorer les modifications ?',
   'cal.discard': 'Ignorer',
   'cal.cancel': 'Annuler',
+  'comp.short.sun': 'D',
+  'comp.short.mon': 'L',
+  'comp.short.tues': 'M',
+  'comp.short.wedn': 'M',
+  'comp.short.thu': 'J',
+  'comp.short.fri': 'V',
+  'comp.short.sat': 'S',
 }
 
 export default fr_FR;

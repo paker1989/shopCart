@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
+import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import './dayLayout.scss';
@@ -14,19 +15,30 @@ export interface IDayLayoutProps {
     >;
 }
 
-const _test_header_props = {
-    dayAt: '周日',
-    cnCalendarNb: '初三',
-    dateNumber: 1,
-};
+// const _test_header_props = {
+//     dayAt: '周日',
+//     cnCalendarNb: '初三',
+//     dateNumber: 1,
+// };
 
 const _test_date_ = new Date('2019-01-02');
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {
+    populateHeaderProps = (date: Date) => {
+        const headerProps = {
+            dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
+            cnCalendarNb: '初三',
+            dateNumber: date.getDate(),
+        };
+        return headerProps;
+    };
+
     render() {
         const { singleDayHeader } = this.props;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
+
+        const headerProps = this.populateHeaderProps(_test_date_);
 
         return (
             <div className="calbody-content-dayLayout-container">
@@ -34,7 +46,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                     <div className="calbody-content-dayLayout-container__headerDifferWrapper">
                         {
                             <DateDisplayHeader
-                                {..._test_header_props}
+                                {...headerProps}
                                 textAlign="left"
                             />
                         }
@@ -63,7 +75,11 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                     </div>
                     <div className="calbody-content-dayLayout-container__columnbody">
                         <div className="calbody-content-dayLayout-container__dayDifferWrapper">
-                            <SingleDayColumn value={_test_date_} topCurshion={30} bottomCurshion={50} />
+                            <SingleDayColumn
+                                value={_test_date_}
+                                topCurshion={30}
+                                bottomCurshion={50}
+                            />
                         </div>
                     </div>
                 </div>

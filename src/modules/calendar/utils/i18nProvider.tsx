@@ -1,6 +1,6 @@
 import { IntlProvider } from 'react-intl';
 
-import * as React  from 'react';
+import * as React from 'react';
 
 import zh_CN from '../../../lib/i18n/zh-CN';
 import en_US from '../../../lib/i18n/en-US';
@@ -17,19 +17,23 @@ localProps = 'fr';
 console.log('localProps = ' + localProps);
 
 export const DayConverter = [
-  'cal.day.sun',
-  'cal.day.mon',
-  'cal.day.tues',
-  'cal.day.wes',
-  'cal.day.thu',
-  'cal.day.fri',
-  'cal.day.sat',
+    'cal.day.sun',
+    'cal.day.mon',
+    'cal.day.tues',
+    'cal.day.wes',
+    'cal.day.thu',
+    'cal.day.fri',
+    'cal.day.sat',
 ];
 
 export default ({ children }) => {
-  return (
-    <IntlProvider locale={localProps} key={localProps} messages={messages[localProps]}>
-        {children}
-    </IntlProvider>
-  );
-}
+    return (
+        <IntlProvider
+            locale={localProps}
+            key={localProps}
+            messages={messages[localProps]}
+        >
+            {children}
+        </IntlProvider>
+    );
+};

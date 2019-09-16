@@ -3,14 +3,6 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { DayConverter } from '../../../../../../utils/i18nProvider';
 import Popover from '../../../../../../../../_packages_/components/popover';
 
-const _test_selected_value = '每个工作日(星期一到星期五)';
-// const _test_options_props = [
-//     { title: '每天', code: 'eday' }, // every day
-//     { title: '每周星期二', code: 'esdayofweek' }, // every same day of week
-//     { title: '每个工作日(星期一到星期五)', code: 'ewday' }, // every work day
-//     { title: '每年的9月10日', code: 'sdateofyear' }, // same date of every year
-// ];
-
 import './repeatPicker.scss';
 
 export interface IRepeatPickerProps {

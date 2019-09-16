@@ -4,7 +4,7 @@ const en_US = {
   'cal.today': 'Today',
   'cal.day.mon': 'Monday',
   'cal.day.tues': 'TuesDay',
-  'cal.day.wes': 'wednesday',
+  'cal.day.wes': 'Wednesday',
   'cal.day.thu': 'Thursday',
   'cal.day.fri': 'Friday',
   'cal.day.sat': 'Saturday',
@@ -32,6 +32,13 @@ const en_US = {
   'cal.confirmDiscard': 'Discard unsaved changes ?',
   'cal.discard': 'Discard',
   'cal.cancel': 'Cancel',
+  'comp.short.sun': 'S',
+  'comp.short.mon': 'M',
+  'comp.short.tues': 'T',
+  'comp.short.wedn': 'W',
+  'comp.short.thu': 'T',
+  'comp.short.fri': 'F',
+  'comp.short.sat': 'S',
 }
 
 export default en_US;

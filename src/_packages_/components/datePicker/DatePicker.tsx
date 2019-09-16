@@ -20,6 +20,7 @@ class DatePicker extends React.PureComponent
         format: 'default',
         presentOnly: false,
         displayWeeks: true,
+        locale: 'zh'
     }
 
     constructor(props: DatePickers.IDatePickerProps) {

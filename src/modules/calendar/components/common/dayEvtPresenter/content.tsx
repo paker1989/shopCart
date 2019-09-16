@@ -1,9 +1,8 @@
 import * as React from 'react';
-
+import { FormattedMessage } from 'react-intl';
+import { DayConverter } from '../../../utils/i18nProvider';
 import './dayEvtPresenter.scss';
 import { CalendarNS } from '../../../utils/types';
-
-const _test_day_translate = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
 class DayEvtPresenterContent extends React.Component<
     CalendarNS.ICalEventPresenterProps,
@@ -17,8 +16,7 @@ class DayEvtPresenterContent extends React.Component<
 
     render() {
         const { showClose, date } = this.props;
-        const _test_display_day = _test_day_translate[date.getDay()];
-        
+
         return (
             <div className="dayEvent-presenter-content">
                 {showClose && (
@@ -36,7 +34,9 @@ class DayEvtPresenterContent extends React.Component<
                 <div className="dayEvent-presenter-content__main">
                     <div className="dayEvent-presenter-content__dateDisplay">
                         <span className="dayEvent-presenter-content__dateDisplay--showDay">
-                            {_test_display_day}
+                            <FormattedMessage
+                                id={DayConverter[date.getDay()]}
+                            />
                         </span>
                         <div className="dayEvent-presenter-content__dateDisplay--showDate is-lighter-gey">
                             <span>{date.getDate()}</span>

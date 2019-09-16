@@ -1,7 +1,9 @@
+import * as React from 'react';
+import { FormattedTime } from 'react-intl';
+
 import CalConfig from '../assets/scripts/calendar.config.js';
 import { CalendarNS } from './types';
 import { isSameDay } from '../../../_packages_/components/datePicker/common/util';
-import { func } from 'prop-types';
 
 const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -98,28 +100,17 @@ export function isSameTiming(
 export function getTimingDisplay(
     timing: CalendarNS.ITimingFormat,
     pattern: CalendarNS.TTimingDisplayPattern = '24h'
-): string {
-    switch (pattern) {
-        case '24h':
-            return (
-                `${timing.hourAt}点` +
-                (timing.minAt === 0 ? '' : `${timing.minAt}分`)
-            );
-        case '12h':
-            const isMorning = timing.hourAt < 12;
-            const dayDisplay = isMorning ? '上午' : '下午';
-            const hourDisplay =
-                timing.hourAt > 12 ? timing.hourAt - 12 : timing.hourAt;
-            const minDisplay =
-                timing.minAt < 10 ? `0${timing.minAt}` : `${timing.minAt}`;
-            return `${dayDisplay}${hourDisplay}:${minDisplay}`;
-    }
-    return '';
+): any {
+    const date = new Date(timing.dayAt);
+    date.setHours(timing.hourAt);
+    date.setMinutes(timing.minAt);
+    return <FormattedTime value={date} hour12={pattern === '12h'} />;
 }
 
 export function getTimeRangeDisplay(
-    timeRange: CalendarNS.ITimeRangeFormat
-): string {
+    timeRange: CalendarNS.ITimeRangeFormat,
+    pattern: CalendarNS.TTimingDisplayPattern = '24h'
+): any {
     let message = '';
     if (!timeRange) {
         return message;
@@ -127,9 +118,13 @@ export function getTimeRangeDisplay(
     if (isSameTiming(timeRange.from, timeRange.to, false)) {
         message = getTimingDisplay(timeRange.from);
     } else {
-        message = `${getTimingDisplay(timeRange.from)} - ${getTimingDisplay(
-            timeRange.to
-        )}`;
+        return (
+            <React.Fragment>
+                {getTimingDisplay(timeRange.from, pattern)}
+                {' - '}
+                {getTimingDisplay(timeRange.to, pattern)}
+            </React.Fragment>
+        );
     }
     return message;
 }

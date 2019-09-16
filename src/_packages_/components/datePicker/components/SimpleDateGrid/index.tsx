@@ -7,7 +7,7 @@ import './simpleDateGrid.scss';
 
 export interface ISimpleDateGridProps {
     className?: string;
-    showValue: string | number;
+    showValue: string | number | JSX.Element; 
     value: DatePickers.GridValueType;
     isGrey?: boolean;
     isToday?: boolean;
@@ -22,7 +22,7 @@ export default class SimpleDateGrid extends React.PureComponent<
     ISimpleDateGridProps,
     any
 > {
-    private timer?: NodeJS.Timeout;
+    private timer?: any;
 
     static defaultProps = {
         isGrey: false,

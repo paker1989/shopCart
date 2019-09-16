@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+import I18nProvider from '../../utils/i18nProvider';
 
 import Position from './position';
 
@@ -35,12 +36,14 @@ function initPresenter(
     const id = `${CalConfig.calEventPresenterIdPrefix}-${++_CAL_POPOVER_ID}`;
 
     ReactDOM.render(
-        <RawComponent
-            id={id}
-            zIndex={++_CAL_EVENT_Z_INDEX}
-            containerNode={containerNode}
-            {...popInitOptions}
-        />,
+        <I18nProvider>
+            <RawComponent
+                id={id}
+                zIndex={++_CAL_EVENT_Z_INDEX}
+                containerNode={containerNode}
+                {...popInitOptions}
+            />
+        </I18nProvider>,
         container
     );
 

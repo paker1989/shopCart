@@ -32,7 +32,13 @@ const zh_CN = {
   'cal.confirmDiscard': '要舍弃未保存的更改吗？',
   'cal.discard': '舍弃',
   'cal.cancel': '取消',
-
+  'comp.short.sun': '日',
+  'comp.short.mon': '一',
+  'comp.short.tues': '二',
+  'comp.short.wedn': '三',
+  'comp.short.thu': '四',
+  'comp.short.fri': '五',
+  'comp.short.sat': '六',
 }
 
 export default zh_CN;

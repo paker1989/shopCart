@@ -1,12 +1,12 @@
 import * as React from 'react';
-
+import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import SimpleDateGrid from '../SimpleDateGrid';
 import DatePickerHeader from '../DatePickerHeader';
 
 import './DatePickerPanel.scss';
 
-import { DatePickers, dayNames } from '../../common/types';
+import { DatePickers } from '../../common/types';
 import {
     isSameDay,
     populateDisplay,
@@ -131,6 +131,16 @@ class DatePickerPanel extends React.Component<
                 />
             );
         }
+
+        const dayNames = [
+            <FormattedMessage id="comp.short.sun"/>,
+            <FormattedMessage id="comp.short.mon"/>,
+            <FormattedMessage id="comp.short.tues"/>,    
+            <FormattedMessage id="comp.short.wedn"/>,
+            <FormattedMessage id="comp.short.thu"/>,
+            <FormattedMessage id="comp.short.fri"/>,
+            <FormattedMessage id="comp.short.sat"/>,
+        ]
 
         return (
             <div className={pickerPanelContainerCx}>
