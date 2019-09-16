@@ -15,12 +15,6 @@ export interface IDayLayoutProps {
     >;
 }
 
-// const _test_header_props = {
-//     dayAt: '周日',
-//     cnCalendarNb: '初三',
-//     dateNumber: 1,
-// };
-
 const _test_date_ = new Date('2019-01-02');
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {

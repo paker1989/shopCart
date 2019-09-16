@@ -40,15 +40,24 @@ export default class LayoutPicker extends React.Component<any, any> {
                                     ).label
                                 }
                             </span>
-                            {/* <svg
-                                className="ali-icon is-grey"
-                                aria-hidden="true"
-                            >
-                                <use xlinkHref="#icon-dropdown" />
-                            </svg> */}
                         </div>
                     </Popover.Trigger.ClickTrigger>
-                    <Popover.Content></Popover.Content>
+                    <Popover.Content>
+                        <div className="header-langPicker-container__content">
+                            <div className="header-angPicker-container-options">
+                                {locales.map((local, index) => (
+                                    <div
+                                        className="item-wrapper"
+                                        key={`local-option-${index}`}
+                                    >
+                                        <span className="item-title font-layout-option">
+                                            {local.label}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </Popover.Content>
                 </Popover>
             </div>
         );
