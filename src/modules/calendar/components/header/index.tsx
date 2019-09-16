@@ -3,6 +3,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 
 import DateDisplayer from './dateDisplayer';
 import LayoutPicker from './layoutPicker';
+import LangPicker from './langPicker';
 import './header.scss';
 
 import * as calendarLogo from '../../assets/images/calendar_logo.png';
@@ -24,8 +25,13 @@ class CalendarHeader extends React.Component<any, any> {
                 <div className="header-container-dateDisplayer">
                     <DateDisplayer />
                 </div>
-                <div className="header-container-layoutPicker">
-                    <LayoutPicker />
+                <div className="header-container-optionPicker">
+                    <div className="header-container-optionPicker__item">
+                        <LangPicker />
+                    </div>
+                    <div className="header-container-optionPicker__item">
+                        <LayoutPicker />
+                    </div>
                 </div>
             </div>
         );

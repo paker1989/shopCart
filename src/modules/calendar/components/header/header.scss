@@ -5,10 +5,6 @@
   display: flex;
   height: 100%;
 
-//   & > * {
-//     border: 1px solid black;
-//   }
-
   &-logo {
     flex-basis: $logoFlexBasis;
     padding-left: 20px;
@@ -32,8 +28,14 @@
     flex-basis: $dateDisplayerFlexBasis;
   }
 
-  &-layoutPicker {
+  &-optionPicker {
     flex-shrink: 0;
     flex-basis: $layoutPickerFlexBasis;
+    display: flex;
+    align-items: center;
+
+    &__item:first-child {
+      margin-right: 15px;
+    }
   }
 }

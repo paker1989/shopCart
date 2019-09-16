@@ -17,7 +17,7 @@
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
--   db model design (导入农历 | 法国节日);
+-   db model design (导入法国节日);
       > 显示 defined events;
       > 显示日历等；
 -   redux design (解决一系列 date toggle 问题);
@@ -44,6 +44,7 @@
 -   `popover` (e.g. `dayEvtPresenter`)  displayd的时候需要静止别的滚轮事件，否则popover的位置相对trigger就不对了。
      > toggle event的控制还不对: isVisible: focus on evt || clickNotOutSide;
 -   zIndex要系统安排.
+
 
 > webpack
   - seprate `Intl` api | Intl.js polyfill in webpack;

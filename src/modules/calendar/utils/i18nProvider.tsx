@@ -6,15 +6,14 @@ import zh_CN from '../../../lib/i18n/zh-CN';
 import en_US from '../../../lib/i18n/en-US';
 import fr_FR from '../../../lib/i18n/fr_FR';
 
-let localProps = navigator.language || 'en';
+// let localProps = navigator.language || 'en';
 
 const messages = {};
 messages['zh'] = zh_CN;
 messages['en'] = en_US;
 messages['fr'] = fr_FR;
 
-localProps = 'fr';
-console.log('localProps = ' + localProps);
+export const localProps = 'en'; // test
 
 export const DayConverter = [
     'cal.day.sun',
@@ -24,6 +23,12 @@ export const DayConverter = [
     'cal.day.thu',
     'cal.day.fri',
     'cal.day.sat',
+];
+
+export const locales = [
+    { label: '中文', code: 'zh' },
+    { label: 'FR', code: 'fr' },
+    { label: 'EN', code: 'en' },
 ];
 
 export default ({ children }) => {
