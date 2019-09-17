@@ -39,7 +39,7 @@ export default class LayoutPicker extends React.Component<any, any> {
                             className="btn header-layoutPicker-container__trigger"
                         >
                             <span>
-                                <FormattedMessage id="cal.month"/>
+                                <FormattedMessage id="cal.month" />
                             </span>
                             <svg
                                 className="ali-icon is-grey"

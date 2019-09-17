@@ -17,7 +17,7 @@ export default (filters, sort, callback) => dispatch => {
 
     if (!!sort) {
       products = products.sort((a, b) => {
-        switch(sort) {
+        switch (sort) {
           case 'ltoh': return (b.price - a.price);
           case 'htol': return (a.price - b.price);
           default: return 0;
@@ -34,8 +34,8 @@ export default (filters, sort, callback) => dispatch => {
       payload: products
     })
   })
-  .catch(error => {
-    throw new Error('cannot fetch products, please try later.');
-  })
+    .catch(error => {
+      throw new Error('cannot fetch products, please try later.');
+    })
 }
 
