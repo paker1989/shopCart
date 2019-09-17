@@ -73,6 +73,11 @@ export namespace CalendarNS {
         onClose?: (modalId?: string) => void;
     }
 
+    export interface IReduxAction {
+        type: string,
+        payload?: {}
+    }
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TDefineEventType =

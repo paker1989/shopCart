@@ -1,5 +1,8 @@
 declare module '*.png';
 declare var google: any;
 declare global {
-  interface Window { GoogleAutocompleteService: any; }
+    interface window {
+        GoogleAutocompleteService: any;
+        __REDUX_DEVTOOLS_EXTENSION__: any;
+    }
 }
