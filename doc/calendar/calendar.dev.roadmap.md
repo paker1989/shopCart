@@ -45,7 +45,7 @@
      > toggle event的控制还不对: isVisible: focus on evt || clickNotOutSide;
 -   zIndex要系统安排.
 -   4jours的navLink
--   判断第一周的问题。不能取最大的date。先确定怎么判断这天在第几周。
+-   判断第一周的问题。不能取最大的date。先确定怎么判断这天在第几周。 --> 采取欧制: 第一个有4天以上的周是第一周
 
 
 > webpack

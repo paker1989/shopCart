@@ -247,7 +247,6 @@ export function getMonthLayoutRows(
  * @param date
  */
 export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
-    console.log(row);
     const rowMaxDate = row[row.length - 1]; // 以最大日期来算;
 
     const date = new Date(

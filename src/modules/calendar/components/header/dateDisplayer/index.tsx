@@ -7,9 +7,6 @@ import * as dateActionCreator from '../../../store/action/dateAction';
 
 import './dateDisplayer.scss';
 
-const _test_month_Display = (
-    <FormattedDate value={new Date()} year="numeric" month="long" />
-);
 const _test_chinese_month_Display = '农历七月 ~ 八月';
 
 const mapStateToProps = state => {
@@ -17,11 +14,15 @@ const mapStateToProps = state => {
         currentWeek: state.dateReducers.currentWeek,
         currentDate: state.dateReducers.currentDate,
         currentMonth: state.dateReducers.currentMonth,
+        currentYear: state.dateReducers.currentYear,
+        layout: state.layoutReducers.layout,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        toTargetDate: (currentDate: Date) =>
+            dispatch(dateActionCreator.toTargetDate(currentDate)),
         toNextWeek: (currentDate: Date) =>
             dispatch(dateActionCreator.toNextWeek(currentDate)),
         toPrevWeek: (currentDate: Date) =>
@@ -83,10 +84,28 @@ class DateDisplayer extends React.Component<any, any> {
     };
 
     render() {
+        let displayText;
+        const { location, currentDate, currentYear, toTargetDate } = this.props;
+        switch (location.pathname) {
+            case '/year':
+                displayText = currentYear;
+                break;
+            default:
+                displayText = (
+                    <FormattedDate
+                        value={currentDate}
+                        year="numeric"
+                        month="long"
+                    />
+                );
+                break;
+        }
+
         return (
             <div className="header-dateDisplayer-container">
                 <div className="header-dateDisplayer-container__left">
                     <div
+                        onClick={() => toTargetDate(new Date())}
                         role="button"
                         arial-label="today"
                         className="btn header-dateDisplayer-container__today"
@@ -110,7 +129,7 @@ class DateDisplayer extends React.Component<any, any> {
                         </div>
                         <div className="header-dateDisplayer-container__monthDisplay">
                             <div className="header-dateDisplayer-container__monthDisplay-text">
-                                {_test_month_Display}
+                                {displayText}
                             </div>
                             <div className="font-subtitle">
                                 {_test_chinese_month_Display}

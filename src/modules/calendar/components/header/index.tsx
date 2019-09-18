@@ -10,7 +10,6 @@ import * as calendarLogo from '../../assets/images/calendar_logo.png';
 
 class CalendarHeader extends React.Component<any, any> {
     render() {
-        // const intl = useIntl();
         const { intl } = this.props;
         return (
             <div className="header-container">

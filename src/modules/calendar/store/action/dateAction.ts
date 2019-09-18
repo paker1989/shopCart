@@ -74,3 +74,11 @@ export const toPrevYear = (currentDate: Date): CalendarRedux.IReduxAction => {
         payload: { ...populateMonthWeekByDate(newDate) },
     };
 };
+
+export const toTargetDate = (currentDate: Date): CalendarRedux.IReduxAction => {
+    const newDate = new Date(currentDate);
+    return {
+        type: DateActionType.UPDATE_CURRENT_DATA,
+        payload: { ...populateMonthWeekByDate(newDate) },
+    };
+};

@@ -42,11 +42,13 @@ $optionsWidth: 170px;
 
     &__main .item-wrapper {
       justify-content: space-between;
+      cursor: pointer;
     }
 
     &__extra {
       border-top: 1px solid $appFrameBorderColor;
       & .item-wrapper {
+        cursor: pointer;
         &.is-disabled {
           color: #b8b8b8;
           cursor: no-drop;

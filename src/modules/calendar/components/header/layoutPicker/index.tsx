@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 
 import Popover from '../../../../../_packages_/components/popover';
 import LayoutPickerContent from './content';
 
 import './layoutPicker.scss';
 
-export default class LayoutPicker extends React.Component<any, any> {
+class LayoutPicker extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +21,9 @@ export default class LayoutPicker extends React.Component<any, any> {
 
     render() {
         const { isVisible } = this.state;
+        const { location } = this.props;
 
+        const pathName = location.pathname.replace('/', '');
         return (
             <div className="header-layoutPicker-container">
                 <Popover
@@ -35,7 +38,7 @@ export default class LayoutPicker extends React.Component<any, any> {
                             className="btn header-layoutPicker-container__trigger"
                         >
                             <span>
-                                <FormattedMessage id="cal.month" />
+                                <FormattedMessage id={`cal.${pathName}`} />
                             </span>
                             <svg
                                 className="ali-icon is-grey"
@@ -53,3 +56,5 @@ export default class LayoutPicker extends React.Component<any, any> {
         );
     }
 }
+
+export default withRouter(LayoutPicker);
