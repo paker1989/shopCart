@@ -7,8 +7,9 @@ import en_US from '../../../lib/i18n/en-US';
 import fr_FR from '../../../lib/i18n/fr_FR';
 
 // let localProps = navigator.language || 'en';
-console.log('react version = ' + React.version);
-console.log(React.useContext);
+// console.log('react version = ' + React.version);
+// console.log(React.useContext);
+
 const messages = {};
 messages['zh'] = zh_CN;
 messages['en'] = en_US;

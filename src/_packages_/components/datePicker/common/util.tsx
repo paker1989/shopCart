@@ -247,12 +247,27 @@ export function getMonthLayoutRows(
  * @param date
  */
 export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
+    console.log(row);
     const rowMaxDate = row[row.length - 1]; // 以最大日期来算;
 
     const date = new Date(
         rowMaxDate.yearD,
         rowMaxDate.monthD - 1,
         rowMaxDate.showDate
+    );
+
+    return getWeekOfDay(date);
+}
+
+export function getWeekOfDay(rawDate: Date): number {
+    const diff = 6 - rawDate.getDay();
+    const date = new Date(
+        rawDate.getFullYear(),
+        rawDate.getMonth(),
+        rawDate.getDate() + diff,
+        0,
+        0,
+        0
     );
 
     const dateOfDayone = new Date(date.getFullYear(), 0, 1);
@@ -262,5 +277,6 @@ export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
 
     let totalDaysOfNow =
         (date.getTime() - dateOfDayone.getTime()) / (24 * 60 * 60 * 1000);
+
     return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 1;
 }

@@ -1,28 +1,6 @@
 import { DatePickers } from '../../../_packages_/components/datePicker/common/types';
-import { getMonthLayoutRows } from '../../../_packages_/components/datePicker/common/util';
-
-/**
- * @return the week of given date
- * @param date
- */
-export function getWeekOfRow(row: DatePickers.IMonthDataFormat[]): number {
-    const rowMaxDate = row[row.length - 1]; // 以最大日期来算;
-
-    const date = new Date(
-        rowMaxDate.yearD,
-        rowMaxDate.monthD - 1,
-        rowMaxDate.showDate
-    );
-
-    const dateOfDayone = new Date(date.getFullYear(), 0, 1);
-    const dayOfDayone = dateOfDayone.getDay() === 0 ? 7 : dateOfDayone.getDay();
-
-    let dayOfGivenDate = date.getDay() === 0 ? 7 : date.getDay();
-
-    let totalDaysOfNow =
-        (date.getTime() - dateOfDayone.getTime()) / (24 * 60 * 60 * 1000);
-    return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 1;
-}
+import { getMonthLayoutRows, getWeekOfDay } from '../../../_packages_/components/datePicker/common/util';
+import { CalendarRedux } from './reduxTypes';
 
 /**
  * @returns the monthData array of target year
@@ -56,4 +34,13 @@ export function getDayRangeOfWeek(
         datesOfWeek.push(new Date(date));
     }
     return datesOfWeek;
+}
+
+export function populateMonthWeekByDate(date: Date):CalendarRedux.IDateReducerStats  {
+    return {
+        currentDate: date,
+        currentMonth: date.getMonth(),
+        currentWeek: getWeekOfDay(date),
+        currentYear: date.getFullYear(),
+    };
 }

@@ -34,7 +34,7 @@ export default class DatePickerHeader extends React.PureComponent<
                         value={
                             new Date(
                                 Number(displayYear),
-                                Number(displayMonth),
+                                Number(displayMonth)-1,
                                 1
                             )
                         }

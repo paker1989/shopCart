@@ -5,7 +5,7 @@ import { DatePicker } from '../../../../../_packages_/components/datePicker';
 
 import './shelf.scss';
 
-const _test_date_value_ = new Date('2019-08-31');
+const _test_date_value_ = new Date();
 
 export default class CalendarBody extends React.Component {
     /**

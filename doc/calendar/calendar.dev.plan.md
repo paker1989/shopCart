@@ -65,8 +65,9 @@
     - 响应resizes事件，但是不响应scroll事件
     - 
 
-
-
+currentDate --> setCurrentDate ->trigger currentWeek = currentDate.getWeek(); currentMonth = currentDate.getMonth()
+currentWeek --> toNextWeek -> trigger date = date + 7; --> set week & month;
+currentMonth --> toNextMonth -> trigger currentDate = currentMonth.firstDate() --> set week & month;
 
 - footer (预留，暂时不做)
   > to be decided.

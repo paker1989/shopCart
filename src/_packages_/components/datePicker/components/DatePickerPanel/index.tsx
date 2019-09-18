@@ -42,6 +42,7 @@ class DatePickerPanel extends React.Component<
             const { displayYear, displayMonth, monthData } = populateDisplay(
                 new Date()
             );
+            console.log(displayMonth);
             this.state = {
                 displayYear,
                 displayMonth,

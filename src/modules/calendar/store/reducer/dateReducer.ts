@@ -1,14 +1,16 @@
-import { } from '../action/type';
-import { CalendarNS } from '../../utils/types';
+import * as DateActionType from '../actionType/dateActionType';
+import { populateMonthWeekByDate } from '../../utils/timeUtils';
+import { CalendarRedux } from '../../utils/reduxTypes';
 
 const initialState = {
-  currentDate: new Date(),
-  currentWeek: 1,
+    ...populateMonthWeekByDate(new Date()),
 };
 
-export default function(state = initialState, action: CalendarNS.IReduxAction) {
-  switch (action.type) {
-    default:
-      return state;
-  }
+export default function(state = initialState, action: CalendarRedux.IReduxAction) {
+    switch (action.type) {
+        case DateActionType.UPDATE_CURRENT_DATA:
+            return { ...action.payload };
+        default:
+            return state;
+    }
 }

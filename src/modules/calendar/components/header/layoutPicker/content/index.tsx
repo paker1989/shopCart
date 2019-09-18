@@ -7,10 +7,10 @@ import cx from 'classnames';
 import './content.scss';
 
 const _test_layout_options = [
-    { title: <FormattedMessage id='cal.day' />, abbr: 'D', link: '#' },
-    { title: <FormattedMessage id='cal.week' />, abbr: 'W', link: '#' },
-    { title: <FormattedMessage id='cal.month' />, abbr: 'M', link: '#' },
-    { title: <FormattedMessage id='cal.year' />, abbr: 'Y', link: '#' },
+    { title: <FormattedMessage id='cal.day' />, abbr: 'D', link: '/day', },
+    { title: <FormattedMessage id='cal.week' />, abbr: 'W', link: '/week' },
+    { title: <FormattedMessage id='cal.month' />, abbr: 'M', link: '/month' },
+    { title: <FormattedMessage id='cal.year' />, abbr: 'Y', link: '/year' },
     { title: <FormattedMessage id='cal.4days' />, abbr: 'X', link: '#' },
 ];
 

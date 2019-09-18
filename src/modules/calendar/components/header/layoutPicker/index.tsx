@@ -6,8 +6,6 @@ import LayoutPickerContent from './content';
 
 import './layoutPicker.scss';
 
-const _test_selected_value = '月';
-
 export default class LayoutPicker extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -28,8 +26,6 @@ export default class LayoutPicker extends React.Component<any, any> {
                 <Popover
                     position={Popover.Placement.autoBottomMiddle}
                     verCushion={5}
-                    // horCushion={5}
-                    // cushion={5}
                     isVisible={isVisible}
                     onVisibleChange={this.onVisibleChange}
                 >
