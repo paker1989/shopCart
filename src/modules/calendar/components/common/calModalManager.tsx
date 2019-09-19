@@ -11,6 +11,7 @@ let _CAL_EVENT_CURRENT_ID = 0;
 const calEventDefineManager = {};
 
 function initModal(
+    locale: CalendarNS.TLocales,
     RawComponent: React.ComponentType,
     initModalOptions: CalendarNS.IModalOptions
 ): string {
@@ -27,7 +28,7 @@ function initModal(
     }
     ReactDOM.render(
         <Modal {...otherProps} onClose={onClose} id={id}>
-            <I18nProvider>
+            <I18nProvider locale={locale}>
                 <RawComponent />
             </I18nProvider>
         </Modal>,

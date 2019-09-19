@@ -42,13 +42,42 @@ class DatePickerPanel extends React.Component<
             const { displayYear, displayMonth, monthData } = populateDisplay(
                 new Date()
             );
-            console.log(displayMonth);
             this.state = {
                 displayYear,
                 displayMonth,
                 monthData,
             };
         }
+    }
+
+    getSnapshotBeforeUpdate(prevProps) {
+        console.log(prevProps);
+        console.log(this.props);
+      if(!isSameDay(prevProps.selectedDate, this.props.selectedDate)) {
+          return true;
+      }
+      return false;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapShot) {
+        // console.log('did update');
+        // const { selectedDate } = prevProps;
+        // console.log(selectedDate);
+        // console.log(this.props.selectedDate);
+        if (snapShot) {
+            console.log('??');
+            // const {
+            //     displayYear,
+            //     displayMonth,
+            //     monthData,
+            // } = populateDisplay( this.props.selectedDate);
+
+            // this.setState({
+            //     displayYear,
+            //     displayMonth,
+            //     monthData,
+            // });
+        }       
     }
 
     handleDateClick = (

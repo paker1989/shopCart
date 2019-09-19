@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { IntlProvider } from 'react-intl';
-import I18nProvider from './utils/i18nProvider';
+import { Provider } from 'react-redux';
+
 import App from './App';
+import Store from './store';
 
 import { initGoogleService } from './assets/scripts/googlePlace.init';
 import '../../lib/style/iconfont.scss';
@@ -11,9 +12,7 @@ import '../../lib/scripts/iconfont';
 window.initGoogleService = initGoogleService; // as callback
 
 ReactDOM.render(
-    <I18nProvider>
-        <App />
-    </I18nProvider>,
+    <Provider store={Store}><App /></Provider>,
     document.getElementById('root')
 );
 

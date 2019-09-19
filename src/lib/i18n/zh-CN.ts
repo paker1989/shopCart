@@ -13,6 +13,7 @@ const zh_CN = {
   'cal.month': '月',
   'cal.day': '日',
   'cal.week': '周',
+  'cal.nbOfWeek': ' 第{noOfWeek}周',
   'cal.4days': '4天',
   'cal.displaywe': '显示周末',
   'cal.noTitle': '无标题',

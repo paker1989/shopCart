@@ -1,7 +1,7 @@
 /* common */
 $fontSizeBasic: 14px;
 $fontSizeExtraSmall: $fontSizeBasic * 0.7;
-$fontSizeSmall: $fontSizeBasic * 0.8;
+$fontSizeSmall: 12px;
 $fontSizeMedium: $fontSizeBasic * 1.2;
 $fontSizeGrand: $fontSizeBasic * 1.5;
 
@@ -131,6 +131,6 @@ a {
   color: #80868b;
 }
 
-.no-uselect {
+.no-select {
   user-select: none;
 }

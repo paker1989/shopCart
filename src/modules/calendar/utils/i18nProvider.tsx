@@ -1,21 +1,17 @@
+import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 
-import * as React from 'react';
+import { CalendarNS } from './types';
 
 import zh_CN from '../../../lib/i18n/zh-CN';
 import en_US from '../../../lib/i18n/en-US';
 import fr_FR from '../../../lib/i18n/fr_FR';
 
-// let localProps = navigator.language || 'en';
-// console.log('react version = ' + React.version);
-// console.log(React.useContext);
+export interface II18nProviderProps {
+    locale: CalendarNS.TLocales;
+}
 
-const messages = {};
-messages['zh'] = zh_CN;
-messages['en'] = en_US;
-messages['fr'] = fr_FR;
-
-export const localProps = 'fr'; // test
+const messages = { zh: zh_CN, en: en_US, fr: fr_FR };
 
 export const DayConverter = [
     'cal.day.sun',
@@ -33,14 +29,21 @@ export const locales = [
     { label: 'EN', code: 'en' },
 ];
 
-export default ({ children }) => {
-    return (
-        <IntlProvider
-            locale={localProps}
-            key={localProps}
-            messages={messages[localProps]}
-        >
-            {children}
-        </IntlProvider>
-    );
-};
+class I18nProvider extends React.Component<II18nProviderProps, any> {
+    render() {
+        const { children, locale } = this.props;
+        const localeProp = locale || 'zh';
+
+        return (
+            <IntlProvider
+                locale={localeProp}
+                key={localeProp}
+                messages={messages[localeProp]}
+            >
+                {children}
+            </IntlProvider>
+        );
+    }
+}
+
+export default I18nProvider;

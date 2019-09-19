@@ -28,6 +28,7 @@ function getContainerNode() {
  * @returns popId
  */
 function initPresenter(
+    locale: CalendarNS.TLocales,
     RawComponent: React.ComponentType<CalendarNS.ICalEventPresenterProps>,
     popInitOptions?: CalendarNS.ICalEventPresenterProps
 ): string {
@@ -36,7 +37,7 @@ function initPresenter(
     const id = `${CalConfig.calEventPresenterIdPrefix}-${++_CAL_POPOVER_ID}`;
 
     ReactDOM.render(
-        <I18nProvider>
+        <I18nProvider locale={locale}>
             <RawComponent
                 id={id}
                 zIndex={++_CAL_EVENT_Z_INDEX}

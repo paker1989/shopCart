@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import CalEventPop from '../calEventPop';
 import SingleHourGrid from '../singleHourGrid';
@@ -19,6 +20,7 @@ export interface ISingleDayColumnProps
     value: Date;
     draggingDate?: Date;
     onInitDragging?: (draggingDate: Date) => void;
+    locale?: CalendarNS.TLocales;
 }
 
 export interface ISingleDayColumnState {
@@ -27,6 +29,8 @@ export interface ISingleDayColumnState {
     draggingTimeRange: CalendarNS.ITimeRangeFormat;
     definePopId?: string;
 }
+
+const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
 
 class SingleDayColumn extends React.Component<
     ISingleDayColumnProps,
@@ -75,10 +79,11 @@ class SingleDayColumn extends React.Component<
             bottomCurshion,
             topCurshion,
             asideCurshion,
+            locale,
         } = this.props;
 
         if (dragStatus === 'dragging') {
-            let definePopId = CalEventDefiner.initEventDefiner({
+            let definePopId = CalEventDefiner.initEventDefiner(locale, {
                 timeRange: draggingTimeRange,
                 positionner: positionner || CalEventDefiner.Position.autoMiddle,
                 dragPopNode: this.eventPopRef.current,
@@ -195,4 +200,4 @@ class SingleDayColumn extends React.Component<
     }
 }
 
-export default injectIntl(SingleDayColumn);
+export default connect(mapStateToProps)(injectIntl(SingleDayColumn));

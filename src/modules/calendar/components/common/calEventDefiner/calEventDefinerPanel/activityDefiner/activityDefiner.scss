@@ -30,7 +30,7 @@
     &__input {
         border-radius: 3px;
         &.is-focus {
-            background: #f1f3f4;
+            background: $weekLineBgColor;
         }
         & input {
             font-size: $fontSizeBasic;

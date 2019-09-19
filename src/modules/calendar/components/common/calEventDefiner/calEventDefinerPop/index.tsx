@@ -22,7 +22,8 @@ class CalEventDefinerPop extends CalPopover<
     };
 
     onClose = () => {
-        CalModalManager.initModal(CalConfirmPanel, {
+        const { locale } = this.props;
+        CalModalManager.initModal(locale, CalConfirmPanel, {
             visible: true,
             isClose: false,
             contentClass: 'cal-confirm-panel-wrapper',

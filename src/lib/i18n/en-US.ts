@@ -14,6 +14,7 @@ const en_US = {
   'cal.day': 'Day',
   'cal.4days': '4 days',
   'cal.week': 'Week',
+  'cal.nbOfWeek': 'Week {noOfWeek}',
   'cal.displaywe': 'Display the week-ends',
   'cal.noTitle': 'No title',
   'cal.morning': 'Morning',

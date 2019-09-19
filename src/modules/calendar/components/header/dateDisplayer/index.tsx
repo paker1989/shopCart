@@ -84,21 +84,30 @@ class DateDisplayer extends React.Component<any, any> {
     };
 
     render() {
+        const {
+            location,
+            currentDate,
+            currentYear,
+            currentWeek,
+            toTargetDate,
+        } = this.props;
         let displayText;
-        const { location, currentDate, currentYear, toTargetDate } = this.props;
-        switch (location.pathname) {
-            case '/year':
-                displayText = currentYear;
-                break;
-            default:
-                displayText = (
-                    <FormattedDate
-                        value={currentDate}
-                        year="numeric"
-                        month="long"
-                    />
-                );
-                break;
+        let showWeek = true;
+        let path = location.pathname.replace('/', '');
+
+        if (path === 'year' || path === 'month') {
+            showWeek = false;
+        }
+        if (path === 'year') {
+            displayText = currentYear;
+        } else {
+            displayText = (
+                <FormattedDate
+                    value={currentDate}
+                    year="numeric"
+                    month="long"
+                />
+            );
         }
 
         return (
@@ -116,22 +125,50 @@ class DateDisplayer extends React.Component<any, any> {
                     </div>
                     <div className="header-dateDisplayer-container__dateSwitch">
                         <div className="header-dateDisplayer-container__monthArrow">
-                            <span onClick={() => this.handleToggle('prev')}>
-                                <svg className="ali-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-left" />
-                                </svg>
-                            </span>
-                            <span onClick={() => this.handleToggle('next')}>
-                                <svg className="ali-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-right" />
-                                </svg>
-                            </span>
+                            <div
+                                className="circle-wrapper"
+                                onClick={() => this.handleToggle('prev')}
+                            >
+                                <span>
+                                    <svg
+                                        className="ali-icon"
+                                        aria-hidden="true"
+                                    >
+                                        <use xlinkHref="#icon-left" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div
+                                className="circle-wrapper"
+                                onClick={() => this.handleToggle('next')}
+                            >
+                                <span>
+                                    <svg
+                                        className="ali-icon"
+                                        aria-hidden="true"
+                                    >
+                                        <use xlinkHref="#icon-right" />
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
                         <div className="header-dateDisplayer-container__monthDisplay">
-                            <div className="header-dateDisplayer-container__monthDisplay-text">
-                                {displayText}
+                            <div className="header-dateDisplayer-container__monthDisplay-text no-select">
+                                <span>{displayText}</span>
+                                {showWeek && (
+                                    <div className="header-dateDisplayer-container__weekDisplay">
+                                        <span>
+                                            <FormattedMessage
+                                                id="cal.nbOfWeek"
+                                                values={{
+                                                    noOfWeek: currentWeek,
+                                                }}
+                                            />
+                                        </span>
+                                    </div>
+                                )}
                             </div>
-                            <div className="font-subtitle">
+                            <div className="font-subtitle no-select">
                                 {_test_chinese_month_Display}
                             </div>
                         </div>

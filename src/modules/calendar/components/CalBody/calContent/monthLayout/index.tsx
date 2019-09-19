@@ -1,5 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { DayConverter } from '../../../../utils/i18nProvider';
 
@@ -7,7 +8,10 @@ import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
 import CalEventDefiner from '../../../common/calEventDefiner';
 
-import { isSameDay, getMonthLayoutRows } from '../../../../../../_packages_/components/datePicker/common/util';
+import {
+    isSameDay,
+    getMonthLayoutRows,
+} from '../../../../../../_packages_/components/datePicker/common/util';
 
 import {
     getDateRange,
@@ -30,14 +34,16 @@ const weeks = _test_month_data_rows.weeks;
 const _select_date = new Date(2019, 7, 14);
 
 const _test_headers = [
-    { dayIndex: 0, label: <FormattedMessage id={DayConverter[0]}/> },
-    { dayIndex: 1, label: <FormattedMessage id={DayConverter[1]}/> },
-    { dayIndex: 2, label: <FormattedMessage id={DayConverter[2]}/> },
-    { dayIndex: 3, label: <FormattedMessage id={DayConverter[3]}/> },
-    { dayIndex: 4, label: <FormattedMessage id={DayConverter[4]}/> },
-    { dayIndex: 5, label: <FormattedMessage id={DayConverter[5]}/> },
-    { dayIndex: 6, label: <FormattedMessage id={DayConverter[6]}/> },
+    { dayIndex: 0, label: <FormattedMessage id={DayConverter[0]} /> },
+    { dayIndex: 1, label: <FormattedMessage id={DayConverter[1]} /> },
+    { dayIndex: 2, label: <FormattedMessage id={DayConverter[2]} /> },
+    { dayIndex: 3, label: <FormattedMessage id={DayConverter[3]} /> },
+    { dayIndex: 4, label: <FormattedMessage id={DayConverter[4]} /> },
+    { dayIndex: 5, label: <FormattedMessage id={DayConverter[5]} /> },
+    { dayIndex: 6, label: <FormattedMessage id={DayConverter[6]} /> },
 ];
+
+const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
 
 export interface IMonthLayoutState {
     dragStatus: CalendarNS.TCalEventPopDragStatusType;
@@ -137,10 +143,10 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
 
     holdonDragging = () => {
         const { dragStatus, draggingDateRange } = this.state;
-        const { intl } = this.props;
+        const { locale } = this.props;
 
         if (dragStatus === 'dragging') {
-            let definePopId = CalEventDefiner.initEventDefiner({
+            let definePopId = CalEventDefiner.initEventDefiner(locale, {
                 timeRange: draggingDateRange,
                 positionner: CalEventDefiner.Position.autoAside,
                 simuDragPopNode: this.getSimuDragPopNode(),
@@ -251,4 +257,4 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
     }
 }
 
-export default injectIntl(MonthLayout);
+export default connect(mapStateToProps)(injectIntl(MonthLayout));

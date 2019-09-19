@@ -76,10 +76,10 @@ export default class CalendarEventPop extends React.Component<
         return (
             <div ref={this.popRef} className={modalClass} style={wrapperStyle}>
                 <div className="calevent-pop-container__main">
-                    <div className="calevent-pop-container__title no-uselect font-calEvent ">
+                    <div className="calevent-pop-container__title no-select font-calEvent ">
                         {title}
                     </div>
-                    <div className="calevent-pop-container__timeRange no-uselect font-calEvent ">
+                    <div className="calevent-pop-container__timeRange no-select font-calEvent ">
                         {getTimeRangeDisplay(timeRange, '12h')}
                     </div>
                 </div>

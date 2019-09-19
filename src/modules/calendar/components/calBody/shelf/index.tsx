@@ -1,19 +1,30 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
+import * as dateActionCreator from '../../../store/action/dateAction';
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
 
 import './shelf.scss';
 
-const _test_date_value_ = new Date();
+export const mapStateToProps = state => ({
+    selectedDate: state.dateReducers.currentDate,
+});
 
-export default class CalendarBody extends React.Component {
+export const mapDispatchToProps = dispatch => ({
+    toTargetDate: (currentDate: Date) =>
+        dispatch(dateActionCreator.toTargetDate(currentDate)),
+});
+
+class Shelf extends React.Component<any, any> {
     /**
      * test
      */
     handleOnSelect = (newDate: Date): void => {};
 
     render() {
+        const { selectedDate, toTargetDate } = this.props;
+
         return (
             <div className="calbody-shelf-container">
                 <div className="calbody-shelf-container__createWrapper">
@@ -28,16 +39,16 @@ export default class CalendarBody extends React.Component {
                             <use xlinkHref="#icon-create" />
                         </svg>
                         <span className="calbody-shelf-container__createText">
-                            <FormattedMessage id="cal.create"/>
+                            <FormattedMessage id="cal.create" />
                         </span>
                     </div>
                 </div>
                 <div className="calbody-shelf-container__main">
                     <div className="calbody-container-shelf__datepicker">
                         <DatePicker
-                            value={_test_date_value_}
+                            value={selectedDate}
                             isPopover={false}
-                            onClick={this.handleOnSelect}
+                            onClick={toTargetDate}
                             format="YYYY/MM/DD"
                         />
                     </div>
@@ -46,3 +57,8 @@ export default class CalendarBody extends React.Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Shelf);

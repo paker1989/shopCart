@@ -1,11 +1,21 @@
 import * as React from 'react';
-import { locales, localProps } from '../../../utils/i18nProvider';
+import { connect } from 'react-redux';
 
+import { locales } from '../../../utils/i18nProvider';
+import * as LayoutActionCreator from '../../../store/action/layoutAction';
 import Popover from '../../../../../_packages_/components/popover';
 
 import './langPicker.scss';
 
-export default class LayoutPicker extends React.Component<any, any> {
+const mapStateToProps = state => ({
+    locale: state.layoutReducers.locale,
+});
+
+const mapDispatchToProps = dispatch => ({
+    changeLang: locale => dispatch(LayoutActionCreator.changeLang(locale)),
+});
+
+class LangPicker extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,6 +29,7 @@ export default class LayoutPicker extends React.Component<any, any> {
 
     render() {
         const { isVisible } = this.state;
+        const { changeLang, locale } = this.props;
 
         return (
             <div className="header-langPicker-container">
@@ -31,13 +42,12 @@ export default class LayoutPicker extends React.Component<any, any> {
                     <Popover.Trigger.ClickTrigger>
                         <div
                             role="button"
-                            className="btn header-langPicker-container__trigger"
+                            className="btn header-langPicker-container__trigger no-select"
                         >
-                            <span>
+                            <span className="no-select">
                                 {
-                                    locales.find(
-                                        local => local.code === localProps
-                                    ).label
+                                    locales.find(local => local.code === locale)
+                                        .label
                                 }
                             </span>
                         </div>
@@ -49,8 +59,11 @@ export default class LayoutPicker extends React.Component<any, any> {
                                     <div
                                         className="item-wrapper"
                                         key={`local-option-${index}`}
+                                        onClick={() => {
+                                            changeLang(local.code);
+                                        }}
                                     >
-                                        <span className="item-title font-layout-option">
+                                        <span className="item-title font-layout-option no-select">
                                             {local.label}
                                         </span>
                                     </div>
@@ -63,3 +76,8 @@ export default class LayoutPicker extends React.Component<any, any> {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LangPicker);

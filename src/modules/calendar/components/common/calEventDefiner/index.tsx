@@ -29,6 +29,7 @@ function getContainerNode() {
  * @returns popId
  */
 function initEventDefiner(
+    locale: CalendarNS.TLocales,
     initOptions: CalendarNS.ICalEventDefinerPopProps
 ): string {
     const container = document.createElement('div');
@@ -38,12 +39,13 @@ function initEventDefiner(
     }-${++_CAL_EVENT_CURRENT_ID}`;
 
     ReactDOM.render(
-        <I18nProvider>
+        <I18nProvider locale={locale}>
             <CalEventDefinerPop
                 containerNode={containerNode}
                 id={id}
                 zIndex={++_CAL_EVENT_Z_INDEX}
                 onDestroy={destroyDefiner}
+                locale={locale}
                 {...initOptions}
             />
         </I18nProvider>,

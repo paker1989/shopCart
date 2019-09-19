@@ -49,6 +49,7 @@ export namespace CalendarNS {
         simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
         zIndex?: number;
         containerNode?: Element;
+        locale?: TLocales;
     }
 
     export interface ICalEventDefinerPopProps
@@ -74,6 +75,8 @@ export namespace CalendarNS {
     }
 
     export type TTimingDisplayPattern = '12h' | '24h';
+
+    export type TLocales = 'en' | 'fr' | 'zh';
 
     export type TDefineEventType =
         | 'mousedown'

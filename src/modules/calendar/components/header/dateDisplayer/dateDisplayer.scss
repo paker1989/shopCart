@@ -1,40 +1,78 @@
-@import '../../../assets/style/theme.scss';
+@import "../../../assets/style/theme.scss";
 
 .header-dateDisplayer-container {
-    position: relative;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &__left {
     display: flex;
     align-items: center;
-    width: 100%;
     height: 100%;
+  }
 
-    &__left {
+  &__today {
+    transition: background .2s ease;
+    &:hover {
+      background: $hoverBgColor;
+    }
+    & span {
+      line-height: 36px;
+      padding: 0 10px;
+    }
+  }
+
+  &__dateSwitch {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__monthArrow {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+
+    & .circle-wrapper {
+      position: relative;
+      width: 30px;
+      height: 30px;
       display: flex;
       align-items: center;
-      height: 100%;
-    }
+      justify-content: center;
+      border-radius: 50%;
+      color: $fontColor;
+      cursor: pointer;
+      transition: background 0.2s ease-in;
 
-    &__today span {
-        line-height: 36px;
-        padding: 0 10px;
+      &:hover {
+        background: $hoverBgColor;
+      }
     }
+  }
 
-    &__dateSwitch {
-        display: flex;
-        align-items: center;
-        height: 100%;
+  &__monthDisplay {
+    text-align: left;
+    &-text {
+      display: flex;
+      font-size: $fontSizeGrand;
+      font-weight: 500;
+      line-height: $fontSizeGrand;
     }
+  }
 
-    &__monthArrow {
-      margin: 0 20px;
-    }
-
-    &__monthDisplay {
-        text-align: left;
-        &-text {
-            font-size: $fontSizeGrand;
-            font-weight: 500;
-            line-height: $fontSizeGrand;
-        }
-    }
-
+  &__weekDisplay {
+      border-radius: 5px;
+      background: $weekLineBgColor;
+      padding: 0 10px;
+      margin-left: 10px;
+      & span {
+          font-size: $fontSizeSmall;
+          font-weight: 500;
+          line-height: 20px;
+          letter-spacing: .8px;
+      }
+  }
 }

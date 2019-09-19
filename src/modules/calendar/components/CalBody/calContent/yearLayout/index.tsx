@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 
 import DayEvtPresenter from '../../../common/dayEvtPresenter';
 
@@ -9,9 +9,11 @@ import { getMonthDataOfYear } from '../../../../utils/timeUtils';
 
 import './yearLayout.scss';
 import calEventPresenter from '../../../common/calEventPresenter';
+import { CalendarNS } from '../../../../utils/types';
 
 export interface IYearLayoutProps {
     displayYear?: number;
+    locale?: CalendarNS.TLocales;
 }
 
 export interface IYearLayoutStats {
@@ -26,6 +28,8 @@ const CustomizeHeader: React.FunctionComponent = props => {
         </div>
     );
 };
+
+const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
 
 class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
     constructor(props) {
@@ -43,12 +47,14 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
         selectedDate: Date,
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
-        calEventPresenter.initPresenter(DayEvtPresenter, {
+        const { locale } = this.props;
+
+        calEventPresenter.initPresenter(locale, DayEvtPresenter, {
             dragPopNode: evt.target as Element,
             asideCurshion: 5,
             bottomCurshion: 10,
             topCurshion: 10,
-            date: selectedDate
+            date: selectedDate,
         });
     };
 
@@ -70,9 +76,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
                 <div className="calbody-content-yearLayout-container__months">
                     {months.map((monthData, index) => {
                         const header = (
-                            <CustomizeHeader>
-                                {`${index + 1}`}
-                            </CustomizeHeader>
+                            <CustomizeHeader>{`${index + 1}`}</CustomizeHeader>
                         );
                         return (
                             <DatePicker
@@ -96,4 +100,4 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
     }
 }
 
-export default YearLayout;
+export default connect(mapStateToProps)(YearLayout);

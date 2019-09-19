@@ -13,6 +13,7 @@ const fr_FR = {
   'cal.month': 'Mois',
   'cal.day': 'Jour',
   'cal.week': 'Semaine',
+  'cal.nbOfWeek': 'Semaine {noOfWeek}',
   'cal.4days': '4 jours',
   'cal.displaywe': 'Afficher les week-ends',
   'cal.noTitle': 'Sans titre',
@@ -39,6 +40,7 @@ const fr_FR = {
   'comp.short.thu': 'J',
   'comp.short.fri': 'V',
   'comp.short.sat': 'S',
+  
 }
 
 export default fr_FR;
