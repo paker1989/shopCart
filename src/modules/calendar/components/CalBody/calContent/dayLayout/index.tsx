@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import { DayConverter } from '../../../../utils/i18nProvider';
@@ -13,9 +14,14 @@ export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
+    currentDate: Date;
 }
 
-const _test_date_ = new Date('2019-01-02');
+const mapStateToProps = state => ({
+    currentDate: state.dateReducers.currentDate,
+});
+
+// const _test_date_ = new Date('2019-01-02');
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {
     populateHeaderProps = (date: Date) => {
@@ -28,11 +34,11 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
     };
 
     render() {
-        const { singleDayHeader } = this.props;
+        const { singleDayHeader, currentDate } = this.props;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
 
-        const headerProps = this.populateHeaderProps(_test_date_);
+        const headerProps = this.populateHeaderProps(currentDate);
 
         return (
             <div className="calbody-content-dayLayout-container">
@@ -70,7 +76,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                     <div className="calbody-content-dayLayout-container__columnbody">
                         <div className="calbody-content-dayLayout-container__dayDifferWrapper">
                             <SingleDayColumn
-                                value={_test_date_}
+                                value={currentDate}
                                 topCurshion={30}
                                 bottomCurshion={50}
                             />
@@ -82,4 +88,4 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
     }
 }
 
-export default DayLayout;
+export default connect(mapStateToProps)(DayLayout);

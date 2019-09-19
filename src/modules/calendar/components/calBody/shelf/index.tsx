@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import * as dateActionCreator from '../../../store/action/dateAction';
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
+import { DatePickers } from '../../../../../_packages_/components/datePicker/common/types';
 
 import './shelf.scss';
 
@@ -14,13 +15,24 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
     toTargetDate: (currentDate: Date) =>
         dispatch(dateActionCreator.toTargetDate(currentDate)),
+    toNextMonth: (currentDate: Date) =>
+        dispatch(dateActionCreator.toNextMonth(currentDate)),
+    toPrevMonth: (currentDate: Date) =>
+        dispatch(dateActionCreator.toPrevMonth(currentDate)),
 });
 
 class Shelf extends React.Component<any, any> {
-    /**
-     * test
-     */
-    handleOnSelect = (newDate: Date): void => {};
+    toSiblingMonth = (actiontype: DatePickers.EMonthChangeType) => {
+        const { toNextMonth, toPrevMonth, selectedDate } = this.props;
+        switch (actiontype) {
+            case DatePickers.EMonthChangeType._prev_:
+                toPrevMonth(selectedDate);
+                return;
+            case DatePickers.EMonthChangeType._next_:
+                toNextMonth(selectedDate);
+                return;
+        }
+    };
 
     render() {
         const { selectedDate, toTargetDate } = this.props;
@@ -50,6 +62,7 @@ class Shelf extends React.Component<any, any> {
                             isPopover={false}
                             onClick={toTargetDate}
                             format="YYYY/MM/DD"
+                            toSiblingMonth={this.toSiblingMonth}
                         />
                     </div>
                 </div>

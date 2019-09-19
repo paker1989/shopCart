@@ -47,7 +47,7 @@ export default class DatePickerHeader extends React.PureComponent<
                         className="action-span"
                         onClick={() =>
                             handleMonthChange(
-                                DatePickers.monthChangeType._prev_
+                                DatePickers.EMonthChangeType._prev_
                             )
                         }
                     >
@@ -59,7 +59,7 @@ export default class DatePickerHeader extends React.PureComponent<
                         className="action-span"
                         onClick={() =>
                             handleMonthChange(
-                                DatePickers.monthChangeType._next_
+                                DatePickers.EMonthChangeType._next_
                             )
                         }
                     >

@@ -21,6 +21,19 @@ class DatePickerPanel extends React.Component<
         isPopover: false,
     };
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        const { selectedDate, presentOnly } = nextProps;
+        const { displayMonth } = prevState;
+
+        if (!selectedDate || presentOnly) {
+            return null;
+        }
+        if (selectedDate.getMonth() + 1 !== displayMonth) {
+            return { ...populateDisplay(selectedDate) };
+        }
+        return null;
+    }
+
     constructor(props) {
         super(props);
         const {
@@ -39,45 +52,8 @@ class DatePickerPanel extends React.Component<
                 monthData,
             };
         } else {
-            const { displayYear, displayMonth, monthData } = populateDisplay(
-                new Date()
-            );
-            this.state = {
-                displayYear,
-                displayMonth,
-                monthData,
-            };
+            this.state = { ...populateDisplay(new Date()) };
         }
-    }
-
-    getSnapshotBeforeUpdate(prevProps) {
-        console.log(prevProps);
-        console.log(this.props);
-      if(!isSameDay(prevProps.selectedDate, this.props.selectedDate)) {
-          return true;
-      }
-      return false;
-    }
-
-    componentDidUpdate(prevProps, prevState, snapShot) {
-        // console.log('did update');
-        // const { selectedDate } = prevProps;
-        // console.log(selectedDate);
-        // console.log(this.props.selectedDate);
-        if (snapShot) {
-            console.log('??');
-            // const {
-            //     displayYear,
-            //     displayMonth,
-            //     monthData,
-            // } = populateDisplay( this.props.selectedDate);
-
-            // this.setState({
-            //     displayYear,
-            //     displayMonth,
-            //     monthData,
-            // });
-        }       
     }
 
     handleDateClick = (
@@ -86,7 +62,7 @@ class DatePickerPanel extends React.Component<
     ): void => {
         const { presentOnly, onClick } = this.props;
         // if presentOnly is false, then do automatic toggle
-        if (!presentOnly) {
+        if (!presentOnly && !onClick) {
             const { displayMonth, displayYear } = this.state;
             const selectedMonth = selectedDate.getMonth() + 1;
             const selectedYear = selectedDate.getFullYear();
@@ -95,35 +71,24 @@ class DatePickerPanel extends React.Component<
                 selectedMonth !== displayMonth ||
                 selectedYear !== displayYear
             ) {
-                const {
-                    displayYear,
-                    displayMonth,
-                    monthData,
-                } = populateDisplay(selectedDate);
-
-                this.setState({
-                    displayYear,
-                    displayMonth,
-                    monthData,
-                });
+                this.setState({ ...populateDisplay(selectedDate) });
             }
         }
 
         onClick && onClick(selectedDate, evt);
     };
 
-    handleMonthChange = (actionType: DatePickers.monthChangeType): void => {
+    handleMonthChange = (actionType: DatePickers.EMonthChangeType): void => {
+        const { toSiblingMonth } = this.props;
         const { displayYear, displayMonth } = this.state;
-        const updatedStateData = getSiblingMonthData(
-            displayYear,
-            displayMonth,
-            actionType
-        );
-        this.setState({
-            displayYear: updatedStateData.displayYear,
-            displayMonth: updatedStateData.displayMonth,
-            monthData: updatedStateData.monthData,
-        });
+
+        if (typeof toSiblingMonth === 'function') {
+            toSiblingMonth(actionType);
+        } else {
+            this.setState({
+                ...getSiblingMonthData(displayYear, displayMonth, actionType),
+            });
+        }
     };
 
     render() {
@@ -140,7 +105,6 @@ class DatePickerPanel extends React.Component<
         } = this.props;
         const { monthData, displayMonth, displayYear } = this.state;
 
-        // console.log(monthData);
         const pickerPanelContainerCx = cx(
             {
                 [`${prefix}-pickerpanel-container`]: true,
@@ -163,14 +127,14 @@ class DatePickerPanel extends React.Component<
         }
 
         const dayNames = [
-            <FormattedMessage id="comp.short.sun"/>,
-            <FormattedMessage id="comp.short.mon"/>,
-            <FormattedMessage id="comp.short.tues"/>,    
-            <FormattedMessage id="comp.short.wedn"/>,
-            <FormattedMessage id="comp.short.thu"/>,
-            <FormattedMessage id="comp.short.fri"/>,
-            <FormattedMessage id="comp.short.sat"/>,
-        ]
+            <FormattedMessage id="comp.short.sun" />,
+            <FormattedMessage id="comp.short.mon" />,
+            <FormattedMessage id="comp.short.tues" />,
+            <FormattedMessage id="comp.short.wedn" />,
+            <FormattedMessage id="comp.short.thu" />,
+            <FormattedMessage id="comp.short.fri" />,
+            <FormattedMessage id="comp.short.sat" />,
+        ];
 
         return (
             <div className={pickerPanelContainerCx}>
@@ -239,7 +203,9 @@ class DatePickerPanel extends React.Component<
                                                         } // if presentonly, then only display the one in the same month
                                                         isGrey={isGrey}
                                                         isSelected={isSelected}
-                                                        onClick={this.handleDateClick}
+                                                        onClick={
+                                                            this.handleDateClick
+                                                        }
                                                         onDbClick={onDbClick}
                                                     />
                                                 );

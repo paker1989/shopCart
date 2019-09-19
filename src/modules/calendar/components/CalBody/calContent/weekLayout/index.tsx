@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import CalEventDefiner from '../../../common/calEventDefiner';
-
 import { getDayRangeOfWeek } from '../../../../utils/timeUtils';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 
@@ -17,17 +17,25 @@ export interface IWeekLayoutProps {
     singleDayHeader?: React.ComponentType<
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
+    currentDate: Date;
+    currentWeek: number;
+    currentMonth: number;
+    currentYear: number;
 }
 
 export interface IWeekLayoutStat {
     draggingDate?: Date;
 }
 
-const _test_year_ = 2019;
-const _test_week_ = 22;
+const mapStateToProps = state => {
+    return {
+        currentWeek: state.dateReducers.currentWeek,
+        currentDate: state.dateReducers.currentDate,
+        currentMonth: state.dateReducers.currentMonth,
+        currentYear: state.dateReducers.currentYear,
+    };
+};
 const _is_display_we = true;
-
-const daysOfWeek = getDayRangeOfWeek(_test_year_, _test_week_, _is_display_we);
 
 class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     constructor(props) {
@@ -52,10 +60,15 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     };
 
     render() {
-        const { singleDayHeader } = this.props;
+        const { singleDayHeader, currentYear, currentWeek } = this.props;
         const { draggingDate } = this.state;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
+        const daysOfWeek = getDayRangeOfWeek(
+            currentYear,
+            currentWeek,
+            _is_display_we
+        );
         const headerProps = this.populateHeaderProps(daysOfWeek);
         const itemWidth = 100 / headerProps.length;
         return (
@@ -126,4 +139,4 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     }
 }
 
-export default WeekLayout;
+export default connect(mapStateToProps)(WeekLayout);

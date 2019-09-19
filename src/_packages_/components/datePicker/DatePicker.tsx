@@ -10,9 +10,10 @@ import { getFormattedDate } from './common/util';
 
 import './DatePicker.scss';
 
-class DatePicker extends React.PureComponent
-    <DatePickers.IDatePickerProps, DatePickers.IDatePickerStates> {
-
+class DatePicker extends React.Component<
+    DatePickers.IDatePickerProps,
+    DatePickers.IDatePickerStates
+> {
     static defaultProps = {
         prefix: 'bxu',
         placeholder: '请选择日期',
@@ -20,30 +21,49 @@ class DatePicker extends React.PureComponent
         format: 'default',
         presentOnly: false,
         displayWeeks: true,
-        locale: 'zh'
-    }
+        locale: 'zh',
+    };
 
     constructor(props: DatePickers.IDatePickerProps) {
         super(props);
     }
 
     render() {
-        const { isPopover, placeholder, value, prefix, format, ...otherProps } = this.props;
+        const {
+            isPopover,
+            placeholder,
+            value,
+            prefix,
+            format,
+            ...otherProps
+        } = this.props;
 
-        const selectedDate = (value === undefined) ? null : value instanceof Date ? value : new Date(value);
+        const selectedDate =
+            value === undefined
+                ? null
+                : value instanceof Date
+                ? value
+                : new Date(value);
 
         if (isPopover) {
             const inputValue = getFormattedDate(selectedDate, format);
             return (
                 <div className={`${prefix}-datapicker-container`}>
-                    <Popover position={Popover.Placement.autoBottomLeft}
-                        cushion={2}>
+                    <Popover
+                        position={Popover.Placement.autoBottomLeft}
+                        cushion={2}
+                    >
                         <Popover.Trigger.ClickTrigger>
                             <div className="input-wrapper">
-                                <Input placeholder={placeholder}
+                                <Input
+                                    placeholder={placeholder}
                                     value={inputValue}
-                                    onChange={noop} />
-                                <svg className="ali-icon grey" aria-hidden="true">
+                                    onChange={noop}
+                                />
+                                <svg
+                                    className="ali-icon grey"
+                                    aria-hidden="true"
+                                >
                                     <use xlinkHref="#icon-calendar"></use>
                                 </svg>
                             </div>
@@ -58,7 +78,6 @@ class DatePicker extends React.PureComponent
                         </Popover.Content>
                     </Popover>
                 </div>
-
             );
         }
 
@@ -71,7 +90,6 @@ class DatePicker extends React.PureComponent
                 />
             </div>
         );
-
     }
 }
 

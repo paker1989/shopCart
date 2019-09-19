@@ -109,10 +109,7 @@ export function populateDisplay(
 ): DatePickers.IDatePickerPanelStates {
     const displayYear: number = date.getFullYear();
     const displayMonth: number = date.getMonth() + 1;
-    // const monthData: DatePickers.IMonthDataFormat[] = getMonthData(
-    //     displayYear,
-    //     displayMonth
-    // );
+
     const monthData: DatePickers.IMonthDataRowFormat = getMonthLayoutRows(
         displayYear,
         displayMonth,
@@ -125,14 +122,14 @@ export function populateDisplay(
 export function getSiblingMonthData(
     displayYear: number,
     displayMonth: number,
-    actionType: DatePickers.monthChangeType
+    actionType: DatePickers.EMonthChangeType
 ): DatePickers.IDatePickerPanelStates {
     let newDisplayMonth;
     let newDisplayYear;
     let monthData: DatePickers.IMonthDataRowFormat;
 
     switch (actionType) {
-        case DatePickers.monthChangeType._next_:
+        case DatePickers.EMonthChangeType._next_:
             const isNewYear = displayMonth + 1 > 12;
             newDisplayMonth = isNewYear ? 1 : displayMonth + 1;
             newDisplayYear = isNewYear ? displayYear + 1 : displayYear;
@@ -144,7 +141,7 @@ export function getSiblingMonthData(
                 true
             );
             break;
-        case DatePickers.monthChangeType._prev_:
+        case DatePickers.EMonthChangeType._prev_:
             const isPrevYear = displayMonth - 1 <= 0;
             newDisplayMonth = isPrevYear ? 12 : displayMonth - 1;
             newDisplayYear = isPrevYear ? displayYear - 1 : displayYear;

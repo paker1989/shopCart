@@ -9,6 +9,7 @@ export namespace DatePickers {
         isPopover?: boolean;
         onClick?: FnDateGridSelect;
         onDbClick?: FnDateGridSelect;
+        toSiblingMonth?: (action: EMonthChangeType) => void;
         //optimize for yearLayout usage
         customizedHeader?: JSX.Element;
         presentOnly?: boolean; // if yes, only emit this.props.onChange
@@ -60,14 +61,14 @@ export namespace DatePickers {
         weeks: number[];
     }
 
-    export enum monthChangeType {
+    export enum EMonthChangeType {
         _prev_,
         _next_,
     }
 
     export type GridValueType = Date | string | JSX.Element;
 
-    export type FnMonthChange = (actionType: monthChangeType) => void;
+    export type FnMonthChange = (actionType: EMonthChangeType) => void;
 
     export type FnDateGridSelect = (
         value: Date,
