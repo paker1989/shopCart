@@ -1,3 +1,6 @@
+import { locales } from '../utils/i18nProvider';
+import Calconfig from '../assets/scripts/calendar.config.js';
+
 export const getPath = (targetDate: Date, params: any): string => {
     const { layout, lang } = params;
     const targetYear = targetDate.getFullYear();
@@ -52,6 +55,26 @@ export const getDateToNav = (
         default:
             break;
     }
-
     return newDate;
 };
+
+export function validRouteParams(routeProps: any): boolean {
+    // console.log('======validRouteParams');
+    const { lang, layout, year, month, date } = routeProps;
+    if (!lang || !layout || !year || !month || !date) {
+        return false;
+    }
+    if (locales.findIndex(local => local.code === lang) === -1) {
+        return false;
+    }
+    if (!Calconfig.layouts.includes(layout)) {
+        return false;
+    }
+
+    const tryDate = new Date(year, month - 1, date);
+    if (!((tryDate as any) instanceof Date) || isNaN(tryDate as any)) {
+        return false;
+    }
+
+    return true;
+}

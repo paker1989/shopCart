@@ -32,7 +32,7 @@ export const locales = [
 class I18nProvider extends React.Component<II18nProviderProps, any> {
     render() {
         const { children, locale } = this.props;
-        const localeProp = locale || 'zh';
+        const localeProp = locale;
 
         return (
             <IntlProvider

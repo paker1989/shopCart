@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { DayConverter } from '../../../../utils/i18nProvider';
 
@@ -164,7 +165,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
               );
         const monthDataRow = getMonthLayoutRows(
             currentYear,
-            currentMonth+1,
+            currentMonth + 1,
             _test_display_we_flag
         );
         const { dragStatus, draggingDateRange } = this.state;
@@ -257,4 +258,4 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
     }
 }
 
-export default connect(mapStateToProps)(injectIntl(MonthLayout));
+export default connect(mapStateToProps)(injectIntl(withRouter(MonthLayout)));
