@@ -22,18 +22,7 @@ import { CalendarNS } from '../../../../utils/types';
 import './monthLayout.scss';
 
 const _test_display_we_flag = true;
-const _display_year = 2019;
-const _display_month = 9;
-const _test_month_data_rows = getMonthLayoutRows(
-    _display_year,
-    _display_month,
-    _test_display_we_flag
-);
-const weeks = _test_month_data_rows.weeks;
-
-const _select_date = new Date(2019, 7, 14);
-
-const _test_headers = [
+const i18nHeaders = [
     { dayIndex: 0, label: <FormattedMessage id={DayConverter[0]} /> },
     { dayIndex: 1, label: <FormattedMessage id={DayConverter[1]} /> },
     { dayIndex: 2, label: <FormattedMessage id={DayConverter[2]} /> },
@@ -43,7 +32,12 @@ const _test_headers = [
     { dayIndex: 6, label: <FormattedMessage id={DayConverter[6]} /> },
 ];
 
-const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
+const mapStateToProps = state => ({
+    locale: state.layoutReducers.locale,
+    currentDate: state.dateReducers.currentDate,
+    currentYear: state.dateReducers.currentYear,
+    currentMonth: state.dateReducers.currentMonth,
+});
 
 export interface IMonthLayoutState {
     dragStatus: CalendarNS.TCalEventPopDragStatusType;
@@ -162,11 +156,17 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
     };
 
     render() {
+        const { currentYear, currentMonth, currentDate } = this.props;
         const headers = _test_display_we_flag
-            ? _test_headers
-            : _test_headers.filter(
+            ? i18nHeaders
+            : i18nHeaders.filter(
                   day => day.dayIndex !== 0 && day.dayIndex !== 6
               );
+        const monthDataRow = getMonthLayoutRows(
+            currentYear,
+            currentMonth+1,
+            _test_display_we_flag
+        );
         const { dragStatus, draggingDateRange } = this.state;
         const wrapperClass = cx({
             ['calbody-content-monthLayout-container']: true,
@@ -176,7 +176,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         return (
             <div className={wrapperClass}>
                 <div className="calbody-content-monthLayout-container__slide">
-                    <WeekLine weeks={weeks} />
+                    <WeekLine weeks={monthDataRow.weeks} />
                 </div>
                 <div className="calbody-content-monthLayout-container__main">
                     <div className="calbody-content-monthLayout-container__header">
@@ -193,7 +193,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                         ))}
                     </div>
                     <div className="calbody-content-monthLayout-container__rows">
-                        {_test_month_data_rows.rows.map((row, index) => (
+                        {monthDataRow.rows.map((row, index) => (
                             <div
                                 key={`monthLayout-rows-item-${index}`}
                                 className="calbody-content-monthLayout-container__row"
@@ -204,11 +204,11 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                                         new Date()
                                     );
                                     const isGrey: boolean =
-                                        day.yearD !== _display_year ||
-                                        day.monthD !== _display_month;
+                                        day.yearD !== currentYear ||
+                                        day.monthD !== currentMonth;
                                     const isSelected: boolean = isSameDay(
                                         day,
-                                        _select_date
+                                        currentDate
                                     );
                                     const gridDate: Date = new Date(
                                         day.yearD,

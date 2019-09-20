@@ -21,9 +21,8 @@ class LayoutPicker extends React.Component<any, any> {
 
     render() {
         const { isVisible } = this.state;
-        const { location } = this.props;
+        const { match } = this.props;
 
-        const pathName = location.pathname.replace('/', '');
         return (
             <div className="header-layoutPicker-container">
                 <Popover
@@ -35,10 +34,12 @@ class LayoutPicker extends React.Component<any, any> {
                     <Popover.Trigger.ClickTrigger>
                         <div
                             role="button"
-                            className="btn header-layoutPicker-container__trigger"
+                            className="btn header-layoutPicker-container__trigger no-select"
                         >
                             <span>
-                                <FormattedMessage id={`cal.${pathName}`} />
+                                <FormattedMessage
+                                    id={`cal.${match.params.layout}`}
+                                />
                             </span>
                             <svg
                                 className="ali-icon is-grey"

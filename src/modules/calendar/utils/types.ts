@@ -74,6 +74,14 @@ export namespace CalendarNS {
         onClose?: (modalId?: string) => void;
     }
 
+    export interface ICalRouterParams {
+        month?: string;
+        year?: string;
+        date?: string;
+        lang?: string;
+        layout?: string;
+    }
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';

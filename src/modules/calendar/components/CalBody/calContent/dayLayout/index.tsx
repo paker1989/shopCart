@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
@@ -20,8 +21,6 @@ export interface IDayLayoutProps {
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
 });
-
-// const _test_date_ = new Date('2019-01-02');
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {
     populateHeaderProps = (date: Date) => {

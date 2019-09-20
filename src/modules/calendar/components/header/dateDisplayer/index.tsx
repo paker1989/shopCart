@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-
-import * as dateActionCreator from '../../../store/action/dateAction';
+import { getPath, getDateToNav } from '../../../utils/routeHelper';
 
 import './dateDisplayer.scss';
 
@@ -19,78 +18,21 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        toTargetDate: (currentDate: Date) =>
-            dispatch(dateActionCreator.toTargetDate(currentDate)),
-        toNextWeek: (currentDate: Date) =>
-            dispatch(dateActionCreator.toNextWeek(currentDate)),
-        toPrevWeek: (currentDate: Date) =>
-            dispatch(dateActionCreator.toPrevWeek(currentDate)),
-        toNextDay: (currentDate: Date) =>
-            dispatch(dateActionCreator.toNextDay(currentDate)),
-        toPrevDay: (currentDate: Date) =>
-            dispatch(dateActionCreator.toPrevDay(currentDate)),
-        toNextMonth: (currentDate: Date) =>
-            dispatch(dateActionCreator.toNextMonth(currentDate)),
-        toPrevMonth: (currentDate: Date) =>
-            dispatch(dateActionCreator.toPrevMonth(currentDate)),
-        toNextYear: (currentDate: Date) =>
-            dispatch(dateActionCreator.toNextYear(currentDate)),
-        toPrevYear: (currentDate: Date) =>
-            dispatch(dateActionCreator.toPrevYear(currentDate)),
-    };
-};
-
 class DateDisplayer extends React.Component<any, any> {
     handleToggle = (action: 'prev' | 'next') => {
-        const {
-            location,
-            currentDate,
-            toNextWeek,
-            toPrevWeek,
-            toNextDay,
-            toPrevDay,
-            toNextMonth,
-            toPrevMonth,
-            toNextYear,
-            toPrevYear,
-        } = this.props;
+        const { match, currentDate, history } = this.props;
+        const { layout } = match.params;
+        const targetDate = getDateToNav(currentDate, layout, action);
+        history.push(getPath(targetDate, match.params));
+    };
 
-        switch (location.pathname) {
-            case '/month':
-                action === 'next'
-                    ? toNextMonth(currentDate)
-                    : toPrevMonth(currentDate);
-                return;
-            case '/week':
-                action === 'next'
-                    ? toNextWeek(currentDate)
-                    : toPrevWeek(currentDate);
-                return;
-            case '/day':
-                action === 'next'
-                    ? toNextDay(currentDate)
-                    : toPrevDay(currentDate);
-                return;
-            case '/year':
-                action === 'next'
-                    ? toNextYear(currentDate)
-                    : toPrevYear(currentDate);
-                return;
-            default:
-                return;
-        }
+    toTargetDate = () => {
+        const { match, history } = this.props;
+        history.push(getPath(new Date(), match.params));
     };
 
     render() {
-        const {
-            location,
-            currentDate,
-            currentYear,
-            currentWeek,
-            toTargetDate,
-        } = this.props;
+        const { location, currentDate, currentYear, currentWeek } = this.props;
         let displayText;
         let showWeek = true;
         let path = location.pathname.replace('/', '');
@@ -114,7 +56,7 @@ class DateDisplayer extends React.Component<any, any> {
             <div className="header-dateDisplayer-container">
                 <div className="header-dateDisplayer-container__left">
                     <div
-                        onClick={() => toTargetDate(new Date())}
+                        onClick={this.toTargetDate}
                         role="button"
                         arial-label="today"
                         className="btn header-dateDisplayer-container__today"
@@ -179,7 +121,4 @@ class DateDisplayer extends React.Component<any, any> {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(DateDisplayer));
+export default connect(mapStateToProps)(withRouter(DateDisplayer));

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 
-import * as dateActionCreator from '../../../store/action/dateAction';
+import { getPath, getDateToNav } from '../../../utils/routeHelper';
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
 import { DatePickers } from '../../../../../_packages_/components/datePicker/common/types';
 
@@ -12,30 +13,28 @@ export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
 });
 
-export const mapDispatchToProps = dispatch => ({
-    toTargetDate: (currentDate: Date) =>
-        dispatch(dateActionCreator.toTargetDate(currentDate)),
-    toNextMonth: (currentDate: Date) =>
-        dispatch(dateActionCreator.toNextMonth(currentDate)),
-    toPrevMonth: (currentDate: Date) =>
-        dispatch(dateActionCreator.toPrevMonth(currentDate)),
-});
-
 class Shelf extends React.Component<any, any> {
     toSiblingMonth = (actiontype: DatePickers.EMonthChangeType) => {
-        const { toNextMonth, toPrevMonth, selectedDate } = this.props;
+        const { selectedDate, history, match } = this.props;
+        let targetDate;
         switch (actiontype) {
             case DatePickers.EMonthChangeType._prev_:
-                toPrevMonth(selectedDate);
-                return;
+                targetDate = getDateToNav(selectedDate, 'month', 'prev');
+                break;
             case DatePickers.EMonthChangeType._next_:
-                toNextMonth(selectedDate);
-                return;
+                targetDate = getDateToNav(selectedDate, 'month', 'next');
+                break;
         }
+        history.push(getPath(targetDate, match.params));
+    };
+
+    toTargetDate = (selectedDate: Date) => {
+        const { match, history } = this.props;
+        history.push(getPath(selectedDate, match.params));
     };
 
     render() {
-        const { selectedDate, toTargetDate } = this.props;
+        const { selectedDate } = this.props;
 
         return (
             <div className="calbody-shelf-container">
@@ -60,7 +59,7 @@ class Shelf extends React.Component<any, any> {
                         <DatePicker
                             value={selectedDate}
                             isPopover={false}
-                            onClick={toTargetDate}
+                            onClick={this.toTargetDate}
                             format="YYYY/MM/DD"
                             toSiblingMonth={this.toSiblingMonth}
                         />
@@ -71,7 +70,4 @@ class Shelf extends React.Component<any, any> {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Shelf);
+export default connect(mapStateToProps)(withRouter(Shelf));

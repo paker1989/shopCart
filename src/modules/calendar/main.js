@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import App from './App';
 import Store from './store';
@@ -12,7 +13,11 @@ import '../../lib/scripts/iconfont';
 window.initGoogleService = initGoogleService; // as callback
 
 ReactDOM.render(
-    <Provider store={Store}><App /></Provider>,
+    <Provider store={Store}>
+        <Router basename="/">
+            <Route path="/:lang/:layout/:year/:month/:date" component={App} />
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
 

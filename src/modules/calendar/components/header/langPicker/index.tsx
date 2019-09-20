@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { locales } from '../../../utils/i18nProvider';
-import * as LayoutActionCreator from '../../../store/action/layoutAction';
+import { getPath } from '../../../utils/routeHelper';
 import Popover from '../../../../../_packages_/components/popover';
 
 import './langPicker.scss';
 
 const mapStateToProps = state => ({
-    locale: state.layoutReducers.locale,
-});
-
-const mapDispatchToProps = dispatch => ({
-    changeLang: locale => dispatch(LayoutActionCreator.changeLang(locale)),
+    currentDate: state.dateReducers.currentDate,
 });
 
 class LangPicker extends React.Component<any, any> {
@@ -27,9 +24,24 @@ class LangPicker extends React.Component<any, any> {
         this.setState({ isVisible });
     };
 
+    /**
+     * @description just to remind componnts to update
+     */
+    changeLocale = (locale: string) => {
+        const { history, currentDate, match } = this.props;
+        if (match.params.lang === locale) {
+            return;
+        }
+        const to = getPath(
+            currentDate,
+            Object.assign({}, match.params, { lang: locale })
+        );
+        history.push(to);
+    };
+
     render() {
         const { isVisible } = this.state;
-        const { changeLang, locale } = this.props;
+        const { lang } = this.props.match.params;
 
         return (
             <div className="header-langPicker-container">
@@ -46,7 +58,7 @@ class LangPicker extends React.Component<any, any> {
                         >
                             <span className="no-select">
                                 {
-                                    locales.find(local => local.code === locale)
+                                    locales.find(local => local.code === lang)
                                         .label
                                 }
                             </span>
@@ -60,7 +72,7 @@ class LangPicker extends React.Component<any, any> {
                                         className="item-wrapper"
                                         key={`local-option-${index}`}
                                         onClick={() => {
-                                            changeLang(local.code);
+                                            this.changeLocale(local.code);
                                         }}
                                     >
                                         <span className="item-title font-layout-option no-select">
@@ -77,7 +89,4 @@ class LangPicker extends React.Component<any, any> {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LangPicker);
+export default connect(mapStateToProps)(withRouter(LangPicker));

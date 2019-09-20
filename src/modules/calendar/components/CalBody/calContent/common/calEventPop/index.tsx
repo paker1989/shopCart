@@ -21,7 +21,7 @@ export interface ICalEventProps {
     timeRange?: CalendarNS.ITimeRangeFormat;
 }
 
-const _test_no_title = <FormattedMessage id="cal.noTitle"/>;
+const _test_no_title = <FormattedMessage id="cal.noTitle" />;
 const _test_bg_color = 'rgb(121, 134, 203)';
 
 export default class CalendarEventPop extends React.Component<

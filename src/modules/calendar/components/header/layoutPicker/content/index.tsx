@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 
-import * as LayoutActionCreator from '../../../../store/action/layoutAction';
+import { getPath } from '../../../../utils/routeHelper';
 
 import './content.scss';
 
 const layouts = [
-    { title: <FormattedMessage id="cal.day" />, abbr: 'D', link: '/day' },
-    { title: <FormattedMessage id="cal.week" />, abbr: 'W', link: '/week' },
-    { title: <FormattedMessage id="cal.month" />, abbr: 'M', link: '/month' },
-    { title: <FormattedMessage id="cal.year" />, abbr: 'Y', link: '/year' },
+    { title: <FormattedMessage id="cal.day" />, abbr: 'D', link: 'day' },
+    { title: <FormattedMessage id="cal.week" />, abbr: 'W', link: 'week' },
+    { title: <FormattedMessage id="cal.month" />, abbr: 'M', link: 'month' },
+    { title: <FormattedMessage id="cal.year" />, abbr: 'Y', link: 'year' },
     { title: <FormattedMessage id="cal.4days" />, abbr: 'X', link: '#' },
 ];
 
-const mapDispatchToProps = dispatch => ({
-    updateLayout: layout => dispatch(LayoutActionCreator.updateLayout(layout)),
+const mapStateToProps = state => ({
+    currentDate: state.dateReducers.currentDate,
 });
 
 const _test_extra_options = [
@@ -36,9 +36,15 @@ class LayoutPickerContent extends React.Component<any, any> {
      * @description just to remind componnts to update
      */
     handleNav = (link: string) => {
-        const { history, updateLayout } = this.props;
-        updateLayout(link.replace('/', ''));
-        history.push(link);
+        const { history, currentDate, match } = this.props;
+        if (match.params.layout === link) {
+            return;
+        }
+        const to = getPath(
+            currentDate,
+            Object.assign({}, match.params, { layout: link })
+        );
+        history.push(to);
     };
 
     render() {
@@ -87,4 +93,4 @@ class LayoutPickerContent extends React.Component<any, any> {
     }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(withRouter(LayoutPickerContent));
+export default connect(mapStateToProps)(withRouter(LayoutPickerContent));
