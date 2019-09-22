@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 
+import * as DateActionCreator from '../../../store/action/dateAction';
 import { getPath, getDateToNav } from '../../../utils/routeHelper';
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
 import { DatePickers } from '../../../../../_packages_/components/datePicker/common/types';
@@ -13,7 +14,10 @@ export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
 });
 
-export const mapDispatchToProps = dispatcher => ({});
+export const mapDispatchToProps = dispatcher => ({
+    setEvtDefinerSignal: evtDefinerSignal =>
+        dispatcher(DateActionCreator.initCalEvtDefiner(evtDefinerSignal)),
+});
 
 class Shelf extends React.Component<any, any> {
     toSiblingMonth = (actiontype: DatePickers.EMonthChangeType) => {
@@ -35,7 +39,9 @@ class Shelf extends React.Component<any, any> {
         history.push(getPath(selectedDate, match.params));
     };
 
-    initCalEventDefiner = () => {};
+    initCalEventDefiner = () => {
+        this.props.setEvtDefinerSignal(true);
+    };
 
     render() {
         const { selectedDate } = this.props;
@@ -75,4 +81,7 @@ class Shelf extends React.Component<any, any> {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(Shelf));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(Shelf));

@@ -16,13 +16,22 @@ export interface IDayLayoutProps {
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
     currentDate: Date;
+    definerCalEvtSignal?: boolean;
 }
 
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
+    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {
+    componentDidUpdate(preProps) {
+        if (!preProps.definerCalEvtSignal && this.props.definerCalEvtSignal) {
+            console.log('daylayout handle the definer');
+            
+        }
+    }
+
     populateHeaderProps = (date: Date) => {
         const headerProps = {
             dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,

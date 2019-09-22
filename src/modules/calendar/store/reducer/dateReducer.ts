@@ -4,12 +4,18 @@ import { CalendarRedux } from '../../utils/reduxTypes';
 
 const initialState = {
     ...populateMonthWeekByDate(new Date()),
+    definerCalEvtSignal: false
 };
 
-export default function(state = initialState, action: CalendarRedux.IReduxAction) {
+export default function(
+    state = initialState,
+    action: CalendarRedux.IReduxAction
+) {
     switch (action.type) {
         case DateActionType.UPDATE_CURRENT_DATA:
-            return { ...action.payload };
+            return { ...state, ...action.payload };
+        case DateActionType.INIT_CALEVTDEFINER:
+            return { ...state, ...action.payload };
         default:
             return state;
     }
