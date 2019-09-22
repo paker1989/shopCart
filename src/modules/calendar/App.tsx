@@ -27,6 +27,10 @@ class App extends React.Component<any, any> {
         this.onLocationChange();
     }
 
+    componentWillUnmount() {
+        console.log('App will unmount');
+    }
+
     onLocationChange = () => {
         const { toTargetDate, changeLang, match } = this.props;
         const { year, month, date, lang } = match.params;

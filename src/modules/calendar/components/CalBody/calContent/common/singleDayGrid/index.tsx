@@ -22,7 +22,6 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
 }
 
-const _test_drag_title = <FormattedMessage id="cal.noTitle" />;;
 const _test_calEventBody_bg = 'rgb(121, 134, 203)';
 
 /**
@@ -121,7 +120,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                         >
                             {(isStart || isWeekStart) && (
                                 <span className="singleday-grid-container-calEvent__title">
-                                    {_test_drag_title}
+                                    <FormattedMessage id="cal.noTitle" />
                                 </span>
                             )}
                         </div>

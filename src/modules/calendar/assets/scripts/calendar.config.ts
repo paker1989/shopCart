@@ -5,4 +5,6 @@ export default {
     defaultLocale: 'en',
     defaultLayout: 'month',
     layouts: ['year', 'month', 'day', 'week', 'customday'],
+    repeats: ['everySameDay', 'everyWorkDay', 'everyDay', 'everySameDate'],
+    defRepeat: 'everyWorkDay',
 };

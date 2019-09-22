@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormattedTime } from 'react-intl';
 
-import CalConfig from '../assets/scripts/calendar.config.js';
+import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
 import { isSameDay } from '../../../_packages_/components/datePicker/common/util';
 

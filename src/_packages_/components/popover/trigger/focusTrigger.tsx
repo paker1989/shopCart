@@ -10,10 +10,6 @@ class FocusTrigger extends Trigger {
       },
       onBlur: () => {
         this.props.close();
-        // const { isClickOutSide } = this.props;
-        // if (isClickOutSide()) {
-        //   this.props.close();
-        // }
       }
     }
   }

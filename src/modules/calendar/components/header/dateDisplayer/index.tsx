@@ -2,6 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
+
+import { DayConverter } from '../../../utils/i18nProvider';
+import CalTooltip from '../../../../../_packages_/components/calTooltip';
 import { getPath, getDateToNav } from '../../../utils/routeHelper';
 
 import './dateDisplayer.scss';
@@ -14,7 +17,6 @@ const mapStateToProps = state => {
         currentDate: state.dateReducers.currentDate,
         currentMonth: state.dateReducers.currentMonth,
         currentYear: state.dateReducers.currentYear,
-        layout: state.layoutReducers.layout,
     };
 };
 
@@ -32,10 +34,12 @@ class DateDisplayer extends React.Component<any, any> {
     };
 
     render() {
-        const { location, currentDate, currentYear, currentWeek } = this.props;
+        const { currentDate, currentYear, currentWeek, match } = this.props;
+        const todayDate = new Date();
+
         let displayText;
         let showWeek = true;
-        let path = location.pathname.replace('/', '');
+        let path = match.params.layout;
 
         if (path === 'year' || path === 'month') {
             showWeek = false;
@@ -52,47 +56,81 @@ class DateDisplayer extends React.Component<any, any> {
             );
         }
 
+        const todayTooltipContent = (
+            <FormattedMessage
+                id="cal.day.descrip"
+                values={{
+                    date: (
+                        <FormattedDate
+                            value={todayDate}
+                            month="long"
+                            day="numeric"
+                        />
+                    ),
+                    day: (
+                        <FormattedMessage
+                            id={DayConverter[todayDate.getDay()]}
+                        />
+                    ),
+                }}
+            />
+        );
+
         return (
-            <div className="header-dateDisplayer-container">
+            <div className="header-dateDislayer-container">
                 <div className="header-dateDisplayer-container__left">
-                    <div
-                        onClick={this.toTargetDate}
-                        role="button"
-                        arial-label="today"
-                        className="btn header-dateDisplayer-container__today"
-                    >
-                        <span>
-                            <FormattedMessage id="cal.today" />
-                        </span>
-                    </div>
+                    <CalTooltip content={todayTooltipContent}>
+                        <div
+                            onClick={this.toTargetDate}
+                            role="button"
+                            arial-label="today"
+                            className="btn header-dateDisplayer-container__today"
+                        >
+                            <span>
+                                <FormattedMessage id="cal.today" />
+                            </span>
+                        </div>
+                    </CalTooltip>
                     <div className="header-dateDisplayer-container__dateSwitch">
                         <div className="header-dateDisplayer-container__monthArrow">
-                            <div
-                                className="circle-wrapper"
-                                onClick={() => this.handleToggle('prev')}
+                            <CalTooltip
+                                content={
+                                    <FormattedMessage id={`cal.prev${path}`} />
+                                }
                             >
-                                <span>
-                                    <svg
-                                        className="ali-icon"
-                                        aria-hidden="true"
-                                    >
-                                        <use xlinkHref="#icon-left" />
-                                    </svg>
-                                </span>
-                            </div>
-                            <div
-                                className="circle-wrapper"
-                                onClick={() => this.handleToggle('next')}
+                                <div
+                                    className="circle-wrapper"
+                                    onClick={() => this.handleToggle('prev')}
+                                >
+                                    <span>
+                                        <svg
+                                            className="ali-icon"
+                                            aria-hidden="true"
+                                        >
+                                            <use xlinkHref="#icon-left" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </CalTooltip>
+                            <CalTooltip
+                                content={
+                                    <FormattedMessage id={`cal.next${path}`} />
+                                }
                             >
-                                <span>
-                                    <svg
-                                        className="ali-icon"
-                                        aria-hidden="true"
-                                    >
-                                        <use xlinkHref="#icon-right" />
-                                    </svg>
-                                </span>
-                            </div>
+                                <div
+                                    className="circle-wrapper"
+                                    onClick={() => this.handleToggle('next')}
+                                >
+                                    <span>
+                                        <svg
+                                            className="ali-icon"
+                                            aria-hidden="true"
+                                        >
+                                            <use xlinkHref="#icon-right" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </CalTooltip>
                         </div>
                         <div className="header-dateDisplayer-container__monthDisplay">
                             <div className="header-dateDisplayer-container__monthDisplay-text no-select">

@@ -13,6 +13,8 @@ export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
 });
 
+export const mapDispatchToProps = dispatcher => ({});
+
 class Shelf extends React.Component<any, any> {
     toSiblingMonth = (actiontype: DatePickers.EMonthChangeType) => {
         const { selectedDate, history, match } = this.props;
@@ -33,6 +35,8 @@ class Shelf extends React.Component<any, any> {
         history.push(getPath(selectedDate, match.params));
     };
 
+    initCalEventDefiner = () => {};
+
     render() {
         const { selectedDate } = this.props;
 
@@ -42,6 +46,7 @@ class Shelf extends React.Component<any, any> {
                     <div
                         role="button"
                         className="btn is-ellipse calbody-shelf-container__createBtn"
+                        onClick={this.initCalEventDefiner}
                     >
                         <svg
                             className="ali-icon calbody-shelf-container__createIcon"

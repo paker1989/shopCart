@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FormattedDate } from 'react-intl';
-
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import CalTooltip from '../../../calTooltip';
 import { DatePickers } from '../../common/types';
 
 import './DatePickerHeader.scss';
@@ -34,7 +34,7 @@ export default class DatePickerHeader extends React.PureComponent<
                         value={
                             new Date(
                                 Number(displayYear),
-                                Number(displayMonth)-1,
+                                Number(displayMonth) - 1,
                                 1
                             )
                         }
@@ -43,31 +43,38 @@ export default class DatePickerHeader extends React.PureComponent<
                     />
                 </div>
                 <div className={`${prefix}-header-action`}>
-                    <div
-                        className="action-span"
-                        onClick={() =>
-                            handleMonthChange(
-                                DatePickers.EMonthChangeType._prev_
-                            )
-                        }
+                    <CalTooltip
+                        content={<FormattedMessage id="cal.prevmonth" />}
                     >
-                        <svg className="ali-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-left"></use>
-                        </svg>
-                    </div>
-                    <div
-                        className="action-span"
-                        onClick={() =>
-                            handleMonthChange(
-                                DatePickers.EMonthChangeType._next_
-                            )
-                        }
+                        <div
+                            className="action-span"
+                            onClick={() =>
+                                handleMonthChange(
+                                    DatePickers.EMonthChangeType._prev_
+                                )
+                            }
+                        >
+                            <svg className="ali-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-left"></use>
+                            </svg>
+                        </div>
+                    </CalTooltip>
+                    <CalTooltip
+                        content={<FormattedMessage id="cal.nextmonth" />}
                     >
-                        {/* <span>{`>`}</span> */}
-                        <svg className="ali-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-right"></use>
-                        </svg>
-                    </div>
+                        <div
+                            className="action-span"
+                            onClick={() =>
+                                handleMonthChange(
+                                    DatePickers.EMonthChangeType._next_
+                                )
+                            }
+                        >
+                            <svg className="ali-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-right"></use>
+                            </svg>
+                        </div>
+                    </CalTooltip>
                 </div>
             </div>
         );

@@ -82,6 +82,11 @@ export namespace CalendarNS {
         layout?: string;
     }
 
+    export interface IPopReference {
+        container: any;
+        date: Date;
+    }
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';

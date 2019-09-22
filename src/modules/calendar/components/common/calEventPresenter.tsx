@@ -4,7 +4,7 @@ import I18nProvider from '../../utils/i18nProvider';
 
 import Position from './position';
 
-import CalConfig from '../../assets/scripts/calendar.config.js';
+import CalConfig from '../../assets/scripts/calendar.config';
 import { CalendarNS } from '../../utils/types';
 
 let _CAL_POPOVER_ID = 0;
@@ -20,6 +20,10 @@ function getContainerNode() {
         document.body.appendChild(containerNode);
     }
     return containerNode;
+}
+
+function getPopReference(popId: string): CalendarNS.IPopReference {
+    return calEventPresenterManager[popId];
 }
 
 /**
@@ -48,15 +52,17 @@ function initPresenter(
         container
     );
 
-    calEventPresenterManager[id] = { container };
+    calEventPresenterManager[id] = { container, date: popInitOptions.date };
     return id;
 }
 
 function destroyPresenter(popId: string): void {
-    const { container } = calEventPresenterManager[popId];
-    if (container) {
-        ReactDOM.unmountComponentAtNode(container);
-        delete calEventPresenterManager[popId];
+    if (calEventPresenterManager[popId]) {
+        const { container } = calEventPresenterManager[popId];
+        if (container) {
+            ReactDOM.unmountComponentAtNode(container);
+            delete calEventPresenterManager[popId];
+        }
     }
 }
 
@@ -71,4 +77,10 @@ function destroyAll(): void {
     });
 }
 
-export default { initPresenter, Position, destroyPresenter, destroyAll };
+export default {
+    initPresenter,
+    Position,
+    destroyPresenter,
+    destroyAll,
+    getPopReference,
+};

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
+
 import SimpleDateGrid from '../SimpleDateGrid';
 import DatePickerHeader from '../DatePickerHeader';
-
-import './DatePickerPanel.scss';
-
 import { DatePickers } from '../../common/types';
 import {
     isSameDay,
     populateDisplay,
     getSiblingMonthData,
 } from '../../common/util';
+
+import './DatePickerPanel.scss';
 
 class DatePickerPanel extends React.Component<
     DatePickers.IDatePickerPanelProps,

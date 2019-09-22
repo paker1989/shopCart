@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { DayConverter } from '../../../../../../utils/i18nProvider';
 import Popover from '../../../../../../../../_packages_/components/popover';
+import calendarConfig from '../../../../../../assets/scripts/calendar.config';
 
 import './repeatPicker.scss';
 
@@ -12,7 +13,15 @@ export interface IRepeatPickerProps {
 class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
     constructor(props) {
         super(props);
-        this.state = { isVisible: false };
+        const options = this.populateOptions(this.props.date);
+        const selectedIndex = options.findIndex(
+            opt => opt.code === calendarConfig.defRepeat
+        );
+        this.state = {
+            isVisible: false,
+            selectedIndex,
+            options,
+        };
     }
 
     onVisibleChange = (isVisible: boolean) => {
@@ -21,54 +30,54 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
 
     populateOptions = (date: Date): any[] => {
         const options = [];
-        options[0] = {
-            title: <FormattedMessage id="cal.everyDay" />,
-            code: 'eday',
-        };
-        options[1] = {
-            title: (
-                <FormattedMessage
-                    id="cal.everySameDay"
-                    values={{
-                        day: (
-                            <FormattedMessage
-                                id={DayConverter[date.getDay()]}
-                            />
-                        ),
-                    }}
-                />
-            ),
-            code: 'esdayofweek',
-        };
-        options[2] = {
-            title: <FormattedMessage id="cal.everyWorkDay" />,
-            code: 'ewday',
-        };
-        options[3] = {
-            title: (
-                <FormattedMessage
-                    id="cal.everySameDate"
-                    values={{
-                        date: (
-                            <FormattedDate
-                                value={date}
-                                month="long"
-                                day="2-digit"
-                            />
-                        ),
-                    }}
-                />
-            ),
-            code: 'sdateofyear',
-        };
+
+        calendarConfig.repeats.forEach(code => {
+            let title;
+            if (code === 'everySameDay') {
+                title = (
+                    <FormattedMessage
+                        id="cal.everySameDay"
+                        values={{
+                            day: (
+                                <FormattedMessage
+                                    id={DayConverter[date.getDay()]}
+                                />
+                            ),
+                        }}
+                    />
+                );
+            } else if (code === 'everySameDate') {
+                title = (
+                    <FormattedMessage
+                        id="cal.everySameDate"
+                        values={{
+                            date: (
+                                <FormattedDate
+                                    value={date}
+                                    month="long"
+                                    day="2-digit"
+                                />
+                            ),
+                        }}
+                    />
+                );
+            } else {
+                title = <FormattedMessage id={`cal.${code}`} />;
+            }
+            options.push({
+                code,
+                title,
+            });
+        });
         return options;
     };
 
-    render() {
-        const { isVisible } = this.state;
-        const { date } = this.props;
+    handleSelectRepeat = selectedIndex => {
+        this.setState({ selectedIndex });
+    };
 
-        const options = this.populateOptions(date);
+    render() {
+        const { isVisible, selectedIndex, options } = this.state;
 
         return (
             <div className="repeatPicker-container">
@@ -77,13 +86,14 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
                     verCushion={-5}
                     isVisible={isVisible}
                     onVisibleChange={this.onVisibleChange}
+                    closeOnClickContent={true}
                 >
                     <Popover.Trigger.ClickTrigger>
                         <div
                             role="button"
                             className="btn is-silent repeatPicker-container__trigger"
                         >
-                            <span>{options[2].title}</span>
+                            <span>{options[selectedIndex].title}</span>
                             <svg
                                 className="ali-icon is-grey"
                                 aria-hidden="true"
@@ -99,6 +109,9 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
                                     <div
                                         className="item-wrapper"
                                         key={`repeat-option-${index}`}
+                                        onClick={() =>
+                                            this.handleSelectRepeat(index)
+                                        }
                                     >
                                         <span className="item-title font-layout-option">
                                             {option.title}

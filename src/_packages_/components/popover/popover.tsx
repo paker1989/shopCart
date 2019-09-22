@@ -19,6 +19,7 @@ export interface IPopoverProps {
     className?: string; // trigger additional class
     wrapperClassName?: string; // popover additional class
     closeOnOutSide?: boolean;
+    closeOnClickContent?: boolean;
     onBeforeShow?: () => void;
     onBeforeClose?: () => void;
     onShow?: () => void;
@@ -43,7 +44,8 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
         position: Placement.belowRight,
         containerSelector: 'body',
         closeOnOutSide: true,
-        disableEvents: []
+        disableEvents: [],
+        closeOnClickContent: false,
     };
 
     constructor(props) {
@@ -119,11 +121,18 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
     };
 
     isMouseEvtOutSide = (evt: Event) => {
-        const { target } = evt,
-            triggerNode = this.getTriggerNode(),
-            contentNode = this.getContentNode();
+        const { closeOnClickContent } = this.props;
+        const { target } = evt;
+        const triggerNode = this.getTriggerNode();
+        const contentNode = this.getContentNode();
 
-        return !triggerNode.contains(target) && !contentNode.contains(target);
+        if (closeOnClickContent) {
+            return !triggerNode.contains(target);
+        } else {
+            return (
+                !triggerNode.contains(target) && !contentNode.contains(target)
+            );
+        }
     };
 
     validChildren() {
@@ -169,7 +178,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
             position,
             className,
             wrapperClassName,
-            disableEvents
+            disableEvents,
         } = this.props;
 
         const visible = this.getVisible();
@@ -197,7 +206,6 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
                     verCushion,
                     className,
                     disableEvents,
-                    isMouseEvtOutSide: this.isMouseEvtOutSide,
                 })}
             </div>
         );

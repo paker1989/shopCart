@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import I18nProvider from '../../utils/i18nProvider';
 import Modal from '../../../../_packages_/components/modal';
-import CalConfig from '../../assets/scripts/calendar.config.js';
+import CalConfig from '../../assets/scripts/calendar.config';
 import { CalendarNS } from '../../utils/types';
 
 let _CAL_EVENT_CURRENT_ID = 0;

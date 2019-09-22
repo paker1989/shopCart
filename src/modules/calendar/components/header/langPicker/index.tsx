@@ -23,7 +23,6 @@ class LangPicker extends React.Component<any, any> {
     onVisibleChange = (isVisible: boolean): void => {
         this.setState({ isVisible });
     };
-
     /**
      * @description just to remind componnts to update
      */
@@ -42,7 +41,6 @@ class LangPicker extends React.Component<any, any> {
     render() {
         const { isVisible } = this.state;
         const { lang } = this.props.match.params;
-
         return (
             <div className="header-langPicker-container">
                 <Popover
@@ -50,6 +48,7 @@ class LangPicker extends React.Component<any, any> {
                     verCushion={5}
                     isVisible={isVisible}
                     onVisibleChange={this.onVisibleChange}
+                    closeOnClickContent={true}
                 >
                     <Popover.Trigger.ClickTrigger>
                         <div

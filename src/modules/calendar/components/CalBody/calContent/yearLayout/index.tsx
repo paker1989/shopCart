@@ -4,20 +4,17 @@ import { connect } from 'react-redux';
 import DayEvtPresenter from '../../../common/dayEvtPresenter';
 
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
-import { DatePickers } from '../../../../../../_packages_/components/datePicker/common/types';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';
+import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 
-import './yearLayout.scss';
 import calEventPresenter from '../../../common/calEventPresenter';
 import { CalendarNS } from '../../../../utils/types';
+
+import './yearLayout.scss';
 
 export interface IYearLayoutProps {
     displayYear?: number;
     locale?: CalendarNS.TLocales;
-}
-
-export interface IYearLayoutStats {
-    months?: DatePickers.IMonthDataRowFormat[];
 }
 
 const CustomizeHeader: React.FunctionComponent = props => {
@@ -29,33 +26,58 @@ const CustomizeHeader: React.FunctionComponent = props => {
     );
 };
 
-const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
+const mapStateToProps = state => ({
+    locale: state.layoutReducers.locale,
+    displayYear: state.dateReducers.currentYear,
+});
 
-class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
+class YearLayout extends React.Component<IYearLayoutProps, any> {
+    private currentPopId: string;
     constructor(props) {
         super(props);
-        this.state = {
-            months: getMonthDataOfYear(this.props.displayYear),
-        };
     }
 
-    static defaultProps = {
-        displayYear: new Date().getFullYear(),
-    };
+    componentWillUnmount() {
+        calEventPresenter.destroyPresenter(this.currentPopId);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.displayYear !== this.props.displayYear) {
+            calEventPresenter.destroyPresenter(this.currentPopId);
+        }
+    }
 
     handleDateClick = (
         selectedDate: Date,
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
         const { locale } = this.props;
+        if (
+            this.currentPopId &&
+            calEventPresenter.getPopReference(this.currentPopId)
+        ) {
+            const { date } = calEventPresenter.getPopReference(
+                this.currentPopId
+            );
+            if (isSameDay(date, selectedDate)) {
+                console.log('same day,return');
+                return;
+            } else {
+                calEventPresenter.destroyPresenter(this.currentPopId);
+            }
+        }
 
-        calEventPresenter.initPresenter(locale, DayEvtPresenter, {
-            dragPopNode: evt.target as Element,
-            asideCurshion: 5,
-            bottomCurshion: 10,
-            topCurshion: 10,
-            date: selectedDate,
-        });
+        this.currentPopId = calEventPresenter.initPresenter(
+            locale,
+            DayEvtPresenter,
+            {
+                dragPopNode: evt.target as Element,
+                asideCurshion: 5,
+                bottomCurshion: 10,
+                topCurshion: 10,
+                date: selectedDate,
+            }
+        );
     };
 
     handleDateDoubleClick = (
@@ -69,8 +91,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
 
     render() {
         const { displayYear } = this.props;
-        const { months } = this.state;
-
+        const months = getMonthDataOfYear(displayYear);
         return (
             <div className="calbody-content-yearLayout-container">
                 <div className="calbody-content-yearLayout-container__months">
@@ -82,7 +103,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutStats> {
                             <DatePicker
                                 isPopover={false}
                                 format="YYYY/MM/DD"
-                                key={`yearLayout-month-${index}`}
+                                key={`yearLayout-month-${displayYear}-${index}`}
                                 presentOnly={true}
                                 customizedHeader={header}
                                 displayYear={displayYear}

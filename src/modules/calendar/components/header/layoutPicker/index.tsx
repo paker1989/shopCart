@@ -30,6 +30,7 @@ class LayoutPicker extends React.Component<any, any> {
                     verCushion={5}
                     isVisible={isVisible}
                     onVisibleChange={this.onVisibleChange}
+                    closeOnClickContent={true}
                 >
                     <Popover.Trigger.ClickTrigger>
                         <div

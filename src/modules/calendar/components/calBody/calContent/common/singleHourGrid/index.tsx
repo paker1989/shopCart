@@ -2,7 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 
 import { CalendarNS } from '../../../../../utils/types';
-import calConfig from '../../../../../assets/scripts/calendar.config.js';
+import calConfig from '../../../../../assets/scripts/calendar.config';
 
 import './singleHourGrid.scss';
 
@@ -29,7 +29,8 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
         const { dayAt, hourAt, onMouseEventChange } = this.props;
         const { hourSplitter } = calConfig;
         const minAt = (60 / hourSplitter) * minSplitIndex;
-        onMouseEventChange && onMouseEventChange({ dayAt, hourAt, minAt }, eventType);
+        onMouseEventChange &&
+            onMouseEventChange({ dayAt, hourAt, minAt }, eventType);
     };
 
     render() {

@@ -1,5 +1,5 @@
 import { locales } from '../utils/i18nProvider';
-import Calconfig from '../assets/scripts/calendar.config.js';
+import Calconfig from '../assets/scripts/calendar.config';
 
 export const getPath = (targetDate: Date, params: any): string => {
     const { layout, lang } = params;

@@ -45,7 +45,6 @@ $optionsWidth: 70px;
             transition: background 0.2s ease-in;
 
             &:not(.is-disabled):hover {
-                // background: $hoverBgColor;
                 background: lighten($singleDayGridTodayBgColor, 40%);
             }
 
