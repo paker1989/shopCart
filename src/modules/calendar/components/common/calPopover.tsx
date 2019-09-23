@@ -6,6 +6,9 @@ import Position from './position';
 import { CalendarNS } from '../../utils/types';
 
 const wrapperDimension = function(boundingBox) {
+    if (!boundingBox) {
+        return {};
+    }
     boundingBox.width = boundingBox.right - boundingBox.left;
     boundingBox.height = boundingBox.bottom - boundingBox.top;
     return boundingBox;
@@ -39,12 +42,8 @@ class CalPopover<T extends CalendarNS.ICalPopoverCommonProps> extends React.Comp
             simuDragPopNode,
             ...otherProps
         } = this.props;
-        
         if (this.node === null) {
             this.node = document.getElementById(id);
-        }
-        if (!this.node || (!dragPopNode && !simuDragPopNode)) {
-            return;
         }
         const definerBoundingBox = wrapperDimension(
             this.node.getBoundingClientRect()
@@ -55,6 +54,8 @@ class CalPopover<T extends CalendarNS.ICalPopoverCommonProps> extends React.Comp
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });
+        console.log(position);
+
         this.setState({
             style: {
                 ...position,

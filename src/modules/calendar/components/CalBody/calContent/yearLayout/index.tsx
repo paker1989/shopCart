@@ -5,16 +5,23 @@ import DayEvtPresenter from '../../../common/dayEvtPresenter';
 
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';
-import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
+import {
+    isSameDay,
+    getFirstDayOfMonth,
+} from '../../../../../../_packages_/components/datePicker/common/util';
 
+import CalEventDefiner from '../../../common/calEventDefiner';
 import calEventPresenter from '../../../common/calEventPresenter';
 import { CalendarNS } from '../../../../utils/types';
 
 import './yearLayout.scss';
+import calEventDefiner from '../../../common/calEventDefiner';
+import { getDateRange } from '../../../../utils/timeRangeHelper';
 
 export interface IYearLayoutProps {
     displayYear?: number;
     locale?: CalendarNS.TLocales;
+    definerCalEvtSignal?: boolean;
 }
 
 const CustomizeHeader: React.FunctionComponent = props => {
@@ -29,6 +36,7 @@ const CustomizeHeader: React.FunctionComponent = props => {
 const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
     displayYear: state.dateReducers.currentYear,
+    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 class YearLayout extends React.Component<IYearLayoutProps, any> {
@@ -41,9 +49,35 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
         calEventPresenter.destroyPresenter(this.currentPopId);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: IYearLayoutProps) {
         if (prevProps.displayYear !== this.props.displayYear) {
             calEventPresenter.destroyPresenter(this.currentPopId);
+        }
+        if (
+            prevProps.definerCalEvtSignal === true &&
+            this.props.definerCalEvtSignal === false
+        ) {
+            this.cancelPop();
+        } else if (
+            prevProps.definerCalEvtSignal === false &&
+            this.props.definerCalEvtSignal === true
+        ) {
+            this.cancelPop();
+            const dateToUse =
+                new Date().getFullYear() === this.props.displayYear
+                    ? new Date()
+                    : getFirstDayOfMonth(this.props.displayYear, 1);
+            const timeRange: CalendarNS.ITimeRangeFormat = getDateRange(dateToUse, dateToUse);
+
+            this.currentPopId = CalEventDefiner.initEventDefiner(
+                this.props.locale,
+                {
+                    timeRange,
+                    positionner: CalEventDefiner.Position.autoCentral,
+                    dragPopNode: null,
+                    bottomCurshion: 50,
+                }
+            );
         }
     }
 
@@ -63,8 +97,10 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                 console.log('same day,return');
                 return;
             } else {
-                calEventPresenter.destroyPresenter(this.currentPopId);
+                this.cancelPop();
             }
+        } else {
+            this.cancelPop();
         }
 
         this.currentPopId = calEventPresenter.initPresenter(
@@ -78,6 +114,11 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                 date: selectedDate,
             }
         );
+    };
+
+    cancelPop = () => {
+        calEventPresenter.destroyPresenter(this.currentPopId);
+        calEventDefiner.destroyDefiner(this.currentPopId);
     };
 
     handleDateDoubleClick = (

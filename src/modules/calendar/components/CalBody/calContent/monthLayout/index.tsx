@@ -13,6 +13,7 @@ import {
     isSameDay,
     getMonthLayoutRows,
     isIncludeDate,
+    getMaxMinDateFromMonthRow,
 } from '../../../../../../_packages_/components/datePicker/common/util';
 
 import {
@@ -95,28 +96,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                 currentMonth + 1,
                 _test_display_we_flag
             );
-
-            const minDate = monthDataRow.rows[0][0];
-            const maxDate =
-                monthDataRow.rows[monthDataRow.rows.length - 1][
-                    monthDataRow.rows[monthDataRow.rows.length - 1].length - 1
-                ];
-            const dates = [];
-            dates[0] = new Date(
-                minDate.yearD,
-                minDate.monthD - 1,
-                minDate.showDate,
-                0,
-                0
-            );
-            dates[1] = new Date(
-                maxDate.yearD,
-                maxDate.monthD - 1,
-                maxDate.showDate,
-                0,
-                0
-            );
-
+            const dates = getMaxMinDateFromMonthRow(monthDataRow);
             const dateToUse = isIncludeDate(dates, new Date())
                 ? new Date()
                 : dates[0];
@@ -239,6 +219,8 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
 
     render() {
         const { currentYear, currentMonth, currentDate } = this.props;
+        const { dragStatus, draggingDateRange } = this.state;
+
         const headers = _test_display_we_flag
             ? i18nHeaders
             : i18nHeaders.filter(
@@ -249,7 +231,6 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
             currentMonth + 1,
             _test_display_we_flag
         );
-        const { dragStatus, draggingDateRange } = this.state;
         const wrapperClass = cx({
             ['calbody-content-monthLayout-container']: true,
             ['is-ondragging']: dragStatus === 'dragging',

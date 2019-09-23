@@ -3,7 +3,7 @@ import { FormattedTime } from 'react-intl';
 
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
-import { isSameDay } from '../../../_packages_/components/datePicker/common/util';
+import { isSameDay, isIncludeDate } from '../../../_packages_/components/datePicker/common/util';
 
 const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -162,21 +162,12 @@ export function getCalEventProps(
     rowIndex: number,
     target: Date
 ): CalendarNS.IMonthCalEventProps {
-    const fromForCompare = new Date(dateRange.from.dayAt);
-    fromForCompare.setHours(0);
-    fromForCompare.setMinutes(0);
-    const toForCompare = new Date(dateRange.to.dayAt);
-    toForCompare.setHours(0);
-    toForCompare.setMinutes(0);
-
-    const isInvolved =
-        target.getTime() >= fromForCompare.getTime() &&
-        target.getTime() <= toForCompare.getTime();
+    const dates = [dateRange.from.dayAt, dateRange.to.dayAt];
+    const isInvolved = isIncludeDate(dates, target);
 
     const isWeekStart = rowIndex === 0;
     const isStart = isSameDay(target, dateRange.from.dayAt);
     const isEnd = isSameDay(target, dateRange.to.dayAt);
 
-    dateRange.from.dayAt.getMinutes();
     return { isInvolved, isWeekStart, isStart, isEnd };
 }

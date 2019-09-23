@@ -41,16 +41,44 @@ export function isSameDay(
     );
 }
 
+export function getMaxMinDateFromMonthRow(
+    monthDataRow: DatePickers.IMonthDataRowFormat
+): Date[] {
+    const minDate = monthDataRow.rows[0][0];
+    const maxDate =
+        monthDataRow.rows[monthDataRow.rows.length - 1][
+            monthDataRow.rows[monthDataRow.rows.length - 1].length - 1
+        ];
+    const dates = [];
+    dates[0] = new Date(
+        minDate.yearD,
+        minDate.monthD - 1,
+        minDate.showDate,
+        0,
+        0
+    );
+    dates[1] = new Date(
+        maxDate.yearD,
+        maxDate.monthD - 1,
+        maxDate.showDate,
+        0,
+        0
+    );
+
+    return dates;
+}
+/**
+ *  @return For Day Level Compare
+ * @param date 
+ */
+export function getCleanDate(date: Date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0,0);
+}
+
 export function isIncludeDate(dates: Date[], date: Date) {
-    const minDate = new Date(dates[0]);
-    const maxDate = new Date(dates[dates.length - 1]);
-    const targetDate = new Date(date);
-    minDate.setHours(0);
-    minDate.setMinutes(0);
-    maxDate.setHours(0);
-    maxDate.setMinutes(0);
-    targetDate.setHours(0);
-    targetDate.setMinutes(0);
+    const minDate = getCleanDate(dates[0]);
+    const maxDate = getCleanDate(dates[dates.length - 1]);
+    const targetDate = getCleanDate(date);
 
     return (
         targetDate.getTime() >= minDate.getTime() &&
@@ -292,4 +320,10 @@ export function getWeekOfDay(rawDate: Date): number {
         (date.getTime() - dateOfDayone.getTime()) / (24 * 60 * 60 * 1000);
 
     return Math.ceil((totalDaysOfNow + dayOfDayone - dayOfGivenDate) / 7) + 1;
+}
+
+export function getFirstDayOfMonth(year: number, month: number) {
+    const monthData = getMonthData(year, month);
+    const dayOne = monthData[0];
+    return new Date(dayOne.yearD, dayOne.monthD, dayOne.showDate);
 }
