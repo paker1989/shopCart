@@ -41,6 +41,23 @@ export function isSameDay(
     );
 }
 
+export function isIncludeDate(dates: Date[], date: Date) {
+    const minDate = new Date(dates[0]);
+    const maxDate = new Date(dates[dates.length - 1]);
+    const targetDate = new Date(date);
+    minDate.setHours(0);
+    minDate.setMinutes(0);
+    maxDate.setHours(0);
+    maxDate.setMinutes(0);
+    targetDate.setHours(0);
+    targetDate.setMinutes(0);
+
+    return (
+        targetDate.getTime() >= minDate.getTime() &&
+        targetDate.getTime() <= maxDate.getTime()
+    );
+}
+
 export function getMonthData(
     year: number,
     month: number

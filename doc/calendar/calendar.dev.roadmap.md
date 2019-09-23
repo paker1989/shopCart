@@ -46,6 +46,7 @@
 -   zIndex要系统安排.
 -   4jours的navLink
 -   判断第一周的问题。不能取最大的date。先确定怎么判断这天在第几周。 --> 采取欧制: 第一个有4天以上的周是第一周
+-   init calEventPop options需要加入`onClose`, 因为从create init的popup关闭的时候需要`turn off` `signal`;
 
 
 > webpack

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { withRouter } from 'react-router-dom';
 
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
@@ -25,12 +24,6 @@ const mapStateToProps = state => ({
 });
 
 class DayLayout extends React.Component<IDayLayoutProps, any> {
-    componentDidUpdate(preProps) {
-        if (!preProps.definerCalEvtSignal && this.props.definerCalEvtSignal) {
-            console.log('daylayout handle the definer');
-            
-        }
-    }
 
     populateHeaderProps = (date: Date) => {
         const headerProps = {
@@ -42,7 +35,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
     };
 
     render() {
-        const { singleDayHeader, currentDate } = this.props;
+        const { singleDayHeader, currentDate, definerCalEvtSignal } = this.props;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
 
@@ -87,6 +80,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                                 value={currentDate}
                                 topCurshion={30}
                                 bottomCurshion={50}
+                                definerCalEvtSignal={definerCalEvtSignal}
                             />
                         </div>
                     </div>

@@ -11,7 +11,7 @@ export const toTargetDate = (currentDate: Date): CalendarRedux.IReduxAction => {
     };
 };
 
-export const initCalEvtDefiner = (
+export const switchCalEvtDefinerSignal = (
     definerCalEvtSignal: boolean
 ): CalendarRedux.IReduxAction => {
     return {

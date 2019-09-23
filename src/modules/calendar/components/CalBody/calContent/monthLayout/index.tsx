@@ -12,6 +12,7 @@ import CalEventDefiner from '../../../common/calEventDefiner';
 import {
     isSameDay,
     getMonthLayoutRows,
+    isIncludeDate,
 } from '../../../../../../_packages_/components/datePicker/common/util';
 
 import {
@@ -38,6 +39,7 @@ const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     currentYear: state.dateReducers.currentYear,
     currentMonth: state.dateReducers.currentMonth,
+    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 export interface IMonthLayoutState {
@@ -75,18 +77,83 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         }
     };
 
-    getSimuDragPopNode = (): CalendarNS.ISimuBoundingClientRect => {
-        if (!this.startRef || !this.endRef) {
-            return {};
+    componentDidUpdate(prevProps) {
+        const { definerCalEvtSignal, currentYear, currentMonth } = this.props;
+        const { definePopId } = this.state;
+        if (
+            prevProps.definerCalEvtSignal === true &&
+            definerCalEvtSignal === false
+        ) {
+            CalEventDefiner.destroyDefiner(definePopId);
         }
-        const startNodeBdBox = this.startRef.current.getBoundingClientRect();
-        const endNodeBdBox = this.endRef.current.getBoundingClientRect();
-        return {
-            top: startNodeBdBox.top,
-            bottom: endNodeBdBox.bottom,
-            left: startNodeBdBox.left,
-            right: endNodeBdBox.right,
-        };
+        if (
+            prevProps.definerCalEvtSignal === false &&
+            definerCalEvtSignal === true
+        ) {
+            const monthDataRow = getMonthLayoutRows(
+                currentYear,
+                currentMonth + 1,
+                _test_display_we_flag
+            );
+
+            const minDate = monthDataRow.rows[0][0];
+            const maxDate =
+                monthDataRow.rows[monthDataRow.rows.length - 1][
+                    monthDataRow.rows[monthDataRow.rows.length - 1].length - 1
+                ];
+            const dates = [];
+            dates[0] = new Date(
+                minDate.yearD,
+                minDate.monthD - 1,
+                minDate.showDate,
+                0,
+                0
+            );
+            dates[1] = new Date(
+                maxDate.yearD,
+                maxDate.monthD - 1,
+                maxDate.showDate,
+                0,
+                0
+            );
+
+            const dateToUse = isIncludeDate(dates, new Date())
+                ? new Date()
+                : dates[0];
+            this.handleOnMouseClick(getDateRange(dateToUse, dateToUse));
+        }
+    }
+
+    handleOnMouseClick = (timeRange: CalendarNS.ITimeRangeFormat) => {
+        const { dragStatus, definePopId } = this.state;
+        const { locale } = this.props;
+
+        if (dragStatus === 'holdon') {
+            CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
+        }
+
+        this.setState(
+            {
+                dragStatus: 'dragging',
+                triggerTiming: timeRange.from.dayAt,
+                draggingDateRange: timeRange,
+            },
+            () => {
+                let newDefinePopId = CalEventDefiner.initEventDefiner(locale, {
+                    timeRange,
+                    positionner: CalEventDefiner.Position.autoAside,
+                    simuDragPopNode: this.getSimuDragPopNode(),
+                    bottomCurshion: 50,
+                    topCurshion: 30,
+                    asideCurshion: 10,
+                    initDayEvtValue: true,
+                });
+                this.setState({
+                    dragStatus: 'holdon',
+                    definePopId: newDefinePopId,
+                });
+            }
+        );
     };
 
     handleMouseEvent = (
@@ -154,6 +221,20 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                 window.removeEventListener('mouseup', this.holdonDragging);
             });
         }
+    };
+
+    getSimuDragPopNode = (): CalendarNS.ISimuBoundingClientRect => {
+        if (!this.startRef || !this.endRef) {
+            return {};
+        }
+        const startNodeBdBox = this.startRef.current.getBoundingClientRect();
+        const endNodeBdBox = this.endRef.current.getBoundingClientRect();
+        return {
+            top: startNodeBdBox.top,
+            bottom: endNodeBdBox.bottom,
+            left: startNodeBdBox.left,
+            right: endNodeBdBox.right,
+        };
     };
 
     render() {

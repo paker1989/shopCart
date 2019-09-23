@@ -12,6 +12,7 @@ import getTimelineLabels from '../../../../utils/getTimelineLabels';
 import { CalendarNS } from '../../../../utils/types';
 
 import './weekLayout.scss';
+import { isSameDay, isIncludeDate } from '../../../../../../_packages_/components/datePicker/common/util';
 
 export interface IWeekLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -21,9 +22,10 @@ export interface IWeekLayoutProps {
     currentWeek: number;
     currentMonth: number;
     currentYear: number;
+    definerCalEvtSignal?: boolean;
 }
 
-export interface IWeekLayoutStat {
+export interface IWeekLayoutState {
     draggingDate?: Date;
 }
 
@@ -33,11 +35,12 @@ const mapStateToProps = state => {
         currentDate: state.dateReducers.currentDate,
         currentMonth: state.dateReducers.currentMonth,
         currentYear: state.dateReducers.currentYear,
+        definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
     };
 };
 const _is_display_we = true;
 
-class WeekLayout extends React.Component<IWeekLayoutProps, any> {
+class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     constructor(props) {
         super(props);
         this.state = { draggingDate: null };
@@ -60,7 +63,12 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
     };
 
     render() {
-        const { singleDayHeader, currentYear, currentWeek } = this.props;
+        const {
+            singleDayHeader,
+            currentYear,
+            currentWeek,
+            definerCalEvtSignal,
+        } = this.props;
         const { draggingDate } = this.state;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
@@ -69,6 +77,9 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
             currentWeek,
             _is_display_we
         );
+        const dateToListenToSingal = isIncludeDate(daysOfWeek, new Date())
+            ? new Date()
+            : daysOfWeek[0];
         const headerProps = this.populateHeaderProps(daysOfWeek);
         const itemWidth = 100 / headerProps.length;
         return (
@@ -111,27 +122,36 @@ class WeekLayout extends React.Component<IWeekLayoutProps, any> {
                         ))}
                     </div>
                     <div className="calbody-content-weekLayout-container__columnbody">
-                        {daysOfWeek.map((date, index) => (
-                            <div
-                                className="calbody-content-weekLayout-container__dayDifferWrapper"
-                                style={{
-                                    width: `${itemWidth}%`,
-                                }}
-                                key={`dateColWrapper-${index}`}
-                            >
-                                <SingleDayColumn
-                                    value={date}
-                                    draggingDate={draggingDate}
-                                    onInitDragging={this.handleInitDragging}
-                                    positionner={
-                                        CalEventDefiner.Position.autoAside
-                                    }
-                                    asideCurshion={10}
-                                    bottomCurshion={50}
-                                    topCurshion={30}
-                                />
-                            </div>
-                        ))}
+                        {daysOfWeek.map((date, index) => {
+                            const signalValue = isSameDay(
+                                date,
+                                dateToListenToSingal
+                            )
+                                ? definerCalEvtSignal
+                                : null;
+                            return (
+                                <div
+                                    className="calbody-content-weekLayout-container__dayDifferWrapper"
+                                    style={{
+                                        width: `${itemWidth}%`,
+                                    }}
+                                    key={`dateColWrapper-${index}`}
+                                >
+                                    <SingleDayColumn
+                                        value={date}
+                                        draggingDate={draggingDate}
+                                        onInitDragging={this.handleInitDragging}
+                                        positionner={
+                                            CalEventDefiner.Position.autoAside
+                                        }
+                                        definerCalEvtSignal={signalValue}
+                                        asideCurshion={10}
+                                        bottomCurshion={50}
+                                        topCurshion={30}
+                                    />
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
