@@ -6,8 +6,8 @@ import assign from 'lodash/assign';
 import {
     getCalEventPopPosition,
     getTimeRangeDisplay,
-} from '../../../../../utils/timeRangeHelper';
-import { CalendarNS } from '../../../../../utils/types';
+} from '../../../utils/timeRangeHelper';
+import { CalendarNS } from '../../../utils/types';
 
 import './calEventPop.scss';
 
@@ -21,7 +21,6 @@ export interface ICalEventProps {
     timeRange?: CalendarNS.ITimeRangeFormat;
 }
 
-const _test_no_title = <FormattedMessage id="cal.noTitle" />;
 const _test_bg_color = 'rgb(121, 134, 203)';
 
 export default class CalendarEventPop extends React.Component<
@@ -31,7 +30,7 @@ export default class CalendarEventPop extends React.Component<
     popRef?: React.RefObject<HTMLDivElement>;
 
     static defaultProps = {
-        title: _test_no_title,
+        title: <FormattedMessage id="cal.noTitle" />,
         type: 'dragging',
     };
 

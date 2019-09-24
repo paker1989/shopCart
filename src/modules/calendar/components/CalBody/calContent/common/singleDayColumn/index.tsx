@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
-import CalEventPop from '../calEventPop';
+import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
 import CalEventDefiner from '../../../../common/calEventDefiner';
 
