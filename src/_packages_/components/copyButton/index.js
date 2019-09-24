@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import deselectRangeFn from './deselectRange';
 import Notify from '../notify';
 import isFunction from 'lodash/isFunction';
-import cx from 'classnames';
 
 class CopyButton extends React.PureComponent {
   static propTypes = {

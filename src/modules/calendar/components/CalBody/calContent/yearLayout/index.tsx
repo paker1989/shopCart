@@ -9,19 +9,21 @@ import {
     isSameDay,
     getFirstDayOfMonth,
 } from '../../../../../../_packages_/components/datePicker/common/util';
-
-import CalEventDefiner from '../../../common/calEventDefiner';
 import calEventPresenter from '../../../common/calEventPresenter';
+import CalEventDefiner from '../../../common/calEventDefiner';
+import { getDateRange } from '../../../../utils/timeRangeHelper';
+import { getPath } from '../../../../utils/routeHelper';
 import { CalendarNS } from '../../../../utils/types';
 
 import './yearLayout.scss';
-import calEventDefiner from '../../../common/calEventDefiner';
-import { getDateRange } from '../../../../utils/timeRangeHelper';
+import { withRouter } from 'react-router';
 
 export interface IYearLayoutProps {
     displayYear?: number;
     locale?: CalendarNS.TLocales;
     definerCalEvtSignal?: boolean;
+    history?: any;
+    currentDate?: Date;
 }
 
 const CustomizeHeader: React.FunctionComponent = props => {
@@ -35,9 +37,14 @@ const CustomizeHeader: React.FunctionComponent = props => {
 
 const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
+    currentDate: state.dateReducers.currentDate,
     displayYear: state.dateReducers.currentYear,
     definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
+
+// const mapDispatchToProps = dispatcher => ({
+//     toTargetDate: (targetDate: Date) => dispatcher()
+// })
 
 class YearLayout extends React.Component<IYearLayoutProps, any> {
     private currentPopId: string;
@@ -67,7 +74,10 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                 new Date().getFullYear() === this.props.displayYear
                     ? new Date()
                     : getFirstDayOfMonth(this.props.displayYear, 1);
-            const timeRange: CalendarNS.ITimeRangeFormat = getDateRange(dateToUse, dateToUse);
+            const timeRange: CalendarNS.ITimeRangeFormat = getDateRange(
+                dateToUse,
+                dateToUse
+            );
 
             this.currentPopId = CalEventDefiner.initEventDefiner(
                 this.props.locale,
@@ -85,7 +95,8 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
         selectedDate: Date,
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
-        const { locale } = this.props;
+        const { locale, history } = this.props;
+
         if (
             this.currentPopId &&
             calEventPresenter.getPopReference(this.currentPopId)
@@ -114,11 +125,12 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                 date: selectedDate,
             }
         );
+        history.push(getPath(selectedDate, { layout: 'year', lang: locale }));
     };
 
     cancelPop = () => {
         calEventPresenter.destroyPresenter(this.currentPopId);
-        calEventDefiner.destroyDefiner(this.currentPopId);
+        CalEventDefiner.destroyDefiner(this.currentPopId);
     };
 
     handleDateDoubleClick = (
@@ -131,7 +143,7 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
     };
 
     render() {
-        const { displayYear } = this.props;
+        const { displayYear, currentDate } = this.props;
         const months = getMonthDataOfYear(displayYear);
         return (
             <div className="calbody-content-yearLayout-container">
@@ -153,6 +165,7 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                                 onClick={this.handleDateClick}
                                 onDbClick={this.handleDateDoubleClick}
                                 displayWeeks={true}
+                                value={currentDate}
                             />
                         );
                     })}
@@ -162,4 +175,4 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
     }
 }
 
-export default connect(mapStateToProps)(YearLayout);
+export default connect(mapStateToProps)(withRouter(YearLayout));

@@ -18,8 +18,11 @@ export interface ICalPopoverCommonStat {
     style: React.CSSProperties;
 }
 
-class CalPopover<T extends CalendarNS.ICalPopoverCommonProps> extends React.Component<T, ICalPopoverCommonStat> {
+class CalPopover<
+    T extends CalendarNS.ICalPopoverCommonProps
+> extends React.Component<T, ICalPopoverCommonStat> {
     protected node: HTMLElement = null;
+    protected dragNode: CalendarNS.ISimuBoundingClientRect = null;
 
     static defaultProps = {
         positionner: Position.autoMiddle,
@@ -31,26 +34,26 @@ class CalPopover<T extends CalendarNS.ICalPopoverCommonProps> extends React.Comp
     }
 
     componentDidMount() {
+        const { dragPopNode, simuDragPopNode } = this.props;
+        this.setDragNode(
+            dragPopNode ? dragPopNode.getBoundingClientRect() : simuDragPopNode
+        );
         this.adjustPosition();
     }
 
+    setDragNode = (dragNode: CalendarNS.ISimuBoundingClientRect) => {
+        this.dragNode = dragNode;
+    };
+
     adjustPosition = () => {
-        const {
-            positionner,
-            id,
-            dragPopNode,
-            simuDragPopNode,
-            ...otherProps
-        } = this.props;
+        const { positionner, id, ...otherProps } = this.props;
         if (this.node === null) {
             this.node = document.getElementById(id);
         }
         const definerBoundingBox = wrapperDimension(
             this.node.getBoundingClientRect()
         );
-        const refBoundingBox = wrapperDimension(
-            dragPopNode ? dragPopNode.getBoundingClientRect() : simuDragPopNode
-        );
+        const refBoundingBox = wrapperDimension(this.dragNode);
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });

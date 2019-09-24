@@ -1,0 +1,50 @@
+{
+    "evts": [
+        {
+            "title": "home address reminder",
+            "type": "reminder",
+            "opts": [
+                {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "8",
+                            "dayAt": "21",
+                            "hourAt": "11",
+                            "minAt": "03"
+                        },
+                        "allDayEvt": false
+                    },
+                    "repeatOpt": "everyWorkDay"
+                }
+            ]
+        },
+        {
+            "title": "holiday activity",
+            "type": "activity",
+            "opts": [
+                {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "8",
+                            "dayAt": "25",
+                            "hourAt": "9",
+                            "minAt": "03"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "8",
+                            "dayAt": "25",
+                            "hourAt": "12",
+                            "minAt": "30"
+                        },
+                        "allDayEvt": false
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address"
+                }
+            ]
+        }
+    ]
+}

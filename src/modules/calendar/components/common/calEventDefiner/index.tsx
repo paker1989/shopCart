@@ -16,9 +16,11 @@ const calEventDefineManager = {};
 function getContainerNode() {
     let containerNode = document.querySelector('.calevent-definer-container');
     if (!containerNode) {
+        // const root = document.getElementById('root');
         containerNode = document.createElement('div');
         containerNode.className = 'calevent-definer-container';
         document.body.appendChild(containerNode);
+        // root.appendChild(containerNode);
     }
     return containerNode;
 }
@@ -33,6 +35,7 @@ function initEventDefiner(
     initOptions: CalendarNS.ICalEventDefinerPopProps
 ): string {
     const container = document.createElement('div');
+    // const container = document.getElementById('root');
     const containerNode = getContainerNode();
     const id = `${
         CalConfig.calEventDefinerIdPrefix

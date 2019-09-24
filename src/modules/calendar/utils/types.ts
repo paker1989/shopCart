@@ -1,3 +1,5 @@
+import { RefObject } from 'react';
+
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -57,11 +59,13 @@ export namespace CalendarNS {
         timeRange?: CalendarNS.ITimeRangeFormat;
         initDayEvtValue?: boolean;
         onDestroy?: (popId: string) => void;
+        getDragNode?: (timeRange: ITimeRangeFormat) => Promise<ISimuBoundingClientRect>;
     }
 
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
         date: Date;
         showClose?: boolean;
+        getDragNode?: (date: Date) => Promise<ISimuBoundingClientRect>;
     }
 
     export interface IModalOptions {

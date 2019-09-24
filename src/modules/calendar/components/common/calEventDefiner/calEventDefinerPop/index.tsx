@@ -14,6 +14,11 @@ import { CalendarNS } from '../../../../utils/types';
 
 import './calEventDefinerPop.scss';
 
+const _test_time_range = {
+    from: { dayAt: new Date(), hourAt: 12, minAt: 0 },
+    to: { dayAt: new Date(), hourAt: 15, minAt: 0 },
+};
+
 class CalEventDefinerPop extends CalPopover<
     CalendarNS.ICalEventDefinerPopProps
 > {
@@ -27,6 +32,14 @@ class CalEventDefinerPop extends CalPopover<
             visible: true,
             isClose: false,
             contentClass: 'cal-confirm-panel-wrapper',
+        });
+    };
+
+    changeDragNode = () => {
+        const { getDragNode } = this.props;
+        getDragNode(_test_time_range).then(newDragNode => {
+            this.setDragNode(newDragNode);
+            this.adjustPosition();
         });
     };
 
@@ -52,7 +65,7 @@ class CalEventDefinerPop extends CalPopover<
                 <div className="calevent-define-pop-container__body">
                     <div
                         className="calevent-define-pop-container__close"
-                        onClick={this.onClose}
+                        onClick={this.changeDragNode}
                     >
                         <div className="calevent-define-pop-container__close--wrapper">
                             <svg className="ali-icon" aria-hidden="true">

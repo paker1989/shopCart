@@ -12,6 +12,7 @@
     > google map API for `calEventDefiner`;
     > 出现动画;
     > 点击`timeRange`可以换时间.
+    > 換時間以後pop隨著時間換位置
     > `activityDefiner`
        - 根据选择的时间显示repeat选项;
 -   layout dropdown list;

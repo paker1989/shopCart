@@ -77,12 +77,27 @@ class SingleDayColumn extends React.Component<
         ) {
             const timing = {
                 dayAt: value,
-                hourAt: value.getHours(),
-                minAt: value.getMinutes(),
+                hourAt: new Date().getHours(),
+                minAt: new Date().getMinutes(),
             };
             this.handleOnMouseClick(getTimeRange(timing, timing, hourSplitter));
         }
     }
+
+    getDragNode = (
+        newTimeRange: CalendarNS.ITimeRangeFormat
+    ): Promise<CalendarNS.ISimuBoundingClientRect> => {
+        return new Promise(resolve => {
+            this.setState(
+                {
+                    draggingTimeRange: newTimeRange,
+                },
+                () => {
+                    resolve(this.eventPopRef.current.getBoundingClientRect());
+                }
+            );
+        });
+    };
 
     handleOnMouseClick = (timeRange: CalendarNS.ITimeRangeFormat) => {
         const { dragStatus, definePopId } = this.state;
@@ -113,6 +128,7 @@ class SingleDayColumn extends React.Component<
                     positionner:
                         positionner || CalEventDefiner.Position.autoMiddle,
                     dragPopNode: this.eventPopRef.current,
+                    getDragNode: this.getDragNode,
                     bottomCurshion,
                     topCurshion,
                     asideCurshion,
