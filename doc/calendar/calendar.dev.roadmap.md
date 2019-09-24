@@ -11,7 +11,7 @@
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
     > google map API for `calEventDefiner`;
     > 出现动画;
-    > 点击`timeRange`可以换时间.
+    > 点击`timeRange`可以换时间: `calevtPop.ref.current` should be in redux stats;
     > 換時間以後pop隨著時間換位置
     > `activityDefiner`
        - 根据选择的时间显示repeat选项;
@@ -47,7 +47,10 @@
 -   zIndex要系统安排.
 -   4jours的navLink
 -   判断第一周的问题。不能取最大的date。先确定怎么判断这天在第几周。 --> 采取欧制: 第一个有4天以上的周是第一周
--   init calEventPop options需要加入`onClose`, 因为从create init的popup关闭的时候需要`turn off` `signal`;
+- init calEventPop options需要加入`onClose`, 因为从create init的popup关闭的时候需要`turn off` `signal`;
+   > 'create' button should be disabled when `calEvtDefinerPop` is presented --> 两种情况: 1. 如果是created的pop，点击则hide，如果是无关的pop，点击则noop (通过signal value判断);
+   > `calEvtDefinerPop`一旦生成后，他的timerange就需要和全局绑定，meaning: update time range --> trigger `toTargetDate` then `clickOnGrid evt` --> return `updated_calEvtPop.current` 给`calEvtDefinerPop`从而adjusterPosition;
+   -- 我深深的认为: 这个calEvtDefinerPop应该是app下的一个组件。这样完美和redux绑定。
 
 
 > webpack
