@@ -9,23 +9,15 @@
 -   `timeline`显示的方式根本不对，需要放到同一行里
 -   `caleventDefinerPanel`
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
-    > google map API for `calEventDefiner`;
     > 出现动画;
     > 点击`timeRange`可以换时间: `calevtPop.ref.current` should be in redux stats;
     > 換時間以後pop隨著時間換位置
-    > `activityDefiner`
-       - 根据选择的时间显示repeat选项;
 -   layout dropdown list;
       > bloquer all events when popover displayed;
       > the animation of toggle popover;
 -   db model design (导入法国节日);
       > 显示 defined events;
       > 显示日历等；
--   redux design (解决一系列 date toggle 问题);
-    > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
--   `react-intl`国际化
-    > 日期国际化
-    > string template with value
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
 -   `yearLayout`
@@ -37,8 +29,6 @@
 -   Notify
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
 -   test `convertMinAddToTiming`: 过一天的
--   `saga`到底是什么
--   禁止弹出modal时候的鼠标滚轮事件
 -   `dayEvtPresenter`
     > 动画
     > `reminder`和`activity`条目
@@ -78,6 +68,15 @@
 -   `yearLayout`
       > *add `week of datePicker` for `DatePicker`*
 -   `calEventDefinerPop`和`dayEvtPresenter`共同方法需要提取到一个parent class里;
+-   `react-intl`国际化
+    > 日期国际化
+    > string template with value
+    > google map API for `calEventDefiner`;
+    > `activityDefiner`
+       - 根据选择的时间显示repeat选项;
+-   redux design (解决一系列 date toggle 问题);
+    > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
+    -   禁止弹出modal时候的鼠标滚轮事件
 
 ## global variable:
 -  initWeek: week of today,  然后independant;
