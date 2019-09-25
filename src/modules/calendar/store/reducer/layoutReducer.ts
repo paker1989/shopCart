@@ -4,9 +4,10 @@ import calConfig from '../../assets/scripts/calendar.config';
 
 const initialState = {
     locale: calConfig.defaultLocale,
-    calEvtPopCurrent: null,
-    // definerPop: null,
-    // presenterPop: null,
+    dayEvtPresenterOptions: {
+        show: false,
+        options: {},
+    },
 };
 
 export default function(
@@ -14,9 +15,9 @@ export default function(
     action: CalendarRedux.IReduxAction
 ) {
     switch (action.type) {
-        // case LayoutActionType.UPDATE_CURRENT_LAYOUT:
-        //     return { ...state, ...action.payload };
         case LayoutActionType.CHANGE_LOCALE:
+            return { ...state, ...action.payload };
+        case LayoutActionType.UPDATE_DAYEVTPRESENTER_OPTION:
             return { ...state, ...action.payload };
         default:
             return state;

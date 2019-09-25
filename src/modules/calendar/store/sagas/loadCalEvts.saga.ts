@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 
-import * as LayoutActionTypes from '../actionType/layoutActionType';
+import * as DateActionTypes from '../actionType/dateActionType';
 
 function* loadSimpleEvtsData(date) {
     console.log(date);
@@ -8,5 +8,5 @@ function* loadSimpleEvtsData(date) {
 }
 
 export function* loadCalEvtsSaga() {
-    yield takeLatest(LayoutActionTypes.CHANGE_LOCALE, loadSimpleEvtsData);
+    yield takeLatest(DateActionTypes.LOAD_SIMPLE_EVTS_DATA, loadSimpleEvtsData);
 }

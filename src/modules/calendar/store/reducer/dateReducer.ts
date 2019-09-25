@@ -4,7 +4,7 @@ import { CalendarRedux } from '../../utils/reduxTypes';
 
 const initialState = {
     ...populateMonthWeekByDate(new Date()),
-    definerCalEvtSignal: false
+    definerCalEvtSignal: false,
 };
 
 export default function(

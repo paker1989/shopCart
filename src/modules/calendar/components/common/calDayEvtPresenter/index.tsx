@@ -10,7 +10,6 @@ import WindowResizeHandler from '../../../../../_packages_/utils/components/wind
 import './dayEvtPresenter.scss';
 import { CalendarNS } from '../../../utils/types';
 
-
 class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
     static defaultProps = {
         positionner: Position.autoAside,
@@ -30,7 +29,7 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
                 style={wrapperStyle}
                 id={id}
             >
-                <DayEvtPresenterContent {...otherProps}/>
+                <DayEvtPresenterContent {...otherProps} />
                 <WindowResizeHandler onResize={this.onWindowResize} />
                 <WindowEventHandler
                     eventName="scroll"
@@ -41,7 +40,7 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
 
         return containerNode
             ? createPortal(presenterContent, containerNode)
-            : null;
+            : presenterContent;
     }
 }
 

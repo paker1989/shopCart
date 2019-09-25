@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import DayEvtPresenter from '../../../common/calDayEvtPresenter';
-
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';
 import {
     isSameDay,
     getFirstDayOfMonth,
 } from '../../../../../../_packages_/components/datePicker/common/util';
-import calEventPresenter from '../../../common/calEventPresenter';
+import CalEventPresenterManager from '../../../common/calEventPresenterManager';
+import Position from '../../../common/position';
 import CalEventDefiner from '../../../common/calEventDefiner';
 import { getDateRange } from '../../../../utils/timeRangeHelper';
 import { getPath } from '../../../../utils/routeHelper';
 import { CalendarNS } from '../../../../utils/types';
+import * as layoutActionCreator from '../../../../store/action/layoutAction';
 
 import './yearLayout.scss';
 import { withRouter } from 'react-router';
@@ -24,6 +24,8 @@ export interface IYearLayoutProps {
     definerCalEvtSignal?: boolean;
     history?: any;
     currentDate?: Date;
+    updatePresenter?: any;
+    dayEvtPresenterOptions?: any;
 }
 
 const CustomizeHeader: React.FunctionComponent = props => {
@@ -40,11 +42,18 @@ const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     displayYear: state.dateReducers.currentYear,
     definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
+    dayEvtPresenterOptions: state.layoutReducers.dayEvtPresenterOptions,
 });
 
-// const mapDispatchToProps = dispatcher => ({
-//     toTargetDate: (targetDate: Date) => dispatcher()
-// })
+const mapDispatchToProps = dispatcher => ({
+    updatePresenter: (
+        show: boolean,
+        initOptions: CalendarNS.ICalEventPresenterProps
+    ) =>
+        dispatcher(
+            layoutActionCreator.updateDayEvtPresenterOptions(show, initOptions)
+        ),
+});
 
 class YearLayout extends React.Component<IYearLayoutProps, any> {
     private currentPopId: string;
@@ -53,23 +62,28 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
     }
 
     componentWillUnmount() {
-        calEventPresenter.destroyPresenter(this.currentPopId);
+        // calEventPresenter.destroyPresenter(this.currentPopId);
+        this.props.updatePresenter(false, {});
     }
 
     componentDidUpdate(prevProps: IYearLayoutProps) {
         if (prevProps.displayYear !== this.props.displayYear) {
-            calEventPresenter.destroyPresenter(this.currentPopId);
+            // calEventPresenter.destroyPresenter(this.currentPopId);
+            this.props.updatePresenter(false, {});
         }
         if (
             prevProps.definerCalEvtSignal === true &&
             this.props.definerCalEvtSignal === false
         ) {
-            this.cancelPop();
+            // this.cancelPop();
+            this.props.updatePresenter(false, {});
+            CalEventDefiner.destroyDefiner(this.currentPopId);
         } else if (
             prevProps.definerCalEvtSignal === false &&
             this.props.definerCalEvtSignal === true
         ) {
-            this.cancelPop();
+            // this.cancelPop();
+            CalEventDefiner.destroyDefiner(this.currentPopId);
             const dateToUse =
                 new Date().getFullYear() === this.props.displayYear
                     ? new Date()
@@ -79,15 +93,21 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
                 dateToUse
             );
 
-            this.currentPopId = CalEventDefiner.initEventDefiner(
-                this.props.locale,
-                {
-                    timeRange,
-                    positionner: CalEventDefiner.Position.autoCentral,
-                    dragPopNode: null,
-                    bottomCurshion: 50,
-                }
-            );
+            this.props.updatePresenter(true, {
+                timeRange,
+                positionner: Position.autoCentral,
+                dragPopNode: null,
+                bottomCurshion: 50,
+            });
+            // this.currentPopId = CalEventDefiner.initEventDefiner(
+            //     this.props.locale,
+            //     {
+            //         timeRange,
+            //         positionner: CalEventDefiner.Position.autoCentral,
+            //         dragPopNode: null,
+            //         bottomCurshion: 50,
+            //     }
+            // );
         }
     }
 
@@ -95,43 +115,50 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
         selectedDate: Date,
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
-        const { locale, history } = this.props;
+        const {
+            locale,
+            history,
+            dayEvtPresenterOptions,
+            updatePresenter,
+        } = this.props;
 
-        if (
-            this.currentPopId &&
-            calEventPresenter.getPopReference(this.currentPopId)
-        ) {
-            const { date } = calEventPresenter.getPopReference(
-                this.currentPopId
-            );
+        if (dayEvtPresenterOptions.show) {
+            const date = dayEvtPresenterOptions.options.date;
+
             if (isSameDay(date, selectedDate)) {
                 console.log('same day,return');
                 return;
-            } else {
-                this.cancelPop();
             }
-        } else {
-            this.cancelPop();
         }
 
-        this.currentPopId = calEventPresenter.initPresenter(
-            locale,
-            DayEvtPresenter,
-            {
-                dragPopNode: evt.target as Element,
-                asideCurshion: 5,
-                bottomCurshion: 10,
-                topCurshion: 10,
-                date: selectedDate,
-            }
-        );
+        console.log('update presenter');
+        updatePresenter(true, {
+            // dragPopNode: evt.target as Element,
+            asideCurshion: 5,
+            bottomCurshion: 10,
+            topCurshion: 10,
+            date: selectedDate,
+            id: CalEventPresenterManager.getId()
+        });
+
+        // this.currentPopId = calEventPresenter.initPresenter(
+        //     locale,
+        //     DayEvtPresenter,
+        //     {
+        //         dragPopNode: evt.target as Element,
+        //         asideCurshion: 5,
+        //         bottomCurshion: 10,
+        //         topCurshion: 10,
+        //         date: selectedDate,
+        //     }
+        // );
         history.push(getPath(selectedDate, { layout: 'year', lang: locale }));
     };
 
-    cancelPop = () => {
-        calEventPresenter.destroyPresenter(this.currentPopId);
-        CalEventDefiner.destroyDefiner(this.currentPopId);
-    };
+    // cancelPop = () => {
+    //     this.props.updatePresenter(false, {});
+    //     CalEventDefiner.destroyDefiner(this.currentPopId);
+    // };
 
     handleDateDoubleClick = (
         selectedDate: Date,
@@ -175,4 +202,7 @@ class YearLayout extends React.Component<IYearLayoutProps, any> {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(YearLayout));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(YearLayout));

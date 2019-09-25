@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
-import * as ActionCreator from '../../../store/action/dateAction';
+// import * as ActionCreator from '../../../store/action/dateAction';
 import CalDaySimpleEvtList from './calDaySimpleEvtList';
 import { DayConverter } from '../../../utils/i18nProvider';
 import { CalendarNS } from '../../../utils/types';
 
 import './dayEvtPresenter.scss';
 
-const mapDispatchToProps = dispatch => ({
-    loadEvts: (date: Date) => dispatch(ActionCreator.loadSimpleEvtData(date)),
-});
+// const mapDispatchToProps = dispatch => ({
+//     loadEvts: (date: Date) => dispatch(ActionCreator.loadSimpleEvtData(date)),
+// });
 
 class DayEvtPresenterContent extends React.Component<
     CalendarNS.ICalEventPresenterProps,
@@ -27,8 +27,8 @@ class DayEvtPresenterContent extends React.Component<
     }
 
     componentDidMount() {
-        const { loadEvts, date } = this.props;
-        loadEvts(date);
+        // const { loadEvts, date } = this.props;
+        // loadEvts(date);
     }
 
     onClose = () => {};
@@ -63,7 +63,7 @@ class DayEvtPresenterContent extends React.Component<
                         </div>
                     </div>
                     <div className="dayEvent-presenter-content__events">
-                        <CalDaySimpleEvtList evts={evts} />
+                        {/* <CalDaySimpleEvtList evts={evts} /> */}
                     </div>
                 </div>
             </div>
@@ -71,7 +71,8 @@ class DayEvtPresenterContent extends React.Component<
     }
 }
 
-export default connect(
-    () => ({}),
-    mapDispatchToProps
-)(DayEvtPresenterContent);
+// export default connect(
+//     () => ({}),
+//     mapDispatchToProps
+// )(DayEvtPresenterContent);
+export default DayEvtPresenterContent;

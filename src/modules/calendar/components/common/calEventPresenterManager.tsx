@@ -38,7 +38,7 @@ function initPresenter(
 ): string {
     const container = document.createElement('div');
     const containerNode = getContainerNode();
-    const id = `${CalConfig.calEventPresenterIdPrefix}-${++_CAL_POPOVER_ID}`;
+    const id = getId();
 
     ReactDOM.render(
         <I18nProvider locale={locale}>
@@ -77,10 +77,14 @@ function destroyAll(): void {
     });
 }
 
+function getId() {
+    return `${CalConfig.calEventPresenterIdPrefix}-${++_CAL_POPOVER_ID}`;
+}
 export default {
     initPresenter,
     Position,
     destroyPresenter,
     destroyAll,
     getPopReference,
+    getId,
 };

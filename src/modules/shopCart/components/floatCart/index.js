@@ -18,11 +18,15 @@ class FloatCart extends React.Component {
     checkOut: false,
    };
 
-  componentWillMount() { //should use componentDidMount
+  componentDidMount() { //should use componentDidMount
    this.props.loadCarts();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    this.props.loadCarts();
+  }
+
+  componentDidUpdate(nextProps) {
     if (!nextProps.isInitial) {
       this.onFloatCart(true);
     }

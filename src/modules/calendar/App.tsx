@@ -8,6 +8,7 @@ import CalConfig from './assets/scripts/calendar.config';
 import I18nProvider from './utils/i18nProvider';
 import Header from './components/header';
 import CalBody from './components/calBody';
+// import PopHandler from './components/popHandler';
 
 import './assets/style/app.scss';
 
@@ -54,6 +55,7 @@ class App extends React.Component<any, any> {
                         <CalBody />
                     </div>
                     <div className="calendar-footer" />
+                    {/* <PopHandler /> */}
                 </div>
             </I18nProvider>
         );

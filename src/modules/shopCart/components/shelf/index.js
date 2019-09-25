@@ -19,7 +19,7 @@ class Shelf extends React.Component {
 
   state = { loading: false };
 
-  componentWillMount() {
+  componentDidMount() {
     this.handleFetchProducts(filters, sort);
     const { filters, sort } = this.props;
   }
