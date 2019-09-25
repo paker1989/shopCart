@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { CalEvtDataNS } from './evtTypes';
 
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
@@ -66,6 +66,8 @@ export namespace CalendarNS {
         date: Date;
         showClose?: boolean;
         getDragNode?: (date: Date) => Promise<ISimuBoundingClientRect>;
+        loadEvts?: any;
+        // simpleEvts?: CalEvtDataNS.ICalEvtSimpleDataModel[];
     }
 
     export interface IModalOptions {

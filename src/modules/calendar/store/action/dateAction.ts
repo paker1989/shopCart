@@ -19,3 +19,10 @@ export const switchCalEvtDefinerSignal = (
         payload: { definerCalEvtSignal },
     };
 };
+
+export const loadSimpleEvtData = (date: Date): CalendarRedux.IReduxAction => {
+    return {
+        type: DateActionType.LOAD_SIMPLE_EVTS_DATA,
+        payload: { date },
+    };
+};

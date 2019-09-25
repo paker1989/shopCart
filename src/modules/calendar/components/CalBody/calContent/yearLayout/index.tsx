@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import DayEvtPresenter from '../../../common/dayEvtPresenter';
+import DayEvtPresenter from '../../../common/calDayEvtPresenter';
 
 import { DatePicker } from '../../../../../../_packages_/components/datePicker';
 import { getMonthDataOfYear } from '../../../../utils/timeUtils';

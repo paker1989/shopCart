@@ -1,12 +1,8 @@
-import { takeLatest, all } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 
-import * as LayoutActionTypes from '../actionType/layoutActionType';
-import { reloadLangSaga } from './reloadLanguage.saga';
-
-export function* reloadLanguageSaga() {
-    yield takeLatest(LayoutActionTypes.CHANGE_LOCALE, reloadLangSaga);
-}
+import { reloadLanguageSaga } from './reloadLanguage.saga';
+import { loadCalEvtsSaga } from './loadCalEvts.saga';
 
 export default function* rootSaga() {
-    yield all([reloadLanguageSaga()]);
+    yield all([reloadLanguageSaga(), loadCalEvtsSaga()]);
 }

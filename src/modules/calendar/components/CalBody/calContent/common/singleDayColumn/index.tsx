@@ -7,10 +7,15 @@ import SingleHourGrid from '../singleHourGrid';
 import CalEventDefiner from '../../../../common/calEventDefiner';
 
 import CalConfig from '../../../../../assets/scripts/calendar.config';
-import { getTimeRange } from '../../../../../utils/timeRangeHelper';
+import {
+    getTimeRange,
+    getTimeRangeDisplay,
+    getCalEventPopPosition,
+} from '../../../../../utils/timeRangeHelper';
 import { isSameDay } from '../../../../../../../_packages_/components/datePicker/common/util';
 import { CalendarNS } from '../../../../../utils/types';
 
+// import useCalevtPosition from '../../../../../utils/hooks/useCalevtPosition';
 import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
@@ -259,6 +264,10 @@ class SingleDayColumn extends React.Component<
             );
         }
 
+        const calEvtPopStyle = getCalEventPopPosition(
+            minSplitterHeight,
+            draggingTimeRange
+        );
         return (
             <div
                 ref={this.colRef}
@@ -271,8 +280,8 @@ class SingleDayColumn extends React.Component<
                     <CalEventPop
                         getDragPopNode={this.getDragPopNode}
                         type={dragStatus}
-                        timeRange={draggingTimeRange}
-                        heightPerUnit={minSplitterHeight}
+                        popStyle={calEvtPopStyle}
+                        content={getTimeRangeDisplay(draggingTimeRange, '12h')}
                     />
                 )}
             </div>

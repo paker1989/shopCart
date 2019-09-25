@@ -3,22 +3,17 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import assign from 'lodash/assign';
 
-import {
-    getCalEventPopPosition,
-    getTimeRangeDisplay,
-} from '../../../utils/timeRangeHelper';
 import { CalendarNS } from '../../../utils/types';
 
 import './calEventPop.scss';
 
 export interface ICalEventProps {
     className?: string;
-    modalStyle?: {};
+    popStyle?: {};
     getDragPopNode?: (ref: React.RefObject<HTMLDivElement>) => void;
     type?: CalendarNS.TCalEventPopDragStatusType; // dragging to define or defined event
     title?: string;
-    heightPerUnit?: number; // height per min splitter, calculate abs position accordingly
-    timeRange?: CalendarNS.ITimeRangeFormat;
+    content?: any;
 }
 
 const _test_bg_color = 'rgb(121, 134, 203)';
@@ -45,14 +40,7 @@ export default class CalendarEventPop extends React.Component<
     }
 
     render() {
-        const {
-            type,
-            className,
-            modalStyle,
-            title,
-            timeRange,
-            heightPerUnit,
-        } = this.props;
+        const { type, className, popStyle, title, content } = this.props;
 
         const modalClass = cx(
             {
@@ -65,11 +53,10 @@ export default class CalendarEventPop extends React.Component<
         const defaultModalStyle: React.CSSProperties = {
             position: 'absolute',
             background: _test_bg_color,
-            ...getCalEventPopPosition(heightPerUnit, timeRange),
         };
 
-        const wrapperStyle = modalStyle
-            ? assign(defaultModalStyle, modalStyle)
+        const wrapperStyle = popStyle
+            ? assign(defaultModalStyle, popStyle)
             : defaultModalStyle;
 
         return (
@@ -79,7 +66,7 @@ export default class CalendarEventPop extends React.Component<
                         {title}
                     </div>
                     <div className="calevent-pop-container__timeRange no-select font-calEvent ">
-                        {getTimeRangeDisplay(timeRange, '12h')}
+                        {content}
                     </div>
                 </div>
             </div>

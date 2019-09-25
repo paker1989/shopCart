@@ -5,9 +5,9 @@ import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
 import { isSameDay, isIncludeDate } from '../../../_packages_/components/datePicker/common/util';
 
-const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
+export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
-function getTimingFloat(hourAt: number, minAt: number): number {
+export function getTimingFloat(hourAt: number, minAt: number): number {
     return hourAt + minAt / 60;
 }
 
