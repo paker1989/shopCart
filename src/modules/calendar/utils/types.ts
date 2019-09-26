@@ -48,9 +48,9 @@ export namespace CalendarNS {
         id?: string;
         positionner?: (...args) => {};
         dragPopNode?: Element;
-        simuDragPopNode?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
+        dragNodeClientRect?: ISimuBoundingClientRect; // 手动模拟的dragPopNode节点，用于无法直接提供dragPopNode时positionner
         zIndex?: number;
-        containerNode?: Element;
+        containerNode?: Element; // deprecated
         locale?: TLocales;
     }
 
@@ -63,7 +63,7 @@ export namespace CalendarNS {
     }
 
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
-        date: Date;
+        date?: Date;
         showClose?: boolean;
         getDragNode?: (date: Date) => Promise<ISimuBoundingClientRect>;
         loadEvts?: any;

@@ -9,7 +9,7 @@ $panelPadding: 8px 10px;
 $closeDimension: 30px;
 
 .dayEvent-presenter-panel {
-  position: absolute;
+  position: fixed;
   background: #fff;
   padding: $panelPadding;
   color: $fontColor;

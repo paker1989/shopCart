@@ -14,15 +14,14 @@ const wrapperDimension = function(boundingBox) {
     return boundingBox;
 };
 
-export interface ICalPopoverCommonStat {
+export interface ICalPopoverCommonState {
     style: React.CSSProperties;
 }
 
 class CalPopover<
     T extends CalendarNS.ICalPopoverCommonProps
-> extends React.Component<T, ICalPopoverCommonStat> {
+> extends React.Component<T, ICalPopoverCommonState> {
     protected node: HTMLElement = null;
-    protected dragNode: CalendarNS.ISimuBoundingClientRect = null;
 
     static defaultProps = {
         positionner: Position.autoMiddle,
@@ -34,30 +33,35 @@ class CalPopover<
     }
 
     componentDidMount() {
-        const { dragPopNode, simuDragPopNode } = this.props;
-        this.setDragNode(
-            dragPopNode ? dragPopNode.getBoundingClientRect() : simuDragPopNode
-        );
         this.adjustPosition();
     }
 
-    setDragNode = (dragNode: CalendarNS.ISimuBoundingClientRect) => {
-        this.dragNode = dragNode;
-    };
-
     adjustPosition = () => {
-        const { positionner, id, ...otherProps } = this.props;
-        if (this.node === null) {
+        console.log('adjust position');
+        const {
+            positionner,
+            id,
+            dragPopNode,
+            dragNodeClientRect,
+            ...otherProps
+        } = this.props;
+        if (!dragPopNode && !dragNodeClientRect) {
+            return;
+        }
+        if (!this.node) {
             this.node = document.getElementById(id);
         }
         const definerBoundingBox = wrapperDimension(
             this.node.getBoundingClientRect()
         );
-        const refBoundingBox = wrapperDimension(this.dragNode);
+        const refBoundingBox = wrapperDimension(
+            dragPopNode
+                ? dragPopNode.getBoundingClientRect()
+                : dragNodeClientRect
+        );
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });
-        console.log(position);
 
         this.setState({
             style: {

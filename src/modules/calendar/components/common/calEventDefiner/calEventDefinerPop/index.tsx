@@ -38,7 +38,7 @@ class CalEventDefinerPop extends CalPopover<
     changeDragNode = () => {
         const { getDragNode } = this.props;
         getDragNode(_test_time_range).then(newDragNode => {
-            this.setDragNode(newDragNode);
+            // this.setDragNode(newDragNode);
             this.adjustPosition();
         });
     };

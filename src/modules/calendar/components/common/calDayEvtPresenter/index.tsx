@@ -9,11 +9,18 @@ import WindowResizeHandler from '../../../../../_packages_/utils/components/wind
 
 import './dayEvtPresenter.scss';
 import { CalendarNS } from '../../../utils/types';
+import { isSameDay } from '../../../../../_packages_/components/datePicker/common/util';
 
 class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
     static defaultProps = {
         positionner: Position.autoAside,
     };
+
+    componentDidUpdate(prevProps) {
+        if (!isSameDay(prevProps.date, this.props.date)) {
+            this.adjustPosition();
+        }
+    }
 
     render() {
         const { containerNode, zIndex, id, ...otherProps } = this.props;

@@ -128,11 +128,15 @@ class SingleDayColumn extends React.Component<
                 draggingTimeRange: timeRange,
             },
             () => {
+                const { bottom, top, left, right } = (this.eventPopRef
+                    .current as Element).getBoundingClientRect();
+
                 let newDefinePopId = CalEventDefiner.initEventDefiner(locale, {
                     timeRange,
                     positionner:
                         positionner || CalEventDefiner.Position.autoMiddle,
-                    dragPopNode: this.eventPopRef.current,
+                    // dragPopNode: this.eventPopRef.current,
+                    dragNodeClientRect: { bottom, top, left, right },
                     getDragNode: this.getDragNode,
                     bottomCurshion,
                     topCurshion,
@@ -168,10 +172,19 @@ class SingleDayColumn extends React.Component<
         } = this.props;
 
         if (dragStatus === 'dragging') {
+            const { bottom, top, left, right } = (this.eventPopRef
+                .current as Element).getBoundingClientRect();
+
             let definePopId = CalEventDefiner.initEventDefiner(locale, {
                 timeRange: draggingTimeRange,
                 positionner: positionner || CalEventDefiner.Position.autoMiddle,
-                dragPopNode: this.eventPopRef.current,
+                // dragPopNode: this.eventPopRef.current,
+                dragNodeClientRect: {
+                    bottom,
+                    top,
+                    left,
+                    right,
+                },
                 bottomCurshion,
                 topCurshion,
                 asideCurshion,

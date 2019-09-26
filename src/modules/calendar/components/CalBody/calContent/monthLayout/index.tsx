@@ -119,10 +119,13 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                 draggingDateRange: timeRange,
             },
             () => {
+                const { bottom, top, left, right } = this.getSimuDragPopNode();
+
                 let newDefinePopId = CalEventDefiner.initEventDefiner(locale, {
                     timeRange,
                     positionner: CalEventDefiner.Position.autoAside,
-                    simuDragPopNode: this.getSimuDragPopNode(),
+                    // simuDragPopNode: this.getSimuDragPopNode(),
+                    dragNodeClientRect: { bottom, top, left, right },
                     bottomCurshion: 50,
                     topCurshion: 30,
                     asideCurshion: 10,
@@ -191,7 +194,8 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
             let definePopId = CalEventDefiner.initEventDefiner(locale, {
                 timeRange: draggingDateRange,
                 positionner: CalEventDefiner.Position.autoAside,
-                simuDragPopNode: this.getSimuDragPopNode(),
+                // simuDragPopNode: this.getSimuDragPopNode(),
+                dragNodeClientRect: this.getSimuDragPopNode(),
                 bottomCurshion: 50,
                 topCurshion: 30,
                 asideCurshion: 10,

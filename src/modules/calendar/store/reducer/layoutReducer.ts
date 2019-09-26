@@ -4,10 +4,6 @@ import calConfig from '../../assets/scripts/calendar.config';
 
 const initialState = {
     locale: calConfig.defaultLocale,
-    dayEvtPresenterOptions: {
-        show: false,
-        options: {},
-    },
 };
 
 export default function(
@@ -16,8 +12,6 @@ export default function(
 ) {
     switch (action.type) {
         case LayoutActionType.CHANGE_LOCALE:
-            return { ...state, ...action.payload };
-        case LayoutActionType.UPDATE_DAYEVTPRESENTER_OPTION:
             return { ...state, ...action.payload };
         default:
             return state;
