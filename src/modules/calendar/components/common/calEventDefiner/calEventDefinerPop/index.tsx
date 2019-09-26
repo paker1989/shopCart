@@ -26,6 +26,12 @@ class CalEventDefinerPop extends CalPopover<
         positionner: Position.autoMiddle,
     };
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.id !== this.props.id) {
+            this.adjustPosition();
+        }
+    }
+
     onClose = () => {
         const { locale } = this.props;
         CalModalManager.initModal(locale, CalConfirmPanel, {
@@ -85,7 +91,9 @@ class CalEventDefinerPop extends CalPopover<
                 />
             </div>
         );
-        return createPortal(CalEventDefinerPopPanel, containerNode);
+        return containerNode
+            ? createPortal(CalEventDefinerPopPanel, containerNode)
+            : CalEventDefinerPopPanel;
     }
 }
 

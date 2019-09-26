@@ -6,7 +6,7 @@ $containerMinHeight: 200px;
 $bodyMaxHeight: 360px;
 
 .calevent-define-pop-container {
-  position: absolute;
+  position: fixed;
   min-width: $containerWidth;
   background: white;
   border-radius: 5px;

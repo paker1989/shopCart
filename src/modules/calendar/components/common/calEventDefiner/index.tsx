@@ -13,6 +13,10 @@ let _CAL_EVENT_Z_INDEX = 999;
 
 const calEventDefineManager = {};
 
+function getId(): string {
+    return `${CalConfig.calEventDefinerIdPrefix}-${++_CAL_EVENT_CURRENT_ID}`;
+}
+
 function getContainerNode() {
     let containerNode = document.querySelector('.calevent-definer-container');
     if (!containerNode) {
@@ -35,7 +39,6 @@ function initEventDefiner(
     initOptions: CalendarNS.ICalEventDefinerPopProps
 ): string {
     const container = document.createElement('div');
-    // const container = document.getElementById('root');
     const containerNode = getContainerNode();
     const id = `${
         CalConfig.calEventDefinerIdPrefix
@@ -82,4 +85,10 @@ function destroyAll(): void {
     });
 }
 
-export default { initEventDefiner, Position, destroyDefiner, destroyAll };
+export default {
+    initEventDefiner,
+    Position,
+    destroyDefiner,
+    destroyAll,
+    getId,
+};

@@ -2,13 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
+import CalEventDefinerManager from '../../../common/calEventDefiner';
+import CalEventDefinerPop from '../../../common/calEventDefiner/calEventDefinerPop';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-import './dayLayout.scss';
 
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 import { CalendarNS } from '../../../../utils/types';
+
+import './dayLayout.scss';
+import position from '../../../common/position';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -18,12 +22,28 @@ export interface IDayLayoutProps {
     definerCalEvtSignal?: boolean;
 }
 
+export interface IDayLayoutState {
+    showDefinerPop: boolean;
+    timeRange: CalendarNS.ITimeRangeFormat;
+    dragNode: HTMLDivElement;
+    definerPopId: string;
+}
+
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
-class DayLayout extends React.Component<IDayLayoutProps, any> {
+class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDefinerPop: false,
+            timeRange: null,
+            dragNode: null,
+            definerPopId: null,
+        };
+    }
 
     populateHeaderProps = (date: Date) => {
         const headerProps = {
@@ -34,11 +54,28 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
         return headerProps;
     };
 
+    initDefiner = (
+        timeRange: CalendarNS.ITimeRangeFormat,
+        dragNode: HTMLDivElement
+    ): void => {
+        this.setState({
+            showDefinerPop: true,
+            timeRange,
+            dragNode,
+            definerPopId: CalEventDefinerManager.getId() // force to rajustPosition
+        });
+    };
+
     render() {
-        const { singleDayHeader, currentDate, definerCalEvtSignal } = this.props;
+        const {
+            singleDayHeader,
+            currentDate,
+            definerCalEvtSignal,
+        } = this.props;
+        const { showDefinerPop, timeRange, dragNode, definerPopId } = this.state;
+
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
-
         const headerProps = this.populateHeaderProps(currentDate);
 
         return (
@@ -77,6 +114,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                     <div className="calbody-content-dayLayout-container__columnbody">
                         <div className="calbody-content-dayLayout-container__dayDifferWrapper">
                             <SingleDayColumn
+                                initDefiner={this.initDefiner}
                                 value={currentDate}
                                 topCurshion={30}
                                 bottomCurshion={50}
@@ -85,6 +123,16 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
                         </div>
                     </div>
                 </div>
+                {showDefinerPop && (
+                    <CalEventDefinerPop
+                        timeRange={timeRange}
+                        positionner={position.autoMiddle}
+                        topCurshion={30}
+                        bottomCurshion={50}
+                        dragPopNode={dragNode}
+                        id={definerPopId}
+                    />
+                )}
             </div>
         );
     }

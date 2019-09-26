@@ -59,9 +59,15 @@ class CalPopover<
                 ? dragPopNode.getBoundingClientRect()
                 : dragNodeClientRect
         );
+        // console.log('====definer box ==');
+        // console.log(definerBoundingBox);
+        // console.log('====refBounding box ==');
+        // console.log(refBoundingBox);       
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });
+        // console.log('=====position result');
+        // console.log(position);
 
         this.setState({
             style: {
