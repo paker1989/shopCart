@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import { DayConverter } from '../../../../utils/i18nProvider';
@@ -13,6 +14,7 @@ import { CalendarNS } from '../../../../utils/types';
 
 import './weekLayout.scss';
 import { isSameDay, isIncludeDate } from '../../../../../../_packages_/components/datePicker/common/util';
+import { getPath } from '../../../../utils/routeHelper';
 
 export interface IWeekLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -23,6 +25,8 @@ export interface IWeekLayoutProps {
     currentMonth: number;
     currentYear: number;
     definerCalEvtSignal?: boolean;
+    history?: any;
+    locale?: string;
 }
 
 export interface IWeekLayoutState {
@@ -36,6 +40,7 @@ const mapStateToProps = state => {
         currentMonth: state.dateReducers.currentMonth,
         currentYear: state.dateReducers.currentYear,
         definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
+        locale: state.layoutReducers.locale,
     };
 };
 const _is_display_we = true;
@@ -56,11 +61,16 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
         const headerProps = dates.map(date => ({
             dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
             cnCalendarNb: '初三',
-            dateNumber: date.getDate(),
+            date,
         }));
 
         return headerProps;
     };
+
+    navToSelectedDate = (date: Date):void => {
+        const { history, locale } = this.props;
+        history.push(getPath(date, { layout: 'day', lang: locale }));
+    }
 
     render() {
         const {
@@ -95,6 +105,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                                 <DateDisplayHeader
                                     {...headerProps}
                                     textAlign="center"
+                                    onClick={this.navToSelectedDate}
                                 />
                             }
                         </div>
@@ -159,4 +170,4 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     }
 }
 
-export default connect(mapStateToProps)(WeekLayout);
+export default connect(mapStateToProps)(withRouter(WeekLayout));

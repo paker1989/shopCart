@@ -4,12 +4,7 @@
    - use case: `dayEvtPresenter`, `singleDayGrid`, `SingleDayColumn`,  
 3. revise `calEventDefinerPanel` under `root`; (3)
 4. 点击`timeRange`可以换时间: `calevtPop.ref.current` should be in redux stats; (3)
-5. 各种layout的跳转: (1)
-   - click on `weekLayout`的head跳转到`dayLayout`;
-   - click on `yearLayout`的case跳转到`dayLayout`;
-6. bug fix: (2)
-   >  `yearLayout`
-      > zoomer的时候尾部space betweend导致不aligné
+5. bug fix: (2)
    >  `monthLayout`
       > 点击title的时候不应该触发drag事件
    > 重组`modal`和`popover`的zIndex;

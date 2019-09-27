@@ -29,7 +29,7 @@ class DayLayout extends React.Component<IDayLayoutProps, any> {
         const headerProps = {
             dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
             cnCalendarNb: '初三',
-            dateNumber: date.getDate(),
+            date,
         };
         return headerProps;
     };
