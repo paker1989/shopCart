@@ -10,6 +10,7 @@ import CalEventPresenterManager from '../../../common/calEventPresenterManager';
 import { CalendarNS } from '../../../../utils/types';
 
 import './yearLayout.scss';
+import { getPath } from '../../../../utils/routeHelper';
 
 export interface IYearLayoutProps {
     displayYear?: number;
@@ -93,7 +94,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         const { showDayEvtPstrPop, selectedDate } = this.state;
 
         if (showDayEvtPstrPop && isSameDay(date, selectedDate)) {
-            console.log('same day,return');
+            this.handleDateDoubleClick(date, null);
             return;
         }
         this.setState({
@@ -109,8 +110,12 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
         // todo
+        const { history, locale } = this.props;
+        // console.log(this.props);
         console.log('on db click');
-        console.log(evt);
+        // console.log(evt);
+        const path = getPath(selectedDate, { layout: 'day', lang: locale });
+        history.push(path);
     };
 
     render() {
@@ -125,20 +130,24 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
                             <CustomizeHeader>{`${index + 1}`}</CustomizeHeader>
                         );
                         return (
-                            <DatePicker
-                                isPopover={false}
-                                format="YYYY/MM/DD"
+                            <div
+                                className="calbody-content-yearLayout-container__datepickerWrapper"
                                 key={`yearLayout-month-${displayYear}-${index}`}
-                                presentOnly={true}
-                                customizedHeader={header}
-                                displayYear={displayYear}
-                                displayMonth={index + 1}
-                                monthData={monthData}
-                                onClick={this.handleDateClick}
-                                onDbClick={this.handleDateDoubleClick}
-                                displayWeeks={true}
-                                value={currentDate}
-                            />
+                            >
+                                <DatePicker
+                                    isPopover={false}
+                                    format="YYYY/MM/DD"
+                                    presentOnly={true}
+                                    customizedHeader={header}
+                                    displayYear={displayYear}
+                                    displayMonth={index + 1}
+                                    monthData={monthData}
+                                    onClick={this.handleDateClick}
+                                    onDbClick={this.handleDateDoubleClick}
+                                    displayWeeks={true}
+                                    value={currentDate}
+                                />
+                            </div>
                         );
                     })}
                 </div>

@@ -4,8 +4,9 @@ export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
         dayAt?: any;
-        dateNumber?: number | string;
+        date?: Date;
         cnCalendarNb?: string; //农历
+        onClick?: (param: string | Date) => void;
     }
 
     export interface ITimingFormat {

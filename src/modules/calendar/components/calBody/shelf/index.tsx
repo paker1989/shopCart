@@ -67,7 +67,7 @@ class Shelf extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className="calbody-shelf-container__main">
-                    <div className="calbody-container-shelf__datepicker">
+                    <div className="calbody-shelf-container__datepicker">
                         <DatePicker
                             value={selectedDate}
                             isPopover={false}

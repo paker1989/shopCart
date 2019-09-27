@@ -20,8 +20,6 @@
       > 显示日历等；
 -   右键点击`CalEventPop`弹出`contextMenu`, - need same `popup` 组件 here as same as `eventEditor`;
 -   general tooltip （好像已经有`tooltip`组件了）
--   `yearLayout`
-      > zoomer的时候尾部space betweend导致不aligné
 -   `monthLayout`
       > 点击title的时候不应该触发drag事件
 -   提醒的真正后台服务.
@@ -75,8 +73,13 @@
     > `activityDefiner`
        - 根据选择的时间显示repeat选项;
 -   redux design (解决一系列 date toggle 问题);
-    > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`， etc;
+    > toggle month, select date, 点击*今天*回到今天, 点击`layoutDropdown list`，etc;
     -   禁止弹出modal时候的鼠标滚轮事件
+-   `yearLayout`
+      > zoomer的时候尾部space betweend导致不aligné
+-    各种layout的跳转: (1)
+      > click on `weekLayout`的case跳转到`dayLayout`;
+      > click on `yearLayout`的case跳转到`dayLayout`;
 
 ## global variable:
 -  initWeek: week of today,  然后independant;

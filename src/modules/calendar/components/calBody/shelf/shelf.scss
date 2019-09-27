@@ -44,4 +44,8 @@
         overflow-x: hidden;
         @include customizeScrollbar();
     }
+
+    &__datepicker {
+      margin: 0 10px;
+    }
 }
