@@ -1,5 +1,3 @@
-import { CalEvtDataNS } from './evtTypes';
-
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -94,6 +92,14 @@ export namespace CalendarNS {
         date: Date;
     }
 
+    export interface ICalDefinerControllerState {
+        showDefinerPop: boolean;
+        timeRange: ITimeRangeFormat;
+        dragNode?: HTMLDivElement;
+        dragNodeClientRect?: ISimuBoundingClientRect;
+        definerPopId: string;
+    }
+    
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';

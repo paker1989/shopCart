@@ -7,12 +7,11 @@ import CalEventDefinerPop from '../../../common/calEventDefiner/calEventDefinerP
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-
+import Position from '../../../common/position';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 import { CalendarNS } from '../../../../utils/types';
 
 import './dayLayout.scss';
-import position from '../../../common/position';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -22,12 +21,8 @@ export interface IDayLayoutProps {
     definerCalEvtSignal?: boolean;
 }
 
-export interface IDayLayoutState {
-    showDefinerPop: boolean;
-    timeRange: CalendarNS.ITimeRangeFormat;
-    dragNode: HTMLDivElement;
-    definerPopId: string;
-}
+export interface IDayLayoutState
+    extends CalendarNS.ICalDefinerControllerState {}
 
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
@@ -62,7 +57,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             showDefinerPop: true,
             timeRange,
             dragNode,
-            definerPopId: CalEventDefinerManager.getId() // force to rajustPosition
+            definerPopId: CalEventDefinerManager.getId(), // force to rajustPosition
         });
     };
 
@@ -72,7 +67,12 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             currentDate,
             definerCalEvtSignal,
         } = this.props;
-        const { showDefinerPop, timeRange, dragNode, definerPopId } = this.state;
+        const {
+            showDefinerPop,
+            timeRange,
+            dragNode,
+            definerPopId,
+        } = this.state;
 
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
@@ -126,7 +126,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
                 {showDefinerPop && (
                     <CalEventDefinerPop
                         timeRange={timeRange}
-                        positionner={position.autoMiddle}
+                        positionner={Position.autoMiddle}
                         topCurshion={30}
                         bottomCurshion={50}
                         dragPopNode={dragNode}

@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { DayConverter } from '../../../../utils/i18nProvider';
-
+import CalEventDefinerPop from '../../../common/calEventDefiner/calEventDefinerPop';
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
-import CalEventDefiner from '../../../common/calEventDefiner';
+import Position from '../../../common/position';
+import CalEventDefinerManager from '../../../common/calEventDefiner';
 
 import {
     isSameDay,
@@ -43,11 +44,10 @@ const mapStateToProps = state => ({
     definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
-export interface IMonthLayoutState {
+export interface IMonthLayoutState
+    extends CalendarNS.ICalDefinerControllerState {
     dragStatus: CalendarNS.TCalEventPopDragStatusType;
     triggerTiming: Date;
-    draggingDateRange: CalendarNS.ITimeRangeFormat;
-    definePopId?: string;
 }
 
 class MonthLayout extends React.Component<any, IMonthLayoutState> {
@@ -59,8 +59,10 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         this.state = {
             dragStatus: 'none',
             triggerTiming: null,
-            draggingDateRange: null,
-            definePopId: null,
+            timeRange: null,
+            definerPopId: null,
+            dragNode: null,
+            showDefinerPop: false,
         };
     }
 
@@ -78,88 +80,85 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         }
     };
 
-    componentDidUpdate(prevProps) {
-        const { definerCalEvtSignal, currentYear, currentMonth } = this.props;
-        const { definePopId } = this.state;
-        if (
-            prevProps.definerCalEvtSignal === true &&
-            definerCalEvtSignal === false
-        ) {
-            CalEventDefiner.destroyDefiner(definePopId);
-        }
-        if (
-            prevProps.definerCalEvtSignal === false &&
-            definerCalEvtSignal === true
-        ) {
-            const monthDataRow = getMonthLayoutRows(
-                currentYear,
-                currentMonth + 1,
-                _test_display_we_flag
-            );
-            const dates = getMaxMinDateFromMonthRow(monthDataRow);
-            const dateToUse = isIncludeDate(dates, new Date())
-                ? new Date()
-                : dates[0];
-            this.handleOnMouseClick(getDateRange(dateToUse, dateToUse));
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     const { definerCalEvtSignal, currentYear, currentMonth } = this.props;
+    //     const { definerPopId } = this.state;
+    //     if (
+    //         prevProps.definerCalEvtSignal === true &&
+    //         definerCalEvtSignal === false
+    //     ) {
+    //         CalEventDefiner.destroyDefiner(definePopId);
+    //     }
+    //     if (
+    //         prevProps.definerCalEvtSignal === false &&
+    //         definerCalEvtSignal === true
+    //     ) {
+    //         const monthDataRow = getMonthLayoutRows(
+    //             currentYear,
+    //             currentMonth + 1,
+    //             _test_display_we_flag
+    //         );
+    //         const dates = getMaxMinDateFromMonthRow(monthDataRow);
+    //         const dateToUse = isIncludeDate(dates, new Date())
+    //             ? new Date()
+    //             : dates[0];
+    //         this.handleOnMouseClick(getDateRange(dateToUse, dateToUse));
+    //     }
+    // }
 
-    handleOnMouseClick = (timeRange: CalendarNS.ITimeRangeFormat) => {
-        const { dragStatus, definePopId } = this.state;
-        const { locale } = this.props;
+    // handleOnMouseClick = (timeRange: CalendarNS.ITimeRangeFormat) => {
+    //     const { dragStatus, definePopId } = this.state;
+    //     const { locale } = this.props;
 
-        if (dragStatus === 'holdon') {
-            CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
-        }
+    //     if (dragStatus === 'holdon') {
+    //         CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
+    //     }
 
-        this.setState(
-            {
-                dragStatus: 'dragging',
-                triggerTiming: timeRange.from.dayAt,
-                draggingDateRange: timeRange,
-            },
-            () => {
-                const { bottom, top, left, right } = this.getSimuDragPopNode();
+    //     this.setState(
+    //         {
+    //             dragStatus: 'dragging',
+    //             triggerTiming: timeRange.from.dayAt,
+    //             draggingDateRange: timeRange,
+    //         },
+    //         () => {
+    //             const { bottom, top, left, right } = this.getSimuDragPopNode();
 
-                let newDefinePopId = CalEventDefiner.initEventDefiner(locale, {
-                    timeRange,
-                    positionner: CalEventDefiner.Position.autoAside,
-                    // simuDragPopNode: this.getSimuDragPopNode(),
-                    dragNodeClientRect: { bottom, top, left, right },
-                    bottomCurshion: 50,
-                    topCurshion: 30,
-                    asideCurshion: 10,
-                    initDayEvtValue: true,
-                });
-                this.setState({
-                    dragStatus: 'holdon',
-                    definePopId: newDefinePopId,
-                });
-            }
-        );
-    };
+    //             let newDefinePopId = CalEventDefiner.initEventDefiner(locale, {
+    //                 timeRange,
+    //                 positionner: CalEventDefiner.Position.autoAside,
+    //                 // simuDragPopNode: this.getSimuDragPopNode(),
+    //                 dragNodeClientRect: { bottom, top, left, right },
+    //                 bottomCurshion: 50,
+    //                 topCurshion: 30,
+    //                 asideCurshion: 10,
+    //                 initDayEvtValue: true,
+    //             });
+    //             this.setState({
+    //                 dragStatus: 'holdon',
+    //                 definePopId: newDefinePopId,
+    //             });
+    //         }
+    //     );
+    // };
 
     handleMouseEvent = (
         selectedDate: Date,
         eventType: CalendarNS.TDefineEventType
     ): void => {
-        const { dragStatus, triggerTiming, definePopId } = this.state;
+        const { dragStatus, triggerTiming, definerPopId } = this.state;
         switch (eventType) {
             case 'click':
                 console.log('click');
                 break;
             case 'mousedown':
-                if (dragStatus === 'holdon') {
-                    CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
-                }
+                // if (dragStatus === 'holdon') {
+                //     CalEventDefiner.destroyDefiner(definePopId); // destroy holdon pop if exist
+                // }
                 this.setState(
                     {
                         dragStatus: 'dragging',
                         triggerTiming: selectedDate,
-                        draggingDateRange: getDateRange(
-                            selectedDate,
-                            selectedDate
-                        ),
+                        timeRange: getDateRange(selectedDate, selectedDate),
                     },
                     () => {
                         window.addEventListener('mouseup', this.holdonDragging);
@@ -176,10 +175,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                     return;
                 } else {
                     this.setState({
-                        draggingDateRange: getDateRange(
-                            triggerTiming,
-                            selectedDate
-                        ),
+                        timeRange: getDateRange(triggerTiming, selectedDate),
                     });
                 }
                 break;
@@ -187,21 +183,27 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
     };
 
     holdonDragging = () => {
-        const { dragStatus, draggingDateRange } = this.state;
-        const { locale } = this.props;
+        const { dragStatus, timeRange } = this.state;
+        // const { locale } = this.props;
 
         if (dragStatus === 'dragging') {
-            let definePopId = CalEventDefiner.initEventDefiner(locale, {
-                timeRange: draggingDateRange,
-                positionner: CalEventDefiner.Position.autoAside,
-                // simuDragPopNode: this.getSimuDragPopNode(),
+            // let definePopId = CalEventDefiner.initEventDefiner(locale, {
+            //     timeRange: draggingDateRange,
+            //     positionner: CalEventDefiner.Position.autoAside,
+            //     // simuDragPopNode: this.getSimuDragPopNode(),
+            //     dragNodeClientRect: this.getSimuDragPopNode(),
+            //     bottomCurshion: 50,
+            //     topCurshion: 30,
+            //     asideCurshion: 10,
+            //     initDayEvtValue: true,
+            // });
+            this.setState({
+                showDefinerPop: true,
+                timeRange,
                 dragNodeClientRect: this.getSimuDragPopNode(),
-                bottomCurshion: 50,
-                topCurshion: 30,
-                asideCurshion: 10,
-                initDayEvtValue: true,
+                definerPopId: CalEventDefinerManager.getId(), // force to rajustPosition
             });
-            this.setState({ dragStatus: 'holdon', definePopId }, () => {
+            this.setState({ dragStatus: 'holdon' }, () => {
                 window.removeEventListener('mouseup', this.holdonDragging);
             });
         }
@@ -223,7 +225,13 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
 
     render() {
         const { currentYear, currentMonth, currentDate } = this.props;
-        const { dragStatus, draggingDateRange } = this.state;
+        const {
+            showDefinerPop,
+            dragStatus,
+            timeRange,
+            definerPopId,
+            dragNodeClientRect,
+        } = this.state;
 
         const headers = _test_display_we_flag
             ? i18nHeaders
@@ -286,7 +294,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                                         dragStatus === 'none'
                                             ? { isInvolved: false }
                                             : getCalEventProps(
-                                                  draggingDateRange,
+                                                  timeRange,
                                                   index,
                                                   gridDate
                                               );
@@ -319,6 +327,18 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                         ))}
                     </div>
                 </div>
+                {showDefinerPop && (
+                    <CalEventDefinerPop
+                        timeRange={timeRange}
+                        positionner={Position.autoAside}
+                        bottomCurshion={50}
+                        topCurshion={30}
+                        asideCurshion={10}
+                        initDayEvtValue={true}
+                        id={definerPopId}
+                        dragNodeClientRect={dragNodeClientRect}
+                    />
+                )}
             </div>
         );
     }
