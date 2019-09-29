@@ -46,15 +46,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         }
     }
 
-    cancelPresenter = () => {
-        this.setState({
-            showDefinerPop: false,
-            timeRange: null,
-            dragNode: null,
-            definerPopId: null,
-        });
-    };
-
     populateHeaderProps = (date: Date) => {
         const headerProps = {
             dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
@@ -62,6 +53,15 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             date,
         };
         return headerProps;
+    };
+
+    cancelPresenter = () => {
+        this.setState({
+            showDefinerPop: false,
+            timeRange: null,
+            dragNode: null,
+            definerPopId: null,
+        });
     };
 
     initDefiner = (

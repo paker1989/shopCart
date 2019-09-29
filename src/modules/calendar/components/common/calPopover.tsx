@@ -62,7 +62,7 @@ class CalPopover<
         // console.log('====definer box ==');
         // console.log(definerBoundingBox);
         // console.log('====refBounding box ==');
-        // console.log(refBoundingBox);       
+        // console.log(refBoundingBox);
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });
