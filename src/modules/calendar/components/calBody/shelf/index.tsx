@@ -12,12 +12,14 @@ import './shelf.scss';
 
 export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal
+    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 export const mapDispatchToProps = dispatcher => ({
     setEvtDefinerSignal: evtDefinerSignal =>
-        dispatcher(DateActionCreator.switchCalEvtDefinerSignal(evtDefinerSignal)),
+        dispatcher(
+            DateActionCreator.switchCalEvtDefinerSignal(evtDefinerSignal)
+        ),
 });
 
 class Shelf extends React.Component<any, any> {
@@ -41,7 +43,7 @@ class Shelf extends React.Component<any, any> {
     };
 
     initCalEventDefiner = () => {
-        this.props.setEvtDefinerSignal(!this.props.definerCalEvtSignal);
+        // this.props.setEvtDefinerSignal(!this.props.definerCalEvtSignal);
     };
 
     render() {

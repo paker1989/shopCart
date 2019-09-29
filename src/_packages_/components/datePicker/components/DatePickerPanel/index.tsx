@@ -23,12 +23,15 @@ class DatePickerPanel extends React.Component<
 
     static getDerivedStateFromProps(nextProps, prevState) {
         const { selectedDate, presentOnly } = nextProps;
-        const { displayMonth } = prevState;
+        const { displayMonth, displayYear } = prevState;
 
         if (!selectedDate || presentOnly) {
             return null;
         }
-        if (selectedDate.getMonth() + 1 !== displayMonth) {
+        if (
+            selectedDate.getMonth() + 1 !== displayMonth ||
+            selectedDate.getFullYear() !== displayYear
+        ) {
             return { ...populateDisplay(selectedDate) };
         }
         return null;

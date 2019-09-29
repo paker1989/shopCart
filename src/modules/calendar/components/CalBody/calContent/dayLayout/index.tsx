@@ -40,6 +40,21 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         };
     }
 
+    componentDidUpdate(prevprops: IDayLayoutProps) {
+        if (prevprops.definerCalEvtSignal && !this.props.definerCalEvtSignal) {
+            this.cancelPresenter();
+        }
+    }
+
+    cancelPresenter = () => {
+        this.setState({
+            showDefinerPop: false,
+            timeRange: null,
+            dragNode: null,
+            definerPopId: null,
+        });
+    };
+
     populateHeaderProps = (date: Date) => {
         const headerProps = {
             dayAt: <FormattedMessage id={DayConverter[date.getDay()]} />,
@@ -50,6 +65,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     };
 
     initDefiner = (
+        value: Date,
         timeRange: CalendarNS.ITimeRangeFormat,
         dragNode: HTMLDivElement
     ): void => {
@@ -116,8 +132,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
                             <SingleDayColumn
                                 initDefiner={this.initDefiner}
                                 value={currentDate}
-                                topCurshion={30}
-                                bottomCurshion={50}
                                 definerCalEvtSignal={definerCalEvtSignal}
                             />
                         </div>

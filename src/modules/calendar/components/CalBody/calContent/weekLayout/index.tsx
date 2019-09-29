@@ -184,7 +184,6 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                                         initDefiner={this.initDefiner}
                                         value={date}
                                         draggingDate={draggingDate}
-                                        definerCalEvtSignal={signalValue}
                                     />
                                 </div>
                             );

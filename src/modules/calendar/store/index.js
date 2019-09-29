@@ -4,10 +4,6 @@ import reducers from './reducer';
 
 import rootSaga from './sagas';
 
-// const initialStates = {};
-// const _devtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-// const { composeWithDevTools } = require('redux-devtools-extension');
-// console.log(composeWithDevTools());
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();

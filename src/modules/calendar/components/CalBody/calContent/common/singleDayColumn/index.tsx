@@ -33,7 +33,10 @@ export interface ISingleDayColumnState {
     draggingTimeRange: CalendarNS.ITimeRangeFormat;
 }
 
-const mapStateToProps = state => ({ locale: state.layoutReducers.locale });
+const mapStateToProps = state => ({
+    locale: state.layoutReducers.locale,
+    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
+});
 
 class SingleDayColumn extends React.Component<
     ISingleDayColumnProps,
@@ -64,24 +67,28 @@ class SingleDayColumn extends React.Component<
             this.cancelDragging();
         }
 
-        // if (
-        //     prevProps.definerCalEvtSignal === true &&
-        //     definerCalEvtSignal === false
-        // ) {
-        //     this.cancelDragging();
-        // }
-        // // handle global create case
-        // if (
-        //     prevProps.definerCalEvtSignal === false &&
-        //     definerCalEvtSignal === true
-        // ) {
-        //     const timing = {
-        //         dayAt: value,
-        //         hourAt: new Date().getHours(),
-        //         minAt: new Date().getMinutes(),
-        //     };
-        //     this.handleOnMouseClick(getTimeRange(timing, timing, hourSplitter));
-        // }
+        if (!prevProps.definerCalEvtSignal && definerCalEvtSignal) {
+            this.cancelDragging();
+        }
+        // handle global create case
+        if (
+            !prevProps.definerCalEvtSignal &&
+            definerCalEvtSignal
+        ) {
+            const timing = {
+                dayAt: value,
+                hourAt: new Date().getHours(),
+                minAt: new Date().getMinutes(),
+            };
+            this.handleOnClick(timing);
+        }
+    }
+
+    handleOnClick = (triggerTiming: CalendarNS.ITimingFormat) => {
+        this.onMouseEventChange(triggerTiming, 'mousedown');
+        setTimeout(() => {
+            this.onMouseEventChange(triggerTiming, 'mouseup');
+        }, 0);
     }
 
     getDragNode = (
@@ -123,7 +130,6 @@ class SingleDayColumn extends React.Component<
     };
 
     cancelDragging = () => {
-        console.log('cancel dragging' + this.props.value);
         this.setState({
             dragStatus: 'none',
             draggingTimeRange: null,
