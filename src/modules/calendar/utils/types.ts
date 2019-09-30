@@ -1,3 +1,5 @@
+import { deprecate } from 'util';
+
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -58,7 +60,9 @@ export namespace CalendarNS {
         timeRange?: CalendarNS.ITimeRangeFormat;
         initDayEvtValue?: boolean;
         onDestroy?: (popId: string) => void;
-        getDragNode?: (timeRange: ITimeRangeFormat) => Promise<ISimuBoundingClientRect>;
+        getDragNode?: (
+            timeRange: ITimeRangeFormat
+        ) => Promise<ISimuBoundingClientRect>;
     }
 
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
@@ -92,6 +96,7 @@ export namespace CalendarNS {
         date: Date;
     }
 
+    // deprecated
     export interface ICalDefinerControllerState {
         showDefinerPop: boolean;
         timeRange: ITimeRangeFormat;
@@ -99,7 +104,7 @@ export namespace CalendarNS {
         dragNodeClientRect?: ISimuBoundingClientRect;
         definerPopId: string;
     }
-    
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';

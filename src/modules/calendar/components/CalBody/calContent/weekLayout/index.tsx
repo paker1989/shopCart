@@ -3,21 +3,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
+import * as PopActionCreator from '../../../../store/action/popAction';
 import CalEventDefinerManager from '../../../common/calEventDefiner';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-import CalEventDefinerPop from '../../../common/calEventDefiner/calEventDefinerPop';
-import Position from '../../../common/position';
 import { getDayRangeOfWeek } from '../../../../utils/timeUtils';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 
 import { CalendarNS } from '../../../../utils/types';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
-import {
-    isSameDay,
-    isIncludeDate,
-} from '../../../../../../_packages_/components/datePicker/common/util';
+import { isIncludeDate } from '../../../../../../_packages_/components/datePicker/common/util';
 import { getPath } from '../../../../utils/routeHelper';
 
 import './weekLayout.scss';
@@ -33,10 +30,10 @@ export interface IWeekLayoutProps {
     definerCalEvtSignal?: boolean;
     history?: any;
     locale?: string;
+    updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
 }
 
-export interface IWeekLayoutState
-    extends CalendarNS.ICalDefinerControllerState {
+export interface IWeekLayoutState {
     draggingDate?: Date;
 }
 
@@ -50,6 +47,11 @@ const mapStateToProps = state => {
         locale: state.layoutReducers.locale,
     };
 };
+
+const mapDispatchToProps = dispatch => ({
+    updateDefPop: defPop => dispatch(PopActionCreator.updateDefinerPop(defPop)),
+});
+
 const _is_display_we = true;
 
 class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
@@ -57,10 +59,6 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
         super(props);
         this.state = {
             draggingDate: null,
-            showDefinerPop: false,
-            timeRange: null,
-            dragNode: null,
-            definerPopId: null,
         };
     }
 
@@ -86,10 +84,16 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     ): void => {
         this.setState({
             draggingDate,
-            showDefinerPop: true,
-            timeRange,
-            dragNode,
-            definerPopId: CalEventDefinerManager.getId(), // force to rajustPosition
+        });
+        CalEventDefinerManager.setCurrentDragNode(dragNode);
+        this.props.updateDefPop({
+            defShowPop: true,
+            defTimeRange: timeRange,
+            defPopId: CalEventDefinerManager.getId(),
+            defPositionner: 'autoAside',
+            defAsideCurshion: 10,
+            defTopCurshion: 30,
+            defBottomCurshion: 50,
         });
     };
 
@@ -119,13 +123,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
 
     render() {
         const { currentYear, currentWeek, definerCalEvtSignal } = this.props;
-        const {
-            draggingDate,
-            showDefinerPop,
-            timeRange,
-            dragNode,
-            definerPopId,
-        } = this.state;
+        const { draggingDate } = this.state;
 
         const timeLineLabels = getTimelineLabels(true);
         const daysOfWeek = getDayRangeOfWeek(
@@ -133,9 +131,9 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
             currentWeek,
             _is_display_we
         );
-        const dateToListenToSingal = isIncludeDate(daysOfWeek, new Date())
-            ? new Date()
-            : daysOfWeek[0];
+        // const dateToListenToSingal = isIncludeDate(daysOfWeek, new Date())
+        //     ? new Date()
+        //     : daysOfWeek[0];
         const headerProps = this.populateHeaderProps(daysOfWeek);
         const itemWidth = 100 / headerProps.length;
         const Header = this.getHeaders(headerProps, itemWidth);
@@ -166,12 +164,6 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                     </div>
                     <div className="calbody-content-weekLayout-container__columnbody">
                         {daysOfWeek.map((date, index) => {
-                            const signalValue = isSameDay(
-                                date,
-                                dateToListenToSingal
-                            )
-                                ? definerCalEvtSignal
-                                : null;
                             return (
                                 <div
                                     className="calbody-content-weekLayout-container__dayDifferWrapper"
@@ -190,20 +182,12 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                         })}
                     </div>
                 </div>
-                {showDefinerPop && (
-                    <CalEventDefinerPop
-                        timeRange={timeRange}
-                        positionner={Position.autoAside}
-                        asideCurshion={10}
-                        topCurshion={30}
-                        bottomCurshion={50}
-                        dragPopNode={dragNode}
-                        id={definerPopId}
-                    />
-                )}
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(withRouter(WeekLayout));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(WeekLayout));

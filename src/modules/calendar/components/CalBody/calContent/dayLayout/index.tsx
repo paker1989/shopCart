@@ -2,14 +2,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
+import * as PopActionCreator from '../../../../store/action/popAction';
 import CalEventDefinerManager from '../../../common/calEventDefiner';
-import CalEventDefinerPop from '../../../common/calEventDefiner/calEventDefinerPop';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
-import Position from '../../../common/position';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
+
 import { CalendarNS } from '../../../../utils/types';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './dayLayout.scss';
 
@@ -19,31 +20,29 @@ export interface IDayLayoutProps {
     >;
     currentDate: Date;
     definerCalEvtSignal?: boolean;
+    updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
 }
 
-export interface IDayLayoutState
-    extends CalendarNS.ICalDefinerControllerState {}
+export interface IDayLayoutState {}
 
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
+const mapDispatchToProps = dispatch => ({
+    updateDefPop: defPop => dispatch(PopActionCreator.updateDefinerPop(defPop)),
+});
+
 class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     constructor(props) {
         super(props);
-        this.state = {
-            showDefinerPop: false,
-            timeRange: null,
-            dragNode: null,
-            definerPopId: null,
-        };
     }
 
     componentDidUpdate(prevprops: IDayLayoutProps) {
-        if (prevprops.definerCalEvtSignal && !this.props.definerCalEvtSignal) {
-            this.cancelPresenter();
-        }
+        // if (prevprops.definerCalEvtSignal && !this.props.definerCalEvtSignal) {
+        //     this.cancelPresenter();
+        // }
     }
 
     populateHeaderProps = (date: Date) => {
@@ -55,25 +54,28 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         return headerProps;
     };
 
-    cancelPresenter = () => {
-        this.setState({
-            showDefinerPop: false,
-            timeRange: null,
-            dragNode: null,
-            definerPopId: null,
-        });
-    };
+    // cancelPresenter = () => {
+    //     this.setState({
+    //         showDefinerPop: false,
+    //         timeRange: null,
+    //         dragNode: null,
+    //         definerPopId: null,
+    //     });
+    // };
 
     initDefiner = (
         value: Date,
         timeRange: CalendarNS.ITimeRangeFormat,
         dragNode: HTMLDivElement
     ): void => {
-        this.setState({
-            showDefinerPop: true,
-            timeRange,
-            dragNode,
-            definerPopId: CalEventDefinerManager.getId(), // force to rajustPosition
+        CalEventDefinerManager.setCurrentDragNode(dragNode);
+        this.props.updateDefPop({
+            defShowPop: true,
+            defTimeRange: timeRange,
+            defPopId: CalEventDefinerManager.getId(),
+            defPositionner: 'autoMiddle',
+            defTopCurshion: 30,
+            defBottomCurshion: 50,
         });
     };
 
@@ -83,12 +85,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             currentDate,
             definerCalEvtSignal,
         } = this.props;
-        const {
-            showDefinerPop,
-            timeRange,
-            dragNode,
-            definerPopId,
-        } = this.state;
 
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
@@ -137,19 +133,12 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
                         </div>
                     </div>
                 </div>
-                {showDefinerPop && (
-                    <CalEventDefinerPop
-                        timeRange={timeRange}
-                        positionner={Position.autoMiddle}
-                        topCurshion={30}
-                        bottomCurshion={50}
-                        dragPopNode={dragNode}
-                        id={definerPopId}
-                    />
-                )}
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(DayLayout);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DayLayout);

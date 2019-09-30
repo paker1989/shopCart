@@ -41,7 +41,6 @@ class App extends React.Component<any, any> {
     };
 
     render() {
-        // console.log('render App');
         const { lang } = this.props.match.params;
         const locale = lang || CalConfig.defaultLocale;
 

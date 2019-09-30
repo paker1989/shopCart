@@ -10,6 +10,7 @@ import { CalendarNS } from '../../../utils/types';
 
 let _CAL_EVENT_CURRENT_ID = 0;
 let _CAL_EVENT_Z_INDEX = 999;
+let _CAL_CURRENT_TARGET;
 
 const calEventDefineManager = {};
 
@@ -17,14 +18,20 @@ function getId(): string {
     return `${CalConfig.calEventDefinerIdPrefix}-${++_CAL_EVENT_CURRENT_ID}`;
 }
 
+function getCurrentDragNode() {
+    return _CAL_CURRENT_TARGET;
+}
+
+function setCurrentDragNode(dragNode) {
+    _CAL_CURRENT_TARGET = dragNode;
+}
+
 function getContainerNode() {
     let containerNode = document.querySelector('.calevent-definer-container');
     if (!containerNode) {
-        // const root = document.getElementById('root');
         containerNode = document.createElement('div');
         containerNode.className = 'calevent-definer-container';
         document.body.appendChild(containerNode);
-        // root.appendChild(containerNode);
     }
     return containerNode;
 }
@@ -86,9 +93,11 @@ function destroyAll(): void {
 }
 
 export default {
-    initEventDefiner,
+    // initEventDefiner,
+    // destroyDefiner,
+    // destroyAll,
     Position,
-    destroyDefiner,
-    destroyAll,
     getId,
+    getCurrentDragNode,
+    setCurrentDragNode,
 };
