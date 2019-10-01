@@ -21,5 +21,7 @@ export namespace CalendarRedux {
         defBottomCurshion?: number;
         defAsideCurshion?: number;
         defPopId?: string;
+        initDayEvtValue?: boolean;
+        globalInitStatus?: 'stop' | 'init' | 'ready';
     }
 }

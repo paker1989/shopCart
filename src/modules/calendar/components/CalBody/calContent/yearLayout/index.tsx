@@ -15,7 +15,6 @@ import { getPath } from '../../../../utils/routeHelper';
 export interface IYearLayoutProps {
     displayYear?: number;
     locale?: CalendarNS.TLocales;
-    definerCalEvtSignal?: boolean;
     history?: any;
     currentDate?: Date;
 }
@@ -31,7 +30,6 @@ const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
     currentDate: state.dateReducers.currentDate,
     displayYear: state.dateReducers.currentYear,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 const CustomizeHeader: React.FunctionComponent = props => {

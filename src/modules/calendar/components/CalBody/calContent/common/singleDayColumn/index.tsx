@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
+
 import { isSameDay } from '../../../../../../../_packages_/components/datePicker/common/util';
 import CalConfig from '../../../../../assets/scripts/calendar.config';
+import * as PopActionCreator from '../../../../../store/action/popAction';
 import {
     getCalEventPopPosition,
     getTimeRange,
@@ -12,19 +14,22 @@ import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
 import './singleDayColumn.scss';
+import { CalendarRedux } from '../../../../../utils/reduxTypes';
 
 const _test_nb_cases = 24;
 
 export interface ISingleDayColumnProps
     extends CalendarNS.ICalEventDefinerPopProps {
     value: Date;
-    definerCalEvtSignal?: boolean;
     initDefiner: (
         value: Date,
         timeRange: CalendarNS.ITimeRangeFormat,
         dragNode: HTMLDivElement
     ) => void;
+    updateDefinerPop?: (options: CalendarRedux.IDefinerPopStats) => void;
     draggingDate?: Date;
+    defTimeRange?: CalendarNS.ITimeRangeFormat;
+    globalInitStatus?: 'stop' | 'init' | 'ready';
 }
 
 export interface ISingleDayColumnState {
@@ -35,7 +40,13 @@ export interface ISingleDayColumnState {
 
 const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
+    defTimeRange: state.popReducers.defTimeRange,
+    globalInitStatus: state.popReducers.globalInitStatus,
+});
+
+export const mapDispatchToProps = dispatcher => ({
+    updateDefinerPop: (opts: CalendarRedux.IDefinerPopStats) =>
+        dispatcher(PopActionCreator.updateDefinerPop(opts)),
 });
 
 class SingleDayColumn extends React.Component<
@@ -56,7 +67,13 @@ class SingleDayColumn extends React.Component<
     }
 
     componentDidUpdate(prevProps: ISingleDayColumnProps) {
-        const { value, draggingDate, definerCalEvtSignal } = this.props;
+        const {
+            value,
+            draggingDate,
+            globalInitStatus,
+            defTimeRange,
+            updateDefinerPop,
+        } = this.props;
         const { dragStatus } = this.state;
         if (
             // handle weekLayout case: cancel dragging when drag on other ones
@@ -67,20 +84,14 @@ class SingleDayColumn extends React.Component<
             this.cancelDragging();
         }
 
-        if (!prevProps.definerCalEvtSignal && definerCalEvtSignal) {
-            this.cancelDragging();
-        }
-        // handle global create case
+        // handle click on 'create evt'
         if (
-            !prevProps.definerCalEvtSignal &&
-            definerCalEvtSignal
+            prevProps.globalInitStatus !== 'init' &&
+            globalInitStatus === 'init' &&
+            isSameDay(value, defTimeRange.from.dayAt)
         ) {
-            const timing = {
-                dayAt: value,
-                hourAt: new Date().getHours(),
-                minAt: new Date().getMinutes(),
-            };
-            this.handleOnClick(timing);
+            this.handleOnClick(defTimeRange.from);
+            updateDefinerPop({ globalInitStatus: 'ready' });
         }
     }
 
@@ -89,7 +100,7 @@ class SingleDayColumn extends React.Component<
         setTimeout(() => {
             this.onMouseEventChange(triggerTiming, 'mouseup');
         }, 0);
-    }
+    };
 
     getDragNode = (
         newTimeRange: CalendarNS.ITimeRangeFormat
@@ -231,4 +242,7 @@ class SingleDayColumn extends React.Component<
     }
 }
 
-export default connect(mapStateToProps)(injectIntl(SingleDayColumn));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(injectIntl(SingleDayColumn));

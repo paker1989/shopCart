@@ -1,51 +1,54 @@
-@import '../../../assets/style/theme.scss';
-@import '../../../assets/style/mixin.scss';
+@import "../../../assets/style/theme.scss";
+@import "../../../assets/style/mixin.scss";
 
 .calbody-shelf-container {
+  position: relative;
+  width: $calBodyShelfWidth;
+  height: 100%;
+  flex-shrink: 0; //不缩小
+
+  &__createWrapper {
     position: relative;
-    width: $calBodyShelfWidth;
+    width: 100%;
     height: 100%;
-    flex-shrink: 0; //不缩小
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    height: $calBodyShelfCreatePanelHeight;
+  }
 
-    &__createWrapper {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        height: $calBodyShelfCreatePanelHeight;
+  &__createBtn {
+    display: inline-block;
+    border-radius: 20%;
+    padding: 10px 20px;
+    &:hover:not(.is-disabled) {
+      cursor: pointer;
+      box-shadow: $focusShadow;
     }
+    &.is-disabled {
+      opacity: 0.7;
+    }
+  }
 
-    &__createBtn {
-        display: inline-block;
-        border-radius: 20%;
-        padding: 10px 20px;
-        &:hover {
-            cursor: pointer;
-            box-shadow: $focusShadow;
-        }
-    }
+  &__createIcon {
+    margin-right: 10px;
+    font-size: $fontSizeGrand;
+    color: #d4237a;
+  }
 
-    &__createIcon {
-        margin-right: 10px;
-        font-size: $fontSizeGrand;
-        color: #d4237a;
-    }
+  &__createText {
+    font-size: $fontSizeBasic;
+    font-weight: 400;
+  }
 
-    &__createText {
-        font-size: $fontSizeBasic;
-        font-weight: 400;
-    }
+  &__main {
+    height: calc(100% - #{$calBodyShelfCreatePanelHeight});
+    overflow-y: auto;
+    overflow-x: hidden;
+    @include customizeScrollbar();
+  }
 
-    &__main {
-        height: calc(100% - #{$calBodyShelfCreatePanelHeight});
-        overflow-y: auto;
-        overflow-x: hidden;
-        @include customizeScrollbar();
-    }
-
-    &__datepicker {
-      margin: 0 10px;
-    }
+  &__datepicker {
+    margin: 0 10px;
+  }
 }

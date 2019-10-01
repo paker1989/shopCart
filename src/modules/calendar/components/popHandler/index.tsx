@@ -22,7 +22,7 @@ class PopHandler extends React.Component<any, any> {
             defPositionner,
             defTopCurshion,
             defBottomCurshion,
-            defPopId,
+            defPopId,       
         } = this.props;
 
         let simulatedDragNode;

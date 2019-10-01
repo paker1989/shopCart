@@ -39,7 +39,6 @@ const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     currentYear: state.dateReducers.currentYear,
     currentMonth: state.dateReducers.currentMonth,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,24 +2,25 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
+import cx from 'classnames';
 
-import * as DateActionCreator from '../../../store/action/dateAction';
+import * as PopActionCreator from '../../../store/action/popAction';
 import { getPath, getDateToNav } from '../../../utils/routeHelper';
 import { DatePicker } from '../../../../../_packages_/components/datePicker';
 import { DatePickers } from '../../../../../_packages_/components/datePicker/common/types';
+import { getGlobalTimeRange } from '../../../utils/timeRangeHelper';
 
 import './shelf.scss';
+import { CalendarRedux } from '../../../utils/reduxTypes';
 
 export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
+    showDefPop: state.popReducers.defShowPop,
 });
 
 export const mapDispatchToProps = dispatcher => ({
-    setEvtDefinerSignal: evtDefinerSignal =>
-        dispatcher(
-            DateActionCreator.switchCalEvtDefinerSignal(evtDefinerSignal)
-        ),
+    updateDefinerPop: (opts: CalendarRedux.IDefinerPopStats) =>
+        dispatcher(PopActionCreator.updateDefinerPop(opts)),
 });
 
 class Shelf extends React.Component<any, any> {
@@ -43,18 +44,37 @@ class Shelf extends React.Component<any, any> {
     };
 
     initCalEventDefiner = () => {
-        // this.props.setEvtDefinerSignal(!this.props.definerCalEvtSignal);
+        const { match, updateDefinerPop, showDefPop } = this.props;
+        if (showDefPop) {
+            updateDefinerPop({
+                defShowPop: false,
+                defTimeRange: null,
+                globalInitStatus: 'stop',
+            });
+        } else {
+            const layout = match.params.layout;
+            const defTimeRange = getGlobalTimeRange(layout);
+
+            updateDefinerPop({
+                globalInitStatus: 'init',
+                defTimeRange,
+            });
+        }
     };
 
     render() {
-        const { selectedDate } = this.props;
+        const { selectedDate, showDefPop } = this.props;
+        const createBtnClass = cx({
+            ['btn is-ellipse calbody-shelf-container__createBtn']: true,
+            ['is-disabled']: showDefPop,
+        });
 
         return (
             <div className="calbody-shelf-container">
                 <div className="calbody-shelf-container__createWrapper">
                     <div
                         role="button"
-                        className="btn is-ellipse calbody-shelf-container__createBtn"
+                        className={createBtnClass}
                         onClick={this.initCalEventDefiner}
                     >
                         <svg

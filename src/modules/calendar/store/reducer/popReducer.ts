@@ -1,7 +1,11 @@
 import * as PopActionType from '../actionType/popActionType';
 import { CalendarRedux } from '../../utils/reduxTypes';
 
-const initialState = {
+// interface IIntPopReducerStats
+//     extends CalendarRedux.IGlobalDefinerProps,
+//         CalendarRedux.IDefinerPopStats {}
+
+const initialState: CalendarRedux.IDefinerPopStats = {
     defShowPop: false,
     defTimeRange: null,
     defPositionner: null,
@@ -10,6 +14,7 @@ const initialState = {
     defAsideCurshion: 0,
     defPopId: null,
     initDayEvtValue: false,
+    globalInitStatus: 'stop',
 };
 
 export default function(

@@ -3,7 +3,11 @@ import { FormattedTime } from 'react-intl';
 
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
-import { isSameDay, isIncludeDate } from '../../../_packages_/components/datePicker/common/util';
+import {
+    isSameDay,
+    isIncludeDate,
+} from '../../../_packages_/components/datePicker/common/util';
+import { func } from 'prop-types';
 
 export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -170,4 +174,21 @@ export function getCalEventProps(
     const isEnd = isSameDay(target, dateRange.to.dayAt);
 
     return { isInvolved, isWeekStart, isStart, isEnd };
+}
+
+export function getGlobalTimeRange(
+    layout: string
+): CalendarNS.ITimeRangeFormat {
+    return {
+        from: {
+            dayAt: new Date(),
+            hourAt: 10,
+            minAt: 0,
+        },
+        to: {
+            dayAt: new Date(),
+            hourAt: 12,
+            minAt: 0,
+        },
+    };
 }

@@ -19,7 +19,6 @@ export interface IDayLayoutProps {
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
     currentDate: Date;
-    definerCalEvtSignal?: boolean;
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
 }
 
@@ -27,7 +26,6 @@ export interface IDayLayoutState {}
 
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
-    definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -40,9 +38,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     }
 
     componentDidUpdate(prevprops: IDayLayoutProps) {
-        // if (prevprops.definerCalEvtSignal && !this.props.definerCalEvtSignal) {
-        //     this.cancelPresenter();
-        // }
     }
 
     populateHeaderProps = (date: Date) => {
@@ -83,7 +78,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         const {
             singleDayHeader,
             currentDate,
-            definerCalEvtSignal,
         } = this.props;
 
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
@@ -128,7 +122,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
                             <SingleDayColumn
                                 initDefiner={this.initDefiner}
                                 value={currentDate}
-                                definerCalEvtSignal={definerCalEvtSignal}
                             />
                         </div>
                     </div>

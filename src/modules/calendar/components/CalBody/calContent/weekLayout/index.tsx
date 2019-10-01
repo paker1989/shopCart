@@ -27,7 +27,6 @@ export interface IWeekLayoutProps {
     currentWeek: number;
     currentMonth: number;
     currentYear: number;
-    definerCalEvtSignal?: boolean;
     history?: any;
     locale?: string;
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
@@ -43,7 +42,6 @@ const mapStateToProps = state => {
         currentDate: state.dateReducers.currentDate,
         currentMonth: state.dateReducers.currentMonth,
         currentYear: state.dateReducers.currentYear,
-        definerCalEvtSignal: state.dateReducers.definerCalEvtSignal,
         locale: state.layoutReducers.locale,
     };
 };
@@ -122,7 +120,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     };
 
     render() {
-        const { currentYear, currentWeek, definerCalEvtSignal } = this.props;
+        const { currentYear, currentWeek } = this.props;
         const { draggingDate } = this.state;
 
         const timeLineLabels = getTimelineLabels(true);
