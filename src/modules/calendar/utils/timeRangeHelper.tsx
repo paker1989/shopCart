@@ -7,7 +7,6 @@ import {
     isSameDay,
     isIncludeDate,
 } from '../../../_packages_/components/datePicker/common/util';
-import { func } from 'prop-types';
 
 export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 

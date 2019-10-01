@@ -77,7 +77,7 @@ class DateDisplayer extends React.Component<any, any> {
         );
 
         return (
-            <div className="header-dateDislayer-container">
+            <div className="header-dateDisplayer-container">
                 <div className="header-dateDisplayer-container__left">
                     <CalTooltip content={todayTooltipContent}>
                         <div

@@ -19,4 +19,3 @@
 
 urgent hold on point:
 - getGlobalTimeRange() is fake function, to check;
-- create for monthLayout case and yearLayout case;

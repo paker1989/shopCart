@@ -45,9 +45,11 @@ class CalPopover<
             dragNodeClientRect,
             ...otherProps
         } = this.props;
-        if (!dragPopNode && !dragNodeClientRect) {
-            return;
-        }
+
+        // if (!dragPopNode && !dragNodeClientRect) {
+        //     return;
+        // }
+        
         if (!this.node) {
             this.node = document.getElementById(id);
         }

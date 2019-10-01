@@ -9,17 +9,16 @@ import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
 import CalEventDefinerManager from '../../../common/calEventDefiner';
-
 import {
     isSameDay,
     getMonthLayoutRows,
 } from '../../../../../../_packages_/components/datePicker/common/util';
-
 import {
     getDateRange,
     getCalEventProps,
 } from '../../../../utils/timeRangeHelper';
 import { CalendarNS } from '../../../../utils/types';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './monthLayout.scss';
 
@@ -39,10 +38,14 @@ const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
     currentYear: state.dateReducers.currentYear,
     currentMonth: state.dateReducers.currentMonth,
+    defTimeRange: state.popReducers.defTimeRange,
+    globalInitStatus: state.popReducers.globalInitStatus,
+    defShowPop: state.popReducers.defShowPop,
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateDefPop: defPop => dispatch(PopActionCreator.updateDefinerPop(defPop)),
+    updateDefPop: (defProps: CalendarRedux.IDefinerPopStats) =>
+        dispatch(PopActionCreator.updateDefinerPop(defProps)),
 });
 
 export interface IMonthLayoutState {
@@ -64,6 +67,25 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const {
+            globalInitStatus,
+            defTimeRange,
+            updateDefPop,
+            defShowPop,
+        } = this.props;
+        // handle global create event
+        if (
+            prevProps.globalInitStatus !== 'init' &&
+            globalInitStatus === 'init'
+        ) {
+            this.handleMouseClick(defTimeRange.from.dayAt);
+            updateDefPop({ globalInitStatus: 'ready' });
+        } else if (prevProps.defShowPop && !defShowPop) {
+            this.cancelDragging();
+        }
+    }
+
     setDateRangeRef = (
         ref: React.RefObject<HTMLDivElement>,
         type: 'start' | 'end'
@@ -76,6 +98,13 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
                 this.endRef = ref;
                 return;
         }
+    };
+
+    handleMouseClick = (selectedDate: Date) => {
+        this.handleMouseEvent(selectedDate, 'mousedown');
+        setTimeout(() => {
+            this.handleMouseEvent(selectedDate, 'mouseup');
+        }, 0);
     };
 
     handleMouseEvent = (
@@ -151,6 +180,14 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
             left: startNodeBdBox.left,
             right: endNodeBdBox.right,
         };
+    };
+
+    cancelDragging = () => {
+        this.setState({
+            dragStatus: 'none',
+            triggerTiming: null,
+            timeRange: null,
+        });
     };
 
     render() {

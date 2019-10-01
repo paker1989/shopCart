@@ -7,16 +7,22 @@ import { getMonthDataOfYear } from '../../../../utils/timeUtils';
 import CalDayEvtPresenter from '../../../common/calDayEvtPresenter';
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 import CalEventPresenterManager from '../../../common/calEventPresenterManager';
+import CalEventDefinerManager from '../../../common/calEventDefiner';
+import * as PopActionCreator from '../../../../store/action/popAction';
+import { getPath } from '../../../../utils/routeHelper';
 import { CalendarNS } from '../../../../utils/types';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './yearLayout.scss';
-import { getPath } from '../../../../utils/routeHelper';
 
 export interface IYearLayoutProps {
     displayYear?: number;
     locale?: CalendarNS.TLocales;
     history?: any;
     currentDate?: Date;
+    globalInitStatus?: 'stop' | 'init' | 'ready';
+    defTimeRange?: CalendarNS.ITimeRangeFormat;
+    updateDefinerPop?: (options: CalendarRedux.IDefinerPopStats) => void;
 }
 
 export interface IYearLayoutState {
@@ -30,6 +36,13 @@ const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
     currentDate: state.dateReducers.currentDate,
     displayYear: state.dateReducers.currentYear,
+    defTimeRange: state.popReducers.defTimeRange,
+    globalInitStatus: state.popReducers.globalInitStatus,
+});
+
+export const mapDispatchToProps = dispatcher => ({
+    updateDefinerPop: (opts: CalendarRedux.IDefinerPopStats) =>
+        dispatcher(PopActionCreator.updateDefinerPop(opts)),
 });
 
 const CustomizeHeader: React.FunctionComponent = props => {
@@ -53,6 +66,29 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
     }
 
     componentDidUpdate(prevProps: IYearLayoutProps) {
+        const { globalInitStatus, defTimeRange, updateDefinerPop } = this.props;
+        const { showDayEvtPstrPop } = this.state;
+        if (
+            prevProps.globalInitStatus !== 'init' &&
+            globalInitStatus === 'init'
+        ) {
+            if (showDayEvtPstrPop) {
+                // destory other props before init evtDefiner
+                this.setState({ showDayEvtPstrPop: false });
+            }
+
+            CalEventDefinerManager.setCurrentDragNode(null);
+            updateDefinerPop({
+                defShowPop: true,
+                defTimeRange,
+                defPopId: CalEventDefinerManager.getId(),
+                defPositionner: 'autoCentral',
+                defTopCurshion: 30,
+                defBottomCurshion: 30,
+                globalInitStatus: 'ready',
+            });
+        }
+
         // if (prevProps.displayYear !== this.props.displayYear) {
         //     this.props.updatePresenter(false, {});
         // }
@@ -90,6 +126,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
         const { showDayEvtPstrPop, selectedDate } = this.state;
+        const { updateDefinerPop } = this.props;
 
         if (showDayEvtPstrPop && isSameDay(date, selectedDate)) {
             this.handleDateDoubleClick(date, null);
@@ -100,6 +137,8 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
             dragPopNode: evt.target,
             selectedDate: date,
             id: CalEventPresenterManager.getId(),
+        }, () => {
+            updateDefinerPop({ defShowPop: false }); // close other pops
         });
     };
 
@@ -107,11 +146,8 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         selectedDate: Date,
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>
     ): void => {
-        // todo
         const { history, locale } = this.props;
-        // console.log(this.props);
-        console.log('on db click');
-        // console.log(evt);
+        // console.log('on db click');
         const path = getPath(selectedDate, { layout: 'day', lang: locale });
         history.push(path);
     };
@@ -164,4 +200,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(YearLayout));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(YearLayout));

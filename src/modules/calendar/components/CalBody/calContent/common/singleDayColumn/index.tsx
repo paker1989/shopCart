@@ -30,6 +30,7 @@ export interface ISingleDayColumnProps
     draggingDate?: Date;
     defTimeRange?: CalendarNS.ITimeRangeFormat;
     globalInitStatus?: 'stop' | 'init' | 'ready';
+    defShowPop: boolean;
 }
 
 export interface ISingleDayColumnState {
@@ -42,6 +43,7 @@ const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
     defTimeRange: state.popReducers.defTimeRange,
     globalInitStatus: state.popReducers.globalInitStatus,
+    defShowPop: state.popReducers.defShowPop,
 });
 
 export const mapDispatchToProps = dispatcher => ({
@@ -73,6 +75,7 @@ class SingleDayColumn extends React.Component<
             globalInitStatus,
             defTimeRange,
             updateDefinerPop,
+            defShowPop,
         } = this.props;
         const { dragStatus } = this.state;
         if (
@@ -81,6 +84,11 @@ class SingleDayColumn extends React.Component<
             isSameDay(value, draggingDate) === false &&
             dragStatus === 'holdon'
         ) {
+            this.cancelDragging();
+        }
+
+        // handle global anti-create event
+        if (prevProps.defShowPop && !defShowPop) {
             this.cancelDragging();
         }
 
