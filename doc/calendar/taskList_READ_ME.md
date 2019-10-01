@@ -15,3 +15,8 @@
 11. 移动holdon的`calEventPop` (4)
 12. 导入法国节日: (4)
    > a checkbox in `shelf`
+
+
+urgent hold on point:
+- getGlobalTimeRange() is fake function, to check;
+- create for monthLayout case and yearLayout case;
