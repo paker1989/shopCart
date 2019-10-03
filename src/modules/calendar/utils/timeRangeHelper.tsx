@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { FormattedTime } from 'react-intl';
 
-import CalConfig from '../assets/scripts/calendar.config';
-import { CalendarNS } from './types';
 import {
     isSameDay,
     isIncludeDate,
 } from '../../../_packages_/components/datePicker/common/util';
+import { populateMonthWeekByDate } from '../utils/timeUtils';
+import CalConfig from '../assets/scripts/calendar.config';
+import { CalendarNS } from './types';
 
 export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -25,7 +26,7 @@ export function getTimeRange(
     let from = triggerAtFloat > currentAtFloat ? currentAt : triggerAt;
     let to = triggerAtFloat > currentAtFloat ? triggerAt : currentAt;
 
-    to = convertMinAddToTiming(to, 60 / splitOn);
+    to = convertMinAddToTiming(to.dayAt, 60 / splitOn);
 
     return {
         from,
@@ -34,26 +35,21 @@ export function getTimeRange(
 }
 
 export function convertMinAddToTiming(
-    timing: CalendarNS.ITimingFormat,
+    dayAt: Date,
     addedMin: number
 ): CalendarNS.ITimingFormat {
-    let minAt = (timing.minAt + addedMin) % 60;
-    let addHour = Math.floor((timing.minAt + addedMin) / 60);
-
-    const isNewDay = timing.hourAt + addHour > 23;
-    let newHour = isNewDay
-        ? (timing.hourAt + addHour) % 23
-        : timing.hourAt + addHour;
-    if (isNewDay) {
-        timing.dayAt.setDate(
-            timing.dayAt.getDate() + Math.floor((timing.hourAt + addHour) / 23)
-        );
-    }
+    const addedDate = new Date(
+        dayAt.getFullYear(),
+        dayAt.getMonth(),
+        dayAt.getDate(),
+        dayAt.getHours(),
+        dayAt.getMinutes() + addedMin
+    );
 
     return {
-        dayAt: timing.dayAt,
-        hourAt: newHour,
-        minAt,
+        dayAt: addedDate,
+        hourAt: addedDate.getHours(),
+        minAt: addedDate.getMinutes(),
     };
 }
 
@@ -176,18 +172,38 @@ export function getCalEventProps(
 }
 
 export function getGlobalTimeRange(
-    layout: string
+    layout: string,
+    currentDate: Date
 ): CalendarNS.ITimeRangeFormat {
-    return {
-        from: {
-            dayAt: new Date(),
-            hourAt: 10,
-            minAt: 0,
-        },
-        to: {
-            dayAt: new Date(),
-            hourAt: 12,
-            minAt: 0,
-        },
-    };
+    const today = new Date();
+    const hourSplitter = CalConfig.hourSplitter;
+    const { currentMonth, currentWeek, currentYear } = populateMonthWeekByDate(
+        currentDate
+    );
+    switch (layout) {
+        case 'day':
+            const dayAt = getSplitteredDate(today, hourSplitter);
+            return {
+                from: {
+                    dayAt,
+                    hourAt: dayAt.getHours(),
+                    minAt: dayAt.getMinutes(),
+                },
+                to: convertMinAddToTiming(dayAt, 60 / hourSplitter),
+            };
+    }
+    return null;
+}
+
+export function getSplitteredDate(date: Date, splitTo: number) {
+    const minAt = date.getMinutes();
+    const minPerUnit = 60 / splitTo;
+    const formattedMin = minAt - (minAt % minPerUnit);
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        formattedMin
+    );
 }

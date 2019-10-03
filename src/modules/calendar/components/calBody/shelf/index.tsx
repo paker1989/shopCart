@@ -16,6 +16,9 @@ import { CalendarRedux } from '../../../utils/reduxTypes';
 export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
     showDefPop: state.popReducers.defShowPop,
+    currentDate: state.dateReducers.currentDate,
+    // currentMonth: state.dateReducers.currentMonth,
+    // currentYear: state.dateReducers.currentYear,   
 });
 
 export const mapDispatchToProps = dispatcher => ({
@@ -44,7 +47,7 @@ class Shelf extends React.Component<any, any> {
     };
 
     initCalEventDefiner = () => {
-        const { match, updateDefinerPop, showDefPop } = this.props;
+        const { match, updateDefinerPop, showDefPop, currentDate } = this.props;
         if (showDefPop) {
             updateDefinerPop({
                 defShowPop: false,
@@ -53,7 +56,7 @@ class Shelf extends React.Component<any, any> {
             });
         } else {
             const layout = match.params.layout;
-            const defTimeRange = getGlobalTimeRange(layout);
+            const defTimeRange = getGlobalTimeRange(layout, currentDate);
 
             updateDefinerPop({
                 globalInitStatus: 'init',

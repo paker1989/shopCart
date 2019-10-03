@@ -1,6 +1,7 @@
-import { FormattedDate } from 'react-intl';
-import { DatePickers } from './types';
 import * as React from 'react';
+import { FormattedDate } from 'react-intl';
+
+import { DatePickers } from './types';
 
 // import dateFormat from 'dateformat';
 
@@ -69,10 +70,18 @@ export function getMaxMinDateFromMonthRow(
 }
 /**
  *  @return For Day Level Compare
- * @param date 
+ * @param date
  */
 export function getCleanDate(date: Date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0,0);
+    return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        0,
+        0,
+        0,
+        0
+    );
 }
 
 export function isIncludeDate(dates: Date[], date: Date) {
