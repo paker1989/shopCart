@@ -95,6 +95,24 @@ export function isIncludeDate(dates: Date[], date: Date) {
     );
 }
 
+export function isMonthLayoutContainDate(
+    monthData: DatePickers.IMonthDataRowFormat,
+    selectedDate: Date
+): boolean {
+    for (let i = 0; i < monthData.rows.length; i++) {
+        let res = monthData.rows[i].find(
+            date =>
+                date.yearD === selectedDate.getFullYear() &&
+                date.monthD === selectedDate.getMonth() + 1 &&
+                date.showDate === selectedDate.getDate()
+        );
+        if (res) {
+            return true;
+        }
+    }
+    return false;
+}
+
 export function getMonthData(
     year: number,
     month: number

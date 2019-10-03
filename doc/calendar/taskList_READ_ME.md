@@ -18,4 +18,4 @@
 
 
 urgent hold on point:
-- getGlobalTimeRange() is fake function, to check;
+- getGlobalTimeRange() stuck on monthLayout case timRange display;

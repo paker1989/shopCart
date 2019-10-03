@@ -4,8 +4,10 @@ import { FormattedTime } from 'react-intl';
 import {
     isSameDay,
     isIncludeDate,
+    getMonthLayoutRows,
+    isMonthLayoutContainDate,
 } from '../../../_packages_/components/datePicker/common/util';
-import { populateMonthWeekByDate } from '../utils/timeUtils';
+import { populateMonthWeekByDate, getDayRangeOfWeek } from '../utils/timeUtils';
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
 
@@ -175,24 +177,56 @@ export function getGlobalTimeRange(
     layout: string,
     currentDate: Date
 ): CalendarNS.ITimeRangeFormat {
-    const today = new Date();
-    const hourSplitter = CalConfig.hourSplitter;
-    const { currentMonth, currentWeek, currentYear } = populateMonthWeekByDate(
-        currentDate
-    );
+    const _is_display_we = true,
+        today = new Date(),
+        hourSplitter = CalConfig.hourSplitter,
+        { currentMonth, currentWeek, currentYear } = populateMonthWeekByDate(
+            currentDate
+        );
+    let dayAt;
     switch (layout) {
         case 'day':
-            const dayAt = getSplitteredDate(today, hourSplitter);
-            return {
-                from: {
-                    dayAt,
-                    hourAt: dayAt.getHours(),
-                    minAt: dayAt.getMinutes(),
-                },
-                to: convertMinAddToTiming(dayAt, 60 / hourSplitter),
-            };
+            dayAt = getSplitteredDate(currentDate, hourSplitter);
+            break;
+        case 'week':
+            const daysOfWeek = getDayRangeOfWeek(
+                currentYear,
+                currentWeek,
+                _is_display_we
+            );
+            dayAt = isIncludeDate(daysOfWeek, today) ? today : daysOfWeek[0];
+            dayAt = getSplitteredDate(dayAt, hourSplitter);
+            break;
+        case 'month':
+            const monthRows = getMonthLayoutRows(
+                currentYear,
+                currentMonth + 1,
+                _is_display_we
+            );
+            if (isMonthLayoutContainDate(monthRows, today)) {
+                dayAt = getSplitteredDate(today, hourSplitter);
+            } else {
+                const minDate = monthRows.rows[0][0];
+                dayAt = getSplitteredDate(
+                    new Date(
+                        minDate.yearD,
+                        minDate.monthD - 1,
+                        minDate.showDate,
+                    ),
+                    hourSplitter
+                );
+            }
+            break;
     }
-    return null;
+
+    return {
+        from: {
+            dayAt,
+            hourAt: dayAt.getHours(),
+            minAt: dayAt.getMinutes(),
+        },
+        to: convertMinAddToTiming(dayAt, 60 / hourSplitter),
+    };
 }
 
 export function getSplitteredDate(date: Date, splitTo: number) {
