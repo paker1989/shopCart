@@ -1,12 +1,32 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
+import axios from 'axios';
+import * as EvtsActionTypes from '../actionType/evtsActionType';
+import { getYYYYMMDDDate } from '../../utils/timeUtils';
 
-import * as DateActionTypes from '../actionType/dateActionType';
+function* loadEvtsData(reqObj) {
+    const dateKey = getYYYYMMDDDate(reqObj.date);
+    const res = yield axios.get('/static/data/dev/calEvents.json', {
+        params: dateKey,
+    });
 
-function* loadSimpleEvtsData(date) {
-    console.log(date);
-    console.log('load simpleEvts');
+    if (res && res.data) {
+        yield put({
+            type: EvtsActionTypes._FETCH_EVTS_SUCCESS,
+            payload: {
+                dateKey,
+                evts: res.data,
+            },
+        });
+    } else {
+        yield put({
+            type: EvtsActionTypes._FETCH_EVTS_ERROR,
+            payload: {
+                dateKey,
+            },
+        });
+    }
 }
 
 export function* loadCalEvtsSaga() {
-    yield takeLatest(DateActionTypes.LOAD_SIMPLE_EVTS_DATA, loadSimpleEvtsData);
+    yield takeLatest(EvtsActionTypes._FETCH_EVTS, loadEvtsData);
 }

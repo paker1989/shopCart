@@ -74,7 +74,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         ) {
             if (showDayEvtPstrPop) {
                 // destory other props before init evtDefiner
-                this.setState({ showDayEvtPstrPop: false });
+                this.closePresenter();
             }
 
             CalEventDefinerManager.setCurrentDragNode(null);
@@ -132,14 +132,17 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
             this.handleDateDoubleClick(date, null);
             return;
         }
-        this.setState({
-            showDayEvtPstrPop: true,
-            dragPopNode: evt.target,
-            selectedDate: date,
-            id: CalEventPresenterManager.getId(),
-        }, () => {
-            updateDefinerPop({ defShowPop: false }); // close other pops
-        });
+        this.setState(
+            {
+                showDayEvtPstrPop: true,
+                dragPopNode: evt.target,
+                selectedDate: date,
+                id: CalEventPresenterManager.getId(),
+            },
+            () => {
+                updateDefinerPop({ defShowPop: false }); // close other pops
+            }
+        );
     };
 
     handleDateDoubleClick = (
@@ -150,6 +153,10 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
         // console.log('on db click');
         const path = getPath(selectedDate, { layout: 'day', lang: locale });
         history.push(path);
+    };
+
+    closePresenter = () => {
+        this.setState({ showDayEvtPstrPop: false });
     };
 
     render() {
@@ -177,7 +184,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
                                     displayMonth={index + 1}
                                     monthData={monthData}
                                     onClick={this.handleDateClick}
-                                    onDbClick={this.handleDateDoubleClick}
+                                    // onDbClick={this.handleDateDoubleClick}
                                     displayWeeks={true}
                                     value={currentDate}
                                 />
@@ -193,6 +200,7 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
                         topCurshion={10}
                         date={selectedDate}
                         id={id}
+                        onClose={this.closePresenter}
                     />
                 )}
             </div>

@@ -1,5 +1,3 @@
-import { deprecate } from 'util';
-
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
         textAlign?: 'left' | 'right' | 'center';
@@ -68,6 +66,7 @@ export namespace CalendarNS {
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
         date?: Date;
         showClose?: boolean;
+        onClose?: () => void;
         getDragNode?: (date: Date) => Promise<ISimuBoundingClientRect>;
         loadEvts?: any;
         // simpleEvts?: CalEvtDataNS.ICalEvtSimpleDataModel[];

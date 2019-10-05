@@ -3,7 +3,7 @@ import { CalendarNS } from '../utils/types';
 export namespace CalendarRedux {
     export interface IReduxAction {
         type: string;
-        payload?: {};
+        payload?: any;
     }
 
     export interface IDateReducerStats {

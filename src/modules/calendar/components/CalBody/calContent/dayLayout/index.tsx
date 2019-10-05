@@ -37,8 +37,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         super(props);
     }
 
-    componentDidUpdate(prevprops: IDayLayoutProps) {
-    }
+    componentDidUpdate(prevprops: IDayLayoutProps) {}
 
     populateHeaderProps = (date: Date) => {
         const headerProps = {
@@ -48,15 +47,6 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         };
         return headerProps;
     };
-
-    // cancelPresenter = () => {
-    //     this.setState({
-    //         showDefinerPop: false,
-    //         timeRange: null,
-    //         dragNode: null,
-    //         definerPopId: null,
-    //     });
-    // };
 
     initDefiner = (
         value: Date,
@@ -75,10 +65,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     };
 
     render() {
-        const {
-            singleDayHeader,
-            currentDate,
-        } = this.props;
+        const { singleDayHeader, currentDate } = this.props;
 
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);

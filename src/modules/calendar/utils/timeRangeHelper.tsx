@@ -17,6 +17,18 @@ export function getTimingFloat(hourAt: number, minAt: number): number {
     return hourAt + minAt / 60;
 }
 
+export function convertTimeFormatToDate(
+    timing: CalendarNS.ITimingFormat
+): Date {
+    return new Date(
+        timing.dayAt.getFullYear(),
+        timing.dayAt.getMonth(),
+        timing.dayAt.getDate(),
+        timing.hourAt,
+        timing.minAt
+    );
+}
+
 export function getTimeRange(
     triggerAt: CalendarNS.ITimingFormat,
     currentAt: CalendarNS.ITimingFormat,
@@ -28,7 +40,7 @@ export function getTimeRange(
     let from = triggerAtFloat > currentAtFloat ? currentAt : triggerAt;
     let to = triggerAtFloat > currentAtFloat ? triggerAt : currentAt;
 
-    to = convertMinAddToTiming(to.dayAt, 60 / splitOn);
+    to = convertMinAddToTiming(convertTimeFormatToDate(to), 60 / splitOn);
 
     return {
         from,
@@ -183,7 +195,7 @@ export function getGlobalTimeRange(
         { currentMonth, currentWeek, currentYear } = populateMonthWeekByDate(
             currentDate
         );
-    let dayAt;
+    let dayAt: Date;
     switch (layout) {
         case 'day':
             dayAt = getSplitteredDate(currentDate, hourSplitter);
@@ -211,8 +223,18 @@ export function getGlobalTimeRange(
                     new Date(
                         minDate.yearD,
                         minDate.monthD - 1,
-                        minDate.showDate,
+                        minDate.showDate
                     ),
+                    hourSplitter
+                );
+            }
+            break;
+        case 'year':
+            if (currentYear === today.getFullYear()) {
+                dayAt = getSplitteredDate(today, hourSplitter);
+            } else {
+                dayAt = getSplitteredDate(
+                    new Date(currentYear, 0, 1),
                     hourSplitter
                 );
             }

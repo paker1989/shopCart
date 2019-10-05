@@ -7,4 +7,5 @@ export default {
     layouts: ['year', 'month', 'day', 'week', 'customday'],
     repeats: ['everySameDay', 'everyWorkDay', 'everyDay', 'everySameDate'],
     defRepeat: 'everyWorkDay',
+    maxEvtCache: 10,
 };

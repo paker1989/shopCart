@@ -1,5 +1,8 @@
 import { DatePickers } from '../../../_packages_/components/datePicker/common/types';
-import { getMonthLayoutRows, getWeekOfDay } from '../../../_packages_/components/datePicker/common/util';
+import {
+    getMonthLayoutRows,
+    getWeekOfDay,
+} from '../../../_packages_/components/datePicker/common/util';
 import { CalendarRedux } from './reduxTypes';
 
 /**
@@ -36,11 +39,21 @@ export function getDayRangeOfWeek(
     return datesOfWeek;
 }
 
-export function populateMonthWeekByDate(date: Date):CalendarRedux.IDateReducerStats  {
+export function populateMonthWeekByDate(
+    date: Date
+): CalendarRedux.IDateReducerStats {
     return {
         currentDate: date,
         currentMonth: date.getMonth(),
         currentWeek: getWeekOfDay(date),
         currentYear: date.getFullYear(),
     };
+}
+
+export function getYYYYMMDDDate(date: Date) {
+    const monthStr =
+        date.getMonth() + 1 < 10
+            ? `0${date.getMonth() + 1}`
+            : date.getMonth() + 1;
+    return `${date.getFullYear()}${monthStr}${date.getDate()}`;
 }
