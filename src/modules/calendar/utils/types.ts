@@ -7,6 +7,20 @@ export namespace CalendarNS {
         onClick?: (param: string | Date) => void;
     }
 
+    export interface IDBTimingFormat {
+        year: number;
+        month: number;
+        dayAt: number;
+        hourAt: number;
+        minAt: number;
+    }
+
+    export interface IDBTimingRangeFormat {
+      from: IDBTimingFormat;
+      to: IDBTimingFormat;
+    }
+
+
     export interface ITimingFormat {
         dayAt: Date;
         hourAt: number;

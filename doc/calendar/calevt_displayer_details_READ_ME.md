@@ -1,22 +1,27 @@
-1. reminder (不显示)
-2. activity 
-   - `dayLayout`
-   > all day evt: 显示在顶部; 
-     > 按id大小依次排列 - 超过2个折叠，显示2 and more；
-   > time evt: 显示在对应格子里;
-     > 按id大小，zIndex增大
+- `all day` evt & reminder 同一个format, 显示在顶部;
+- `all day` evt 不重叠，按时间依次显示,
+- `all day reminder` 重叠, 显示1个条目
+- `timing reminder`同一时间重叠 as well，显示1个条目, 不同时间不重叠
+- `timing evt`都不重叠;
+-  优先显示`all day` evt, 其次`all day`reminder, 然后按timing显示evt或reminder（无优先级）;
 
-   - `weekLayout`
-    > 一样的原则
-  
-   - `monthLayout`
-     > 依次排列, 超过3个显示 6 and more
-     > all day evts和no-all day evts显示方式不同
-     > 点击`6 and more` 显示`dayEvtPresenter`, 
+## `simpleEvtList`显示逻辑:
+- 先按`all day`与否分为2个list;
+- `all day` evts 进行排序&合并;
+- `timing` evts 进行排序&合并;
+- counter 条目, 进行显示;
 
-  事件选择原则
-  - dayLayout, weekLayout, monthLayout, --> 每个date到mongodb里查找date. 查找到了以后缓存到cache里，数目不超过n个。(maxCachedNumber 在`cal.config`里设置);
-  - year是直接点击每个date的时候再查找.
+simpleEvtList里包含数据结构如下
+  1. `Day activity` one by one by id;
+  2. { nbReminder: 2, isAllDay: true, reminders: []},
+  3. 按时间顺序: 
+    > `timing activity`: {}
+    > { nbReminder: 1, isAllDay: false, timing: ITimingFormat, reminders: [] }
 
-  查找rule
-  - year, month, showDate都相等. 返回;
+   :
+    {
+      activity: {allDayEvt, type, }
+      reminders, { allDayEvt, type, reminders, }
+      activity,
+      reminders, { allDayEvt, type, reminders, }
+    }

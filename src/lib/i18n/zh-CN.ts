@@ -42,6 +42,8 @@ const zh_CN = {
     'cal.confirmDiscard': '要舍弃未保存的更改吗？',
     'cal.discard': '舍弃',
     'cal.cancel': '取消',
+    'cal.noEvts': '这一天没有安排活动。',
+    'cal.nbReminders': '{nb}条提醒',
     'comp.short.sun': '日',
     'comp.short.mon': '一',
     'comp.short.tues': '二',

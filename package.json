@@ -67,6 +67,7 @@
     "remarkable": "^1.7.1",
     "sortablejs": "^1.10.0-rc2",
     "tinycolor2": "^1.4.1",
+    "tslib": "^1.10.0",
     "webpack-dev-middleware": "^3.7.0"
   },
   "scripts": {

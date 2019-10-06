@@ -2,13 +2,14 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+
+import CalDaySimpleEvtList from './calDaySimpleEvtList';
 import { DayConverter } from '../../../../../_packages_/utils/i18nHelper';
 import * as EvtsActionCreator from '../../../store/action/evtsAction';
 import { getYYYYMMDDDate } from '../../../utils/timeUtils';
 import { CalendarNS } from '../../../utils/types';
+
 import './dayEvtPresenter.scss';
-
-
 
 const Content = (props: CalendarNS.ICalEventPresenterProps) => {
     const { showClose, date } = props;
@@ -56,16 +57,21 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
         </div>
     );
 
+    const loadingContent = (
+        <div className="cal-animated-background content-loading"></div>
+    );
+    
     return (
         <div className="dayEvent-presenter-content">
             {renderClose}
             <div className="dayEvent-presenter-content__main">
                 {renderDate}
                 <div className="dayEvent-presenter-content__events">
-                    {loading && (
-                        <div>Loading evts</div>
+                    {loading ? (
+                        loadingContent
+                    ) : (
+                        <CalDaySimpleEvtList evts={calEvts} />
                     )}
-                    {/* <CalDaySimpleEvtList evts={evts} /> */}
                 </div>
             </div>
         </div>

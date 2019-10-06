@@ -17,6 +17,18 @@ export function getTimingFloat(hourAt: number, minAt: number): number {
     return hourAt + minAt / 60;
 }
 
+export function convertDBTimeFormatToDate(
+    timing: CalendarNS.IDBTimingFormat
+): Date {
+    return new Date(
+        timing.year,
+        timing.month - 1,
+        timing.dayAt,
+        timing.hourAt,
+        timing.minAt
+    );
+}
+
 export function convertTimeFormatToDate(
     timing: CalendarNS.ITimingFormat
 ): Date {
@@ -262,4 +274,29 @@ export function getSplitteredDate(date: Date, splitTo: number) {
         date.getHours(),
         formattedMin
     );
+}
+
+export function getTiming(
+    a: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat
+): CalendarNS.IDBTimingFormat {
+    if ((a as CalendarNS.IDBTimingRangeFormat).from) {
+        return (a as CalendarNS.IDBTimingRangeFormat).from;
+    } else {
+        return a as CalendarNS.IDBTimingFormat;
+    }
+}
+
+/**
+ * @returns sort result by from timing
+ */
+export function compareTiming(
+    a: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat,
+    b: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat
+): number {
+    const aFrom = getTiming(a);
+    const bFrom = getTiming(b);
+    const dateA = convertDBTimeFormatToDate(aFrom);
+    const dateB = convertDBTimeFormatToDate(bFrom);
+
+    return dateA.getTime() - dateB.getTime();
 }

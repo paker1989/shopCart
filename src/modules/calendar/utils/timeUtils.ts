@@ -4,6 +4,8 @@ import {
     getWeekOfDay,
 } from '../../../_packages_/components/datePicker/common/util';
 import { CalendarRedux } from './reduxTypes';
+import { CalendarNS } from './types';
+import { convertTimeFormatToDate } from './timeRangeHelper';
 
 /**
  * @returns the monthData array of target year
@@ -57,3 +59,4 @@ export function getYYYYMMDDDate(date: Date) {
             : date.getMonth() + 1;
     return `${date.getFullYear()}${monthStr}${date.getDate()}`;
 }
+

@@ -42,6 +42,8 @@ const fr_FR = {
     'cal.confirmDiscard': 'Ignorer les modifications ?',
     'cal.discard': 'Ignorer',
     'cal.cancel': 'Annuler',
+    'cal.noEvts': 'Aucun événement planifié pour ce jour.',
+    'cal.nbReminders': '{nb} rappels',
     'comp.short.sun': 'D',
     'comp.short.mon': 'L',
     'comp.short.tues': 'M',

@@ -8,11 +8,19 @@ export namespace CalEvtDataNS {
         allDayEvt: boolean;
     }
 
-    export interface ICalEvtCompleteDataModel extends ICalEvtSimpleDataModel {
-        options:
-            | ICalEvtReminderOptionDataModel
-            | ICalEvtActivityOptionDataModel;
+    export interface ICalEvtCompleteReminderDataModel
+        extends ICalEvtSimpleDataModel {
+        opts: ICalEvtReminderOptionDataModel;
     }
+
+    export interface ICalEvtCompleteActivityDataModel
+        extends ICalEvtSimpleDataModel {
+        opts: ICalEvtActivityOptionDataModel;
+    }
+
+    export type ICalEvtCompleteDataModelType =
+        | ICalEvtCompleteReminderDataModel
+        | ICalEvtCompleteActivityDataModel;
 
     export interface ICalEvtReminderOptionDataModel {
         repeatOption:
@@ -20,12 +28,25 @@ export namespace CalEvtDataNS {
             | 'everyWorkDay'
             | 'everyDay'
             | 'everySameDate';
-        time: CalendarNS.ITimeRangeFormat;
+        time: CalendarNS.IDBTimingFormat;
+        color: string;
     }
 
     export interface ICalEvtActivityOptionDataModel {
-        time: CalendarNS.ITimeRangeFormat;
+        time: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat;
         description?: string;
         address?: string;
+        color: string;
     }
+
+    export interface ICalEvtSortedReminderDataModel {
+        type: 'reminder';
+        allDayEvt: boolean;
+        reminders: ICalEvtCompleteReminderDataModel[];
+        timing?: CalendarNS.IDBTimingFormat;
+    }
+
+    export type ICalEvtSortedItemType =
+        | ICalEvtCompleteActivityDataModel
+        | ICalEvtSortedReminderDataModel;
 }

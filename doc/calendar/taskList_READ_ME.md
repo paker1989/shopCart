@@ -2,7 +2,7 @@
 1. create `calEventDisplayer` panel; (simple, normal + reminder, activity); (3)
 2. create `calEventDisplayer_simple` panel (3)
    - use case: `dayEvtPresenter`, `singleDayGrid`, `SingleDayColumn`,  
-3. revise `calEventDefinerPanel` under `root`; (3)
+3. create user authentication module;
 4. 点击`timeRange`可以换时间: `calevtPop.ref.current` should be in redux stats; (3)
 5. bug fix: (2)
    >  `monthLayout`

@@ -42,6 +42,8 @@ const en_US = {
     'cal.confirmDiscard': 'Discard unsaved changes ?',
     'cal.discard': 'Discard',
     'cal.cancel': 'Cancel',
+    'cal.noEvts': 'There are no events scheduled on this day.',
+    'cal.nbReminders': '{nb} reminders',
     'comp.short.sun': 'S',
     'comp.short.mon': 'M',
     'comp.short.tues': 'T',

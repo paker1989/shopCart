@@ -14,7 +14,7 @@ function* loadEvtsData(reqObj) {
             type: EvtsActionTypes._FETCH_EVTS_SUCCESS,
             payload: {
                 dateKey,
-                evts: res.data,
+                evts: res.data.evts,
             },
         });
     } else {

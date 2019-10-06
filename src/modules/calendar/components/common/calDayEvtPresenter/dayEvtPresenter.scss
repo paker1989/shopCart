@@ -1,7 +1,7 @@
 @import "../../../assets/style/theme.scss";
 @import "../../../assets/style/mixin.scss";
 
-$containerMinWidth: 220px;
+$containerWidth: 200px;
 $containerMinHeight: 90px;
 $containerMaxHeight: 300px;
 
@@ -19,7 +19,7 @@ $closeDimension: 30px;
 
   & .dayEvent-presenter-content {
     position: relative;
-    min-width: $containerMinWidth;
+    width: $containerWidth;
     min-height: $containerMinHeight;
     max-height: $containerMaxHeight;
     overflow-y: auto;
@@ -45,6 +45,11 @@ $closeDimension: 30px;
          font-weight: 400;
         @include circle-bg-hover(#eeeded,  #80868b, 40px);
        }
+    }
+
+    & .content-loading {
+      width: 100%;
+      height: 10px;
     }
 
     &__events {
