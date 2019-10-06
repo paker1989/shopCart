@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 
-import './calDaySimpleEvtItem.scss';
-import { FormattedDate, FormattedTime, FormattedMessage } from 'react-intl';
+import { FormattedTime, FormattedMessage } from 'react-intl';
 import { CalendarNS } from '../../../../utils/types';
 import { convertDBTimeFormatToDate } from '../../../../utils/timeRangeHelper';
+
+import './calDaySimpleEvtItem.scss';
 
 export interface CalDaySimpleEvtItemProps {
     item: CalEvtDataNS.ICalEvtSortedItemType;
@@ -39,7 +40,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                             <FormattedTime
                                 value={date}
                                 hour12={true}
-                                hour='numeric'
+                                hour="numeric"
                             />
                         </span>
                         <span className="cal-text">{activity.title}</span>
@@ -80,7 +81,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                             <FormattedTime
                                 value={date}
                                 hour12={true}
-                                hour='numeric'
+                                hour="numeric"
                             />
                         </span>
                         <span className="cal-icon">

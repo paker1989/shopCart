@@ -1,60 +1,59 @@
 @import '../../../../assets/style/theme.scss';
 
 .calday-simpleevt-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  text-align: left;
-  width: 100%;
-  height: $caldaySimpleevtItemHeight;
-  padding-left: 3px;
-  border-radius: 4px;
-  margin-bottom: 2px;
-  font-size: 11px;
-  cursor: pointer;
-  transition: all .2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+    height: $caldaySimpleevtItemHeight;
+    padding-left: 3px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 
-  &.is-allday {
-    color: #fff;
-    &:hover {
-      opacity: .8;
+    &.is-allday {
+        color: #fff;
+        &:hover {
+            opacity: 0.8;
+        }
     }
-  }
 
-  &.is-timing {
-    color: $fontColor;
-    &:hover {
-      background: $hoverBgColor;
+    &.is-timing {
+        color: $fontColor;
+        &:hover {
+            background: $hoverBgColor;
+        }
     }
-  }
 
-  &.is-allday.is-reminder {
-    background: rgb(63, 81, 181);
-  }
+    &.is-allday.is-reminder {
+        background: rgb(63, 81, 181);
+    }
 
-  & .cal-dot {
-   flex: 0 0 8px;
-   width: 8px;
-   height: 8px;
-   border-radius: 50%;
-  }
+    & .cal-dot {
+        flex: 0 0 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
 
-  & .cal-date {
-    padding-left: 5px;
-  }
+    & .cal-date {
+        padding-left: 5px;
+    }
 
-  & .cal-icon {
-    flex: 0 0 10px;
-    padding-left: 5px;
-  }
+    & .cal-icon {
+        flex: 0 0 10px;
+        padding-left: 5px;
+    }
 
-  & .cal-text {
-    flex: 1 1 0%;
-    font-weight: 600;
-    padding-left: 5px;
-    text-overflow: clip;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
+    & .cal-text {
+        flex: 1 1 0%;
+        font-weight: 600;
+        padding-left: 5px;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }

@@ -30,7 +30,7 @@ export default (props: ICalDaySimpleEvtListProps) => {
             ) : (
                 <div className="caldayEvt-simple-list__activities">
                     {previewList.map((item, index) => (
-                      <CalDaySimpleEvtItem item={item} key={index} />
+                        <CalDaySimpleEvtItem item={item} key={index} />
                     ))}
                 </div>
             )}
