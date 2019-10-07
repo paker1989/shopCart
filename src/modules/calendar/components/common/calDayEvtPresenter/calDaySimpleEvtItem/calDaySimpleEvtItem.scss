@@ -1,5 +1,9 @@
 @import '../../../../assets/style/theme.scss';
 
+.simpleItem-selected {
+  box-shadow: $calDayEvtPresenterShadow;
+}
+
 .calday-simpleevt-item {
     position: relative;
     display: flex;

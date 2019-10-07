@@ -9,16 +9,20 @@ import './calDaySimpleEvtItem.scss';
 
 export interface CalDaySimpleEvtItemProps {
     item: CalEvtDataNS.ICalEvtSortedItemType;
+    index: number;
+    onSelect: (index: number) => void;
+    selected: boolean;
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
-    const { item } = props;
+    const { item, onSelect, selected, index } = props;
     let date;
+    let content;
     switch (item.type) {
         case 'activity':
             const activity = item as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
             if (activity.allDayEvt) {
-                return (
+                content = (
                     <div
                         className="calday-simpleevt-item is-allday is-activity"
                         style={{ backgroundColor: activity.opts.color }}
@@ -26,11 +30,12 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         <span className="cal-text">{activity.title}</span>
                     </div>
                 );
+                break;
             } else {
                 date = convertDBTimeFormatToDate(
                     (activity.opts.time as CalendarNS.IDBTimingRangeFormat).from
                 );
-                return (
+                content = (
                     <div className="calday-simpleevt-item is-timing is-activity">
                         <span
                             className="cal-dot"
@@ -46,11 +51,12 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         <span className="cal-text">{activity.title}</span>
                     </div>
                 );
+                break;
             }
         case 'reminder':
             const data = item as CalEvtDataNS.ICalEvtSortedReminderDataModel;
             if (data.allDayEvt) {
-                return (
+                content = (
                     <div className="calday-simpleevt-item is-allday is-reminder">
                         <span className="cal-icon">
                             <svg className="ali-icon" aria-hidden="true">
@@ -69,9 +75,10 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         </span>
                     </div>
                 );
+                break;
             } else {
                 date = convertDBTimeFormatToDate(data.timing);
-                return (
+                content = (
                     <div className="calday-simpleevt-item is-timing is-reminder">
                         <span
                             className="cal-dot"
@@ -101,10 +108,17 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         </span>
                     </div>
                 );
+                break;
             }
     }
+    return (
+        <div
+            className={selected && 'simpleItem-selected'}
+            onClick={() => onSelect(index)}
+        >
+            {content}
+        </div>
+    );
 };
-
-CalDaySimpleEvtItem;
 
 export default CalDaySimpleEvtItem;

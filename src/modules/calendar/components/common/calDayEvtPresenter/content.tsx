@@ -60,7 +60,7 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
     const loadingContent = (
         <div className="cal-animated-background content-loading"></div>
     );
-    
+
     return (
         <div className="dayEvent-presenter-content">
             {renderClose}

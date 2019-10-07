@@ -44,6 +44,7 @@ const fr_FR = {
     'cal.cancel': 'Annuler',
     'cal.noEvts': 'Aucun événement planifié pour ce jour.',
     'cal.nbReminders': '{nb} rappels',
+    'cal.moreResults': '{nbMore, plural, one {# autre} other {# autres}} ',
     'comp.short.sun': 'D',
     'comp.short.mon': 'L',
     'comp.short.tues': 'M',

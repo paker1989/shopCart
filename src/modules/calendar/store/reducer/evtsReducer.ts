@@ -19,6 +19,12 @@ export default function(
                 evts,
             };
             return state;
+        case EvtsActionType._FETCH_EVTS_ERROR:
+            // let { dateKey } = action.payload;
+            state.cachedEvts[action.payload.dateKey] = {
+                evts: [],
+            };
+            return state;
         default:
             return state;
     }

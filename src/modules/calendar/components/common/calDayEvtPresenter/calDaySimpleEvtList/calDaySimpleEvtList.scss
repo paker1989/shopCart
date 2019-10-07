@@ -1,5 +1,26 @@
+@import '../../../../assets/style/theme.scss';
+
 .caldayEvt-simple-list {
     position: relative;
     width: 100%;
     margin-top: 5px;
+
+    & .no-evt-placeholder {
+        font-size: 11px;
+        text-align: left;
+    }
+
+    &__more {
+        font-size: 11px;
+        font-weight: 600;
+        text-align: left;
+        height: $caldaySimpleevtItemHeight;
+        padding-left: 5px;
+        cursor: pointer;
+        border-radius: 3px;
+
+        &:hover {
+            background: $hoverBgColor;
+        }
+    }
 }

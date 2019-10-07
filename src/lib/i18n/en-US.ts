@@ -44,6 +44,7 @@ const en_US = {
     'cal.cancel': 'Cancel',
     'cal.noEvts': 'There are no events scheduled on this day.',
     'cal.nbReminders': '{nb} reminders',
+    'cal.moreResults': '{nbMore} more',
     'comp.short.sun': 'S',
     'comp.short.mon': 'M',
     'comp.short.tues': 'T',
