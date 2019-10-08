@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { FormattedMessage, FormattedPlural } from 'react-intl';
+import { useState, useEffect, useRef } from 'react';
+import { FormattedMessage } from 'react-intl';
+import cx from 'classnames';
 
+import Positionner from '../../position';
 import CalDaySimpleEvtItem from '../calDaySimpleEvtItem';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import useSortedEvtList from '../../../../utils/hooks/useSortedEvtList';
+import CalDayCompleteEvtPop from '../calDayCompleteEvtPop';
+import calEventPresenterManager from '../../calEventPresenterManager';
 
 import './calDaySimpleEvtList.scss';
-import CalDayCompleteEvtPop from '../CalDayCompleteEvtPop';
 
 export interface ICalDaySimpleEvtListProps {
     evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
@@ -17,18 +20,32 @@ export interface ICalDaySimpleEvtListProps {
 export default (props: ICalDaySimpleEvtListProps) => {
     const { evts, maxPreview } = props;
     const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [dragNode, setDragNode] = useState(null);
+    const [popId, setPopId] = useState(calEventPresenterManager.getId());
+    const nbMoreRef = useRef(null);
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = useSortedEvtList(
         evts
     );
-    const previewList = maxPreview
-        ? sortedList.slice(0, maxPreview)
-        : sortedList;
+    const previewList =
+        (maxPreview && maxPreview < sortedList.length)
+            ? sortedList.slice(0, maxPreview)
+            : sortedList;
 
     const nbMore = sortedList.length - previewList.length;
 
-    const onSelectItem = (selectedIndex: number) => {
+    useEffect(() => {
+        setPopId(calEventPresenterManager.getId());
+    }, [selectedIndex]);
+
+    const onSelectItem = (selectedIndex: number, refObj: HTMLDivElement) => {
         setSelectedIndex(selectedIndex);
+        setDragNode(refObj);
     };
+
+    const nbMoreClass = cx({
+        ['caldayEvt-simple-list__more']: true,
+        ['is-selected']: selectedIndex === previewList.length,
+    });
 
     return (
         <div className="caldayEvt-simple-list">
@@ -50,7 +67,16 @@ export default (props: ICalDaySimpleEvtListProps) => {
                 </div>
             )}
             {nbMore > 0 && (
-                <div className="caldayEvt-simple-list__more">
+                <div
+                    ref={nbMoreRef}
+                    className={nbMoreClass}
+                    onClick={() => {
+                        onSelectItem(
+                            previewList.length,
+                            nbMoreRef ? nbMoreRef.current : null
+                        );
+                    }}
+                >
                     <FormattedMessage
                         id="cal.moreResults"
                         values={{ nbMore }}
@@ -58,7 +84,16 @@ export default (props: ICalDaySimpleEvtListProps) => {
                 </div>
             )}
             {selectedIndex !== -1 && (
-                <CalDayCompleteEvtPop item={previewList[selectedIndex]} />
+                <CalDayCompleteEvtPop
+                    zIndex={1111}
+                    asideCurshion={10}
+                    topCurshion={30}
+                    bottomCurshion={30}
+                    id={popId}
+                    dragPopNode={dragNode}
+                    item={previewList[selectedIndex]}
+                    positionner={Positionner.autoAside}
+                />
             )}
         </div>
     );

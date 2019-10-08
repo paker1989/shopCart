@@ -1,0 +1,23 @@
+@import "../../../../assets/style/theme.scss";
+
+$panelPadding: 8px 10px;
+$containerWidth: 400px;
+$containerMinHeight: 90px;
+$containerMaxHeight: 300px;
+
+.caldayCompleteEvt-pop {
+  position: fixed;
+  background: #fff;
+  color: $fontColor;
+  font-size: $fontSizeBasic;
+  border-radius: 8px;
+  box-shadow: $calDayEvtPresenterShadow;
+}
+
+.caldayCompleteEvt-content {
+  position: relative;
+  width: $containerWidth;
+  min-height: $containerMinHeight;
+  max-height: $containerMaxHeight;
+  overflow-y: auto;
+}

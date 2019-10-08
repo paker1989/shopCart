@@ -39,7 +39,7 @@
    > 'create' button should be disabled when `calEvtDefinerPop` is presented --> 两种情况: 1. 如果是created的pop，点击则hide，如果是无关的pop，点击则noop (通过signal value判断);
    > `calEvtDefinerPop`一旦生成后，他的timerange就需要和全局绑定，meaning: update time range --> trigger `toTargetDate` then `clickOnGrid evt` --> return `updated_calEvtPop.current` 给`calEvtDefinerPop`从而adjusterPosition;
    -- 我深深的认为: 这个calEvtDefinerPop应该是app下的一个组件。这样完美和redux绑定。
-
+-  `yearLayout` 初始状态下点开`calDayEvtSimplePresenter`没有调整位置 --> 数据传输的问题
 
 > webpack
   - seprate `Intl` api | Intl.js polyfill in webpack;

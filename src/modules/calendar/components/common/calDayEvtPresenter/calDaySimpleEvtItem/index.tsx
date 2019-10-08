@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 
 import { FormattedTime, FormattedMessage } from 'react-intl';
@@ -10,12 +11,13 @@ import './calDaySimpleEvtItem.scss';
 export interface CalDaySimpleEvtItemProps {
     item: CalEvtDataNS.ICalEvtSortedItemType;
     index: number;
-    onSelect: (index: number) => void;
+    onSelect: (index: number, refObj: HTMLDivElement) => void;
     selected: boolean;
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     const { item, onSelect, selected, index } = props;
+    const self = useRef(null);
     let date;
     let content;
     switch (item.type) {
@@ -113,8 +115,9 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     }
     return (
         <div
-            className={selected && 'simpleItem-selected'}
-            onClick={() => onSelect(index)}
+            ref={self}
+            className={selected? 'simpleItem-selected': ''}
+            onClick={() => onSelect(index, self ? self.current : null)}
         >
             {content}
         </div>

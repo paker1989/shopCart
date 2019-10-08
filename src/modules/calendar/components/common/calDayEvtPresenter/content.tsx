@@ -70,7 +70,7 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
                     {loading ? (
                         loadingContent
                     ) : (
-                        <CalDaySimpleEvtList evts={calEvts} />
+                        <CalDaySimpleEvtList evts={calEvts} maxPreview={5} />
                     )}
                 </div>
             </div>
