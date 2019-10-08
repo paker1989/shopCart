@@ -12,3 +12,7 @@
     > if undefined, launch `evtSaga.getEvt`;
     > or, render
 
+
+## monthLayout 数据加载
+- `componentDidMount`: fetchMonthData, saga returns all evts data with `year=displayYear, month=displayMonth`, it updates `evtsReducers.calEvts` with `dateKey`. then in *SingledayGrid* it maps
+`calEvts[dateKey]`;

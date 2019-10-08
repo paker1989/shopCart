@@ -1,10 +1,17 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-
 import { CalendarNS } from '../../../../../utils/types';
+import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
+import CalDaySimpleEvtList from '../../../../common/calDayEvtPresenter/calDaySimpleEvtList';
 
 import './singleDayGrid.scss';
+import { CalEvtDataNS } from '../../../../../utils/evtTypes';
+
+const mapStateToProps = (state, ownProps) => ({
+    evts: state.evtsReducers.cachedEvts[getYYYYMMDDDate(ownProps.value)],
+});
 
 export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     className?: string;
@@ -20,6 +27,7 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
         type: 'start' | 'end'
     ) => void;
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
+    evts?: CalEvtDataNS.ICalEvtCompleteDataModelType[];
 }
 
 const _test_calEventBody_bg = 'rgb(121, 134, 203)';
@@ -40,6 +48,11 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
     }
 
     componentDidUpdate() {
+        console.log(this.props.evts);
+        console.log(this.props);
+        if (this.props.evts) {
+            console.log(this.props.evts);
+        }
         const { isInvolved, isStart, isEnd, setDateRangeRef } = this.props;
         if (!this.dragRef || !isInvolved || !setDateRangeRef) {
             return;
@@ -62,6 +75,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
 
     render() {
         const {
+            evts,
             showValue,
             isToday,
             isGrey,
@@ -112,6 +126,11 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                         <span>{showValue}</span>
                     </div>
                 </div>
+                {evts && (
+                    <div className="evts-present-wrapper">
+                        <CalDaySimpleEvtList evts={evts} maxPreview={2} />
+                    </div>
+                )}
                 {isInvolved && (
                     <div ref={this.dragRef} className={calEventPopEventClass}>
                         <div
@@ -131,4 +150,4 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
     }
 }
 
-export default SingleDayGrid;
+export default connect(mapStateToProps)(SingleDayGrid);

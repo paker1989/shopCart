@@ -4,10 +4,10 @@ import * as EvtsActionTypes from '../actionType/evtsActionType';
 import { getYYYYMMDDDate } from '../../utils/timeUtils';
 
 function* loadEvtsData(reqObj) {
-    const dateKey = getYYYYMMDDDate(reqObj.date);
+    const dateKey = getYYYYMMDDDate(reqObj.payload.date);
     try {
         const res = yield axios.get('/static/data/dev/calEvents.json', {
-            params: dateKey,
+            params: { dateKey },
         });
 
         if (res && res.data) {
@@ -36,9 +36,44 @@ function* loadEvtsData(reqObj) {
             },
         });
     }
+}
 
+function* loadMonthEvtsData(reqObj) {
+    // console.log(reqObj);
+    const { year, month } = reqObj.payload;
+    try {
+        const res = yield axios.get('/static/data/dev/calMonthEvents.json', {
+            params: { year, month },
+        });
+        if (res && res.data) {
+            yield put({
+                type: EvtsActionTypes._FETCH_MONTH_EVTS_SUCCESS,
+                payload: {
+                  data: res.data
+                }
+            });
+        } 
+        // else {
+        //     yield put({
+        //         type: EvtsActionTypes._FETCH_EVTS_ERROR,
+        //         payload: {
+        //             dateKey,
+        //         },
+        //     });
+        // }
+    }
+    catch (error) {
+        // console.log(error);
+        // yield put({
+        //     type: EvtsActionTypes._FETCH_EVTS_ERROR,
+        //     payload: {
+        //         dateKey,
+        //     },
+        // });
+    }
 }
 
 export function* loadCalEvtsSaga() {
     yield takeLatest(EvtsActionTypes._FETCH_EVTS, loadEvtsData);
+    yield takeLatest(EvtsActionTypes._FETCH_MONTH_EVTS, loadMonthEvtsData);
 }

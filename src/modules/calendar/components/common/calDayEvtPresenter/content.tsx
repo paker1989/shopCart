@@ -32,7 +32,7 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
             dispatch(EvtsActionCreator.fetchEvts(date));
         } else {
             setLoading(false);
-            setCalEvts(evtData.evts);
+            setCalEvts(evtData);
         }
     }, [evtData]);
 

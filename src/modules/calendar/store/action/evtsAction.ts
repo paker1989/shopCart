@@ -1,6 +1,15 @@
 import * as EvtsActionType from '../actionType/evtsActionType';
+import { CalendarRedux } from '../../utils/reduxTypes';
 
-export const fetchEvts = (date: Date) => ({
+export const fetchEvts = (date: Date): CalendarRedux.IReduxAction => ({
     type: EvtsActionType._FETCH_EVTS,
-    date,
+    payload: { date },
+});
+
+export const fetchMonthEvts = (
+    year: number,
+    month: number
+): CalendarRedux.IReduxAction => ({
+    type: EvtsActionType._FETCH_MONTH_EVTS,
+    payload: { year, month },
 });

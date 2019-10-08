@@ -51,6 +51,12 @@ $calEventBorderRadius: 4px;
     }
   }
 
+  & .evts-present-wrapper {
+    position: absolute;
+    width: 100%;
+    padding-right: 5px;
+  }
+
   &-calEvent {
     position: absolute;
     left: 0px;

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
 import * as PopActionCreator from '../../../../store/action/popAction';
+import * as EvtsActionCreator from '../../../../store/action/evtsAction';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayGrid from '../common/singleDayGrid';
 import WeekLine from './weekLine';
@@ -46,6 +47,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updateDefPop: (defProps: CalendarRedux.IDefinerPopStats) =>
         dispatch(PopActionCreator.updateDefinerPop(defProps)),
+    fetchMonthEvts: (year: number, month: number) =>
+        dispatch(EvtsActionCreator.fetchMonthEvts(year, month)),
 });
 
 export interface IMonthLayoutState {
@@ -67,13 +70,27 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
         };
     }
 
+    componentDidMount() {
+        const { currentYear, currentMonth, fetchMonthEvts } = this.props;
+        fetchMonthEvts(currentYear, currentMonth);
+    }
+
     componentDidUpdate(prevProps) {
         const {
             globalInitStatus,
             defTimeRange,
             updateDefPop,
             defShowPop,
+            currentYear,
+            currentMonth,
+            fetchMonthEvts,
         } = this.props;
+        if (
+            currentYear !== prevProps.currentYear ||
+            currentMonth !== prevProps.currentMonth
+        ) {
+            fetchMonthEvts(currentYear, currentMonth);
+        }
         // handle global create event
         if (
             prevProps.globalInitStatus !== 'init' &&

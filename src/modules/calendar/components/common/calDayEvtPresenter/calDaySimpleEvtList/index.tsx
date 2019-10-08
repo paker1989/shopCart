@@ -23,11 +23,11 @@ export default (props: ICalDaySimpleEvtListProps) => {
     const [dragNode, setDragNode] = useState(null);
     const [popId, setPopId] = useState(calEventPresenterManager.getId());
     const nbMoreRef = useRef(null);
-    const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = useSortedEvtList(
-        evts
-    );
+    const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
+        ? useSortedEvtList(evts)
+        : [];
     const previewList =
-        (maxPreview && maxPreview < sortedList.length)
+        maxPreview && maxPreview < sortedList.length
             ? sortedList.slice(0, maxPreview)
             : sortedList;
 

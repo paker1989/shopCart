@@ -15,15 +15,18 @@ export default function(
     switch (action.type) {
         case EvtsActionType._FETCH_EVTS_SUCCESS:
             const { dateKey, evts } = action.payload;
-            state.cachedEvts[dateKey] = {
-                evts,
-            };
+            state.cachedEvts[dateKey] = evts;
             return state;
         case EvtsActionType._FETCH_EVTS_ERROR:
-            // let { dateKey } = action.payload;
-            state.cachedEvts[action.payload.dateKey] = {
-                evts: [],
-            };
+            state.cachedEvts[action.payload.dateKey] = [];
+            return state;
+        case EvtsActionType._FETCH_MONTH_EVTS_SUCCESS:
+            const { data } = action.payload;
+            // console.log(data);
+            data.forEach((item) => {
+                console.log(item.dateKey);
+                state.cachedEvts[item.dateKey] = item.evts;
+            });
             return state;
         default:
             return state;
