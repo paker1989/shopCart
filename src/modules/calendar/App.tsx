@@ -24,12 +24,19 @@ class App extends React.Component<any, any> {
         this.onLocationChange();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        // console.log('did update twice');
+        // console.log(this.props);
+        // const { year, month, date, lang } = this.props;
+        // if (
+        //     prevProps.year !== year ||
+        //     prevProps.month !== month ||
+        //     prevProps.date !== date ||
+        //     prevProps.lang !== lang
+        // ) {
+        //     this.onLocationChange();
+        // }
         this.onLocationChange();
-    }
-
-    componentWillUnmount() {
-        console.log('App will unmount');
     }
 
     onLocationChange = () => {

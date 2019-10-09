@@ -57,6 +57,7 @@ export function getYYYYMMDDDate(date: Date) {
         date.getMonth() + 1 < 10
             ? `0${date.getMonth() + 1}`
             : date.getMonth() + 1;
-    return `${date.getFullYear()}${monthStr}${date.getDate()}`;
+    const dateStr =
+        date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+    return `${date.getFullYear()}${monthStr}${dateStr}`;
 }
-

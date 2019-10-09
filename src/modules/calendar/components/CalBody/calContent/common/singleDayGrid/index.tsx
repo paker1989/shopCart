@@ -48,11 +48,6 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
     }
 
     componentDidUpdate() {
-        console.log(this.props.evts);
-        console.log(this.props);
-        if (this.props.evts) {
-            console.log(this.props.evts);
-        }
         const { isInvolved, isStart, isEnd, setDateRangeRef } = this.props;
         if (!this.dragRef || !isInvolved || !setDateRangeRef) {
             return;

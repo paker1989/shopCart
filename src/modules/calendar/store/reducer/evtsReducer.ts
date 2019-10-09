@@ -5,7 +5,7 @@ import { CalendarRedux } from '../../utils/reduxTypes';
 const maxCache = CalConfig.maxEvtCache;
 
 const initialState = {
-    cachedEvts: [],
+    cachedEvts: {},
 };
 
 export default function(
@@ -16,18 +16,16 @@ export default function(
         case EvtsActionType._FETCH_EVTS_SUCCESS:
             const { dateKey, evts } = action.payload;
             state.cachedEvts[dateKey] = evts;
-            return state;
+            return { ...state };
         case EvtsActionType._FETCH_EVTS_ERROR:
             state.cachedEvts[action.payload.dateKey] = [];
-            return state;
+            return { ...state };
         case EvtsActionType._FETCH_MONTH_EVTS_SUCCESS:
             const { data } = action.payload;
-            // console.log(data);
-            data.forEach((item) => {
-                console.log(item.dateKey);
+            data.forEach(item => {
                 state.cachedEvts[item.dateKey] = item.evts;
             });
-            return state;
+            return { ...state };
         default:
             return state;
     }
