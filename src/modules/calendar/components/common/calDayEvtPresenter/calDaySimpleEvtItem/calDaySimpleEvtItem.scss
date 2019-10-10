@@ -1,63 +1,78 @@
-@import '../../../../assets/style/theme.scss';
+@import "../../../../assets/style/theme.scss";
 
-.simpleItem-selected {
-  box-shadow: $calDayEvtPresenterShadow;
+$itemPadding: 10px;
+$itemMargin: 5px;
+
+.itemWrapper {
+  position: relative;
+  height: $caldaySimpleevtItemHeight;
+  padding-bottom: 2px;
+  .simpleItem-selected {
+    box-shadow: $calDayEvtPresenterShadow;
+  }
 }
 
 .calday-simpleevt-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-align: left;
-    width: 100%;
-    height: $caldaySimpleevtItemHeight;
-    padding-left: 3px;
-    border-radius: 4px;
-    margin-bottom: 2px;
-    font-size: 11px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 100%;
 
-    &.is-allday {
-        color: #fff;
-        &:hover {
-            opacity: 0.8;
-        }
-    }
+  padding-left: $itemPadding;
+  border-radius: 4px;
+  height: 100%;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow-x: hidden;
 
-    &.is-timing {
-        color: $fontColor;
-        &:hover {
-            background: $hoverBgColor;
-        }
+  &.is-allday {
+    color: #fff;
+    &:hover {
+      opacity: 0.8;
     }
+  }
 
-    &.is-allday.is-reminder {
-        background: rgb(63, 81, 181);
+  &.is-timing {
+    color: $fontColor;
+    &:hover {
+      background: $hoverBgColor;
     }
+  }
 
-    & .cal-dot {
-        flex: 0 0 8px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
+  &.is-allday.is-reminder {
+    background: rgb(63, 81, 181);
+  }
 
-    & .cal-date {
-        padding-left: 5px;
-    }
+  & .cal-unit {
+    margin-right: $itemMargin;
+  }
 
-    & .cal-icon {
-        flex: 0 0 10px;
-        padding-left: 5px;
+  & .cal-dot {
+    flex: 0 0 15px;
+    & b {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
+  }
 
-    & .cal-text {
-        flex: 1 1 0%;
-        font-weight: 600;
-        padding-left: 5px;
-        text-overflow: clip;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+  & .cal-date {
+    //   flex: 0 0 40px;
+  }
+
+  & .cal-icon {
+    flex: 0 0 15px;
+  }
+
+  & .cal-text {
+    flex: 1 1 0%;
+    font-weight: 600;
+    // padding-right: 5px;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
+import cx from 'classnames';
 
 import { FormattedTime, FormattedMessage } from 'react-intl';
 import { CalendarNS } from '../../../../utils/types';
@@ -18,6 +19,10 @@ export interface CalDaySimpleEvtItemProps {
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     const { item, onSelect, selected, index } = props;
     const self = useRef(null);
+    const wrapperClass = cx({
+        ['itemWrapper']: true,
+        ['simpleItem-selected']: selected,
+    });
     let date;
     let content;
     switch (item.type) {
@@ -29,7 +34,9 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         className="calday-simpleevt-item is-allday is-activity"
                         style={{ backgroundColor: activity.opts.color }}
                     >
-                        <span className="cal-text">{activity.title}</span>
+                        <span className="cal-unit cal-text">
+                            {activity.title}
+                        </span>
                     </div>
                 );
                 break;
@@ -39,11 +46,12 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 );
                 content = (
                     <div className="calday-simpleevt-item is-timing is-activity">
-                        <span
-                            className="cal-dot"
-                            style={{ backgroundColor: activity.opts.color }}
-                        ></span>
-                        <span className="cal-date">
+                        <div className="cal-unit cal-dot">
+                            <b
+                                style={{ backgroundColor: activity.opts.color }}
+                            ></b>
+                        </div>
+                        <span className="cal-unit cal-date">
                             <FormattedTime
                                 value={date}
                                 hour12={true}
@@ -60,12 +68,12 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             if (data.allDayEvt) {
                 content = (
                     <div className="calday-simpleevt-item is-allday is-reminder">
-                        <span className="cal-icon">
+                        <span className="cal-unit cal-icon">
                             <svg className="ali-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-tag-fill"></use>
                             </svg>
                         </span>
-                        <span className="cal-text">
+                        <span className="cal-unit cal-text">
                             {data.reminders.length > 1 ? (
                                 <FormattedMessage
                                     id="cal.nbReminders"
@@ -82,23 +90,24 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 date = convertDBTimeFormatToDate(data.timing);
                 content = (
                     <div className="calday-simpleevt-item is-timing is-reminder">
-                        <span
-                            className="cal-dot"
-                            style={{ backgroundColor: 'rgb(63, 81, 181)' }}
-                        ></span>
-                        <span className="cal-date">
+                        <div className="cal-unit cal-dot">
+                            <b
+                                style={{ backgroundColor: 'rgb(63, 81, 181)' }}
+                            ></b>
+                        </div>
+                        <span className="cal-unit cal-date">
                             <FormattedTime
                                 value={date}
                                 hour12={true}
                                 hour="numeric"
                             />
                         </span>
-                        <span className="cal-icon">
+                        <span className="cal-unit cal-icon">
                             <svg className="ali-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-tag-fill"></use>
                             </svg>
                         </span>
-                        <span className="cal-text">
+                        <span className="cal-unit cal-text">
                             {data.reminders.length > 1 ? (
                                 <FormattedMessage
                                     id="cal.nbReminders"
@@ -116,7 +125,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     return (
         <div
             ref={self}
-            className={selected? 'simpleItem-selected': ''}
+            className={wrapperClass}
             onClick={() => onSelect(index, self ? self.current : null)}
         >
             {content}

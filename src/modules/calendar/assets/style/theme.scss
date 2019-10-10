@@ -23,7 +23,7 @@ $btnBorderRadius: 4px;
 $focusShadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 $calEventDefinerShadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
   0 11px 15px -7px rgba(0, 0, 0, 0.2);
-$calDayEvtPresenterShadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
+$calDayEvtPresenterShadow: 0 1px 3px 0 rgba(60, 64, 67, 0.302), 0 4px 8px 3px rgba(60, 64, 67, 0.149);
 
 /* layout */
 $headerContainerHeight: 64px; // header width;
@@ -49,7 +49,7 @@ $calEventDefinerLeftOffset: 50px;
 $calEventDefinerOptionHeight: 35px;
 $calEventDefinerOptionMainLeftPadding: 10px;
 
-$caldaySimpleevtItemHeight: 20px;
+$caldaySimpleevtItemHeight: 22px;
 
 .btn {
   border-radius: $btnBorderRadius;
@@ -126,7 +126,7 @@ a {
 }
 
 .is-blue {
-  color:  $singleDayGridTodayBgColor;
+  color: $singleDayGridTodayBgColor;
 }
 
 .is-lighter-gey {
@@ -137,12 +137,12 @@ a {
   user-select: none;
 }
 
-@keyframes placeHolderShimmer{
-  0%{
-      background-position: -468px 0
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
   }
-  100%{
-      background-position: 468px 0
+  100% {
+    background-position: 468px 0;
   }
 }
 
@@ -157,4 +157,3 @@ a {
   background-size: 800px 104px;
   position: relative;
 }
-

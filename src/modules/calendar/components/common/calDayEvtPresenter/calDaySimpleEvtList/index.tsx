@@ -14,24 +14,51 @@ import './calDaySimpleEvtList.scss';
 
 export interface ICalDaySimpleEvtListProps {
     evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
-    maxPreview?: number;
+    containerHeight?: number;
 }
 
 export default (props: ICalDaySimpleEvtListProps) => {
-    const { evts, maxPreview } = props;
+    const { evts, containerHeight } = props;
+    const [maxDisplay, setMaxDisplay] = useState(-1);
+    const [previewList, setPreviewList] = useState([]);
+    const [nbMore, setNbMore] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [dragNode, setDragNode] = useState(null);
     const [popId, setPopId] = useState(calEventPresenterManager.getId());
     const nbMoreRef = useRef(null);
+
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
         ? useSortedEvtList(evts)
         : [];
-    const previewList =
-        maxPreview && maxPreview < sortedList.length
-            ? sortedList.slice(0, maxPreview)
-            : sortedList;
 
-    const nbMore = sortedList.length - previewList.length;
+    useEffect(() => {
+        let res;
+        if (maxDisplay < 0) {
+            res = sortedList.slice(0);
+        } else if (maxDisplay >= sortedList.length) {
+            res = sortedList.slice(0, maxDisplay);
+        } else {
+            res = sortedList.slice(0, Math.max(maxDisplay - 1, 0));
+        }
+        setPreviewList(res);
+        setNbMore(maxDisplay === 0 ? 0 : sortedList.length - res.length);
+    }, [maxDisplay, sortedList]);
+
+    useEffect(() => {
+        console.log('try max display');
+        console.log(containerHeight);
+        console.log(sortedList.length);
+        console.log('              ');
+        if (!containerHeight || sortedList.length === 0) {
+            return;
+        }
+        console.log('set max display');
+        console.log(containerHeight);
+        console.log(sortedList.length);
+        console.log('              ');
+
+        setMaxDisplay(Math.floor(containerHeight / 22));
+    }, [containerHeight, sortedList.length]);
 
     useEffect(() => {
         setPopId(calEventPresenterManager.getId());

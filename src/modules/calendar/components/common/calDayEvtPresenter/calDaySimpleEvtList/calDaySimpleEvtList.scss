@@ -1,31 +1,33 @@
-@import '../../../../assets/style/theme.scss';
+@import "../../../../assets/style/theme.scss";
 
 .caldayEvt-simple-list {
-    position: relative;
-    width: 100%;
-    margin-top: 5px;
+  position: relative;
+  width: 100%;
+  // margin-top: 5px;
 
-    & .no-evt-placeholder {
-        font-size: 11px;
-        text-align: left;
+  & .no-evt-placeholder {
+    font-size: 11px;
+    text-align: left;
+  }
+
+  &__more {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: left;
+    line-height: $caldaySimpleevtItemHeight;
+    padding-left: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:hover {
+      background: $hoverBgColor;
     }
 
-    &__more {
-        font-size: 11px;
-        font-weight: 600;
-        text-align: left;
-        line-height: $caldaySimpleevtItemHeight;
-        padding-left: 5px;
-        cursor: pointer;
-        border-radius: 3px;
-        margin: 2px 0;
-
-        &:hover {
-            background: $hoverBgColor;
-        }
-        
-        &.is-selected {
-            box-shadow: $calDayEvtPresenterShadow;
-        }
+    &.is-selected {
+      box-shadow: $calDayEvtPresenterShadow;
     }
+  }
 }
