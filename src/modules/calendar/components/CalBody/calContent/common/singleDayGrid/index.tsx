@@ -52,12 +52,13 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         super(props);
         this.dragRef = React.createRef();
         this.self = React.createRef();
-        this.state = { evtsContainerHeight: -1 };
+        this.state = { evtsContainerHeight: null };
     }
 
     componentDidMount() {
-        console.log('single day grid mount');
-        this.setContainerHeight();
+        setTimeout(() => {
+            this.setContainerHeight();
+        }, 0);
     }
 
     componentDidUpdate() {
@@ -86,8 +87,6 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
             return;
         }
         const { bottom, top } = this.self.current.getBoundingClientRect();
-        console.log('bottom - top  = ' + (bottom - top));
-        console.log('evtsContainerHeight = ' + Math.floor(bottom - top - 28));
         this.setState({
             evtsContainerHeight: Math.floor(bottom - top - 28),
         });

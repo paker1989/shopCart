@@ -99,7 +99,7 @@ class DateDisplayer extends React.Component<any, any> {
                                 }
                             >
                                 <div
-                                    className="circle-wrapper"
+                                    className="icon-circle-wrapper"
                                     onClick={() => this.handleToggle('prev')}
                                 >
                                     <span>
@@ -118,7 +118,7 @@ class DateDisplayer extends React.Component<any, any> {
                                 }
                             >
                                 <div
-                                    className="circle-wrapper"
+                                    className="icon-circle-wrapper"
                                     onClick={() => this.handleToggle('next')}
                                 >
                                     <span>

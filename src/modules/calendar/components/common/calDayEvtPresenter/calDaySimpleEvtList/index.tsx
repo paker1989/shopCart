@@ -45,19 +45,11 @@ export default (props: ICalDaySimpleEvtListProps) => {
     }, [maxDisplay, sortedList]);
 
     useEffect(() => {
-        console.log('try max display');
-        console.log(containerHeight);
-        console.log(sortedList.length);
-        console.log('              ');
         if (!containerHeight || sortedList.length === 0) {
             return;
         }
-        console.log('set max display');
-        console.log(containerHeight);
-        console.log(sortedList.length);
-        console.log('              ');
 
-        setMaxDisplay(Math.floor(containerHeight / 22));
+        setMaxDisplay(Math.max(Math.floor(containerHeight / 22), 0));
     }, [containerHeight, sortedList.length]);
 
     useEffect(() => {

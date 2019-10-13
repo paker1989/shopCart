@@ -1,51 +1,55 @@
-@import "../../../../../assets/style/theme.scss";
+@import '../../../../../assets/style/theme.scss';
 
 .singleDayCol-defaultHeader-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: $calBodyContentColumnLayoutHeaderHeight;
-  padding-top: 12px;
-
-  &.is-left {
-    align-items: flex-start;
-  }
-
-  &.is-right {
-    align-items: flex-end;
-  }
-
-  &.is-center {
-    align-items: center;
-  }
-
-  &__wrapper {
-    & > * {
-      display: block;
-    }
-    text-align: center;
-  }
-
-  &__dateContent {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    &.is-today {
-      background: $singleDayGridTodayBgColor;
-      color: #fff;
+    width: 100%;
+
+    &.is-left {
+        align-items: flex-start;
     }
-    &.is-clickable {
-      cursor: pointer;
-      &:not(.is-today):hover {
-        background: $hoverBgColor;
-        transition: background 0.2s ease;
-      }
+
+    &.is-right {
+        align-items: flex-end;
     }
-  }
+
+    &.is-center {
+        align-items: center;
+    }
+
+    & .text-wrapper {
+        text-align: center;
+    }
+
+    &__dateContent {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        &.is-today {
+            background: $singleDayGridTodayBgColor;
+            color: #fff;
+        }
+        &.is-clickable {
+            cursor: pointer;
+            &:not(.is-today):hover {
+                background: $hoverBgColor;
+                transition: background 0.2s ease;
+            }
+        }
+    }
+
+    & .evtList-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        padding-right: 5px;
+        // border-left: 1px solid $appFrameBorderColor;
+        // border-right: 1px solid $appFrameBorderColor;
+    }
 }

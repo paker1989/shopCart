@@ -1,10 +1,13 @@
+import { CalEvtDataNS } from './evtTypes';
+
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
-        textAlign?: 'left' | 'right' | 'center';
+        textAlign?: string;
         dayAt?: any;
         date?: Date;
         cnCalendarNb?: string; //农历
         onClick?: (param: string | Date) => void;
+        evts?: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     }
 
     export interface IDBTimingFormat {

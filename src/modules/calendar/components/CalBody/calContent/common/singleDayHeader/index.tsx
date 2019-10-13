@@ -1,11 +1,19 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 
+import CalDaySimpleEvtList from '../../../../common/calDayEvtPresenter/calDaySimpleEvtList';
 import { CalendarNS } from '../../../../../utils/types';
-import './header.scss';
 import { isSameDay } from '../../../../../../../_packages_/components/datePicker/common/util';
+import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 
-export default class DefaultHeader extends React.Component<
+import './header.scss';
+
+const mapStateToProps = (state, ownProps) => ({
+    evts: state.evtsReducers.cachedEvts[getYYYYMMDDDate(ownProps.date)],
+});
+
+class DefaultHeader extends React.Component<
     CalendarNS.ISingleDayDefaultHeaderProps,
     any
 > {
@@ -14,7 +22,17 @@ export default class DefaultHeader extends React.Component<
     };
 
     render() {
-        const { textAlign, cnCalendarNb, date, dayAt, onClick } = this.props;
+        const {
+            textAlign,
+            cnCalendarNb,
+            date,
+            dayAt,
+            onClick,
+            evts,
+        } = this.props;
+
+        // console.log(evts);
+        const wholedayEvts = evts ? evts.filter(evt => evt.allDayEvt) : null;
 
         const isToday = isSameDay(date, new Date());
 
@@ -54,7 +72,7 @@ export default class DefaultHeader extends React.Component<
 
         return (
             <div className={wrapperClass}>
-                <div className="singleDayCol-defaultHeader-container__wrapper">
+                <div className="text-wrapper">
                     {dayAt && (
                         <span className="singleDayCol-defaultHeader-container__dayAt font-subtitle">
                             {dayAt}
@@ -62,7 +80,15 @@ export default class DefaultHeader extends React.Component<
                     )}
                     {dateContent}
                 </div>
+                {wholedayEvts && (
+                    <div className="evtList-wrapper">
+                        {/* <div className="placeholder"></div> */}
+                        <CalDaySimpleEvtList evts={wholedayEvts} />
+                    </div>
+                )}
             </div>
         );
     }
 }
+
+export default connect(mapStateToProps)(DefaultHeader);

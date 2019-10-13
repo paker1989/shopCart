@@ -1,8 +1,6 @@
 @import '../../../../assets/style/theme.scss';
 @import '../../../../assets/style/mixin.scss';
 
-$columnBodyOffset: $calBodyContentColumnLayoutSideWidth +
-    $calBodyContentColumnLayoutPlaceholderLineWidth;
 $columBodyMainPaddingRight: 12px;
 $minGridDifferWidth: 80px;
 
@@ -12,6 +10,36 @@ $minGridDifferWidth: 80px;
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    &__headerWrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        padding-right: $columBodyMainPaddingRight;
+        padding-top: 12px;
+        & .placeholder {
+            flex: 0 0 $columnBodyOffset;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 2px;
+            & .gmt {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    &__main {
+        position: relative;
+        flex-grow: 1;
+        display: flex;
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 0 $columBodyMainPaddingRight 0 0;
+        border-top: 1px solid $appFrameBorderColor;
+        @include customizeScrollbar();
+    }
 
     &__timeline {
         position: relative;
@@ -28,25 +56,6 @@ $minGridDifferWidth: 80px;
             border-bottom: 1px solid $appFrameBorderColor;
             height: $singleHourGridMaxHeight;
         }
-    }
-
-    &__main {
-        position: relative;
-        flex-grow: 1;
-        display: flex;
-        height: calc(100% - #{$calBodyContentColumnLayoutHeaderHeight});
-        align-items: flex-start;
-        overflow-y: auto;
-        padding: 0 $columBodyMainPaddingRight 0 0;
-        @include customizeScrollbar();
-    }
-
-    &__headerWrapper {
-        position: relative;
-        width: 100%;
-        display: flex;
-        padding-left: $columnBodyOffset;
-        padding-right: $columBodyMainPaddingRight;
     }
 
     &__columnbody {

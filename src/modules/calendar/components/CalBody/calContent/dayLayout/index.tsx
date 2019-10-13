@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
 import * as PopActionCreator from '../../../../store/action/popAction';
+import * as EvtsActionCreator from '../../../../store/action/evtsAction';
 import CalEventDefinerManager from '../../../common/calEventDefiner';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
@@ -13,6 +14,7 @@ import { CalendarNS } from '../../../../utils/types';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './dayLayout.scss';
+import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -20,6 +22,7 @@ export interface IDayLayoutProps {
     >;
     currentDate: Date;
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
+    fetchEvts?: (date) => void;
 }
 
 export interface IDayLayoutState {}
@@ -30,6 +33,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateDefPop: defPop => dispatch(PopActionCreator.updateDefinerPop(defPop)),
+    fetchEvts: (date: Date) => dispatch(EvtsActionCreator.fetchEvts(date)),
 });
 
 class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
@@ -37,7 +41,17 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         super(props);
     }
 
-    componentDidUpdate(prevprops: IDayLayoutProps) {}
+    componentDidMount() {
+        const { fetchEvts } = this.props;
+        fetchEvts(this.props.currentDate);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { currentDate, fetchEvts } = this.props;
+        if (isSameDay(prevProps.currentDate, currentDate) === false) {
+            fetchEvts(this.props.currentDate);
+        }
+    }
 
     populateHeaderProps = (date: Date) => {
         const headerProps = {
@@ -74,16 +88,17 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         return (
             <div className="calbody-content-dayLayout-container">
                 <div className="calbody-content-dayLayout-container__headerWrapper">
-                    <div className="calbody-content-dayLayout-container__headerDifferWrapper">
-                        {
-                            <DateDisplayHeader
-                                {...headerProps}
-                                textAlign="left"
-                            />
-                        }
+                    <div className="placeholder">
+                        <span className="gmt font-subtitle">GMT+2</span>
+                        <div className="icon-circle-wrapper ">
+                            <svg className="ali-icon" aria-hidden="true">
+                                <use className="font-subtitle" xlinkHref="#icon-arrowdown"></use>
+                            </svg>
+                        </div>
                     </div>
+                    {<DateDisplayHeader {...headerProps} textAlign="left" />}
                 </div>
-                <div className="calbody-content-dayLayout-container__main">
+                <div className="calbody-content-dayLayout-container__main scrolling">
                     <div className="calbody-content-dayLayout-container__timeline">
                         {timeLineLabels.map((label, index) => (
                             <div

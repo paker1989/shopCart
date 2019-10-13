@@ -36,9 +36,12 @@ $calBodyShelfCreatePanelHeight: 70px; // body shelf create panel height;
 
 $calBodyLinkSideBarWidth: 60px; // body linksidebar width;
 
-$calBodyContentColumnLayoutHeaderHeight: 80px; // main body header height
+// $calBodyContentColumnLayoutHeaderHeight: 80px; // main body header height
+$calBodayContentColumnLayoutHeaderMaxHeight: 120px;
 $calBodyContentColumnLayoutSideWidth: 60px; // main body sidebar timeline width;
 $calBodyContentColumnLayoutPlaceholderLineWidth: 6px; // 左侧突出线头的长度
+$columnBodyOffset: $calBodyContentColumnLayoutSideWidth +
+    $calBodyContentColumnLayoutPlaceholderLineWidth;
 
 $calBodyContentMonthLayoutHeaderHeight: 30px;
 $calBodyContentMonthLayoutSideWidth: 23px; // main body sidebar weekline width;
@@ -137,6 +140,23 @@ a {
   user-select: none;
 }
 
+.icon-circle-wrapper {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: $fontColor;
+  cursor: pointer;
+  transition: background 0.2s ease-in;
+
+  &:hover {
+    background: $hoverBgColor;
+  }
+}
+
 @keyframes placeHolderShimmer {
   0% {
     background-position: -468px 0;
@@ -157,3 +177,5 @@ a {
   background-size: 800px 104px;
   position: relative;
 }
+
+
