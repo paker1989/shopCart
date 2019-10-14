@@ -9,12 +9,16 @@ import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
+import Placeholder from '../common/singleDayHeaderPlder';
 
 import { CalendarNS } from '../../../../utils/types';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
 
-import './dayLayout.scss';
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
+
+import './dayLayout.scss';
+import { getYYYYMMDDDate } from '../../../../utils/timeUtils';
+import { CalEvtDataNS } from '../../../../utils/evtTypes';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -23,12 +27,19 @@ export interface IDayLayoutProps {
     currentDate: Date;
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
     fetchEvts?: (date) => void;
+    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
 }
 
-export interface IDayLayoutState {}
+export interface IDayLayoutState {
+    collapseEvt: boolean;
+}
 
 const mapStateToProps = state => ({
     currentDate: state.dateReducers.currentDate,
+    evts:
+        state.evtsReducers.cachedEvts[
+            getYYYYMMDDDate(state.dateReducers.currentDate)
+        ],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,6 +50,7 @@ const mapDispatchToProps = dispatch => ({
 class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     constructor(props) {
         super(props);
+        this.state = { collapseEvt: false };
     }
 
     componentDidMount() {
@@ -79,7 +91,8 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
     };
 
     render() {
-        const { singleDayHeader, currentDate } = this.props;
+        const { singleDayHeader, currentDate, evts } = this.props;
+        const { collapseEvt } = this.state;
 
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
@@ -88,14 +101,14 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         return (
             <div className="calbody-content-dayLayout-container">
                 <div className="calbody-content-dayLayout-container__headerWrapper">
-                    <div className="placeholder">
-                        <span className="gmt font-subtitle">GMT+2</span>
-                        <div className="icon-circle-wrapper ">
-                            <svg className="ali-icon" aria-hidden="true">
-                                <use className="font-subtitle" xlinkHref="#icon-arrowdown"></use>
-                            </svg>
-                        </div>
-                    </div>
+                    <Placeholder
+                        maxNbEvts={2}
+                        isCollapse={collapseEvt}
+                        evts={evts}
+                        onExpOrClps={() => {
+                            this.setState({ collapseEvt: !collapseEvt });
+                        }}
+                    />
                     {<DateDisplayHeader {...headerProps} textAlign="left" />}
                 </div>
                 <div className="calbody-content-dayLayout-container__main scrolling">

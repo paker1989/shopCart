@@ -31,7 +31,6 @@ class DefaultHeader extends React.Component<
             evts,
         } = this.props;
 
-        // console.log(evts);
         const wholedayEvts = evts ? evts.filter(evt => evt.allDayEvt) : null;
 
         const isToday = isSameDay(date, new Date());
@@ -82,7 +81,6 @@ class DefaultHeader extends React.Component<
                 </div>
                 {wholedayEvts && (
                     <div className="evtList-wrapper">
-                        {/* <div className="placeholder"></div> */}
                         <CalDaySimpleEvtList evts={wholedayEvts} />
                     </div>
                 )}

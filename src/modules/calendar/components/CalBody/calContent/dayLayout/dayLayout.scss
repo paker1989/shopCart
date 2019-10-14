@@ -17,17 +17,17 @@ $minGridDifferWidth: 80px;
         display: flex;
         padding-right: $columBodyMainPaddingRight;
         padding-top: 12px;
-        & .placeholder {
-            flex: 0 0 $columnBodyOffset;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding-bottom: 2px;
-            & .gmt {
-                padding-bottom: 20px;
-            }
-        }
+        // & .placeholder {
+        //     flex: 0 0 $columnBodyOffset;
+        //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: flex-end;
+        //     align-items: center;
+        //     padding-bottom: 2px;
+        //     & .gmt {
+        //         padding-bottom: 20px;
+        //     }
+        // }
     }
 
     &__main {
@@ -87,4 +87,6 @@ $minGridDifferWidth: 80px;
             right: 0;
         }
     }
+
+
 }
