@@ -8,6 +8,8 @@ export namespace CalendarNS {
         cnCalendarNb?: string; //农历
         onClick?: (param: string | Date) => void;
         evts?: CalEvtDataNS.ICalEvtCompleteDataModelType[];
+        nbDisplayEvts?: number;
+        updateNbEvts?: (nbEvt: number) => void;
     }
 
     export interface IDBTimingFormat {
@@ -19,10 +21,9 @@ export namespace CalendarNS {
     }
 
     export interface IDBTimingRangeFormat {
-      from: IDBTimingFormat;
-      to: IDBTimingFormat;
+        from: IDBTimingFormat;
+        to: IDBTimingFormat;
     }
-
 
     export interface ITimingFormat {
         dayAt: Date;

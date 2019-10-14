@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
+import isNumber from 'lodash/isNumber';
 
 import Positionner from '../../position';
 import CalDaySimpleEvtItem from '../calDaySimpleEvtItem';
@@ -15,11 +16,15 @@ import './calDaySimpleEvtList.scss';
 export interface ICalDaySimpleEvtListProps {
     evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     containerHeight?: number;
+    nbDisplayEvt?: number;
+    showNoEvtReminder?: boolean;
 }
 
-export default (props: ICalDaySimpleEvtListProps) => {
-    const { evts, containerHeight } = props;
-    const [maxDisplay, setMaxDisplay] = useState(-1);
+const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
+    const { evts, containerHeight, nbDisplayEvt, showNoEvtReminder } = props;
+    const [maxDisplay, setMaxDisplay] = useState(
+        isNumber(nbDisplayEvt) ? nbDisplayEvt : -1
+    );
     const [previewList, setPreviewList] = useState([]);
     const [nbMore, setNbMore] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -53,6 +58,12 @@ export default (props: ICalDaySimpleEvtListProps) => {
     }, [containerHeight, sortedList.length]);
 
     useEffect(() => {
+        if (isNumber(nbDisplayEvt)) {
+            setMaxDisplay(nbDisplayEvt);
+        }
+    }, [nbDisplayEvt]);
+
+    useEffect(() => {
         setPopId(calEventPresenterManager.getId());
     }, [selectedIndex]);
 
@@ -69,9 +80,11 @@ export default (props: ICalDaySimpleEvtListProps) => {
     return (
         <div className="caldayEvt-simple-list">
             {evts.length === 0 ? (
-                <div className="no-evt-placeholder">
-                    <FormattedMessage id="cal.noEvts" />
-                </div>
+                showNoEvtReminder && (
+                    <div className="no-evt-placeholder">
+                        <FormattedMessage id="cal.noEvts" />
+                    </div>
+                )
             ) : (
                 <div className="caldayEvt-simple-list__activities">
                     {previewList.map((item, index) => (
@@ -117,3 +130,9 @@ export default (props: ICalDaySimpleEvtListProps) => {
         </div>
     );
 };
+
+CalDaySimpleEvtList.defaultProps = {
+    showNoEvtReminder: false,
+};
+
+export default CalDaySimpleEvtList;

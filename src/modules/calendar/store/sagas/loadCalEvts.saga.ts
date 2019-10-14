@@ -26,8 +26,7 @@ function* loadEvtsData(reqObj) {
                 },
             });
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         yield put({
             type: EvtsActionTypes._FETCH_EVTS_ERROR,
@@ -49,10 +48,10 @@ function* loadMonthEvtsData(reqObj) {
             yield put({
                 type: EvtsActionTypes._FETCH_MONTH_EVTS_SUCCESS,
                 payload: {
-                  data: res.data
-                }
+                    data: res.data,
+                },
             });
-        } 
+        }
         // else {
         //     yield put({
         //         type: EvtsActionTypes._FETCH_EVTS_ERROR,
@@ -61,8 +60,7 @@ function* loadMonthEvtsData(reqObj) {
         //         },
         //     });
         // }
-    }
-    catch (error) {
+    } catch (error) {
         // console.log(error);
         // yield put({
         //     type: EvtsActionTypes._FETCH_EVTS_ERROR,
@@ -73,7 +71,28 @@ function* loadMonthEvtsData(reqObj) {
     }
 }
 
+function* loadEvtsOfDatesData(reqObj) {
+    const { dates } = reqObj.payload;
+    const formattedDates = dates.map(date => getYYYYMMDDDate(date));
+    try {
+        const res = yield axios.get('/static/data/dev/calWeekEvents.json', {
+            params: { dates: formattedDates },
+        });
+        if (res && res.data) {
+            yield put({
+                type: EvtsActionTypes._FETCH_EVTS_OF_DATES_SUCCESS,
+                payload: {
+                    data: res.data,
+                },
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export function* loadCalEvtsSaga() {
     yield takeLatest(EvtsActionTypes._FETCH_EVTS, loadEvtsData);
     yield takeLatest(EvtsActionTypes._FETCH_MONTH_EVTS, loadMonthEvtsData);
+    yield takeLatest(EvtsActionTypes._FETCH_EVTS_OF_DATES, loadEvtsOfDatesData);
 }

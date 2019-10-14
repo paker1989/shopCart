@@ -21,6 +21,12 @@ class DefaultHeader extends React.Component<
         textAlign: 'left',
     };
 
+    componentDidUpdate(prevProps: CalendarNS.ISingleDayDefaultHeaderProps) {
+        if (this.props.evts && !prevProps.evts && this.props.updateNbEvts) {
+            this.props.updateNbEvts(this.props.evts.length);
+        }
+    }
+
     render() {
         const {
             textAlign,
@@ -29,6 +35,7 @@ class DefaultHeader extends React.Component<
             dayAt,
             onClick,
             evts,
+            nbDisplayEvts,
         } = this.props;
 
         const wholedayEvts = evts ? evts.filter(evt => evt.allDayEvt) : null;
@@ -81,7 +88,10 @@ class DefaultHeader extends React.Component<
                 </div>
                 {wholedayEvts && (
                     <div className="evtList-wrapper">
-                        <CalDaySimpleEvtList evts={wholedayEvts} />
+                        <CalDaySimpleEvtList
+                            evts={wholedayEvts}
+                            nbDisplayEvt={nbDisplayEvts}
+                        />
                     </div>
                 )}
             </div>

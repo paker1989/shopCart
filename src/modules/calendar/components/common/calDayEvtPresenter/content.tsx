@@ -70,7 +70,10 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
                     {loading ? (
                         loadingContent
                     ) : (
-                        <CalDaySimpleEvtList evts={calEvts} />
+                        <CalDaySimpleEvtList
+                            evts={calEvts}
+                            showNoEvtReminder={true}
+                        />
                     )}
                 </div>
             </div>

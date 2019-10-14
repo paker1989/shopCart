@@ -7,14 +7,15 @@ import './singleDayHeaderPlder.scss';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 
 export interface SingleDayHeaderPlderProps {
-    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
+    nbEvts?: number;
+    evts?: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     maxNbEvts: number;
     isCollapse: boolean;
     onExpOrClps: () => void;
 }
 
 const SingleDayHeaderPlder = (props: SingleDayHeaderPlderProps) => {
-    const { evts, maxNbEvts, isCollapse } = props;
+    const { nbEvts, evts, maxNbEvts, isCollapse } = props;
     const [displayClps, setDisplayClps] = useState(false);
 
     const sortedList = useSortedEvtList(
@@ -22,8 +23,12 @@ const SingleDayHeaderPlder = (props: SingleDayHeaderPlderProps) => {
     );
 
     useEffect(() => {
-        setDisplayClps(sortedList.length > maxNbEvts);
-    }, [sortedList.length, maxNbEvts]);
+        if (nbEvts !== undefined) {
+            setDisplayClps(nbEvts > maxNbEvts);
+        } else {
+            setDisplayClps(sortedList.length > maxNbEvts);
+        }
+    }, [nbEvts, sortedList.length, maxNbEvts]);
 
     const expandIconClass = cx({
         ['ali-icon']: true,
@@ -34,14 +39,13 @@ const SingleDayHeaderPlder = (props: SingleDayHeaderPlderProps) => {
         <div className="placeholder">
             <span className="gmt font-subtitle">GMT+2</span>
             {displayClps && (
-                <div className="icon-circle-wrapper">
-                    <svg
-                        className={expandIconClass}
-                        aria-hidden="true"
-                        onClick={() => {
-                            props.onExpOrClps();
-                        }}
-                    >
+                <div
+                    className="icon-circle-wrapper"
+                    onClick={() => {
+                        props.onExpOrClps();
+                    }}
+                >
+                    <svg className={expandIconClass} aria-hidden="true">
                         <use
                             className="font-subtitle"
                             xlinkHref="#icon-arrowdown"

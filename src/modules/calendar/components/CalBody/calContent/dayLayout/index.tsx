@@ -10,15 +10,14 @@ import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
 import Placeholder from '../common/singleDayHeaderPlder';
-
+import CalConfig from '../../../../assets/scripts/calendar.config';
 import { CalendarNS } from '../../../../utils/types';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
-
+import { getYYYYMMDDDate } from '../../../../utils/timeUtils';
+import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 
 import './dayLayout.scss';
-import { getYYYYMMDDDate } from '../../../../utils/timeUtils';
-import { CalEvtDataNS } from '../../../../utils/evtTypes';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -94,6 +93,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         const { singleDayHeader, currentDate, evts } = this.props;
         const { collapseEvt } = this.state;
 
+        const nbMaxDisplayEvts = CalConfig.maxHeaderDisplayEvt;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         const timeLineLabels = getTimelineLabels(true);
         const headerProps = this.populateHeaderProps(currentDate);
@@ -102,14 +102,20 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             <div className="calbody-content-dayLayout-container">
                 <div className="calbody-content-dayLayout-container__headerWrapper">
                     <Placeholder
-                        maxNbEvts={2}
+                        maxNbEvts={nbMaxDisplayEvts}
                         isCollapse={collapseEvt}
                         evts={evts}
                         onExpOrClps={() => {
                             this.setState({ collapseEvt: !collapseEvt });
                         }}
                     />
-                    {<DateDisplayHeader {...headerProps} textAlign="left" />}
+                    {
+                        <DateDisplayHeader
+                            {...headerProps}
+                            textAlign="left"
+                            nbDisplayEvts={collapseEvt ? nbMaxDisplayEvts : -1}
+                        />
+                    }
                 </div>
                 <div className="calbody-content-dayLayout-container__main scrolling">
                     <div className="calbody-content-dayLayout-container__timeline">

@@ -8,4 +8,5 @@ export default {
     repeats: ['everySameDay', 'everyWorkDay', 'everyDay', 'everySameDate'],
     defRepeat: 'everyWorkDay',
     maxEvtCache: 10,
+    maxHeaderDisplayEvt: 2,
 };

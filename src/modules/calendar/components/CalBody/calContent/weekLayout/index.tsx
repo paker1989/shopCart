@@ -4,17 +4,17 @@ import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import * as PopActionCreator from '../../../../store/action/popAction';
+import * as EvtsActionCreator from '../../../../store/action/evtsAction';
 import CalEventDefinerManager from '../../../common/calEventDefiner';
 import { DayConverter } from '../../../../utils/i18nProvider';
 import SingleDayColumn from '../common/singleDayColumn';
 import DefaultHeader from '../common/singleDayHeader';
 import { getDayRangeOfWeek } from '../../../../utils/timeUtils';
 import getTimelineLabels from '../../../../utils/getTimelineLabels';
-
+import CalConfig from '../../../../assets/scripts/calendar.config';
 import { CalendarNS } from '../../../../utils/types';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
-
-import { isIncludeDate } from '../../../../../../_packages_/components/datePicker/common/util';
+import Placeholder from '../common/singleDayHeaderPlder';
 import { getPath } from '../../../../utils/routeHelper';
 
 import './weekLayout.scss';
@@ -30,10 +30,14 @@ export interface IWeekLayoutProps {
     history?: any;
     locale?: string;
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
+    fetchEvts?: (dates: Date[]) => void;
 }
 
 export interface IWeekLayoutState {
     draggingDate?: Date;
+    collapseEvt: boolean;
+    datesOfWeek: Date[];
+    nbMaxChildEvts: number;
 }
 
 const mapStateToProps = state => {
@@ -48,6 +52,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     updateDefPop: defPop => dispatch(PopActionCreator.updateDefinerPop(defPop)),
+    fetchEvts: (dates: Date[]) =>
+        dispatch(EvtsActionCreator.fetchEvtsOfDates(dates)),
 });
 
 const _is_display_we = true;
@@ -57,7 +63,41 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
         super(props);
         this.state = {
             draggingDate: null,
+            collapseEvt: false,
+            datesOfWeek: [],
+            nbMaxChildEvts: 0,
         };
+    }
+
+    componentDidMount() {
+        const { currentYear, currentWeek, fetchEvts } = this.props;
+        this.populateDatesOfWeek(currentYear, currentWeek, _is_display_we);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { currentYear, currentWeek } = this.props;
+        if (
+            currentYear !== prevProps.currentYear ||
+            currentWeek !== prevProps.currentWeek
+        ) {
+            this.populateDatesOfWeek(currentYear, currentWeek, _is_display_we);
+        }
+    }
+
+    populateDatesOfWeek(currentYear, currentWeek, isDisplayWE) {
+        const { fetchEvts } = this.props;
+        this.setState(
+            {
+                datesOfWeek: getDayRangeOfWeek(
+                    currentYear,
+                    currentWeek,
+                    isDisplayWE
+                ),
+            },
+            () => {
+                fetchEvts(this.state.datesOfWeek);
+            }
+        );
     }
 
     populateHeaderProps = (dates: Date[]): any[] => {
@@ -95,11 +135,30 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
         });
     };
 
+    updateNbEvts = (nbEvts: number) => {
+        const { nbMaxChildEvts } = this.state;
+        if (nbEvts > nbMaxChildEvts) {
+            this.setState({
+                nbMaxChildEvts: nbEvts,
+            });
+        }
+    };
+
     getHeaders = (headerProps, itemWidth) => {
         const { singleDayHeader } = this.props;
+        const { collapseEvt, nbMaxChildEvts } = this.state;
+        const nbMaxDisplayEvts = CalConfig.maxHeaderDisplayEvt;
         const DateDisplayHeader = singleDayHeader || DefaultHeader;
         return (
             <div className="calbody-content-weekLayout-container__headerWrapper">
+                <Placeholder
+                    maxNbEvts={nbMaxDisplayEvts}
+                    isCollapse={collapseEvt}
+                    nbEvts={nbMaxChildEvts}
+                    onExpOrClps={() => {
+                        this.setState({ collapseEvt: !collapseEvt });
+                    }}
+                />
                 {headerProps.map((headerProps, index) => (
                     <div
                         className="calbody-content-weekLayout-container__headerDifferWrapper"
@@ -111,6 +170,10 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                                 {...headerProps}
                                 textAlign="center"
                                 onClick={this.navToSelectedDate}
+                                nbDisplayEvts={
+                                    collapseEvt ? nbMaxDisplayEvts : -1
+                                }
+                                updateNbEvts={this.updateNbEvts}
                             />
                         }
                     </div>
@@ -120,19 +183,11 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     };
 
     render() {
-        const { currentYear, currentWeek } = this.props;
-        const { draggingDate } = this.state;
+        const { draggingDate, datesOfWeek } = this.state;
 
         const timeLineLabels = getTimelineLabels(true);
-        const daysOfWeek = getDayRangeOfWeek(
-            currentYear,
-            currentWeek,
-            _is_display_we
-        );
-        // const dateToListenToSingal = isIncludeDate(daysOfWeek, new Date())
-        //     ? new Date()
-        //     : daysOfWeek[0];
-        const headerProps = this.populateHeaderProps(daysOfWeek);
+
+        const headerProps = this.populateHeaderProps(datesOfWeek);
         const itemWidth = 100 / headerProps.length;
         const Header = this.getHeaders(headerProps, itemWidth);
 
@@ -161,7 +216,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                         ))}
                     </div>
                     <div className="calbody-content-weekLayout-container__columnbody">
-                        {daysOfWeek.map((date, index) => {
+                        {datesOfWeek.map((date, index) => {
                             return (
                                 <div
                                     className="calbody-content-weekLayout-container__dayDifferWrapper"

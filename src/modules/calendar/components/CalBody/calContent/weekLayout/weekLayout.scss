@@ -40,14 +40,12 @@ $minGridDifferWidth: 80px;
         padding: 0 $columBodyMainPaddingRight 0 0;
         border-top: 1px solid $appFrameBorderColor;
         @include customizeScrollbar();
-        
     }
 
     &__headerWrapper {
         position: relative;
         width: 100%;
         display: flex;
-        padding-left: $columnBodyOffset;
         padding-right: $columBodyMainPaddingRight;
     }
 
