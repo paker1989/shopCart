@@ -13,8 +13,12 @@ import {
 import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
-import './singleDayColumn.scss';
+import CalDaySimpleEvtList from '../../../../common/calDayEvtPresenter/calDaySimpleEvtList';
 import { CalendarRedux } from '../../../../../utils/reduxTypes';
+import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
+import { CalEvtDataNS } from '../../../../../utils/evtTypes';
+
+import './singleDayColumn.scss';
 
 const _test_nb_cases = 24;
 
@@ -31,6 +35,7 @@ export interface ISingleDayColumnProps
     defTimeRange?: CalendarNS.ITimeRangeFormat;
     globalInitStatus?: 'stop' | 'init' | 'ready';
     defShowPop: boolean;
+    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
 }
 
 export interface ISingleDayColumnState {
@@ -39,11 +44,12 @@ export interface ISingleDayColumnState {
     draggingTimeRange: CalendarNS.ITimeRangeFormat;
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
     locale: state.layoutReducers.locale,
     defTimeRange: state.popReducers.defTimeRange,
     globalInitStatus: state.popReducers.globalInitStatus,
     defShowPop: state.popReducers.defShowPop,
+    evts: state.evtsReducers.cachedEvts[getYYYYMMDDDate(ownProps.value)],
 });
 
 export const mapDispatchToProps = dispatcher => ({
@@ -213,7 +219,7 @@ class SingleDayColumn extends React.Component<
 
     render() {
         const { dragStatus, draggingTimeRange } = this.state;
-        const { value } = this.props;
+        const { value, evts } = this.props;
 
         let minSplitterHeight;
         let _self = this.colRef.current;
@@ -228,6 +234,8 @@ class SingleDayColumn extends React.Component<
         );
 
         const HourGrids = this.getHourGrids(value);
+
+        const timingEvts = evts? evts.filter(evt => !evt.allDayEvt): null;
 
         return (
             <div
@@ -245,6 +253,11 @@ class SingleDayColumn extends React.Component<
                         content={getTimeRangeDisplay(draggingTimeRange, '12h')}
                     />
                 )}
+                {
+                    timingEvts && (
+                        <CalDaySimpleEvtList evts={timingEvts} type="timing"/>
+                    )
+                }
             </div>
         );
     }

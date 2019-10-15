@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import isNumber from 'lodash/isNumber';
 
+import CalDaySimpleTimingEvtList from '../calDaySimpleTimingEvtList/calDaySimpleTimingEvtList';
 import Positionner from '../../position';
 import CalDaySimpleEvtItem from '../calDaySimpleEvtItem';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
@@ -18,10 +19,22 @@ export interface ICalDaySimpleEvtListProps {
     containerHeight?: number;
     nbDisplayEvt?: number;
     showNoEvtReminder?: boolean;
+    updateSortedEvtsLength?: (nbSortedEvts: number) => void;
 }
 
 const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
-    const { evts, containerHeight, nbDisplayEvt, showNoEvtReminder } = props;
+    const {
+        evts,
+        containerHeight,
+        nbDisplayEvt,
+        showNoEvtReminder,
+        updateSortedEvtsLength,
+    } = props;
+
+    const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
+    ? useSortedEvtList(evts)
+    : [];
+
     const [maxDisplay, setMaxDisplay] = useState(
         isNumber(nbDisplayEvt) ? nbDisplayEvt : -1
     );
@@ -31,10 +44,6 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     const [dragNode, setDragNode] = useState(null);
     const [popId, setPopId] = useState(calEventPresenterManager.getId());
     const nbMoreRef = useRef(null);
-
-    const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
-        ? useSortedEvtList(evts)
-        : [];
 
     useEffect(() => {
         let res;
@@ -53,9 +62,14 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
         if (!containerHeight || sortedList.length === 0) {
             return;
         }
-
         setMaxDisplay(Math.max(Math.floor(containerHeight / 22), 0));
     }, [containerHeight, sortedList.length]);
+
+    useEffect(() => {
+        if (updateSortedEvtsLength) {
+            updateSortedEvtsLength(sortedList.length);
+        }
+    }, [sortedList.length]);
 
     useEffect(() => {
         if (isNumber(nbDisplayEvt)) {
@@ -133,6 +147,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
 
 CalDaySimpleEvtList.defaultProps = {
     showNoEvtReminder: false,
+    type: 'simple'
 };
 
 export default CalDaySimpleEvtList;

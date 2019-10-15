@@ -20,8 +20,8 @@ export default function(
         case EvtsActionType._FETCH_EVTS_ERROR:
             state.cachedEvts[action.payload.dateKey] = [];
             return { ...state };
-        case (EvtsActionType._FETCH_MONTH_EVTS_SUCCESS,
-        EvtsActionType._FETCH_EVTS_OF_DATES_SUCCESS):
+        case EvtsActionType._FETCH_MONTH_EVTS_SUCCESS:
+        case EvtsActionType._FETCH_EVTS_OF_DATES_SUCCESS:
             const { data } = action.payload;
             data.forEach(item => {
                 state.cachedEvts[item.dateKey] = item.evts;

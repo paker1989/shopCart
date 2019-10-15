@@ -159,25 +159,27 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
                         this.setState({ collapseEvt: !collapseEvt });
                     }}
                 />
-                {headerProps.map((headerProps, index) => (
-                    <div
-                        className="calbody-content-weekLayout-container__headerDifferWrapper"
-                        style={{ width: `${itemWidth}%` }}
-                        key={`headGridWrapper-${index}`}
-                    >
-                        {
-                            <DateDisplayHeader
-                                {...headerProps}
-                                textAlign="center"
-                                onClick={this.navToSelectedDate}
-                                nbDisplayEvts={
-                                    collapseEvt ? nbMaxDisplayEvts : -1
-                                }
-                                updateNbEvts={this.updateNbEvts}
-                            />
-                        }
-                    </div>
-                ))}
+                <div className="calbody-content-weekLayout-container__headermain">
+                    {headerProps.map((headerProps, index) => (
+                        <div
+                            className="calbody-content-weekLayout-container__headerDifferWrapper"
+                            style={{ width: `${itemWidth}%` }}
+                            key={`headGridWrapper-${index}`}
+                        >
+                            {
+                                <DateDisplayHeader
+                                    {...headerProps}
+                                    textAlign="center"
+                                    onClick={this.navToSelectedDate}
+                                    nbDisplayEvts={
+                                        collapseEvt ? nbMaxDisplayEvts : -1
+                                    }
+                                    updateNbEvts={this.updateNbEvts}
+                                />
+                            }
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     };
