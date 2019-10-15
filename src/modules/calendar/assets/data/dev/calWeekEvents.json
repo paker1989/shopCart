@@ -11,9 +11,9 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
-                            "hourAt": "00",
+                            "month": "10",
+                            "dayAt": "14",
+                            "hourAt": "12",
                             "minAt": "00"
                         }
                     },
@@ -30,9 +30,9 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
-                            "hourAt": "00",
+                            "month": "10",
+                            "dayAt": "14",
+                            "hourAt": "15",
                             "minAt": "00"
                         }
                     },
@@ -94,15 +94,15 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
+                            "month": "10",
+                            "dayAt": "16",
                             "hourAt": "12",
                             "minAt": "00"
                         },
                         "to": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
+                            "month": "10",
+                            "dayAt": "16",
                             "hourAt": "14",
                             "minAt": "00"
                         }
@@ -126,15 +126,15 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
+                            "month": "10",
+                            "dayAt": "18",
                             "hourAt": "12",
                             "minAt": "00"
                         },
                         "to": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
+                            "month": "10",
+                            "dayAt": "18",
                             "hourAt": "14",
                             "minAt": "00"
                         }
@@ -153,9 +153,9 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
-                            "hourAt": "13",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "16",
                             "minAt": "00"
                         }
                     },
@@ -172,9 +172,9 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
-                            "hourAt": "13",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "05",
                             "minAt": "00"
                         }
                     },
@@ -191,10 +191,10 @@
                     "time": {
                         "from": {
                             "year": "2019",
-                            "month": "8",
-                            "dayAt": "21",
-                            "hourAt": "16",
-                            "minAt": "00"
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "08",
+                            "minAt": "30"
                         }
                     },
                     "repeatOpt": "everyWorkDay",

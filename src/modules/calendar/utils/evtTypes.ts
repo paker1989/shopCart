@@ -43,7 +43,7 @@ export namespace CalEvtDataNS {
         type: 'reminder';
         allDayEvt: boolean;
         reminders: ICalEvtCompleteReminderDataModel[];
-        timing?: CalendarNS.IDBTimingFormat;
+        time?: CalendarNS.IDBTimingFormat;
     }
 
     export type ICalEvtSortedItemType =

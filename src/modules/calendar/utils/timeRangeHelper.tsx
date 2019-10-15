@@ -95,11 +95,13 @@ export function getCalEventPopPosition(
     heightPerSplitter: number,
     timeRange: CalendarNS.ITimeRangeFormat
 ): CalendarNS.ICalEventPopDynamicStyleFormat {
+    console.log(timeRange);
     if (!heightPerSplitter || !timeRange) {
         return {};
     }
     let fromFloat = getTimingFloat(timeRange.from.hourAt, timeRange.from.minAt);
     let addedMin = getAddedMinOfTimeRange(timeRange);
+    console.log(addedMin);
     return {
         height: heightPerSplitter * (addedMin / _MIN_SPLITTER_),
         top: heightPerSplitter * CalConfig.hourSplitter * fromFloat,
@@ -299,4 +301,44 @@ export function compareTiming(
     const dateB = convertDBTimeFormatToDate(bFrom);
 
     return dateA.getTime() - dateB.getTime();
+}
+
+export function convertDBTimingToTimRange(
+    a: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat
+): CalendarNS.ITimeRangeFormat {
+    console.log(a);
+    if ((a as CalendarNS.IDBTimingRangeFormat).from) {
+        const dbTimerange = a as CalendarNS.IDBTimingRangeFormat;
+        const fromDate = convertDBTimeFormatToDate(dbTimerange.from);
+        const toDate = convertDBTimeFormatToDate(dbTimerange.to);
+        return {
+            from: {
+                dayAt: fromDate,
+                hourAt: fromDate.getHours(),
+                minAt: fromDate.getMinutes(),
+            },
+            to: {
+                dayAt: toDate,
+                hourAt: toDate.getHours(),
+                minAt: toDate.getMinutes(),
+            },
+        };
+    } else {
+        const fromDBTiming = a as CalendarNS.IDBTimingFormat;
+        const fromDate = convertDBTimeFormatToDate(fromDBTiming);
+        const toDate = new Date(fromDate.getTime());
+        toDate.setMinutes(toDate.getMinutes() + 30);
+        return {
+            from: {
+                dayAt: fromDate,
+                hourAt: fromDate.getHours(),
+                minAt: fromDate.getMinutes(),
+            },
+            to: {
+                dayAt: toDate,
+                hourAt: toDate.getHours(),
+                minAt: toDate.getMinutes(),
+            },
+        };
+    }
 }

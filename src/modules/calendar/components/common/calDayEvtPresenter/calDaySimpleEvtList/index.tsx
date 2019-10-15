@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import isNumber from 'lodash/isNumber';
 
-import CalDaySimpleTimingEvtList from '../calDaySimpleTimingEvtList/calDaySimpleTimingEvtList';
 import Positionner from '../../position';
 import CalDaySimpleEvtItem from '../calDaySimpleEvtItem';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';

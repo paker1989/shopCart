@@ -4,9 +4,16 @@ $itemPadding: 10px;
 $itemMargin: 5px;
 
 .itemWrapper {
-  position: relative;
-  height: $caldaySimpleevtItemHeight;
-  padding-bottom: 2px;
+
+  &.is-normal {
+    height: $caldaySimpleevtItemHeight;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  &.is-timing {
+    position: absolute;
+    width: 100%;
+  }
   .simpleItem-selected {
     box-shadow: $calDayEvtPresenterShadow;
   }

@@ -50,13 +50,13 @@ export default (
                         item.type === 'reminder' &&
                         compareTiming(
                             (item as CalEvtDataNS.ICalEvtSortedReminderDataModel)
-                                .timing,
+                                .time,
                             evt.opts.time as CalendarNS.IDBTimingFormat
                         ) === 0
                 );
                 if (foundIndex === -1) {
                     sortedTimingEvts.push({
-                        timing: (evt.opts
+                        time: (evt.opts
                             .time as CalendarNS.IDBTimingRangeFormat).from,
                         type: 'reminder',
                         allDayEvt: false,

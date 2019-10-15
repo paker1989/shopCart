@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import cx from 'classnames';
 
 import { FormattedTime, FormattedMessage } from 'react-intl';
 import { CalendarNS } from '../../../../utils/types';
-import { convertDBTimeFormatToDate } from '../../../../utils/timeRangeHelper';
+import {
+    convertDBTimeFormatToDate,
+    convertDBTimingToTimRange,
+    getCalEventPopPosition,
+} from '../../../../utils/timeRangeHelper';
 
 import './calDaySimpleEvtItem.scss';
 
@@ -14,17 +18,49 @@ export interface CalDaySimpleEvtItemProps {
     index: number;
     onSelect: (index: number, refObj: HTMLDivElement) => void;
     selected: boolean;
+    type: 'timing' | 'normal';
+    minSplitterHeight?: number;
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
-    const { item, onSelect, selected, index } = props;
+    const { item, onSelect, selected, index, type, minSplitterHeight } = props;
+    const [layoutStyle, setLayoutStyle] = useState({});
     const self = useRef(null);
     const wrapperClass = cx({
         ['itemWrapper']: true,
+        [`is-${type}`]: true,
         ['simpleItem-selected']: selected,
     });
-    let date;
+
+    useEffect(() => {
+        console.log('use effect');
+        let timeRange;
+        if (!minSplitterHeight || minSplitterHeight < 0) {
+            return;
+        }
+
+        if (type === 'timing') {
+            if (item.type === 'activity') {
+                timeRange = convertDBTimingToTimRange(
+                    (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel).opts
+                        .time
+                );
+            } else {
+                timeRange = convertDBTimingToTimRange(
+                    (item as CalEvtDataNS.ICalEvtSortedReminderDataModel).time
+                );
+            }
+            setLayoutStyle(
+                getCalEventPopPosition(minSplitterHeight, timeRange)
+            );
+        }
+    }, [minSplitterHeight]);
+
+    let date: Date;
     let content;
+
+    console.log('render');
+
     switch (item.type) {
         case 'activity':
             const activity = item as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
@@ -87,7 +123,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 );
                 break;
             } else {
-                date = convertDBTimeFormatToDate(data.timing);
+                date = convertDBTimeFormatToDate(data.time);
                 content = (
                     <div className="calday-simpleevt-item is-timing is-reminder">
                         <div className="cal-unit cal-dot">
@@ -126,11 +162,16 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         <div
             ref={self}
             className={wrapperClass}
+            style={layoutStyle}
             onClick={() => onSelect(index, self ? self.current : null)}
         >
             {content}
         </div>
     );
+};
+
+CalDaySimpleEvtItem.defaultProps = {
+    type: 'normal',
 };
 
 export default CalDaySimpleEvtItem;
