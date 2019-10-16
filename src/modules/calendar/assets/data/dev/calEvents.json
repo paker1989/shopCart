@@ -116,15 +116,15 @@
                         "year": "2019",
                         "month": "8",
                         "dayAt": "21",
-                        "hourAt": "12",
+                        "hourAt": "11",
                         "minAt": "00"
                     },
                     "to": {
                         "year": "2019",
                         "month": "8",
                         "dayAt": "21",
-                        "hourAt": "14",
-                        "minAt": "00"
+                        "hourAt": "11",
+                        "minAt": "45"
                     }
                 },
                 "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
@@ -143,7 +143,7 @@
                         "year": "2019",
                         "month": "8",
                         "dayAt": "21",
-                        "hourAt": "13",
+                        "hourAt": "07",
                         "minAt": "00"
                     }
                 },
@@ -162,7 +162,7 @@
                         "year": "2019",
                         "month": "8",
                         "dayAt": "21",
-                        "hourAt": "13",
+                        "hourAt": "14",
                         "minAt": "00"
                     }
                 },

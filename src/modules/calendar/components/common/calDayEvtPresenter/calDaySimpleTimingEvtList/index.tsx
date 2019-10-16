@@ -9,6 +9,11 @@ import Positionner from '../../position';
 import calEventPresenterManager from '../../calEventPresenterManager';
 
 import './calDaySimpleTimingEvtList.scss';
+import {
+    getDBTimingFromTimingItem,
+    convertDBTimingToTimRange,
+    isTimeRangeDoubled,
+} from '../../../../utils/timeRangeHelper';
 
 export interface ICaldaySimpleTimingEvtListProps {
     evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
@@ -33,9 +38,31 @@ const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
         setDragNode(refObj);
     };
 
+    let evtTimeRange;
+    let stIndexArray;
+    let stIndex;
     return (
         <div className="caldayEvt-timing-list">
             {sortedList.map((sortedEvt, index) => {
+                evtTimeRange = convertDBTimingToTimRange(
+                    getDBTimingFromTimingItem(sortedEvt)
+                );
+                stIndexArray = sortedList
+                    .filter(item => {
+                        const itemTimeRange = convertDBTimingToTimRange(
+                            getDBTimingFromTimingItem(item)
+                        );
+                        return isTimeRangeDoubled(evtTimeRange, itemTimeRange);
+                    })
+                    .map((item, index) => index);
+                stIndex = stIndexArray.indexOf(index);
+                console.log(
+                    ' index = ' +
+                        index +
+                        '; stIndexArray = ' +
+                        JSON.stringify(stIndexArray)
+                );
+                console.log('stIndex = ' + stIndex);
                 return (
                     <CalDaySimpleEvtItem
                         selected={index === selectedIndex}
@@ -45,6 +72,7 @@ const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
                         index={index}
                         minSplitterHeight={minSplitterHeight}
                         type="timing"
+                        stIndex={stIndex}
                     />
                 );
             })}

@@ -233,7 +233,10 @@ class SingleDayColumn extends React.Component<
             draggingTimeRange
         );
         const HourGrids = this.getHourGrids(value);
-        const timingEvts = evts? evts.filter(evt => !evt.allDayEvt): null;
+        // do not display timing reminder
+        const timingEvts = evts
+            ? evts.filter(evt => !evt.allDayEvt && evt.type !== 'reminder')
+            : null;
 
         return (
             <div
@@ -251,12 +254,12 @@ class SingleDayColumn extends React.Component<
                         content={getTimeRangeDisplay(draggingTimeRange, '12h')}
                     />
                 )}
-                {
-                    timingEvts && (
-                        <CalDaySimpleTimingEvtList evts={timingEvts}
-                        minSplitterHeight={minSplitterHeight}/>
-                    )
-                }
+                {timingEvts && (
+                    <CalDaySimpleTimingEvtList
+                        evts={timingEvts}
+                        minSplitterHeight={minSplitterHeight}
+                    />
+                )}
             </div>
         );
     }

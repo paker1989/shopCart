@@ -19,11 +19,20 @@ export interface CalDaySimpleEvtItemProps {
     onSelect: (index: number, refObj: HTMLDivElement) => void;
     selected: boolean;
     type: 'timing' | 'normal';
-    minSplitterHeight?: number;
+    minSplitterHeight?: number; // timing type only
+    stIndex?; // same timing index: timing type only
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
-    const { item, onSelect, selected, index, type, minSplitterHeight } = props;
+    const {
+        item,
+        onSelect,
+        selected,
+        index,
+        type,
+        minSplitterHeight,
+        stIndex,
+    } = props;
     const [layoutStyle, setLayoutStyle] = useState({});
     const self = useRef(null);
     const wrapperClass = cx({
@@ -33,7 +42,6 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     });
 
     useEffect(() => {
-        console.log('use effect');
         let timeRange;
         if (!minSplitterHeight || minSplitterHeight < 0) {
             return;
@@ -59,8 +67,6 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     let date: Date;
     let content;
 
-    console.log('render');
-
     switch (item.type) {
         case 'activity':
             const activity = item as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
@@ -80,23 +86,40 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 date = convertDBTimeFormatToDate(
                     (activity.opts.time as CalendarNS.IDBTimingRangeFormat).from
                 );
-                content = (
-                    <div className="calday-simpleevt-item is-timing is-activity">
-                        <div className="cal-unit cal-dot">
-                            <b
-                                style={{ backgroundColor: activity.opts.color }}
-                            ></b>
+                content =
+                    type === 'normal' ? (
+                        <div className="calday-simpleevt-item is-timingEvt is-activity">
+                            <div className="cal-unit cal-dot">
+                                <b
+                                    style={{
+                                        backgroundColor: activity.opts.color,
+                                    }}
+                                ></b>
+                            </div>
+                            <span className="cal-unit cal-date">
+                                <FormattedTime
+                                    value={date}
+                                    hour12={true}
+                                    hour="numeric"
+                                />
+                            </span>
+                            <span className="cal-text">{activity.title}</span>
                         </div>
-                        <span className="cal-unit cal-date">
-                            <FormattedTime
-                                value={date}
-                                hour12={true}
-                                hour="numeric"
-                            />
-                        </span>
-                        <span className="cal-text">{activity.title}</span>
-                    </div>
-                );
+                    ) : (
+                        <div
+                            className="calday-simpleevt-item is-timingEvt is-activity"
+                            style={{ backgroundColor: activity.opts.color }}
+                        >
+                            <span className="cal-text">{activity.title}</span>
+                            <span className="cal-unit cal-date">
+                                <FormattedTime
+                                    value={date}
+                                    hour12={true}
+                                    hour="numeric"
+                                />
+                            </span>
+                        </div>
+                    );
                 break;
             }
         case 'reminder':
@@ -125,7 +148,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             } else {
                 date = convertDBTimeFormatToDate(data.time);
                 content = (
-                    <div className="calday-simpleevt-item is-timing is-reminder">
+                    <div className="calday-simpleevt-item is-timingEvt is-reminder">
                         <div className="cal-unit cal-dot">
                             <b
                                 style={{ backgroundColor: 'rgb(63, 81, 181)' }}

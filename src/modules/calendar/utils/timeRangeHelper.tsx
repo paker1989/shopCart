@@ -10,23 +10,12 @@ import {
 import { populateMonthWeekByDate, getDayRangeOfWeek } from '../utils/timeUtils';
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
+import { CalEvtDataNS } from './evtTypes';
 
 export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
 export function getTimingFloat(hourAt: number, minAt: number): number {
     return hourAt + minAt / 60;
-}
-
-export function convertDBTimeFormatToDate(
-    timing: CalendarNS.IDBTimingFormat
-): Date {
-    return new Date(
-        timing.year,
-        timing.month - 1,
-        timing.dayAt,
-        timing.hourAt,
-        timing.minAt
-    );
 }
 
 export function convertTimeFormatToDate(
@@ -101,7 +90,6 @@ export function getCalEventPopPosition(
     }
     let fromFloat = getTimingFloat(timeRange.from.hourAt, timeRange.from.minAt);
     let addedMin = getAddedMinOfTimeRange(timeRange);
-    console.log(addedMin);
     return {
         height: heightPerSplitter * (addedMin / _MIN_SPLITTER_),
         top: heightPerSplitter * CalConfig.hourSplitter * fromFloat,
@@ -278,6 +266,33 @@ export function getSplitteredDate(date: Date, splitTo: number) {
     );
 }
 
+/**
+ * @return if two time range is doubled
+ * @param a
+ * @param b
+ */
+export function isTimeRangeDoubled(
+    a: CalendarNS.ITimeRangeFormat,
+    b: CalendarNS.ITimeRangeFormat
+) {
+    const af = getTimingFloat(a.from.hourAt, a.from.minAt);
+    const at = getTimingFloat(a.to.hourAt, a.to.minAt);
+    const bf = getTimingFloat(b.from.hourAt, b.from.minAt);
+    const bt = getTimingFloat(b.to.hourAt, b.to.minAt);
+    console.log(
+        af +
+            ' - ' +
+            at +
+            '  :  ' +
+            bf +
+            ' - ' +
+            bt +
+            ', result = ' +
+            (bf <= at && af <= bt)
+    );
+    return bf <= at && af <= bt;
+}
+
 export function getTiming(
     a: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat
 ): CalendarNS.IDBTimingFormat {
@@ -286,6 +301,18 @@ export function getTiming(
     } else {
         return a as CalendarNS.IDBTimingFormat;
     }
+}
+
+export function convertDBTimeFormatToDate(
+    timing: CalendarNS.IDBTimingFormat
+): Date {
+    return new Date(
+        timing.year,
+        timing.month - 1,
+        timing.dayAt,
+        timing.hourAt,
+        timing.minAt
+    );
 }
 
 /**
@@ -306,7 +333,6 @@ export function compareTiming(
 export function convertDBTimingToTimRange(
     a: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat
 ): CalendarNS.ITimeRangeFormat {
-    console.log(a);
     if ((a as CalendarNS.IDBTimingRangeFormat).from) {
         const dbTimerange = a as CalendarNS.IDBTimingRangeFormat;
         const fromDate = convertDBTimeFormatToDate(dbTimerange.from);
@@ -340,5 +366,41 @@ export function convertDBTimingToTimRange(
                 minAt: toDate.getMinutes(),
             },
         };
+    }
+}
+
+/**
+ * @description convert ICalEvtSortedItemType.from timing to Date
+ * @param sortedEvt
+ */
+export function getFromDateFromDBItem(
+    sortedEvt: CalEvtDataNS.ICalEvtSortedItemType
+): Date {
+    if (sortedEvt.type === 'activity') {
+        const activityItem = sortedEvt as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
+        return convertDBTimeFormatToDate(getTiming(activityItem.opts.time));
+    } else {
+        const reminderItem = sortedEvt as CalEvtDataNS.ICalEvtSortedReminderDataModel;
+        if (!reminderItem.time) {
+            console.log('reminder is not timing evt');
+            return null;
+        }
+        return convertDBTimeFormatToDate(getTiming(reminderItem.time));
+    }
+}
+
+export function getDBTimingFromTimingItem(
+    sortedEvt: CalEvtDataNS.ICalEvtSortedItemType
+): CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat {
+    if (sortedEvt.type === 'activity') {
+        const activityItem = sortedEvt as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
+        return activityItem.opts.time;
+    } else {
+        const reminderItem = sortedEvt as CalEvtDataNS.ICalEvtSortedReminderDataModel;
+        if (!reminderItem.time) {
+            console.log('reminder is not timing evt');
+            return null;
+        }
+        return reminderItem.time;
     }
 }
