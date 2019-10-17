@@ -5,8 +5,7 @@
 # 2019/08/26
 
 > todo list:
--   `popup` for `yearlayout`；
--   `timeline`显示的方式根本不对，需要放到同一行里
+
 -   `caleventDefinerPanel`
     > *close option* -->  还是需要有一个moyen告诉*component who holds the dragg status to cancel the drag*; 
     > 出现动画;
@@ -26,7 +25,6 @@
 -   手机模式下的显示问题。同样一个px显示不一样。
 -   Notify
 -   améliorer `monthLayout`下的绑定事件模式  --> 代理模式: mousedown, mouseup, mousemove;
--   test `convertMinAddToTiming`: 过一天的
 -   `dayEvtPresenter`
     > 动画
     > `reminder`和`activity`条目
@@ -35,10 +33,6 @@
 -   zIndex要系统安排.
 -   4jours的navLink
 -   判断第一周的问题。不能取最大的date。先确定怎么判断这天在第几周。 --> 采取欧制: 第一个有4天以上的周是第一周
-- init calEventPop options需要加入`onClose`, 因为从create init的popup关闭的时候需要`turn off` `signal`;
-   > 'create' button should be disabled when `calEvtDefinerPop` is presented --> 两种情况: 1. 如果是created的pop，点击则hide，如果是无关的pop，点击则noop (通过signal value判断);
-   > `calEvtDefinerPop`一旦生成后，他的timerange就需要和全局绑定，meaning: update time range --> trigger `toTargetDate` then `clickOnGrid evt` --> return `updated_calEvtPop.current` 给`calEvtDefinerPop`从而adjusterPosition;
-   -- 我深深的认为: 这个calEvtDefinerPop应该是app下的一个组件。这样完美和redux绑定。
 -  `yearLayout` 初始状态下点开`calDayEvtSimplePresenter`没有调整位置 --> 数据传输的问题
 
 > webpack
@@ -80,6 +74,12 @@
 -    各种layout的跳转: (1)
       > click on `weekLayout`的case跳转到`dayLayout`;
       > click on `yearLayout`的case跳转到`dayLayout`;
+-    `popup` for `yearlayout`;
+-   `timeline`显示的方式根本不对，需要放到同一行里;
+-   init calEventPop options需要加入`onClose`, 因为从create init的popup关闭的时候需要`turn off` `signal`;
+      > 'create' button should be disabled when `calEvtDefinerPop` is presented --> 两种情况: 1. 如果是created的pop，点击则hide，如果是无关的pop，点击则noop (通过signal value判断);
+      > `calEvtDefinerPop`一旦生成后，他的timerange就需要和全局绑定，meaning: update time range --> trigger `toTargetDate` then `clickOnGrid evt` --> return `updated_calEvtPop.current` 给`calEvtDefinerPop`从而adjusterPosition;
+      -- 我深深的认为: 这个calEvtDefinerPop应该是app下的一个组件。这样完美和redux绑定。
 
 ## global variable:
 -  initWeek: week of today,  然后independant;
