@@ -13,7 +13,7 @@ import {
 import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
-import CalDaySimpleTimingEvtList from '../../../../common/calDayEvtPresenter/calDaySimpleTimingEvtList';
+import CalDaySimpleTimingActivityList from '../../../../common/calDayEvtPresenter/calDaySimpleTimingActivityList';
 import { CalendarRedux } from '../../../../../utils/reduxTypes';
 import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
@@ -235,7 +235,7 @@ class SingleDayColumn extends React.Component<
         const HourGrids = this.getHourGrids(value);
         // do not display timing reminder
         const timingEvts = evts
-            ? evts.filter(evt => !evt.allDayEvt && evt.type !== 'reminder')
+            ? evts.filter(evt => !evt.allDayEvt && evt.type === 'activity')
             : null;
 
         return (
@@ -255,7 +255,7 @@ class SingleDayColumn extends React.Component<
                     />
                 )}
                 {timingEvts && (
-                    <CalDaySimpleTimingEvtList
+                    <CalDaySimpleTimingActivityList
                         evts={timingEvts}
                         minSplitterHeight={minSplitterHeight}
                     />

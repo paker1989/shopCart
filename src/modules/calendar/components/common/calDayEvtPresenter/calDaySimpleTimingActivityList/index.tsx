@@ -8,19 +8,21 @@ import CalDayCompleteEvtPop from '../calDayCompleteEvtPop';
 import Positionner from '../../position';
 import calEventPresenterManager from '../../calEventPresenterManager';
 
-import './calDaySimpleTimingEvtList.scss';
+import './calDaySimpleTimingActivityList.scss';
 import {
     getDBTimingFromTimingItem,
     convertDBTimingToTimRange,
     isTimeRangeDoubled,
 } from '../../../../utils/timeRangeHelper';
 
-export interface ICaldaySimpleTimingEvtListProps {
-    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
+export interface ICaldaySimpleTimingActivityListProps {
+    evts: CalEvtDataNS.ICalEvtCompleteActivityDataModel[];
     minSplitterHeight: number;
 }
 
-const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
+const CalDaySimpleTimingActivityList = (
+    props: ICaldaySimpleTimingActivityListProps
+) => {
     const { evts, minSplitterHeight } = props;
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
         ? useSortedEvtList(evts)
@@ -39,30 +41,31 @@ const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
     };
 
     let evtTimeRange;
-    let stIndexArray;
+    let stIdArray;
     let stIndex;
+    let ownId;
     return (
         <div className="caldayEvt-timing-list">
             {sortedList.map((sortedEvt, index) => {
+                ownId = (sortedEvt as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
+                    .id;
                 evtTimeRange = convertDBTimingToTimRange(
                     getDBTimingFromTimingItem(sortedEvt)
                 );
-                stIndexArray = sortedList
+                stIdArray = sortedList
                     .filter(item => {
                         const itemTimeRange = convertDBTimingToTimRange(
                             getDBTimingFromTimingItem(item)
                         );
                         return isTimeRangeDoubled(evtTimeRange, itemTimeRange);
                     })
-                    .map((item, index) => index);
-                stIndex = stIndexArray.indexOf(index);
-                console.log(
-                    ' index = ' +
-                        index +
-                        '; stIndexArray = ' +
-                        JSON.stringify(stIndexArray)
-                );
-                console.log('stIndex = ' + stIndex);
+                    .map(
+                        item =>
+                            (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
+                                .id
+                    );
+                stIndex = stIdArray.length <= 1 ? -1 : stIdArray.indexOf(ownId);
+
                 return (
                     <CalDaySimpleEvtItem
                         selected={index === selectedIndex}
@@ -73,6 +76,7 @@ const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
                         minSplitterHeight={minSplitterHeight}
                         type="timing"
                         stIndex={stIndex}
+                        stArrayLenth={stIdArray.length}
                     />
                 );
             })}
@@ -92,4 +96,4 @@ const CaldaySimpleTimingEvtList = (props: ICaldaySimpleTimingEvtListProps) => {
     );
 };
 
-export default CaldaySimpleTimingEvtList;
+export default CalDaySimpleTimingActivityList;

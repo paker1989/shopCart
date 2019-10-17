@@ -1,87 +1,110 @@
-@import '../../../../assets/style/theme.scss';
+@import "../../../../assets/style/theme.scss";
 
 $itemPadding: 10px;
 $itemMargin: 5px;
+$timingStyleLineheight: 20px;
 
 .itemWrapper {
-    &.is-normal {
-        height: $caldaySimpleevtItemHeight;
-        position: relative;
-        padding-bottom: 2px;
-
-        & .is-timingEvt {
-            color: $fontColor;
-            &:hover {
-                background: $hoverBgColor;
-            }
-        }
-    }
-
-    &.is-timing {
-        position: absolute;
-        width: 100%;
-        & .is-timingEvt {
-            color: #fff;
-            opacity: 0.8;
-            &:hover {
-                background: $hoverBgColor;
-            }
-        }
-    }
-    .simpleItem-selected {
-        box-shadow: $calDayEvtPresenterShadow;
-    }
-}
-
-.calday-simpleevt-item {
+  &.is-normal {
     position: relative;
-    display: flex;
-    align-items: center;
-    text-align: left;
+    height: $caldaySimpleevtItemHeight;
     width: 100%;
+    padding-bottom: 2px;
 
-    padding-left: $itemPadding;
-    border-radius: 4px;
-    height: 100%;
-    font-size: 11px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    overflow-x: hidden;
-
-    &.is-allday {
-        color: #fff;
-        &:hover {
-            opacity: 0.8;
-        }
+    & .is-timingEvt {
+      color: $fontColor;
+      &:hover {
+        background: $hoverBgColor;
+      }
     }
 
-    &.is-allday.is-reminder {
-        background: rgb(63, 81, 181);
-    }
-
-    & .cal-unit {
-        margin-right: $itemMargin;
-    }
-
-    & .cal-dot {
-        flex: 0 0 15px;
-        & b {
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-    }
-
-    & .cal-icon {
-        flex: 0 0 15px;
+    & .calday-simpleevt-item {
+      align-items: center;
     }
 
     & .cal-text {
-        flex: 1 1 0%;
-        font-weight: 600;
-        text-overflow: clip;
-        white-space: nowrap;
-        overflow: hidden;
+      flex: 1 1 0%;
     }
+  }
+
+  &.is-timing {
+    position: absolute;
+    width: 100%;
+
+    & .is-timingEvt {
+      color: #fff;
+    //   opacity: 0.8;
+      &:hover {
+        background: $hoverBgColor;
+      }
+    }
+
+    & .cal-text {
+      margin-right: 10px;
+    }
+
+    & .calday-simpleevt-item {
+      border: 1px solid #fff;
+      flex-wrap: wrap;
+    }
+
+    & .cal-date {
+      line-height: $timingStyleLineheight;
+    }
+  }
+
+  .simpleItem-selected {
+    box-shadow: $calDayEvtPresenterShadow;
+  }
+}
+
+.calday-simpleevt-item {
+  position: relative;
+  display: flex;
+  text-align: left;
+  width: 100%;
+  padding-left: $itemPadding;
+  border-radius: 4px;
+  height: 100%;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow-x: hidden;
+
+  &.is-allday {
+    color: #fff;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.is-allday.is-reminder {
+    background: rgb(63, 81, 181);
+  }
+
+  & .cal-unit {
+    margin-right: $itemMargin;
+  }
+
+  & .cal-dot {
+    flex: 0 0 15px;
+    & b {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+  }
+
+  & .cal-icon {
+    flex: 0 0 15px;
+  }
+
+  & .cal-text {
+    font-weight: 600;
+    line-height: $timingStyleLineheight;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }

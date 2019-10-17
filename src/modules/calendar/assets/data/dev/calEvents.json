@@ -123,8 +123,8 @@
                         "year": "2019",
                         "month": "8",
                         "dayAt": "21",
-                        "hourAt": "11",
-                        "minAt": "45"
+                        "hourAt": "13",
+                        "minAt": "00"
                     }
                 },
                 "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
@@ -187,6 +187,60 @@
                 },
                 "repeatOpt": "everyWorkDay",
                 "color": "rgb(63, 81, 181)"
+            }
+        },
+        {
+            "id": 10,
+            "title": "Go to school",
+            "type": "activity",
+            "allDayEvt": false,
+            "opts": {
+                "time": {
+                    "from": {
+                        "year": "2019",
+                        "month": "8",
+                        "dayAt": "21",
+                        "hourAt": "11",
+                        "minAt": "45"
+                    },
+                    "to": {
+                        "year": "2019",
+                        "month": "8",
+                        "dayAt": "21",
+                        "hourAt": "12",
+                        "minAt": "45"
+                    }
+                },
+                "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                "description": "evt address",
+                "color": "rgb(121, 134, 203)"
+            }
+        },
+        {
+            "id": 11,
+            "title": "take a shower",
+            "type": "activity",
+            "allDayEvt": false,
+            "opts": {
+                "time": {
+                    "from": {
+                        "year": "2019",
+                        "month": "8",
+                        "dayAt": "21",
+                        "hourAt": "14",
+                        "minAt": "00"
+                    },
+                    "to": {
+                        "year": "2019",
+                        "month": "8",
+                        "dayAt": "21",
+                        "hourAt": "14",
+                        "minAt": "30"
+                    }
+                },
+                "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                "description": "evt address",
+                "color": "rgb(121, 134, 203)"
             }
         }
     ]

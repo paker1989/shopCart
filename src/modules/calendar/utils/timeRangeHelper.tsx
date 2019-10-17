@@ -7,6 +7,7 @@ import {
     getMonthLayoutRows,
     isMonthLayoutContainDate,
 } from '../../../_packages_/components/datePicker/common/util';
+import { getTimingActivityZIndexConst } from './calZIndexManager';
 import { populateMonthWeekByDate, getDayRangeOfWeek } from '../utils/timeUtils';
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
@@ -84,7 +85,6 @@ export function getCalEventPopPosition(
     heightPerSplitter: number,
     timeRange: CalendarNS.ITimeRangeFormat
 ): CalendarNS.ICalEventPopDynamicStyleFormat {
-    console.log(timeRange);
     if (!heightPerSplitter || !timeRange) {
         return {};
     }
@@ -93,6 +93,20 @@ export function getCalEventPopPosition(
     return {
         height: heightPerSplitter * (addedMin / _MIN_SPLITTER_),
         top: heightPerSplitter * CalConfig.hourSplitter * fromFloat,
+    };
+}
+
+export function getCalTimingActivitySiblingPosition(
+    stIndex: number,
+    stArrayLenth: number
+): React.CSSProperties {
+    if (stIndex === -1 || stIndex > stArrayLenth - 1) {
+        return {};
+    }
+    return {
+        width: `${(1 - stIndex / stArrayLenth) * 100}%`,
+        left: `${(stIndex / stArrayLenth) * 100}%`,
+        zIndex: getTimingActivityZIndexConst() + stIndex,
     };
 }
 
@@ -120,6 +134,14 @@ export function getTimingDisplay(
     date.setHours(timing.hourAt);
     date.setMinutes(timing.minAt);
     return <FormattedTime value={date} hour12={pattern === '12h'} />;
+}
+
+export function getDBTimeRangeDisplay(
+    dbTime: CalendarNS.IDBTimingFormat | CalendarNS.IDBTimingRangeFormat,
+    pattern: CalendarNS.TTimingDisplayPattern = '24h'
+) {
+    const timeRange = convertDBTimingToTimRange(dbTime);
+    return getTimeRangeDisplay(timeRange, pattern);
 }
 
 export function getTimeRangeDisplay(
@@ -279,18 +301,18 @@ export function isTimeRangeDoubled(
     const at = getTimingFloat(a.to.hourAt, a.to.minAt);
     const bf = getTimingFloat(b.from.hourAt, b.from.minAt);
     const bt = getTimingFloat(b.to.hourAt, b.to.minAt);
-    console.log(
-        af +
-            ' - ' +
-            at +
-            '  :  ' +
-            bf +
-            ' - ' +
-            bt +
-            ', result = ' +
-            (bf <= at && af <= bt)
-    );
-    return bf <= at && af <= bt;
+    // console.log(
+    //     af +
+    //         ' - ' +
+    //         at +
+    //         '  :  ' +
+    //         bf +
+    //         ' - ' +
+    //         bt +
+    //         ', result = ' +
+    //         (bf <= at && af <= bt)
+    // );
+    return bf < at && af < bt;
 }
 
 export function getTiming(

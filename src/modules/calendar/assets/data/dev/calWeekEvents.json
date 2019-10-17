@@ -200,6 +200,60 @@
                     "repeatOpt": "everyWorkDay",
                     "color": "rgb(63, 81, 181)"
                 }
+            },
+            {
+                "id": 10,
+                "title": "go to dinner",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "11",
+                            "minAt": "00"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "13",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(121, 134, 203)"
+                }
+            },
+            {
+                "id": 11,
+                "title": "go to school",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "11",
+                            "minAt": "45"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "14",
+                            "minAt": "30"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "lightGrey"
+                }
             }
         ]
     }

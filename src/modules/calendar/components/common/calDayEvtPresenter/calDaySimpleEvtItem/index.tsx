@@ -9,6 +9,8 @@ import {
     convertDBTimeFormatToDate,
     convertDBTimingToTimRange,
     getCalEventPopPosition,
+    getDBTimeRangeDisplay,
+    getCalTimingActivitySiblingPosition,
 } from '../../../../utils/timeRangeHelper';
 
 import './calDaySimpleEvtItem.scss';
@@ -20,7 +22,8 @@ export interface CalDaySimpleEvtItemProps {
     selected: boolean;
     type: 'timing' | 'normal';
     minSplitterHeight?: number; // timing type only
-    stIndex?; // same timing index: timing type only
+    stIndex?: number; // same timing index: timing type only
+    stArrayLenth?: number;
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
@@ -32,6 +35,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         type,
         minSplitterHeight,
         stIndex,
+        stArrayLenth,
     } = props;
     const [layoutStyle, setLayoutStyle] = useState({});
     const self = useRef(null);
@@ -48,7 +52,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         }
 
         if (type === 'timing') {
-            if (item.type === 'activity') {
+            if (item.type === 'activity') { // only case for now
                 timeRange = convertDBTimingToTimRange(
                     (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel).opts
                         .time
@@ -58,9 +62,10 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                     (item as CalEvtDataNS.ICalEvtSortedReminderDataModel).time
                 );
             }
-            setLayoutStyle(
-                getCalEventPopPosition(minSplitterHeight, timeRange)
-            );
+            setLayoutStyle({
+                ...getCalEventPopPosition(minSplitterHeight, timeRange),
+                ...getCalTimingActivitySiblingPosition(stIndex, stArrayLenth),
+            });
         }
     }, [minSplitterHeight]);
 
@@ -97,11 +102,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                                 ></b>
                             </div>
                             <span className="cal-unit cal-date">
-                                <FormattedTime
-                                    value={date}
-                                    hour12={true}
-                                    hour="numeric"
-                                />
+                                <FormattedTime value={date} hour12={false} />
                             </span>
                             <span className="cal-text">{activity.title}</span>
                         </div>
@@ -112,11 +113,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                         >
                             <span className="cal-text">{activity.title}</span>
                             <span className="cal-unit cal-date">
-                                <FormattedTime
-                                    value={date}
-                                    hour12={true}
-                                    hour="numeric"
-                                />
+                                {getDBTimeRangeDisplay(activity.opts.time)}
                             </span>
                         </div>
                     );
