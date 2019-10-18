@@ -13,6 +13,7 @@ import {
 import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
+import CalNowTimeline from '../../../../common/calNowTimeline';
 import CalDaySimpleTimingActivityList from '../../../../common/calDayEvtPresenter/calDaySimpleTimingActivityList';
 import { CalendarRedux } from '../../../../../utils/reduxTypes';
 import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
@@ -243,6 +244,7 @@ class SingleDayColumn extends React.Component<
                 ref={this.colRef}
                 className="calbody-content-singleDayCol-container"
             >
+                <CalNowTimeline/>
                 <ul className="calbody-content-singleDayCol-container_hourWrapper">
                     {HourGrids}
                 </ul>

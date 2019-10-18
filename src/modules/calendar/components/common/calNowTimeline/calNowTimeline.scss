@@ -1,0 +1,24 @@
+$timeline-height: 20px;
+$timeline-flow-height: 4px;
+
+.cal-nowtimeline {
+    position: absolute;
+    left:0;
+    right: 0;
+    height: $timeline-height;
+    display: flex;
+    align-items: center;
+
+    & .is-dot {
+        flex: 0 0 $timeline-height;
+        width: $timeline-height;
+        height: $timeline-height;
+        border-radius: 50%;
+        background: #d50000;
+    }
+
+    & .is-line {
+        flex-grow: 1;
+        height: ;
+    }
+}
