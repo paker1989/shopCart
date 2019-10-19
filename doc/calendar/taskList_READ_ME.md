@@ -1,12 +1,4 @@
 ## task steps: (with complexity level 1 - 5)
-1. (done) create `calEventDisplayer` panel; (simple, normal + reminder, activity); (3)
-2. (done) create `calEventDisplayer_simple` panel (3)
-          - use case: `dayEvtPresenter`, `singleDayGrid`, `SingleDayColumn`,  
-18. 当前时间线.
-5. bug fix: (2)
-   >  `monthLayout`
-      > 点击title的时候不应该触发drag事件
-   > 重组`modal`和`popover`的zIndex;
 13. fix所有关于edit的bug，使之ready to be saved;
 10. db模型的设计; implementation: create, delete (4)
 8. Notify (3)
@@ -24,4 +16,3 @@
 
 
 urgent hold on point:
-- getGlobalTimeRange() stuck on monthLayout case timRange display;

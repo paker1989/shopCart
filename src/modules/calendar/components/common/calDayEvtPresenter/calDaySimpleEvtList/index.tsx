@@ -31,8 +31,8 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     } = props;
 
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
-    ? useSortedEvtList(evts)
-    : [];
+        ? useSortedEvtList(evts)
+        : [];
 
     const [maxDisplay, setMaxDisplay] = useState(
         isNumber(nbDisplayEvt) ? nbDisplayEvt : -1
@@ -115,7 +115,10 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                 <div
                     ref={nbMoreRef}
                     className={nbMoreClass}
-                    onClick={() => {
+                    onMouseDown={e => {
+                        e.stopPropagation();
+                    }}
+                    onClick={e => {
                         onSelectItem(
                             previewList.length,
                             nbMoreRef ? nbMoreRef.current : null
@@ -146,7 +149,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
 
 CalDaySimpleEvtList.defaultProps = {
     showNoEvtReminder: false,
-    type: 'simple'
+    type: 'simple',
 };
 
 export default CalDaySimpleEvtList;

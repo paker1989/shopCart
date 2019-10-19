@@ -18,6 +18,7 @@ import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 
 import './dayLayout.scss';
+import CalNowTimeline from '../../../common/calNowTimeline';
 
 export interface IDayLayoutProps {
     singleDayHeader?: React.ComponentType<
@@ -139,6 +140,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
                         ))}
                     </div>
                     <div className="calbody-content-dayLayout-container__columnbody">
+                        {/* <CalNowTimeline/> */}
                         <div className="calbody-content-dayLayout-container__dayDifferWrapper">
                             <SingleDayColumn
                                 initDefiner={this.initDefiner}

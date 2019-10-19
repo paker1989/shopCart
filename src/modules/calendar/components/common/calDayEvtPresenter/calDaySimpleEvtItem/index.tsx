@@ -52,7 +52,8 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         }
 
         if (type === 'timing') {
-            if (item.type === 'activity') { // only case for now
+            if (item.type === 'activity') {
+                // only case for now
                 timeRange = convertDBTimingToTimRange(
                     (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel).opts
                         .time
@@ -183,7 +184,12 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             ref={self}
             className={wrapperClass}
             style={layoutStyle}
-            onClick={() => onSelect(index, self ? self.current : null)}
+            onMouseDown={e => {
+                e.stopPropagation();
+            }}
+            onClick={() => {
+                onSelect(index, self ? self.current : null);
+            }}
         >
             {content}
         </div>

@@ -19,6 +19,7 @@ export interface ICalEventDefinerPanelProps {
 export interface ICalEventDefinerPanelState {
     type?: 'activity' | 'reminder';
     isDayEvt?: boolean;
+    // timeRange: CalendarNS.ITimeRangeFormat
 }
 
 class CalEventDefinerPanel extends React.Component<
@@ -31,6 +32,8 @@ class CalEventDefinerPanel extends React.Component<
 
     constructor(props) {
         super(props);
+        // const { timeRange } = this.props;
+
         this.state = { type: 'activity', isDayEvt: this.props.initDayEvtValue };
     }
 

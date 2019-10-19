@@ -112,7 +112,7 @@ class Content extends React.Component<
 
         let wrapperStyle: React.CSSProperties = {
             ...style,
-            zIndex: 1000,
+            zIndex: 2000,
             visibility: visible ? 'visible' : 'hidden',
         };
 

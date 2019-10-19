@@ -16,9 +16,7 @@ import { CalendarRedux } from '../../../utils/reduxTypes';
 export const mapStateToProps = state => ({
     selectedDate: state.dateReducers.currentDate,
     showDefPop: state.popReducers.defShowPop,
-    currentDate: state.dateReducers.currentDate,
-    // currentMonth: state.dateReducers.currentMonth,
-    // currentYear: state.dateReducers.currentYear,   
+    currentDate: state.dateReducers.currentDate,  
 });
 
 export const mapDispatchToProps = dispatcher => ({

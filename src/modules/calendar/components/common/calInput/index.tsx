@@ -22,7 +22,6 @@ class CalInput extends React.Component<ICalInputProps, any> {
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
-    debouncedOnChange
 
     constructor(props) {
         super(props);

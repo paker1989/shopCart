@@ -239,12 +239,13 @@ class SingleDayColumn extends React.Component<
             ? evts.filter(evt => !evt.allDayEvt && evt.type === 'activity')
             : null;
 
+        const displayNowTimeline = isSameDay(value, new Date());
         return (
             <div
                 ref={this.colRef}
                 className="calbody-content-singleDayCol-container"
             >
-                <CalNowTimeline/>
+                {displayNowTimeline && <CalNowTimeline />}
                 <ul className="calbody-content-singleDayCol-container_hourWrapper">
                     {HourGrids}
                 </ul>

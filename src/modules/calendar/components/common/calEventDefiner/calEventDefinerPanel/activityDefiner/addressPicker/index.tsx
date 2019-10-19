@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {  injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
+import debounce from 'lodash/debounce';
 
 import CalInput from '../../../../../common/calInput';
 import Popover from '../../../../../../../../_packages_/components/popover';
@@ -26,6 +27,7 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
             isVisible: false,
             value: '',
             predictions: _test_predictions,
+            // predictions: []
         };
     }
 
@@ -72,12 +74,16 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
 
     onVisibleChange = (isVisible: boolean): void => {
         const { predictions } = this.state;
-        this.setState({ isVisible: predictions.length > 0 });
+        if (isVisible && predictions.length === 0) {
+            this.setState({ isVisible: false });
+        } else {
+            this.setState({ isVisible });
+        }
     };
 
     render() {
         const { isVisible, value, predictions } = this.state;
-        const { intl} = this.props;
+        const { intl } = this.props;
         return (
             <Popover
                 wrapperClassName="address-picker-container"
@@ -85,14 +91,16 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
                 verCushion={-5}
                 isVisible={isVisible}
                 onVisibleChange={this.onVisibleChange}
-                disableEvents={["resize", "scroll"]}
+                disableEvents={['resize', 'scroll']}
             >
                 <Popover.Trigger.ClickTrigger>
                     <div className="address-picker-container__inputWrapper">
                         <CalInput
                             value={value}
                             className="calActivity-definer-container__input"
-                            placeholder={intl.formatMessage({id: 'cal.addLocation'})}
+                            placeholder={intl.formatMessage({
+                                id: 'cal.addLocation',
+                            })}
                             onChange={this.onChange}
                         />
                     </div>
