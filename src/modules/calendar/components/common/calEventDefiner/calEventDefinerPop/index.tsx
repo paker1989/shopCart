@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
+import { connect } from 'react-redux';
 
 import CalPopover from '../../calPopover';
 import CalEventDefinerPanel from '../calEventDefinerPanel';
 import CalModalManager from '../../calModalManager';
 import CalConfirmPanel from '../../calConfirmPanel';
-
+import * as PopActionCreator from '../../../../store/action/popAction';
 import WindowEventHandler from '../../../../../../_packages_/utils/components/windowEventHandler';
 import WindowResizeHandler from '../../../../../../_packages_/utils/components/windowResizeHandler';
 import Position from '../../position';
@@ -13,11 +14,21 @@ import Position from '../../position';
 import { CalendarNS } from '../../../../utils/types';
 
 import './calEventDefinerPop.scss';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
-const _test_time_range = {
-    from: { dayAt: new Date(), hourAt: 12, minAt: 0 },
-    to: { dayAt: new Date(), hourAt: 15, minAt: 0 },
-};
+// const _test_time_range = {
+//     from: { dayAt: new Date(), hourAt: 12, minAt: 0 },
+//     to: { dayAt: new Date(), hourAt: 15, minAt: 0 },
+// };
+
+const mapStateToProps = state => ({
+    locale: state.layoutReducers.locale,
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateDefPop: (defProps: CalendarRedux.IDefinerPopStats) =>
+        dispatch(PopActionCreator.updateDefinerPop(defProps)),
+});
 
 class CalEventDefinerPop extends CalPopover<
     CalendarNS.ICalEventDefinerPopProps
@@ -33,20 +44,23 @@ class CalEventDefinerPop extends CalPopover<
     }
 
     onClose = () => {
-        const { locale } = this.props;
-        CalModalManager.initModal(locale, CalConfirmPanel, {
+        console.log(this.props);
+        CalModalManager.initModal(this.props.locale, CalConfirmPanel, {
             visible: true,
             isClose: false,
             contentClass: 'cal-confirm-panel-wrapper',
+            componentProps: {
+                onDiscard: this.onDiscardChange,
+            },
         });
     };
 
-    changeDragNode = () => {
-        const { getDragNode } = this.props;
-        getDragNode(_test_time_range).then(newDragNode => {
-            // this.setDragNode(newDragNode);
-            this.adjustPosition();
-        });
+    onDiscardChange = () => {
+        this.props.updateDefPop({
+            defTimeRange: null,
+            globalInitStatus: 'stop',
+            defShowPop: false
+        })
     };
 
     render() {
@@ -71,7 +85,7 @@ class CalEventDefinerPop extends CalPopover<
                 <div className="calevent-define-pop-container__body">
                     <div
                         className="calevent-define-pop-container__close"
-                        onClick={this.changeDragNode}
+                        onClick={this.onClose}
                     >
                         <div className="calevent-define-pop-container__close--wrapper">
                             <svg className="ali-icon" aria-hidden="true">
@@ -97,4 +111,7 @@ class CalEventDefinerPop extends CalPopover<
     }
 }
 
-export default CalEventDefinerPop;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CalEventDefinerPop);
