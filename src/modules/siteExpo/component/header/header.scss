@@ -1,0 +1,29 @@
+
+@import '../../assets/style/theme.scss';
+
+$header-padding: 50px;
+$menu-width: 500px;
+
+.expo-header {
+  position: relative;
+  width: 100%;
+  height: $header-height;
+  padding: 0 $header-padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-logo {
+  
+  }
+
+  &-menu {
+     display: flex;
+     width: $menu-width;
+     justify-content: space-between;
+
+    .menu-item {
+      
+    }
+  }
+}

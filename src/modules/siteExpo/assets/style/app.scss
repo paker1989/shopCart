@@ -1,0 +1,22 @@
+@import '../style/theme.scss';
+
+.site-expo-container {
+  position: relative;
+  width: 100vw;
+
+  .accueil {
+    position: relative;
+    width: 100%;
+    height: $carousel-width;
+
+    .carousel-bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url('../image/carousel1.png');
+      background-position: center;
+    }
+  }
+}
