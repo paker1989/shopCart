@@ -20,7 +20,7 @@ function initModal(
         CalConfig.calEventDefinerIdPrefix
     }-${++_CAL_EVENT_CURRENT_ID}`;
 
-    let { onClose, ...otherProps } = initModalOptions;
+    let { onClose, componentProps, ...otherProps } = initModalOptions;
     if (!onClose) {
         onClose = (modalId: string) => {
             destroyModal(modalId);
@@ -29,7 +29,7 @@ function initModal(
     ReactDOM.render(
         <Modal {...otherProps} onClose={onClose} id={id}>
             <I18nProvider locale={locale}>
-                <RawComponent />
+                <RawComponent {...componentProps} onClose={onClose}/>
             </I18nProvider>
         </Modal>,
         container

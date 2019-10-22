@@ -1,4 +1,5 @@
 import { CalEvtDataNS } from './evtTypes';
+import { CalendarRedux } from './reduxTypes';
 
 export namespace CalendarNS {
     export interface ISingleDayDefaultHeaderProps {
@@ -79,6 +80,7 @@ export namespace CalendarNS {
         getDragNode?: (
             timeRange: ITimeRangeFormat
         ) => Promise<ISimuBoundingClientRect>;
+        updateDefPop?: (defProps: CalendarRedux.IDefinerPopStats)=> void;
     }
 
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {
@@ -98,6 +100,7 @@ export namespace CalendarNS {
         contentClass?: string;
         layerClass?: string;
         onClose?: (modalId?: string) => void;
+        componentProps?: any;
     }
 
     export interface ICalRouterParams {
