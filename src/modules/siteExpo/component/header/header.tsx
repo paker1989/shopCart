@@ -5,7 +5,9 @@ import './header.scss';
 const Header = (props) => {
   return (
     <div className="expo-header">
-      <div className="expo-header-logo"></div>
+      <div className="expo-header-logo">
+        <img src="static/image/logo2.png"></img>
+      </div>
       <div className="expo-header-menu">
         <span className="menu-item">欢迎</span>
         <span className="menu-item">关于我们</span>

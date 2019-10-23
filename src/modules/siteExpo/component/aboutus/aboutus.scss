@@ -1,0 +1,56 @@
+$skill-width: 50%;
+$skill-card-background: rgba(38, 38, 38, .5);
+$skill-card-color: #fff;
+$self-intro-background: grey;
+$self-intro-color: rgb(38, 38, 38);
+
+.about-us {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .skill-card-container {
+    flex: 1;
+    width: $skill-width;
+    color: $skill-card-color;
+    background: $skill-card-background;
+    display: flex;
+    align-items: center;
+
+    .skill-cards-wrapper {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      display: flex;
+      flex-direction: column;
+      //  justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+
+  .self-intro {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    .content-wrapper {
+      position: relative;
+      width: 500px;
+      max-height: 300px;
+      margin-top: 50px;
+    }
+
+    .title-main {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    .self-intro-content {
+      font-size: 13px;
+      text-align: left;
+      line-height: 23px;
+    }
+  }
+}

@@ -14,7 +14,9 @@ $menu-width: 500px;
   align-items: center;
 
   &-logo {
-  
+    img {
+      width: 60px;
+    }
   }
 
   &-menu {

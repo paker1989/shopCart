@@ -2,7 +2,6 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import './calConfirmPanel.scss';
-import { cps } from 'redux-saga/effects';
 
 export interface ICalConfirmPanel {
     onDiscardChange: (...args) => void;
@@ -36,7 +35,10 @@ class CalConfirmPanel extends React.Component<ICalConfirmPanel, any> {
                     <div role="button" className="cal-confirm-panel--action">
                         <span
                             className="cal-confirm-panel--item is-blue"
-                            onClick={onDiscardChange}
+                            onClick={() => {
+                                onDiscardChange();
+                                onClose();
+                            }}
                         >
                             <FormattedMessage id="cal.discard" />
                         </span>

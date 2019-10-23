@@ -29,7 +29,7 @@ function initModal(
     ReactDOM.render(
         <Modal {...otherProps} onClose={onClose} id={id}>
             <I18nProvider locale={locale}>
-                <RawComponent {...componentProps} onClose={onClose}/>
+                <RawComponent {...componentProps} onClose={onClose.bind(null, id)}/>
             </I18nProvider>
         </Modal>,
         container

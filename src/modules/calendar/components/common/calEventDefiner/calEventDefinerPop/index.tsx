@@ -44,13 +44,12 @@ class CalEventDefinerPop extends CalPopover<
     }
 
     onClose = () => {
-        console.log(this.props);
         CalModalManager.initModal(this.props.locale, CalConfirmPanel, {
             visible: true,
             isClose: false,
             contentClass: 'cal-confirm-panel-wrapper',
             componentProps: {
-                onDiscard: this.onDiscardChange,
+                onDiscardChange: this.onDiscardChange,
             },
         });
     };
@@ -60,7 +59,7 @@ class CalEventDefinerPop extends CalPopover<
             defTimeRange: null,
             globalInitStatus: 'stop',
             defShowPop: false
-        })
+        });
     };
 
     render() {

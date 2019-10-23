@@ -1,0 +1,40 @@
+
+
+$card-width: 240px;
+$jump-top-height: 0;
+
+.expo-service-card {
+    position: relative;
+    top: $jump-top-height;
+    width: $card-width;
+    padding: 30px 15px;
+    margin-bottom: 40px;
+    // box-shadow: 3px 12px 21px 4px rgba(154,154,154,0.41);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card-img {
+        position: absolute;
+        top: -50px;
+        img {
+            height: 70px;
+        }
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .card-dsptn {
+        // fontk
+        text-align: left;
+        .dsptn-item {
+            font-size: 14px;
+            line-height: 25px;
+        }
+    }
+}

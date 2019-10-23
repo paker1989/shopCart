@@ -1,0 +1,42 @@
+$expo-services-width: 80%;
+
+.expo-services {
+  position: relative;
+  margin-top: 50px;
+  width: $expo-services-width;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  .service-title {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .main-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .sub-title {
+      font-size: 13px;
+      color: #5f6368;
+      white-space: normal;
+    }
+  }
+
+  .service-list {
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    box-shadow: 3px 12px 21px 4px rgba(154,154,154,0.41);
+  }
+}
