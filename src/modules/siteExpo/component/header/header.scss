@@ -5,13 +5,15 @@ $header-padding: 50px;
 $menu-width: 500px;
 
 .expo-header {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: $header-height;
   padding: 0 $header-padding;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 999;
+  color: #fff;
 
   &-logo {
     img {

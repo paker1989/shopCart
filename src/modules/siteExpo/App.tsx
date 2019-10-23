@@ -35,16 +35,33 @@ class App extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
+                <div className="about-us2">
+                    <div className="about-us2-content">
+                        <div className="main">
+                            <div className="title">- About us -</div>
+                            <div className="description">
+                                稳重科技背后的技术团队是一批在法国大型软件公司里供职超过5年的一群志同道合的资深软件工程师。
+                                他们具有非常资深的网络工程从业经验，工作严肃认真且高效，致力于为预算捉急的小伙伴们提供性价
+                                比极高的网站解决方案。
+                            </div>
+                        </div>
+                        <div className="image">
+                            <img
+                                src="static/image/about-us.png"
+                            />
+                        </div>
+                    </div>
+                </div>
                 <div className="services">
                     <ServiceList />
                 </div>
-                {/* <div className="test">
+                <div className="expertises">
                     <div className="bg"></div>
                     <div className="overlay"></div>
-                </div> */}
-                <div className="aboutus-container">
-                    <AboutUs />
                 </div>
+                {/* <div className="aboutus-container">
+                    <AboutUs />
+                </div> */}
                 <div className="contacts">
                     <div className="text-wrapper">
                         <div className="contact-info">
