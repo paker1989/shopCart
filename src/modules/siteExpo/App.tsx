@@ -6,7 +6,9 @@ import * as React from 'react';
 import Header from './component/header/header';
 import AboutUs from './component/aboutus/aboutus';
 import ServiceList from './component/serviceList/serviceList';
+import Expertises from './component/expertises/expertises';
 
+import './assets/style/animation.scss';
 import './assets/style/app.scss';
 
 class App extends React.Component<any, any> {
@@ -55,10 +57,7 @@ class App extends React.Component<any, any> {
                 <div className="services">
                     <ServiceList />
                 </div>
-                <div className="expertises">
-                    <div className="bg"></div>
-                    <div className="overlay"></div>
-                </div>
+                <Expertises/>
                 {/* <div className="aboutus-container">
                     <AboutUs />
                 </div> */}

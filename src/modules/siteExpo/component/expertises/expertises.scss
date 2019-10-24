@@ -1,0 +1,58 @@
+@import '../../assets/style/theme.scss';
+
+// $overlay-color: #393f4d;
+// $overlay-color: #41b3a3;
+// $overlay-color: #553d67;
+// $overlay-color: #05386b;
+$overlay-color: #5D5C61;
+
+.expertises {
+  position: relative;
+  width: 100%;
+  min-height: $expertise-min-height;
+
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../../assets/image/carousel2.png");
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $overlay-color;
+    opacity: 0.95;
+  }
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .main-title {
+        width: 100%;
+        font-size: 40px;
+        line-height: 200px;
+        color: #fff;
+        font-weight: 200;
+    }
+
+    .main-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+}
+
