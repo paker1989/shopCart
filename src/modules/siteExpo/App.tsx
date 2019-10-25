@@ -7,6 +7,7 @@ import Header from './component/header/header';
 import AboutUs from './component/aboutus/aboutus';
 import ServiceList from './component/serviceList/serviceList';
 import Expertises from './component/expertises/expertises';
+import Carousel from './component/carousel/carousel';
 
 import './assets/style/animation.scss';
 import './assets/style/app.scss';
@@ -20,7 +21,8 @@ class App extends React.Component<any, any> {
             // <I18nProvider locale={locale}>
             <div className="site-expo-container">
                 <Header />
-                <div className="accueil">
+                <Carousel/>
+                {/* <div className="accueil">
                     <div className="carousel-bg"></div>
                     <div className="carousel-overlay"></div>
                     <div className="carousel-content">
@@ -36,7 +38,7 @@ class App extends React.Component<any, any> {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="about-us2">
                     <div className="about-us2-content">
                         <div className="main">

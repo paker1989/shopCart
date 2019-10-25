@@ -5,7 +5,7 @@ $header-padding: 50px;
 $menu-width: 500px;
 
 .expo-header {
-  position: absolute;
+  // position: absolute;
   width: 100%;
   height: $header-height;
   padding: 0 $header-padding;
@@ -13,7 +13,19 @@ $menu-width: 500px;
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  color: #fff;
+
+
+  &.is-absolute {
+    position: absolute;
+    color: #fff;
+  }
+
+  &.is-fixed {
+    position: fixed;
+    color: #fff;
+    background: black;
+    animation: slideInTop .2s ease-out forwards;
+  }
 
   &-logo {
     img {

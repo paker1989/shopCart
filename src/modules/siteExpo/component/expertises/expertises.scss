@@ -44,6 +44,9 @@ $overlay-color: #5D5C61;
         line-height: 200px;
         color: #fff;
         font-weight: 200;
+        opacity: 0;
+        text-align: left;
+        margin-left: 20vw;
     }
 
     .main-body {
@@ -53,6 +56,11 @@ $overlay-color: #5D5C61;
       max-width: 100%;
       flex-wrap: wrap;
     }
+  }
+
+  .slideIn {
+    animation: slideInLeft 1.4s ease-out forwards;
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
   }
 }
 
