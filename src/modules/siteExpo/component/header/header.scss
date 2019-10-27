@@ -2,7 +2,7 @@
 @import '../../assets/style/theme.scss';
 
 $header-padding: 50px;
-$menu-width: 500px;
+$menu-width: 700px;
 
 .expo-header {
   // position: absolute;
@@ -23,7 +23,7 @@ $menu-width: 500px;
   &.is-fixed {
     position: fixed;
     color: #fff;
-    background: black;
+    background: #343148ff;
     animation: slideInTop .2s ease-out forwards;
   }
 
@@ -36,10 +36,21 @@ $menu-width: 500px;
   &-menu {
      display: flex;
      width: $menu-width;
-     justify-content: space-between;
+    //  justify-content: space-between;
+    justify-content: flex-end;
+
+    img {
+      cursor: pointer;
+    }
 
     .menu-item {
-      
+      min-width: 90px;
+      margin: 0 10px;
+      cursor: pointer;
+      &.is-active {
+        color: #00b1d2ff;
+      }
     }
+
   }
 }

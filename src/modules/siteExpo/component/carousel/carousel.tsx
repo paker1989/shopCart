@@ -4,8 +4,10 @@ import cx from 'classnames';
 
 import './carousel.scss';
 import useScrollPosition from '../common/useScrollPosition';
+import { FormattedMessage } from 'react-intl';
 
-const Carousel = () => {
+const Carousel = props => {
+    const { setCarouselRef } = props;
     const ref = useRef<HTMLDivElement>(null);
     const slideIn = useScrollPosition(40, ref);
 
@@ -28,17 +30,24 @@ const Carousel = () => {
     });
 
     return (
-        <div className="accueil">
+        <div
+            className="accueil"
+            ref={ref => {
+                setCarouselRef(ref);
+            }}
+        >
             <div className="carousel-bg"></div>
             <div className="carousel-overlay"></div>
             <div className="carousel-content">
                 <div className="text-wrapper" ref={ref}>
-                    <div className={titleMainClass}>最前沿的网站解决方案</div>
+                    <div className={titleMainClass}>
+                        <FormattedMessage id="se.carousel.title" />
+                    </div>
                     <div className={titleSubClass}>
-                        静态网站 - 电商解决方案 - 小程序 - 网站维护
+                        <FormattedMessage id="se.carousel.subtitle" />
                     </div>
                     <div className={carouselBtnClass} role="button">
-                        联系我们
+                        <FormattedMessage id="se.contactus" />
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import './expertiseCircle.scss';
 export interface IExpertiseCircleProps {
     percentage: number;
     color: string;
-    name?: string;
+    name?: any;
     animate?: boolean;
 }
 

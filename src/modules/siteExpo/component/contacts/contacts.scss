@@ -1,0 +1,142 @@
+@import '../../assets/style/theme.scss';
+@import '../../assets/style/animation.scss';
+
+.contacts-container {
+    position: relative;
+    width: 100%;
+    // height: $footer-height;
+    display: flex;
+    flex-wrap: wrap;
+    // background: #fff;
+
+    & > * {
+        flex-basis: 33%;
+        padding-top: 50px;
+    }
+
+    & img {
+      width: 45px;
+      font-weight: 200;
+      margin: 0 20px;
+      cursor: pointer;
+   }
+
+   .copy-right {
+    position: relative;
+    flex-basis: 100%;
+    padding-top: 0;
+    margin-top: 30px;
+    height: 35px;
+
+    .content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding-right: 20px;
+      border-top: 1px solid #E6EAEA;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 12px;
+      line-height: 20px;
+      color: rgb(117, 117, 117);
+      font-weight: 100;
+
+      img {
+        height: 12px;
+        margin: 0;
+      }
+    }
+  }
+
+    .coordonne {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        font-weight: 200;
+        font-size: 20px;
+        color: #181818;
+    }
+
+    .social-network {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        color: #181818;
+
+        & .main-title {
+            position: relative;
+            font-weight: 200;
+            font-size: 37px;
+            &:before {
+              content: '';
+              position: absolute;
+              left: -40px;
+              top: 28px;
+              width: 20px;
+              height: 1px;
+              background: #181818;
+            }
+            &:after {
+              content: '';
+              position: absolute;
+              right: -40px;
+              top: 28px;
+              width: 20px;
+              height: 1px;
+              background: #181818;
+            }
+        }
+
+        & .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 40px;
+        }
+
+        & .qc-logo {
+          position: absolute;
+          width: 80px;
+          top: 150px;
+        }
+
+
+    }
+
+    .go-up {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      // padding-top: 50px;
+
+      span {
+        font-weight: 200;
+        font-size: 27px;
+        color: #181818;
+      }
+    }
+
+    .is-rotateOut {
+      animation: rotateOut .8s ease-out forwards;
+    }
+
+    .is-hide {
+      display: none;
+    }
+}
+
+.wechat-tooltip {
+  background: #fff;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 4px;
+  opacity: 1;
+  span img {
+    // position: relative;
+    width: 130px;
+    cursor: pointer;
+  }
+}

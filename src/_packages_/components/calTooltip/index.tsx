@@ -27,9 +27,9 @@ class CalTooltip extends React.Component<ICalTooltipProps, ICalTooltipState> {
                 position={Popover.Placement.autoBottomMiddle}
                 verCushion={5}
             >
-                <Popover.Trigger.HoverTrigger>
+                <Popover.Trigger.ClickTrigger>
                     {children}
-                </Popover.Trigger.HoverTrigger>
+                </Popover.Trigger.ClickTrigger>
                 <Popover.Content>
                     <div className={contentClassWrapper}>
                         <span>{content}</span>

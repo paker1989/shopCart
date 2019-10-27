@@ -6,8 +6,8 @@ import './serviceCard.scss';
 export interface IServiceCardProps {
     img?: string;
     logo?: string;
-    title: string;
-    description?: string | string[];
+    title: any;
+    description?: any | any[];
 }
 // accueil， skills｜自我介绍, process(流程), 业务介绍，contact us
 const ServiceCard = (props: IServiceCardProps) => {
