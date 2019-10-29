@@ -20,7 +20,7 @@ $carousel-text-left: 40%;
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url("../../assets/image/carousel1.png");
+    // background-image: url("../../assets/image/carousel1.png");
     background-position: center;
     background-repeat: no-repeat;
     // box-shadow: inset 0px 0px 30px 30px rgba(0,0,0,0.9);
@@ -78,6 +78,7 @@ $carousel-text-left: 40%;
         border: 1px solid #fff;
         line-height: 40px;
         animation-delay: 0.4s;
+        cursor: pointer;
       }
     }
   }

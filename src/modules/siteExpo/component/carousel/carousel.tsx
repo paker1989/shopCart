@@ -7,13 +7,10 @@ import useScrollPosition from '../common/useScrollPosition';
 import { FormattedMessage } from 'react-intl';
 
 const Carousel = props => {
-    const { setCarouselRef } = props;
+    const { setCarouselRef, goTo } = props;
     const ref = useRef<HTMLDivElement>(null);
     const slideIn = useScrollPosition(40, ref);
 
-    // if (slideIn) {
-    //     console.log('slide in carousel');
-    // }
     const titleMainClass = cx({
         ['carousel-title-main']: true,
         ['slideIn']: slideIn,
@@ -36,7 +33,9 @@ const Carousel = props => {
                 setCarouselRef(ref);
             }}
         >
-            <div className="carousel-bg"></div>
+            <div className="carousel-bg">
+                <img src="static/image/carousel1.png" />
+            </div>
             <div className="carousel-overlay"></div>
             <div className="carousel-content">
                 <div className="text-wrapper" ref={ref}>
@@ -46,7 +45,7 @@ const Carousel = props => {
                     <div className={titleSubClass}>
                         <FormattedMessage id="se.carousel.subtitle" />
                     </div>
-                    <div className={carouselBtnClass} role="button">
+                    <div className={carouselBtnClass} role="button" onClick={() => {goTo('contactus')}}>
                         <FormattedMessage id="se.contactus" />
                     </div>
                 </div>

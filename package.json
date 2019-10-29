@@ -26,6 +26,7 @@
     "sass-loader": "^7.1.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "^2.2.1",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
@@ -77,6 +78,8 @@
     "build-site": "node src/modules/site/config/build.js",
     "cal-dev": "webpack-dev-server --progress --inline --config src/modules/calendar/config/webpack.dev.config.js",
     "build-cal": "node src/modules/calendar/config/build.js",
-    "se-dev": "webpack-dev-server --progress --inline --config src/modules/siteExpo/config/webpack.dev.config.js"
+    "se-dev": "webpack-dev-server --progress --inline --config src/modules/siteExpo/config/webpack.dev.config.js",
+    "build-se": "node src/modules/siteExpo/config/build.js",
+    "build-se-demo": "node src/modules/siteExpo/config/build.github.js"
   }
 }

@@ -77,11 +77,12 @@ class App extends React.Component<any, any> {
                     <Header
                         goTo={this.goTo}
                         currentAnchor={currentAnchor}
+                        locale={locale}
                         changeLocale={locale => {
                             this.setState({ locale });
                         }}
                     />
-                    <Carousel setCarouselRef={this.setCarouselRef} />
+                    <Carousel setCarouselRef={this.setCarouselRef} goTo={this.goTo}/>
                     <div className="about-us2">
                         <b
                             className="aboutus-anchor"
@@ -118,6 +119,7 @@ class App extends React.Component<any, any> {
                         getCarouselRef={() => {
                             return this.carouselRef;
                         }}
+                        locale={locale}
                         changeLocale={locale => {
                             this.setState({ locale });
                         }}

@@ -8,13 +8,19 @@ import './calTooltip.scss';
 export interface ICalTooltipProps {
     content: any;
     contentClass?: string;
+    trigger: string;
 }
 
 export interface ICalTooltipState {}
 
 class CalTooltip extends React.Component<ICalTooltipProps, ICalTooltipState> {
+    static defaultProps = {
+        trigger: 'hover',
+    };
+
     render() {
-        const { content, children, contentClass } = this.props;
+        const { content, children, contentClass, trigger } = this.props;
+        let PopoverTrigger;
         const contentClassWrapper = cx(
             {
                 ['cal-tooltip-content']: true,
@@ -22,14 +28,21 @@ class CalTooltip extends React.Component<ICalTooltipProps, ICalTooltipState> {
             contentClass
         );
 
+        switch (trigger) {
+            case 'click':
+                PopoverTrigger = Popover.Trigger.ClickTrigger;
+                break;
+            case 'hover':
+                PopoverTrigger = Popover.Trigger.HoverTrigger;
+                break;
+        }
+
         return (
             <Popover
                 position={Popover.Placement.autoBottomMiddle}
                 verCushion={5}
             >
-                <Popover.Trigger.ClickTrigger>
-                    {children}
-                </Popover.Trigger.ClickTrigger>
+                <PopoverTrigger>{children}</PopoverTrigger>
                 <Popover.Content>
                     <div className={contentClassWrapper}>
                         <span>{content}</span>

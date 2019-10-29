@@ -16,13 +16,19 @@ module.exports = {
             NODE_ENV: '"production"',
         },
         assetsRoot: path.resolve(__dirname, '../../../../dist/siteExpo'),
-        port: "1221",
         productionSourceMap: true,
         devtool: '#source-map',
-        // Gzip off by default as many popular static hosts such as
-        // Surge or Netlify already gzip all static assets for you.
-        // Before setting to `true`, make sure to:
-        // npm install --save-dev compression-webpack-plugin
+        productionGzip: false,
+        productionGzipExtensions: ['jsx', 'js', 'css'],
+        bundleAnalyzerReport: process.env.npm_config_report
+    },
+    demo: {
+        env: {
+            NODE_ENV: '"production"',
+        },
+        assetsRoot: path.resolve(__dirname, '../../../../docs'),
+        productionSourceMap: true,
+        devtool: '#source-map',
         productionGzip: false,
         productionGzipExtensions: ['jsx', 'js', 'css'],
         bundleAnalyzerReport: process.env.npm_config_report

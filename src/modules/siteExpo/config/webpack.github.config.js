@@ -17,18 +17,18 @@ const webpackProdConfig = merge(webpackBaseConfig, {
     app: './main.js'
   },
   output: {
-    path: config.build.assetsRoot,
+    path: config.demo.assetsRoot,
     filename: 'js/[name].[chunkhash].js',
     chunkFilename: 'js/[name]~[id].[chunkhash].js',
-    publicPath: '/'
+    publicPath: './'
   },
-  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  devtool: config.demo.productionSourceMap ? config.demo.devtool : false,
   optimization: {
     // minimizer: [new UglifyJsPlugin({
     //   uglifyOptions: {
     //     compress: {}
     //   },
-    //   sourceMap: config.build.productionSourceMap,
+    //   sourceMap: config.demo.productionSourceMap,
     //   parallel: true,
     // })],
     minimizer: [new TerserPlugin({
@@ -66,7 +66,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.build.env
+      'process.env': config.demo.env
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -78,7 +78,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
       ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
     new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
+      cssProcessorOptions: config.demo.productionSourceMap
         ? { safe: true, map: { inline: false } }
         : { safe: true }
     }),
@@ -110,7 +110,7 @@ const webpackProdConfig = merge(webpackBaseConfig, {
 });
 
 
-if (config.build.productionGzip) {
+if (config.demo.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackProdConfig.plugins.push(
@@ -118,14 +118,14 @@ if (config.build.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
+        config.demo.productionGzipExtensions.join('|') +
         ')$'
       ),
     })
   )
 }
 
-if (config.build.bundleAnalyzerReport) {
+if (config.demo.bundleAnalyzerReport) {
   console.log('reporting');
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackProdConfig.plugins.push(new BundleAnalyzerPlugin())

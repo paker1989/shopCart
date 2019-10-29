@@ -17,7 +17,7 @@ const _test_options_ = [
 ];
 // accueil， skills｜自我介绍, process(流程), 业务介绍，contact us
 const Header = props => {
-    const { goTo, currentAnchor, changeLocale } = props;
+    const { goTo, currentAnchor, changeLocale, locale } = props;
     const [positionClass, setPositionClass] = useState('is-absolute');
     const setHeaderPosition = throttle(() => {
         const scrollTop =
@@ -48,12 +48,22 @@ const Header = props => {
                 <img src="static/image/logo2.png"></img>
             </div>
             <div className="expo-header-menu">
-                <img
-                    src="static/image/french.svg"
-                    onClick={() => {
-                        changeLocale('fr');
-                    }}
-                />
+                {locale === 'zh' && (
+                    <img
+                        src="static/image/french.svg"
+                        onClick={() => {
+                            changeLocale('fr');
+                        }}
+                    />
+                )}
+                {locale === 'fr' && (
+                    <img
+                        src="static/image/china.png"
+                        onClick={() => {
+                            changeLocale('zh');
+                        }}
+                    />
+                )}
                 {_test_options_.map((item, index) => (
                     <Option
                         {...item}

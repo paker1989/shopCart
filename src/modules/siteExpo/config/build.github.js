@@ -8,12 +8,10 @@ const rm = require('rimraf'); // equals to 'rm -rf'
 const chalk = require('chalk'); // terminal printer with styles
 const webpack = require('webpack');
 const config = require('./config');
-const webpackConfig = require('./webpack.prod.config');
+const webpackConfig = require('./webpack.github.config');
 
 const spinner = ora('building for production...');
 spinner.start();
-
-console.log(process.argv);
 
 rm(config.build.assetsRoot, err => {
   if (err) throw err

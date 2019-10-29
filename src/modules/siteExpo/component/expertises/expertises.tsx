@@ -48,7 +48,9 @@ const Expertises = props => {
                 setExpertiseRef(ref);
             }}
         >
-            <div className="bg"></div>
+            <div className="bg">
+              {/* <img src="static/image/carousel2.png" /> */}
+            </div>
             <div className="overlay"></div>
             <div className="content">
                 <div className={titleClass}>

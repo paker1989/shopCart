@@ -9,7 +9,7 @@ import './contacts.scss';
 
 // accueil， skills｜自我介绍, process(流程), 业务介绍，contact us
 const Contacts = props => {
-    const { getCarouselRef, setContactusRef, changeLocale } = props;
+    const { getCarouselRef, setContactusRef, changeLocale, locale } = props;
     const [showCode, setShowCode] = useState(false);
 
     const wechatClass = cx({
@@ -34,13 +34,16 @@ const Contacts = props => {
             }}
         >
             <div className="coordonne">
-                <div><FormattedMessage id="se.company.title"/></div>
+                <div>
+                    <FormattedMessage id="se.company.title" />
+                </div>
                 <div>06 50 60 89 12</div>
                 <div>xb.webdev@gmail.com</div>
             </div>
             <div className="social-network">
                 <div className="main-title">
-                    <FormattedMessage id="se.contactus"/></div>
+                    <FormattedMessage id="se.contactus" />
+                </div>
                 <div className="logos">
                     <CalTooltip
                         content={
@@ -49,6 +52,7 @@ const Contacts = props => {
                                 className={qcCodeClass}
                             />
                         }
+                        trigger="click"
                         contentClass="wechat-tooltip"
                     >
                         <img
@@ -74,13 +78,30 @@ const Contacts = props => {
                         }
                     }}
                 />
-                <span><FormattedMessage id="se.top"/></span>
+                <span>
+                    <FormattedMessage id="se.top" />
+                </span>
             </div>
             <div className="copy-right">
-              <div className="content">
-                  <img src="static/image/french.svg" onClick={()=>{changeLocale('fr')}}/>
-                  <span>Copyright © 2019 WZ Tech. All Rights Reserved</span>
-              </div>
+                <div className="content">
+                    {/* {locale === 'zh' && (
+                        <img
+                            src="static/image/french.svg"
+                            onClick={() => {
+                                changeLocale('fr');
+                            }}
+                        />
+                    )}
+                    {locale === 'fr' && (
+                        <img
+                            src="static/image/china.png"
+                            onClick={() => {
+                                changeLocale('zh');
+                            }}
+                        />
+                    )} */}
+                    <span>Copyright © 2019 WZ Tech. All Rights Reserved</span>
+                </div>
             </div>
         </div>
     );

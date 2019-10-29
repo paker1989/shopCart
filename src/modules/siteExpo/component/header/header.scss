@@ -36,11 +36,13 @@ $menu-width: 700px;
   &-menu {
      display: flex;
      width: $menu-width;
-    //  justify-content: space-between;
     justify-content: flex-end;
+    align-items: center;
 
     img {
       cursor: pointer;
+      height: 28px;
+      width: 28px;
     }
 
     .menu-item {
