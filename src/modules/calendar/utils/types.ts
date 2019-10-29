@@ -73,14 +73,21 @@ export namespace CalendarNS {
     }
 
     export interface ICalEventDefinerPopProps
-        extends CalendarNS.ICalPopoverCommonProps {
+        extends CalendarNS.ICalPopoverCommonProps,
+            ICalEventDefinerLifeCycleProps {
         timeRange?: CalendarNS.ITimeRangeFormat;
         initDayEvtValue?: boolean;
         onDestroy?: (popId: string) => void;
         getDragNode?: (
             timeRange: ITimeRangeFormat
         ) => Promise<ISimuBoundingClientRect>;
-        updateDefPop?: (defProps: CalendarRedux.IDefinerPopStats)=> void;
+        updateDefPop?: (defProps: CalendarRedux.IDefinerPopStats) => void;
+    }
+
+    export interface ICalEventDefinerLifeCycleProps {
+        beforeSave?: () => void;
+        afterSave?: () => void;
+        onSave?: (dataModel: CalEvtDataNS.ICalEvtCompleteDataModelType) => void;
     }
 
     export interface ICalEventPresenterProps extends ICalPopoverCommonProps {

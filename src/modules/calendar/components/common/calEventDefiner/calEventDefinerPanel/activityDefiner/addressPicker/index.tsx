@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, IntlShape } from 'react-intl';
 import debounce from 'lodash/debounce';
 
 import CalInput from '../../../../../common/calInput';
@@ -15,17 +15,27 @@ const _test_predictions = [
     { description: '164 Avenue Victor Hugo, Seyssinet-Pariset, France' },
 ];
 
+export interface IAddressPickerProps {
+    intl?: IntlShape;
+    value: string;
+    onChange?: (field: string, value: any) => void;
+}
+
 export interface IAddressPickerState {
     isVisible: boolean;
-    value: string;
+    // value: string;
     predictions: any[];
 }
-class AddressPicker extends React.Component<any, IAddressPickerState> {
+
+class AddressPicker extends React.Component<
+    IAddressPickerProps,
+    IAddressPickerState
+> {
     constructor(props) {
         super(props);
         this.state = {
             isVisible: false,
-            value: '',
+            // value: '',
             predictions: _test_predictions,
             // predictions: []
         };
@@ -66,9 +76,11 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
     // }, 300);
 
     onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const { onChange } = this.props;
         const newVal = evt.target.value;
 
-        this.setState({ value: newVal });
+        // this.setState({ value: newVal });
+        onChange('address', newVal);
         this.handlePrediction(newVal);
     };
 
@@ -82,8 +94,9 @@ class AddressPicker extends React.Component<any, IAddressPickerState> {
     };
 
     render() {
-        const { isVisible, value, predictions } = this.state;
-        const { intl } = this.props;
+        const { isVisible, predictions } = this.state;
+        const { value, intl } = this.props;
+        // const { intl } = this.props;
         return (
             <Popover
                 wrapperClassName="address-picker-container"

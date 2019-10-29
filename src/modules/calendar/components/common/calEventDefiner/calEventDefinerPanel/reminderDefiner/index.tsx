@@ -12,7 +12,14 @@ import './reminderDefiner.scss';
 export interface IReminderDefinerProps {
     timeRange: CalendarNS.ITimeRangeFormat;
     initDayEvtValue?: boolean;
-    onDayEvtChange?: (val: boolean) => void;
+    // onDayEvtChange?: (val: boolean) => void;
+    repeatOption?:
+        | 'everySameDay'
+        | 'everyWorkDay'
+        | 'everyDay'
+        | 'everySameDate';
+    color?: string;
+    onChange?: (field: string, value: any) => void;
 }
 
 export interface IReminderDefinerStat {
@@ -35,7 +42,7 @@ class ReminderDefiner extends React.Component<
     }
 
     isDayEvtControlled = () => {
-        return this.props.onDayEvtChange !== undefined;
+        return this.props.onChange !== undefined;
     };
 
     getDayRvtValue = () => {
@@ -47,10 +54,10 @@ class ReminderDefiner extends React.Component<
     };
 
     toggleDayEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { onDayEvtChange } = this.props;
+        const { onChange } = this.props;
 
         if (this.isDayEvtControlled()) {
-            onDayEvtChange(e.target.checked);
+            onChange('isAllDayEvt', e.target.checked);
         } else {
             this.setState({
                 isWholeDayEvt: e.target.checked,

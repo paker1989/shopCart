@@ -13,6 +13,10 @@ export interface IActivityDefinerProps {
     timeRange: CalendarNS.ITimeRangeFormat;
     initDayEvtValue?: boolean;
     intl: IntlShape;
+    description?: string;
+    address?: string;
+    color?: string;
+    onChange?: (field: string, value: any) => void;
 }
 
 class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
@@ -20,7 +24,14 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
         initDayEvtValue: false,
     };
     render() {
-        const { timeRange, initDayEvtValue, intl } = this.props;
+        const {
+            timeRange,
+            initDayEvtValue,
+            intl,
+            address,
+            onChange,
+            description,
+        } = this.props;
         return (
             <div className="calActivity-definer-container">
                 <GooglePlaceAPIManager />
@@ -44,7 +55,7 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         </svg>
                     </span>
                     <span className="calActivity-definer-container__option--main">
-                        <AddressPicker />
+                        <AddressPicker value={address} onChange={onChange} />
                     </span>
                 </div>
                 <div className="calActivity-definer-container__option--comment">
@@ -56,6 +67,10 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         </span>
                         <span className="calActivity-definer-container__option--main">
                             <CalInput
+                                onChange={e => {
+                                    onChange('description', e.target.value);
+                                }}
+                                value={description}
                                 className="calActivity-definer-container__input"
                                 placeholder={intl.formatMessage({
                                     id: 'cal.addDescription',

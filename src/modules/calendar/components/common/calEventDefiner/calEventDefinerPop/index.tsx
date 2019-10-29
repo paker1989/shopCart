@@ -58,7 +58,7 @@ class CalEventDefinerPop extends CalPopover<
         this.props.updateDefPop({
             defTimeRange: null,
             globalInitStatus: 'stop',
-            defShowPop: false
+            defShowPop: false,
         });
     };
 
@@ -69,6 +69,9 @@ class CalEventDefinerPop extends CalPopover<
             zIndex,
             timeRange,
             initDayEvtValue,
+            onSave,
+            beforeSave,
+            afterSave,
         } = this.props;
         const { style } = this.state;
         const wrapperStyle: React.CSSProperties = {
@@ -95,6 +98,9 @@ class CalEventDefinerPop extends CalPopover<
                     <CalEventDefinerPanel
                         timeRange={timeRange}
                         initDayEvtValue={initDayEvtValue}
+                        onSave={onSave}
+                        beforeSave={beforeSave}
+                        afterSave={afterSave}
                     />
                 </div>
                 <WindowResizeHandler onResize={this.onWindowResize} />

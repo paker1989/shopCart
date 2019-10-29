@@ -9,4 +9,8 @@ export default {
     defRepeat: 'everyWorkDay',
     maxEvtCache: 10,
     maxHeaderDisplayEvt: 2,
+    colors: {
+        alldayActivityColor: 'rgb(121, 134, 203)',
+        reminderColor: '#3f51b5',
+    },
 };
