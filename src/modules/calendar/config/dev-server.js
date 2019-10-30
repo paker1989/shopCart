@@ -1,4 +1,4 @@
-// require('./db');
+require('./db');
 
 const path = require('path');
 const express = require('express');
@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-
+const eventRoutes = require('../routes/events');
 const webpackDevConfig = require('./webpack.dev.config');
 const config = require('./config');
 
@@ -34,6 +34,8 @@ app.use(devMiddleWare);
 app.use(hotMiddleWare);
 
 app.use('/static', express.static(path.join(__dirname, '..', '/assets'))); // serve 本地资源
+
+app.use('/events', eventRoutes);
 
 const port = config.dev.port;
 

@@ -1,11 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
+import { connect } from 'react-redux';
 import { IntlShape, FormattedMessage, injectIntl } from 'react-intl';
 
 import CalInput from '../../calInput';
 import ReminderDefiner from './reminderDefiner';
 import ActivityDefiner from './activityDefiner';
 import { getInitActivityModel, getInitReminderModel } from '../data.util';
+import * as EvtActionCreator from '../../../../store/action/evtsAction';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import { CalendarNS } from '../../../../utils/types';
 
@@ -16,6 +18,7 @@ export interface ICalEventDefinerPanelProps
     timeRange?: CalendarNS.ITimeRangeFormat;
     initDayEvtValue?: boolean;
     intl: IntlShape;
+    saveEvt?: (evt: CalEvtDataNS.ICalEvtCompleteDataModelType) => void;
 }
 
 export interface ICalEventDefinerPanelState {
@@ -25,6 +28,11 @@ export interface ICalEventDefinerPanelState {
     activityModel: CalEvtDataNS.ICalEvtActivityOptionDataModel;
     reminderModel: CalEvtDataNS.ICalEvtReminderOptionDataModel;
 }
+
+const mapDispatchToProps = dispatch => ({
+    saveEvt: (evt: CalEvtDataNS.ICalEvtCompleteDataModelType) =>
+        dispatch(EvtActionCreator.saveEvt(evt)),
+});
 
 class CalEventDefinerPanel extends React.Component<
     ICalEventDefinerPanelProps,
@@ -45,17 +53,6 @@ class CalEventDefinerPanel extends React.Component<
             reminderModel: getInitReminderModel(timeRange),
         };
     }
-
-    // changeType = newType => {
-    //     const { type } = this.state;
-    //     if (type !== newType) {
-    //         this.setState({ type: newType });
-    //     }
-    // };
-
-    // handleDayEvtChange = (isDayEvt: boolean): void => {
-    //     this.setState({ isDayEvt });
-    // };
 
     handleFieldChange = (fieldName: string, value: any) => {
         const { activityModel, reminderModel } = this.state;
@@ -90,7 +87,36 @@ class CalEventDefinerPanel extends React.Component<
     };
 
     handleSave = () => {
-        
+        const {
+            type,
+            title,
+            activityModel,
+            reminderModel,
+            isDayEvt,
+        } = this.state;
+        const { saveEvt } = this.props;
+
+        // let evt: CalEvtDataNS.ICalEvtCompleteDataModelType;
+        switch (type) {
+            case 'activity':
+                let activity: CalEvtDataNS.ICalEvtCompleteActivityDataModel = {
+                    type,
+                    title,
+                    allDayEvt: isDayEvt,
+                    opts: activityModel,
+                };
+                saveEvt(activity);
+                return;
+            case 'reminder':
+                let reminder: CalEvtDataNS.ICalEvtCompleteReminderDataModel = {
+                    type,
+                    title,
+                    allDayEvt: isDayEvt,
+                    opts: reminderModel,
+                };
+                saveEvt(reminder);
+                return;
+        }
     };
 
     render() {
@@ -176,4 +202,7 @@ class CalEventDefinerPanel extends React.Component<
     }
 }
 
-export default injectIntl(CalEventDefinerPanel);
+export default connect(
+    () => ({}),
+    mapDispatchToProps
+)(injectIntl(CalEventDefinerPanel));

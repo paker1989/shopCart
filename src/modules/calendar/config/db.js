@@ -1,34 +1,30 @@
-var connectionString, db, mongoose, options;
+var mongoose = require('mongoose');
+var CalConfig = require('../config/config');
 
-mongoose = require('mongoose');
-connectionString = 'mongodb://127.0.0.1:27019/shopCart';
+console.log(process.env.NODE_ENV);
 
-options = {
-	native_parser: true,
-	server: {
-		auto_reconnect: true,
-		poolSize: 5
-	}
-};
+const config = process.env.NODE_ENV === '"production"' ? CalConfig.build : CalConfig.dev;
 
-console.log(connectionString);
+mongoose.connect(config.dbUrl, {
+    useNewUrlParser : true,
+    reconnectTries: Number.MAX_VALUE,
+    poolSize: 10,
+}).catch(function(err) {
+    if (err) {
+        console.log('calendar: mongoose connection initial connection failed');
+    }
+})
 
-mongoose.connect(connectionString, options, function (err, res) {
-	if (err) {
-		console.log('[mongoose log] Error connecting to: ' + connectionString + '. ' + err);
-		return process.exit(1);
-	}
-	else {
-		return console.log('[mongoose log] Successfully connected to: ' + connectionString);
-	}
-});
+mongoose.connection.on('error', function(err) {
+    console.log('calendar: mongoose connection error' + err);
+})
 
-db = mongoose.connection;
+mongoose.connection.on('connected', function() {
+    console.log('calendar: mongoose connection succeed..');
+})
 
-db.on('error', console.error.bind(console, 'mongoose connection error:'));
+mongoose.connection.on('disconnected', function () {    
+    console.log('Mongoose connection disconnected');  
+});    
 
-db.once('open', function () {
-	return console.log('mongoose open success');
-});
-
-module.exports = db;
+module.exports = mongoose;

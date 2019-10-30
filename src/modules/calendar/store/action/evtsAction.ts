@@ -1,5 +1,6 @@
 import * as EvtsActionType from '../actionType/evtsActionType';
 import { CalendarRedux } from '../../utils/reduxTypes';
+import { CalEvtDataNS } from '../../utils/evtTypes';
 
 export const fetchEvts = (date: Date): CalendarRedux.IReduxAction => ({
     type: EvtsActionType._FETCH_EVTS,
@@ -19,4 +20,11 @@ export const fetchEvtsOfDates = (
 ): CalendarRedux.IReduxAction => ({
     type: EvtsActionType._FETCH_EVTS_OF_DATES,
     payload: { dates },
+});
+
+export const saveEvt = (
+    evt: CalEvtDataNS.ICalEvtCompleteDataModelType
+): CalendarRedux.IReduxAction => ({
+    type: EvtsActionType._SAVE_EVT_,
+    payload: { evt },
 });

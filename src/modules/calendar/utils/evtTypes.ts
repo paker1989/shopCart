@@ -2,7 +2,7 @@ import { CalendarNS } from '../utils/types';
 
 export namespace CalEvtDataNS {
     export interface ICalEvtSimpleDataModel {
-        id: string | number;
+        id?: string | number;
         title: string;
         type: 'activity' | 'reminder';
         allDayEvt: boolean;

@@ -77,6 +77,7 @@
     "start-site": "node src/modules/site/config/dev-server.js",
     "build-site": "node src/modules/site/config/build.js",
     "cal-dev": "webpack-dev-server --progress --inline --config src/modules/calendar/config/webpack.dev.config.js",
+    "cal-start": "node src/modules/calendar/config/dev-server.js",
     "build-cal": "node src/modules/calendar/config/build.js",
     "se-dev": "webpack-dev-server --progress --inline --config src/modules/siteExpo/config/webpack.dev.config.js",
     "build-se": "node src/modules/siteExpo/config/build.js",

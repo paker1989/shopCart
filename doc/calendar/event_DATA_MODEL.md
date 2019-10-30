@@ -6,7 +6,7 @@
 6. test;
 
 ## dataModel
-### ActivityDataModel
+### ReminderDataModel
 ```
 {
     id: number,
@@ -29,7 +29,7 @@
 }
 ```
 
-### ReminderDataModel
+### ActivityDataModel
 ```
 {
     id: number,

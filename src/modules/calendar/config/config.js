@@ -10,7 +10,7 @@ module.exports = {
         port: "1220",
         devtool: 'cheap-module-eval-source-map',
         assetsSubDirectory: "static",
-        dbUrl: 'mongodb://localhost:27017/calendar'
+        dbUrl: 'mongodb://localhost:27019/calendar'
     },
     build: {
         env: {
@@ -27,6 +27,6 @@ module.exports = {
         productionGzip: false,
         productionGzipExtensions: ['jsx', 'js', 'css'],
         bundleAnalyzerReport: process.env.npm_config_report,
-        dbUrl: 'mongodb://localhost:27017/calendar'
+        dbUrl: 'mongodb://localhost:27019/calendar'
     }
 }
