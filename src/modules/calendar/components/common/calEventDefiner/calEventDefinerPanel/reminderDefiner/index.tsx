@@ -24,6 +24,7 @@ export interface IReminderDefinerProps {
 
 export interface IReminderDefinerStat {
     isWholeDayEvt?: boolean;
+    repeatOption?: string;
 }
 
 class ReminderDefiner extends React.Component<
@@ -36,6 +37,7 @@ class ReminderDefiner extends React.Component<
 
     constructor(props) {
         super(props);
+        console.log(props);
         if (!this.isDayEvtControlled()) {
             this.state = { isWholeDayEvt: this.props.initDayEvtValue };
         }
@@ -53,6 +55,10 @@ class ReminderDefiner extends React.Component<
         }
     };
 
+    getRepeatOption = () => {
+        return this.isDayEvtControlled() ? this.props.repeatOption : this.state.repeatOption;
+    }
+
     toggleDayEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { onChange } = this.props;
 
@@ -66,8 +72,10 @@ class ReminderDefiner extends React.Component<
     };
 
     render() {
-        const { timeRange } = this.props;
+        const { timeRange, onChange } = this.props;
         const isWholeDayEvt = this.getDayRvtValue();
+        const repeatOption = this.getRepeatOption();
+
         return (
             <div>
                 <div className="calReminder-definer-container">
@@ -93,7 +101,13 @@ class ReminderDefiner extends React.Component<
                         </span>
                         <div className="calReminder-definer-container__option--main">
                             <div className="calReminder-definer-container__option--repeat">
-                                <RepeatPicker date={timeRange.from.dayAt} />
+                                <RepeatPicker date={timeRange.from.dayAt} value={repeatOption} onChange={(option) => {
+                                      if (this.isDayEvtControlled()) {
+                                          onChange('repeat', option);
+                                      } else {
+                                          this.setState({ repeatOption: option});
+                                      }
+                                }}/>
                             </div>
                             <Checkbox
                                 className="calReminder-definer-container__option--check"

@@ -8,18 +8,17 @@ import './repeatPicker.scss';
 
 export interface IRepeatPickerProps {
     date: Date;
+    value: string;
+    onChange: (option: string) => void;
 }
 
 class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
     constructor(props) {
         super(props);
         const options = this.populateOptions(this.props.date);
-        const selectedIndex = options.findIndex(
-            opt => opt.code === calendarConfig.defRepeat
-        );
+
         this.state = {
             isVisible: false,
-            selectedIndex,
             options,
         };
     }
@@ -77,7 +76,10 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
     };
 
     render() {
-        const { isVisible, selectedIndex, options } = this.state;
+        const { isVisible, options } = this.state;
+        const { value, onChange } = this.props;
+
+        const index = options.findIndex(item => item.code === value);
 
         return (
             <div className="repeatPicker-container">
@@ -93,7 +95,7 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
                             role="button"
                             className="btn is-silent repeatPicker-container__trigger"
                         >
-                            <span>{options[selectedIndex].title}</span>
+                            <span>{options[index].title}</span>
                             <svg
                                 className="ali-icon is-grey"
                                 aria-hidden="true"
@@ -109,9 +111,9 @@ class RepeatPicker extends React.PureComponent<IRepeatPickerProps, any> {
                                     <div
                                         className="item-wrapper"
                                         key={`repeat-option-${index}`}
-                                        onClick={() =>
-                                            this.handleSelectRepeat(index)
-                                        }
+                                        onClick={() => {
+                                            onChange(option.code);
+                                        }}
                                     >
                                         <span className="item-title font-layout-option">
                                             {option.title}

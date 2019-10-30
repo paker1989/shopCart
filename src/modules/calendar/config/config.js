@@ -9,7 +9,8 @@ module.exports = {
         },
         port: "1220",
         devtool: 'cheap-module-eval-source-map',
-        assetsSubDirectory: "static"
+        assetsSubDirectory: "static",
+        dbUrl: 'mongodb://localhost:27017/calendar'
     },
     build: {
         env: {
@@ -25,6 +26,7 @@ module.exports = {
         // npm install --save-dev compression-webpack-plugin
         productionGzip: false,
         productionGzipExtensions: ['jsx', 'js', 'css'],
-        bundleAnalyzerReport: process.env.npm_config_report
+        bundleAnalyzerReport: process.env.npm_config_report,
+        dbUrl: 'mongodb://localhost:27017/calendar'
     }
 }

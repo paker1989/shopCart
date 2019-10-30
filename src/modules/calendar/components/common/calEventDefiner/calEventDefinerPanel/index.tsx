@@ -58,7 +58,7 @@ class CalEventDefinerPanel extends React.Component<
     // };
 
     handleFieldChange = (fieldName: string, value: any) => {
-        const { activityModel } = this.state;
+        const { activityModel, reminderModel } = this.state;
         switch (fieldName) {
             case 'title':
                 this.setState({ title: value });
@@ -81,10 +81,17 @@ class CalEventDefinerPanel extends React.Component<
                     activityModel: { ...activityModel, description: value },
                 });
                 break;
+            case 'repeat':
+                this.setState({
+                    reminderModel: { ...reminderModel, repeatOption: value },
+                });
+                break;
         }
     };
 
-    handleSave = () => {};
+    handleSave = () => {
+        
+    };
 
     render() {
         const { timeRange, intl } = this.props;
@@ -147,6 +154,7 @@ class CalEventDefinerPanel extends React.Component<
                     {type === 'reminder' && (
                         <ReminderDefiner
                             {...reminderModel}
+                            onChange={this.handleFieldChange}
                             timeRange={timeRange}
                             initDayEvtValue={isDayEvt}
                             // onDayEvtChange={this.handleDayEvtChange}
