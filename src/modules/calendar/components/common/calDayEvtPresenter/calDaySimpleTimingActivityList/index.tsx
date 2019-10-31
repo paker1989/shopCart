@@ -48,7 +48,7 @@ const CalDaySimpleTimingActivityList = (
         <div className="caldayEvt-timing-list">
             {sortedList.map((sortedEvt, index) => {
                 ownId = (sortedEvt as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
-                    .id;
+                    ._id;
                 evtTimeRange = convertDBTimingToTimRange(
                     getDBTimingFromTimingItem(sortedEvt)
                 );
@@ -62,7 +62,7 @@ const CalDaySimpleTimingActivityList = (
                     .map(
                         item =>
                             (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
-                                .id
+                                ._id
                     );
                 stIndex = stIdArray.length <= 1 ? -1 : stIdArray.indexOf(ownId);
 

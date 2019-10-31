@@ -1,6 +1,7 @@
 import * as EvtsActionType from '../actionType/evtsActionType';
 import CalConfig from '../../assets/scripts/calendar.config';
 import { CalendarRedux } from '../../utils/reduxTypes';
+import { getYYYYMMDDDate } from '../../utils/timeUtils';
 
 const maxCache = CalConfig.maxEvtCache;
 
@@ -22,12 +23,13 @@ export default function(
             return { ...state };
         case EvtsActionType._FETCH_MONTH_EVTS_SUCCESS:
         case EvtsActionType._FETCH_EVTS_OF_DATES_SUCCESS:
-            const { data } = action.payload;
-            data.forEach(item => {
-                state.cachedEvts[item.dateKey] = item.evts;
-            });
-            return { ...state };
-
+                const { data } = action.payload;
+                let key;
+                data.forEach(item => {
+                    key = getYYYYMMDDDate()
+                    state.cachedEvts[item.dateKey] = item.evts;
+                });
+                return { ...state };
         default:
             return state;
     }

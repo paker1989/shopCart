@@ -6,7 +6,7 @@ import { getYYYYMMDDDate } from '../../utils/timeUtils';
 function* loadEvtsData(reqObj) {
     const dateKey = getYYYYMMDDDate(reqObj.payload.date);
     try {
-        const res = yield axios.get('/static/data/dev/calEvents.json', {
+        const res = yield axios.post('/events/getDayEvents', {
             params: { dateKey },
         });
 
@@ -38,10 +38,9 @@ function* loadEvtsData(reqObj) {
 }
 
 function* loadMonthEvtsData(reqObj) {
-    // console.log(reqObj);
     const { year, month } = reqObj.payload;
     try {
-        const res = yield axios.get('/static/data/dev/calMonthEvents.json', {
+        const res = yield axios.post('/events/getMonthEvents', {
             params: { year, month },
         });
         if (res && res.data) {

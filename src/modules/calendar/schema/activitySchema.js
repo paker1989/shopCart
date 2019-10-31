@@ -43,4 +43,13 @@ const ActivitySchema = new Schema({
     }
 });
 
+ActivitySchema.pre('save', function (next) {
+    if (this.isNew) {
+        this.meta.createdAt = this.meta.updateAt = Date.now()
+    } else {
+        this.meta.updateAt = Date.now()
+    }
+    next();
+});
+
 module.exports = ActivitySchema;

@@ -37,6 +37,11 @@ app.use('/static', express.static(path.join(__dirname, '..', '/assets'))); // se
 
 app.use('/events', eventRoutes);
 
+app.use((err, req, res, next) => {
+    console.log(err.stack);
+    res.status(500).end();
+})
+
 const port = config.dev.port;
 
 app.listen(port, () => {

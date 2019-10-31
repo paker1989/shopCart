@@ -12,15 +12,13 @@ const ReminderSchema = new Schema({
     allDayEvt: Boolean,
     opts: {
         time: {
-            from: {
-                year: String,
-                month: String,
-                dayAt: String,
-                hourAt: String,
-                minAt: String,
-            }
+            year: String,
+            month: String,
+            dayAt: String,
+            hourAt: String,
+            minAt: String,
         },
-        repeatOpt: String,
+        repeatOption: String,
         color: String,
     },
     meta: {
@@ -34,5 +32,16 @@ const ReminderSchema = new Schema({
         },
     }
 });
+
+
+ReminderSchema.pre('save', function (next) {
+    if (this.isNew) {
+        this.meta.createdAt = this.meta.updateAt = Date.now()
+    } else {
+        this.meta.updateAt = Date.now()
+    }
+    next();
+});
+
 
 module.exports = ReminderSchema;

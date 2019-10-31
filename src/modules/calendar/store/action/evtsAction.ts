@@ -12,7 +12,7 @@ export const fetchMonthEvts = (
     month: number
 ): CalendarRedux.IReduxAction => ({
     type: EvtsActionType._FETCH_MONTH_EVTS,
-    payload: { year, month },
+    payload: { year, month: month + 1 },
 });
 
 export const fetchEvtsOfDates = (

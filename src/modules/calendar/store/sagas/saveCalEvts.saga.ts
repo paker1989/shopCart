@@ -6,9 +6,11 @@ function* saveEvtsData(reqObj) {
     const { evt } = reqObj.payload;
     // const formattedDates = dates.map(date => getYYYYMMDDDate(date));
     try {
-        // const res = yield axios.get('/static/data/dev/calWeekEvents.json', {
-        //     params: { dates: formattedDates },
-        // });
+        const res = yield axios.post('/events/saveEvent', {
+            params: { evt },
+        });
+
+        console.log(res);
         // if (res && res.data) {
         //     yield put({
         //         type: EvtsActionTypes._FETCH_EVTS_OF_DATES_SUCCESS,
@@ -17,8 +19,8 @@ function* saveEvtsData(reqObj) {
         //         },
         //     });
         // }
-        console.log('saveEvtsData: ');
-        console.log(evt);
+        // console.log('saveEvtsData: ');
+        // console.log(evt);
     } catch (error) {
         console.log(error);
     }
