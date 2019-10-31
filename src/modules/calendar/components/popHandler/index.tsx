@@ -4,6 +4,7 @@ import { CalendarNS } from '../../utils/types';
 import CalEventDefinerManager from '../common/calEventDefiner';
 import CalEventDefinerPop from '../common/calEventDefiner/calEventDefinerPop';
 import Position from '../common/position';
+import { getPopupZIndexConst } from '../../utils/calZIndexManager';
 
 const mapStateToProps = state => ({
     defShowPop: state.popReducers.defShowPop,
@@ -22,7 +23,7 @@ class PopHandler extends React.Component<any, any> {
             defPositionner,
             defTopCurshion,
             defBottomCurshion,
-            defPopId,       
+            defPopId,
         } = this.props;
 
         let simulatedDragNode;
@@ -48,6 +49,7 @@ class PopHandler extends React.Component<any, any> {
                         dragPopNode={defDragNode}
                         dragNodeClientRect={simulatedDragNode}
                         id={defPopId}
+                        zIndex={getPopupZIndexConst()}
                     ></CalEventDefinerPop>
                 )}
             </React.Fragment>

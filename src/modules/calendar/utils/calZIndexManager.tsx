@@ -1,10 +1,17 @@
-const __timingActivityZIndex__ = 1001;
+const __timingActivityZIndex__ = 501;
 
-const __zIndex_Dropdown__ = 2000;
+const __zIndex_Popup__ = 600;
+
+const __zIndex_Dropdown__ = 700;
+
+export function getTimingActivityZIndexConst() {
+    return __timingActivityZIndex__;
+}
+
+export function getPopupZIndexConst() {
+    return __zIndex_Popup__;
+}
 
 export function getDropdownZIndex() {
     return __zIndex_Dropdown__;
-}
-export function getTimingActivityZIndexConst() {
-    return __timingActivityZIndex__;
 }

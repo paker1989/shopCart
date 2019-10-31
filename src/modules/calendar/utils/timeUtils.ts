@@ -5,7 +5,7 @@ import {
 } from '../../../_packages_/components/datePicker/common/util';
 import { CalendarRedux } from './reduxTypes';
 import { CalendarNS } from './types';
-import { convertTimeFormatToDate } from './timeRangeHelper';
+import { CalEvtDataNS } from './evtTypes';
 
 /**
  * @returns the monthData array of target year
@@ -60,4 +60,32 @@ export function getYYYYMMDDDate(date: Date) {
     const dateStr =
         date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
     return `${date.getFullYear()}${monthStr}${dateStr}`;
+}
+
+export function getDateKey(
+    item: CalEvtDataNS.ICalEvtCompleteDataModelType
+): string {
+    function fixedTo2(val: number) {
+        return val < 10 ? `0${val}` : `${val}`;
+    }
+    if (item.type === 'activity') {
+        const time = (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
+            .opts.time;
+        if ((time as CalendarNS.IDBTimingRangeFormat).from) {
+            const {
+                year,
+                month,
+                dayAt,
+            } = (time as CalendarNS.IDBTimingRangeFormat).from;
+            return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
+        } else {
+            const { year, month, dayAt } = time as CalendarNS.IDBTimingFormat;
+            return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
+        }
+    } else {
+        const time = (item as CalEvtDataNS.ICalEvtCompleteReminderDataModel)
+            .opts.time;
+        const { year, month, dayAt } = time as CalendarNS.IDBTimingFormat;
+        return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
+    }
 }

@@ -16,7 +16,7 @@ const saveEvent = (req, res, next) => {
         let evt = req.body.params.evt;
         if (evt) {
             if (evt._id) {
-                updateEvent(evt, (err) => {
+                updateEvent(evt, err => {
                     if (err) {
                         handleError(err, next);
                     } else {
@@ -30,9 +30,11 @@ const saveEvent = (req, res, next) => {
                             if (err) {
                                 handleError(err, next);
                             } else {
-                                Activity.findById(activity._id).select('-meta').exec((err, item) => {
-                                    res.status(200).send({ event: item });
-                                });
+                                Activity.findById(activity._id)
+                                    .select('-meta')
+                                    .exec((err, item) => {
+                                        res.status(200).send({ event: item });
+                                    });
                             }
                         });
                         break;
@@ -41,40 +43,40 @@ const saveEvent = (req, res, next) => {
                             if (err) {
                                 handleError(err, next);
                             } else {
-                                Reminder.findById(reminder._id).select('-meta').exec((err, item) => {
-                                    res.status(200).send({ event: item });
-                                });
+                                Reminder.findById(reminder._id)
+                                    .select('-meta')
+                                    .exec((err, item) => {
+                                        res.status(200).send({ event: item });
+                                    });
                             }
                         });
                         break;
                 }
             }
-
         }
     } catch (err) {
         handleError(err);
     }
-}
+};
 
 /**
  * need to consider type change
- * @param {*} evt 
- * @param {*} cb 
+ * @param {*} evt
+ * @param {*} cb
  */
 const updateEvent = (evt, cb) => {
     // to do
-}
+};
 
-const getDayEvent = (req, res, next) => {
+const getDayEvents = (req, res, next) => {
     try {
         const dateKey = req.body.params.dateKey;
         const dateKeyArray = dateKey.split('');
 
-        const year = dateKeyArray.slice(0, 4).join('');
-        const month = dateKeyArray.slice(4, 6).join('');
-        const dayAt = dateKeyArray.slice(6, 8).join('');
+        const year = parseInt(dateKeyArray.slice(0, 4).join(''));
+        const month = parseInt(dateKeyArray.slice(4, 6).join(''));
+        const dayAt = parseInt(dateKeyArray.slice(6, 8).join(''));
 
-        // console.log(year + ':' + month + ':' + dayAt);
         Promise.all([
             Activity.find({
                 'opts.time.from.year': year,
@@ -87,45 +89,86 @@ const getDayEvent = (req, res, next) => {
                 'opts.time.dayAt': dayAt,
             }).select('-meta'),
         ]).then(([activities, reminders]) => {
-            // console.log(activities);
-            // console.log(reminders);
             const evts = activities.concat(reminders);
             res.status(200).send({ evts });
         });
-    }
-    catch (err) {
+    } catch (err) {
         handleError(err, next);
     }
-}
+};
+
+const getWeekEvents = (req, res, next) => {
+    try {
+        const dateKeys = req.body.params.dateKeys;
+        let dateKeyArray;
+        let year;
+        let month;
+        let dayAt;
+
+        Promise.all([
+            Activity.find({
+                $or: [
+                    ...dateKeys.map(dateKey => {
+                        dateKeyArray = dateKey.split('');
+                        year = parseInt(dateKeyArray.slice(0, 4).join(''));
+                        month = parseInt(dateKeyArray.slice(4, 6).join(''));
+                        dayAt = parseInt(dateKeyArray.slice(6, 8).join(''));
+                        return {
+                            'opts.time.from.year': year,
+                            'opts.time.from.month': month,
+                            'opts.time.from.dayAt': dayAt,
+                        };
+                    }),
+                ],
+            }).select('-meta'),
+            Reminder.find({
+                $or: [
+                    ...dateKeys.map(dateKey => {
+                        dateKeyArray = dateKey.split('');
+                        year = parseInt(dateKeyArray.slice(0, 4).join(''));
+                        month = parseInt(dateKeyArray.slice(4, 6).join(''));
+                        dayAt = parseInt(dateKeyArray.slice(6, 8).join(''));
+                        return {
+                            'opts.time.from.year': year,
+                            'opts.time.from.month': month,
+                            'opts.time.from.dayAt': dayAt,
+                        };
+                    }),
+                ],
+            }).select('-meta'),
+        ]).then(([activities, reminders]) => {
+            const evts = activities.concat(reminders);
+            res.status(200).send({ evts });
+        });
+    } catch (err) {
+        handleError(err, next);
+    }
+};
 
 const getMonthEvents = (req, res, next) => {
     try {
         const { year, month } = req.body.params;
         Promise.all([
             Activity.find({
-                'opts.time.from.year': year,
-                'opts.time.from.month': month,
+                'opts.time.from.year': parseInt(year),
+                'opts.time.from.month': parseInt(month),
             }).select('-meta'),
             Reminder.find({
                 'opts.time.year': year,
                 'opts.time.month': month,
             }).select('-meta'),
         ]).then(([activities, reminders]) => {
-            // console.log('month events....');
-            // console.log(activities);
-            // console.log(reminders);
             const evts = activities.concat(reminders);
             res.status(200).send({ evts });
         });
-    }
-    catch (err) {
+    } catch (err) {
         handleError(err, next);
     }
-}
-
+};
 
 router.post('/saveEvent', saveEvent);
-router.post('/getDayEvents', getDayEvent);
+router.post('/getDayEvents', getDayEvents);
+router.post('/getWeekEvents', getWeekEvents);
 router.post('/getMonthEvents', getMonthEvents);
 
 module.exports = router;
