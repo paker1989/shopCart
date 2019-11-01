@@ -8,8 +8,10 @@ import ReminderDefiner from './reminderDefiner';
 import ActivityDefiner from './activityDefiner';
 import { getInitActivityModel, getInitReminderModel } from '../data.util';
 import * as EvtActionCreator from '../../../../store/action/evtsAction';
+import * as PopActionCreator from '../../../../store/action/popAction';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import { CalendarNS } from '../../../../utils/types';
+import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './calEventDefinePanel.scss';
 
@@ -19,6 +21,9 @@ export interface ICalEventDefinerPanelProps
     initDayEvtValue?: boolean;
     intl: IntlShape;
     saveEvt?: (evt: CalEvtDataNS.ICalEvtCompleteDataModelType) => void;
+    setEdited?: () => void;
+    edited?: boolean;
+    updateDefPop?: (defProps: CalendarRedux.IDefinerPopStats) => void;
 }
 
 export interface ICalEventDefinerPanelState {
@@ -32,6 +37,8 @@ export interface ICalEventDefinerPanelState {
 const mapDispatchToProps = dispatch => ({
     saveEvt: (evt: CalEvtDataNS.ICalEvtCompleteDataModelType) =>
         dispatch(EvtActionCreator.saveEvt(evt)),
+    updateDefPop: (defProps: CalendarRedux.IDefinerPopStats) =>
+        dispatch(PopActionCreator.updateDefinerPop(defProps)),
 });
 
 class CalEventDefinerPanel extends React.Component<
@@ -56,6 +63,11 @@ class CalEventDefinerPanel extends React.Component<
 
     handleFieldChange = (fieldName: string, value: any) => {
         const { activityModel, reminderModel } = this.state;
+        const { edited, setEdited } = this.props;
+        if (edited === false) {
+            setEdited();
+        }
+
         switch (fieldName) {
             case 'title':
                 this.setState({ title: value });
@@ -94,9 +106,8 @@ class CalEventDefinerPanel extends React.Component<
             reminderModel,
             isDayEvt,
         } = this.state;
-        const { saveEvt } = this.props;
+        const { saveEvt, updateDefPop } = this.props;
 
-        // let evt: CalEvtDataNS.ICalEvtCompleteDataModelType;
         switch (type) {
             case 'activity':
                 let activity: CalEvtDataNS.ICalEvtCompleteActivityDataModel = {
@@ -106,7 +117,7 @@ class CalEventDefinerPanel extends React.Component<
                     opts: activityModel,
                 };
                 saveEvt(activity);
-                return;
+                break;
             case 'reminder':
                 let reminder: CalEvtDataNS.ICalEvtCompleteReminderDataModel = {
                     type,
@@ -115,8 +126,14 @@ class CalEventDefinerPanel extends React.Component<
                     opts: reminderModel,
                 };
                 saveEvt(reminder);
-                return;
+                break;
         }
+
+        updateDefPop({ // close popup anyway
+            defTimeRange: null,
+            globalInitStatus: 'stop',
+            defShowPop: false,
+        });
     };
 
     render() {

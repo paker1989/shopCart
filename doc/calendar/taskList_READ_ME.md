@@ -1,6 +1,4 @@
 ## task steps: (with complexity level 1 - 5)
-13. fix所有关于edit的bug，使之ready to be saved;
-10. db模型的设计; implementation: create, delete (4)
 8. Notify (3)
 9. 动画 (4)
 14. 右键点击更改color;
@@ -13,6 +11,17 @@
 7. implement display weekend flag; (2)
 16. `calEditEventDetailPanel`,
 17. toggle shelf,
+18. refine UI
 
+## bug
+- month layout initmodal的时候时间段是0, 所以显示不了。
+- 如果时间重叠的话layout不对劲，需要刷新才行
 
-urgent hold on point:
+## hold on point:
+- edit event更改type的时候需要特殊处理: 删除original type then insert into another;
+- cross day event handle;
+- EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持update
+
+*done*
+13. fix所有关于edit的bug，使之ready to be saved;
+10. db模型的设计; implementation: create, delete (4)

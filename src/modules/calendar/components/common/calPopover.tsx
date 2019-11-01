@@ -15,7 +15,8 @@ const wrapperDimension = function(boundingBox) {
 };
 
 export interface ICalPopoverCommonState {
-    style: React.CSSProperties;
+    style?: React.CSSProperties;
+    edited?: boolean;
 }
 
 class CalPopover<
@@ -49,7 +50,7 @@ class CalPopover<
         // if (!dragPopNode && !dragNodeClientRect) {
         //     return;
         // }
-        
+
         if (!this.node) {
             this.node = document.getElementById(id);
         }

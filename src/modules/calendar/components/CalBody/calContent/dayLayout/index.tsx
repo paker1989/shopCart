@@ -18,16 +18,15 @@ import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import { isSameDay } from '../../../../../../_packages_/components/datePicker/common/util';
 
 import './dayLayout.scss';
-import CalNowTimeline from '../../../common/calNowTimeline';
 
 export interface IDayLayoutProps {
+    currentDate: Date;
     singleDayHeader?: React.ComponentType<
         CalendarNS.ISingleDayDefaultHeaderProps
     >;
-    currentDate: Date;
+    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     updateDefPop?: (defPop: CalendarRedux.IDefinerPopStats) => any;
     fetchEvts?: (date) => void;
-    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
 }
 
 export interface IDayLayoutState {
@@ -62,6 +61,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
         const { currentDate, fetchEvts } = this.props;
         if (isSameDay(prevProps.currentDate, currentDate) === false) {
             fetchEvts(this.props.currentDate);
+            return;
         }
     }
 

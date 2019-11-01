@@ -56,8 +56,7 @@ export default (
                 );
                 if (foundIndex === -1) {
                     sortedTimingEvts.push({
-                        time: (evt.opts
-                            .time as CalendarNS.IDBTimingRangeFormat).from,
+                        time: evt.opts.time as CalendarNS.IDBTimingFormat,
                         type: 'reminder',
                         allDayEvt: false,
                         reminders: [reminderEvt],

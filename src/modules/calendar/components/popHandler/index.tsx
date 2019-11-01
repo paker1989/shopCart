@@ -5,6 +5,7 @@ import CalEventDefinerManager from '../common/calEventDefiner';
 import CalEventDefinerPop from '../common/calEventDefiner/calEventDefinerPop';
 import Position from '../common/position';
 import { getPopupZIndexConst } from '../../utils/calZIndexManager';
+import * as EvtsActionCreator from '../../store/action/evtsAction';
 
 const mapStateToProps = state => ({
     defShowPop: state.popReducers.defShowPop,
@@ -13,9 +14,21 @@ const mapStateToProps = state => ({
     defTopCurshion: state.popReducers.defTopCurshion,
     defBottomCurshion: state.popReducers.defBottomCurshion,
     defPopId: state.popReducers.defPopId,
+    saveEvtStatus: state.evtsReducers.globalSaveStatus.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+    resetSaveEvtStatus: () => dispatch(EvtsActionCreator.resetSaveEvtStatus()),
 });
 
 class PopHandler extends React.Component<any, any> {
+    componentDidUpdate(prevProps) {
+        const { saveEvtStatus, resetSaveEvtStatus } = this.props;
+        if (prevProps.saveEvtStatus === 'none' && saveEvtStatus === 'succeed') {
+            //TO SHOW THE REVERT POP
+            resetSaveEvtStatus();
+        }
+    }
     render() {
         const {
             defShowPop,
@@ -57,4 +70,7 @@ class PopHandler extends React.Component<any, any> {
     }
 }
 
-export default connect(mapStateToProps)(PopHandler);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PopHandler);

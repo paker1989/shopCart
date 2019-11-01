@@ -9,7 +9,7 @@ $background-color: #ea4335;
     height: $timeline-height;
     display: flex;
     align-items: center;
-    z-index: 999;
+    z-index: 100;
 
     & .is-dot {
         flex: 0 0 $timeline-height;

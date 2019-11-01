@@ -16,11 +16,6 @@ import { CalendarNS } from '../../../../utils/types';
 import './calEventDefinerPop.scss';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
 
-// const _test_time_range = {
-//     from: { dayAt: new Date(), hourAt: 12, minAt: 0 },
-//     to: { dayAt: new Date(), hourAt: 15, minAt: 0 },
-// };
-
 const mapStateToProps = state => ({
     locale: state.layoutReducers.locale,
 });
@@ -37,6 +32,10 @@ class CalEventDefinerPop extends CalPopover<
         positionner: Position.autoMiddle,
     };
 
+    constructor(props) {
+        super(props);
+        this.state = { style: {}, edited: false };
+    }
     componentDidUpdate(prevProps) {
         if (prevProps.id !== this.props.id) {
             this.adjustPosition();
@@ -44,14 +43,20 @@ class CalEventDefinerPop extends CalPopover<
     }
 
     onClose = () => {
-        CalModalManager.initModal(this.props.locale, CalConfirmPanel, {
-            visible: true,
-            isClose: false,
-            contentClass: 'cal-confirm-panel-wrapper',
-            componentProps: {
-                onDiscardChange: this.onDiscardChange,
-            },
-        });
+        const { edited } = this.state;
+
+        if (edited) {
+            CalModalManager.initModal(this.props.locale, CalConfirmPanel, {
+                visible: true,
+                isClose: false,
+                contentClass: 'cal-confirm-panel-wrapper',
+                componentProps: {
+                    onDiscardChange: this.onDiscardChange,
+                },
+            });
+        } else {
+            this.onDiscardChange();
+        }
     };
 
     onDiscardChange = () => {
@@ -73,7 +78,7 @@ class CalEventDefinerPop extends CalPopover<
             beforeSave,
             afterSave,
         } = this.props;
-        const { style } = this.state;
+        const { style, edited } = this.state;
         const wrapperStyle: React.CSSProperties = {
             ...style,
             zIndex,
@@ -96,6 +101,10 @@ class CalEventDefinerPop extends CalPopover<
                         </div>
                     </div>
                     <CalEventDefinerPanel
+                        edited={edited}
+                        setEdited={() => {
+                            this.setState({ edited: true });
+                        }}
                         timeRange={timeRange}
                         initDayEvtValue={initDayEvtValue}
                         onSave={onSave}

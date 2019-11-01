@@ -28,3 +28,7 @@ export const saveEvt = (
     type: EvtsActionType._SAVE_EVT_,
     payload: { evt },
 });
+
+export const resetSaveEvtStatus = (): CalendarRedux.IReduxAction => ({
+    type: EvtsActionType._RESET_SAVE_STATUS,
+});

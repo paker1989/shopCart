@@ -14,3 +14,6 @@ export const _FETCH_EVTS_OF_DATES_SUCCESS = '_FETCH_EVTS_OF_DATES_SUCCESS';
 
 export const _SAVE_EVT_ = '_SAVE_EVT_';
 
+export const _SAVE_EVT_SUCCESS = '_SAVE_EVT_SUCCESS';
+
+export const _RESET_SAVE_STATUS = '_RESET_SAVE_STATUS';
