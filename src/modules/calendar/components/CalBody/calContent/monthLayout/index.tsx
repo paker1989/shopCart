@@ -160,6 +160,7 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
             CalEventDefinerManager.setCurrentDragNode(
                 this.getSimuDragPopNode()
             );
+
             this.props.updateDefPop({
                 defShowPop: true,
                 defTimeRange: timeRange,

@@ -132,6 +132,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
             defAsideCurshion: 10,
             defTopCurshion: 30,
             defBottomCurshion: 50,
+            initDayEvtValue: false,
         });
     };
 

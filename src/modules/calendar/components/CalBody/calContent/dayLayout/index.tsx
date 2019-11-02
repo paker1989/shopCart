@@ -87,6 +87,7 @@ class DayLayout extends React.Component<IDayLayoutProps, IDayLayoutState> {
             defPositionner: 'autoMiddle',
             defTopCurshion: 30,
             defBottomCurshion: 50,
+            initDayEvtValue: false,
         });
     };
 

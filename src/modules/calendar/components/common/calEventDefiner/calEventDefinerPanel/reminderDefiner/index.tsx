@@ -37,7 +37,6 @@ class ReminderDefiner extends React.Component<
 
     constructor(props) {
         super(props);
-        console.log(props);
         if (!this.isDayEvtControlled()) {
             this.state = { isWholeDayEvt: this.props.initDayEvtValue };
         }

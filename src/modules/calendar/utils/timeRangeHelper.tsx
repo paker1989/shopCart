@@ -170,6 +170,7 @@ export function getDateRange(
     date1: Date,
     date2: Date
 ): CalendarNS.ITimeRangeFormat {
+    const hourSplitter = CalConfig.hourSplitter;
     const fromDate = date1.getTime() < date2.getTime() ? date1 : date2;
     const toDate = date1.getTime() < date2.getTime() ? date2 : date1;
     const now = new Date();
@@ -180,17 +181,15 @@ export function getDateRange(
     toDate.setHours(now.getHours());
     toDate.setMinutes(now.getMinutes());
 
+    const formattedFromDate = getSplitteredDate(fromDate, hourSplitter);
+    const formattedToDate = getSplitteredDate(toDate, hourSplitter);
     return {
         from: {
-            dayAt: fromDate,
-            hourAt: fromDate.getHours(),
-            minAt: fromDate.getMinutes(),
+            dayAt: formattedFromDate,
+            hourAt: formattedFromDate.getHours(),
+            minAt: formattedFromDate.getMinutes(),
         },
-        to: {
-            dayAt: toDate,
-            hourAt: toDate.getHours(),
-            minAt: toDate.getMinutes(),
-        },
+        to: convertMinAddToTiming(formattedToDate, 60 / hourSplitter),
     };
 }
 

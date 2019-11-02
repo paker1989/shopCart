@@ -64,6 +64,7 @@ class CalEventDefinerPop extends CalPopover<
             defTimeRange: null,
             globalInitStatus: 'stop',
             defShowPop: false,
+            initDayEvtValue: false,
         });
     };
 

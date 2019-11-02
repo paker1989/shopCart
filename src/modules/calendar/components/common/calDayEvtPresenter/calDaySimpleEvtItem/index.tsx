@@ -68,7 +68,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 ...getCalTimingActivitySiblingPosition(stIndex, stArrayLenth),
             });
         }
-    }, [minSplitterHeight]);
+    }, [minSplitterHeight, stIndex, stArrayLenth]);
 
     let date: Date;
     let content;

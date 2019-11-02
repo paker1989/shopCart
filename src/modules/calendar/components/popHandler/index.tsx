@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
     defTopCurshion: state.popReducers.defTopCurshion,
     defBottomCurshion: state.popReducers.defBottomCurshion,
     defPopId: state.popReducers.defPopId,
+    initDayEvtValue: state.popReducers.initDayEvtValue,
     saveEvtStatus: state.evtsReducers.globalSaveStatus.status,
 });
 
@@ -37,6 +38,7 @@ class PopHandler extends React.Component<any, any> {
             defTopCurshion,
             defBottomCurshion,
             defPopId,
+            initDayEvtValue,
         } = this.props;
 
         let simulatedDragNode;
@@ -63,6 +65,7 @@ class PopHandler extends React.Component<any, any> {
                         dragNodeClientRect={simulatedDragNode}
                         id={defPopId}
                         zIndex={getPopupZIndexConst()}
+                        initDayEvtValue={initDayEvtValue}
                     ></CalEventDefinerPop>
                 )}
             </React.Fragment>

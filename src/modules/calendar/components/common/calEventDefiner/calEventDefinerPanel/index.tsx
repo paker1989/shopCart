@@ -51,12 +51,12 @@ class CalEventDefinerPanel extends React.Component<
 
     constructor(props) {
         super(props);
-        const { initDayEvtValue, timeRange } = this.props;
+        const { timeRange } = this.props;
         this.state = {
             type: 'activity',
             title: '',
             isDayEvt: this.props.initDayEvtValue,
-            activityModel: getInitActivityModel(initDayEvtValue, timeRange),
+            activityModel: getInitActivityModel(timeRange),
             reminderModel: getInitReminderModel(timeRange),
         };
     }
@@ -133,6 +133,7 @@ class CalEventDefinerPanel extends React.Component<
             defTimeRange: null,
             globalInitStatus: 'stop',
             defShowPop: false,
+            initDayEvtValue: false,
         });
     };
 

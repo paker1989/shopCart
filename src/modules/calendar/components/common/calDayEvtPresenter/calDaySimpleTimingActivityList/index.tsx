@@ -44,6 +44,7 @@ const CalDaySimpleTimingActivityList = (
     let stIdArray;
     let stIndex;
     let ownId;
+
     return (
         <div className="caldayEvt-timing-list">
             {sortedList.map((sortedEvt, index) => {
@@ -71,7 +72,7 @@ const CalDaySimpleTimingActivityList = (
                         selected={index === selectedIndex}
                         onSelect={onSelectItem}
                         item={sortedEvt}
-                        key={index}
+                        key={ownId}
                         index={index}
                         minSplitterHeight={minSplitterHeight}
                         type="timing"
