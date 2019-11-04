@@ -9,6 +9,7 @@ import I18nProvider from './utils/i18nProvider';
 import Header from './components/header';
 import CalBody from './components/calBody';
 import PopHandler from './components/popHandler';
+import CxtMenuHandler from './components/cxtMenuHandler';
 
 import './assets/style/app.scss';
 
@@ -62,6 +63,7 @@ class App extends React.Component<any, any> {
                     </div>
                     <div className="calendar-footer" />
                     <PopHandler />
+                    <CxtMenuHandler />
                 </div>
             </I18nProvider>
         );

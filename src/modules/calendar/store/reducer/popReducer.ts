@@ -5,7 +5,7 @@ import { CalendarRedux } from '../../utils/reduxTypes';
 //     extends CalendarRedux.IGlobalDefinerProps,
 //         CalendarRedux.IDefinerPopStats {}
 
-const initialState: CalendarRedux.IDefinerPopStats = {
+const initialState: CalendarRedux.TPopReducerStatsType = {
     defShowPop: false,
     defTimeRange: null,
     defPositionner: null,
@@ -15,6 +15,11 @@ const initialState: CalendarRedux.IDefinerPopStats = {
     defPopId: null,
     initDayEvtValue: false,
     globalInitStatus: 'stop',
+    ctxMenuX: 0,
+    ctxMenuY: 0,
+    ctxMenuType: 'activity',
+    ctxMenuEvtId: null,
+    ctxMenuVisible: false,
 };
 
 export default function(
@@ -23,6 +28,8 @@ export default function(
 ) {
     switch (action.type) {
         case PopActionType.UPDATE_DEF_DATA:
+            return { ...state, ...action.payload };
+        case PopActionType.UPDATE_CXTMENU_PROPS:
             return { ...state, ...action.payload };
         default:
             return state;

@@ -17,6 +17,7 @@ export default (
     parentBoundingBox,
     options
 ) => {
+    // debugger;
     let viewportSize = getViewportSize(),
         nearRight,
         nearLeft,

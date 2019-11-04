@@ -1,6 +1,7 @@
 ## task steps: (with complexity level 1 - 5)
-15. `calViewEventDetailPanel`,
 14. 右键点击更改color + delete;
+19. 禁止scroll和resize;
+15. `calViewEventDetailPanel`,
 8. Notify -> 撤销删除和添加 (3)
 9. 动画 (4)
 11. 拖拽holdon的`calEventPop` (4)
@@ -19,6 +20,7 @@
 - edit event更改type的时候需要特殊处理: 删除original type then insert into another;
 - cross day event handle;
 - EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持update
+- `caldefinerpop`和`ctxMenu`都需要加上clickOnOutSide自我关闭的功能;
 
 *done*
 13. fix所有关于edit的bug，使之ready to be saved;

@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import cx from 'classnames';
-
+import debounce from 'lodash/debounce';
 import { FormattedTime, FormattedMessage } from 'react-intl';
+
+import * as PopActionCreator from '../../../../store/action/popAction';
 import { CalendarNS } from '../../../../utils/types';
 import {
     convertDBTimeFormatToDate,
@@ -12,6 +15,7 @@ import {
     getDBTimeRangeDisplay,
     getCalTimingActivitySiblingPosition,
 } from '../../../../utils/timeRangeHelper';
+import { getEvtCxtMenuProps } from '../../../../utils/eventUtils';
 
 import './calDaySimpleEvtItem.scss';
 
@@ -38,6 +42,13 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         stArrayLenth,
     } = props;
     const [layoutStyle, setLayoutStyle] = useState({});
+    const dispatch = useDispatch();
+    // const [contextMenuProps, setContextMenuProps] = useState({
+    //     visible: true,
+    //     x: 0,
+    //     y: 0,
+
+    // });
     const self = useRef(null);
     const wrapperClass = cx({
         ['itemWrapper']: true,
@@ -45,6 +56,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         ['simpleItem-selected']: selected,
     });
 
+    // set layout options if needed
     useEffect(() => {
         let timeRange;
         if (!minSplitterHeight || minSplitterHeight < 0) {
@@ -69,6 +81,34 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             });
         }
     }, [minSplitterHeight, stIndex, stArrayLenth]);
+
+    useEffect(() => {
+        document.addEventListener('contextmenu', handleContextmenu);
+        return () => {
+            document.removeEventListener('contextmenu', handleContextmenu);
+        };
+    }, []);
+
+    const handleContextmenu = (e: MouseEvent) => {
+        console.log(self.current.contains(e.target));
+        if (self.current.contains(e.target)) {
+            const { isRightClickable, id } = getEvtCxtMenuProps(item);
+            if (isRightClickable) {
+                console.log('stop propagation');
+                e.preventDefault();
+                e.stopPropagation();
+                dispatch(
+                    PopActionCreator.updateCxtMenuProps({
+                        ctxMenuVisible: true,
+                        ctxMenuType: item.type,
+                        ctxMenuEvtId: id,
+                        ctxMenuX: e.clientX,
+                        ctxMenuY: e.clientY,
+                    })
+                );
+            }
+        }
+    };
 
     let date: Date;
     let content;

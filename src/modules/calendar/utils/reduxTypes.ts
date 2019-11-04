@@ -24,4 +24,14 @@ export namespace CalendarRedux {
         initDayEvtValue?: boolean;
         globalInitStatus?: 'stop' | 'init' | 'ready';
     }
+
+    export interface ICxtMenuPropStats {
+        ctxMenuX?: number | string;
+        ctxMenuY?: number | string;
+        ctxMenuType?: 'activity' | 'reminder',
+        ctxMenuEvtId?: any;
+        ctxMenuVisible?: boolean;
+    }
+
+    export type TPopReducerStatsType = IDefinerPopStats & ICxtMenuPropStats;
 }

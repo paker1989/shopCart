@@ -14,3 +14,10 @@ export const updateGlobalEvtDefiner = (
     type: PopActionType.UPDATE_GLOBAL_DEF_DATA,
     payload: { ...globalDefProps },
 });
+
+export const updateCxtMenuProps = (
+    cxtMenuProps: CalendarRedux.ICxtMenuPropStats
+): CalendarRedux.IReduxAction => ({
+    type: PopActionType.UPDATE_CXTMENU_PROPS,
+    payload: { ...cxtMenuProps },
+});
