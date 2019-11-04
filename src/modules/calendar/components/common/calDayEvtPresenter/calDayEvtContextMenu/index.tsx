@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import ClickOutSider from '../../clickOutSider';
+import WindowFrozener from '../../windowFrozener';
 import { getPosition } from './util';
 
 import './calEvtCxtMenu.scss';
@@ -10,10 +12,17 @@ export interface ICalDayEvtContextMenuProps {
     ctxMenuY?: number | string;
     ctxMenuType?: 'activity' | 'reminder';
     ctxMenuEvtId?: any;
+    onVisibleChange?: (visible: boolean) => void;
 }
 
 const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
-    const { ctxMenuX, ctxMenuY, ctxMenuType, ctxMenuEvtId } = props;
+    const {
+        ctxMenuX,
+        ctxMenuY,
+        ctxMenuType,
+        ctxMenuEvtId,
+        onVisibleChange,
+    } = props;
     const self = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({});
 
@@ -23,6 +32,10 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
         }
         setPosition(getPosition(ctxMenuX, ctxMenuY, self.current));
     }, [ctxMenuX, ctxMenuY, ctxMenuType]);
+
+    const getContainer = () => {
+        return self === null ? null : self.current;
+    };
 
     let content;
 
@@ -50,6 +63,13 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
         <div className="calevt-ctxmenu">
             <div className="overlay"></div>
             {content}
+            <WindowFrozener />
+            <ClickOutSider
+                cb={() => {
+                    onVisibleChange && onVisibleChange(false);
+                }}
+                getContainer={getContainer}
+            />
         </div>
     );
 };
