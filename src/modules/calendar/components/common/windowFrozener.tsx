@@ -3,12 +3,14 @@ import { useEffect } from 'react';
 
 const WindowFrozener = () => {
     const stopWheelZoom = event => {
-        if (event.ctrlKey == true) {
-            event.preventDefault();
-        }
+        // if (event.ctrlKey == true) {
+        //     event.preventDefault();
+        // }
+        event.preventDefault();
     };
 
     const stopKeyZoom = event => {
+        console.log('stopKeyZoom' + event.keyCode);
         if (
             event.ctrlKey &&
             [48, 61, 96, 107, 109, 187, 189].indexOf(event.keyCode) > -1

@@ -27,3 +27,4 @@
 10. db模型的设计; implementation: create, delete (4)
 - (bug): 如果时间重叠的话layout不对劲，需要刷新才行 --> fix: setPosition useEffet not fired;
 - month layout initmodal的时候时间段是0, 所以显示不了。--> 换了一个setDateRange接口: e.g. now = 21: 11 -> allDayEvt = true, timeRange: 21:00 - 21: 30;
+- first layout picker position is not good

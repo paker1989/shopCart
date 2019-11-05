@@ -46,6 +46,10 @@ export namespace CalEvtDataNS {
         time?: CalendarNS.IDBTimingFormat;
     }
 
+    export interface ICalEvtUpdatableProps {
+        color?: string;
+    }
+
     export type ICalEvtSortedItemType =
         | ICalEvtCompleteActivityDataModel
         | ICalEvtSortedReminderDataModel;

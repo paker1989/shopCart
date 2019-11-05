@@ -14,58 +14,39 @@ function handleError(err, next) {
 const saveEvent = (req, res, next) => {
     try {
         let evt = req.body.params.evt;
-        if (evt) {
-            if (evt._id) {
-                updateEvent(evt, err => {
+        switch (evt.type) {
+            case 'activity':
+                Activity.create(evt, (err, activity) => {
                     if (err) {
                         handleError(err, next);
                     } else {
-                        res.status(200).send({ event: item });
+                        Activity.findById(activity._id)
+                            .select('-meta')
+                            .exec((err, item) => {
+                                res.status(200).send({ event: item });
+                            });
                     }
                 });
-            } else {
-                switch (evt.type) {
-                    case 'activity':
-                        Activity.create(evt, (err, activity) => {
-                            if (err) {
-                                handleError(err, next);
-                            } else {
-                                Activity.findById(activity._id)
-                                    .select('-meta')
-                                    .exec((err, item) => {
-                                        res.status(200).send({ event: item });
-                                    });
-                            }
-                        });
-                        break;
-                    case 'reminder':
-                        Reminder.create(evt, (err, reminder) => {
-                            if (err) {
-                                handleError(err, next);
-                            } else {
-                                Reminder.findById(reminder._id)
-                                    .select('-meta')
-                                    .exec((err, item) => {
-                                        res.status(200).send({ event: item });
-                                    });
-                            }
-                        });
-                        break;
-                }
-            }
+                break;
+            case 'reminder':
+                Reminder.create(evt, (err, reminder) => {
+                    if (err) {
+                        handleError(err, next);
+                    } else {
+                        Reminder.findById(reminder._id)
+                            .select('-meta')
+                            .exec((err, item) => {
+                                res.status(200).send({ event: item });
+                            });
+                    }
+                });
+                break;
         }
-    } catch (err) {
+
+    }
+    catch (err) {
         handleError(err);
     }
-};
-
-/**
- * need to consider type change
- * @param {*} evt
- * @param {*} cb
- */
-const updateEvent = (evt, cb) => {
-    // to do
 };
 
 const getDayEvents = (req, res, next) => {
@@ -166,9 +147,47 @@ const getMonthEvents = (req, res, next) => {
     }
 };
 
+/**
+ * need to consider type change
+ * @param {*} evt
+ * @param {*} cb
+ */
+const updateEvent = (req, res, next) => {
+    try {
+        const { id, originalType, updates } = req.body.params;
+        switch (originalType) {
+            case 'activity':
+                Activity
+                    .findById(id, (err, activity1) => {
+                        if (err) {
+                            handleError(err);
+                            return;
+                        }
+                        const { color } = updates;
+                        if (color) {
+                            activity1.opts.color = color;
+                        }
+                        activity1.save((err, activity2) => {
+                            if (err) {
+                                handleError(err);
+                                return;
+                            }
+                            res.status(200).send({ event: activity2 });
+                        })
+                    })
+                break;
+            case 'reminder':
+                break;
+        }
+    } catch (err) {
+        handleError(err);
+    }
+};
+
 router.post('/saveEvent', saveEvent);
 router.post('/getDayEvents', getDayEvents);
 router.post('/getWeekEvents', getWeekEvents);
 router.post('/getMonthEvents', getMonthEvents);
+router.post('/updateEvent', updateEvent);
 
 module.exports = router;

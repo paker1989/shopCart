@@ -23,6 +23,27 @@ function* saveEvtsData(reqObj) {
     }
 }
 
+function* updateEvtData(reqObj) {
+    const { originalType, updates, id } = reqObj.payload;
+    try {
+        const res = yield axios.post('/events/updateEvent', {
+            params: { originalType, updates, id },
+        });
+
+        if (res && res.data) {
+            yield put({
+                type: EvtsActionTypes._UPDATE_EVT_SUCCESS,
+                payload: {
+                    item: res.data.event,
+                },
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export function* saveCalEvtsSaga() {
     yield takeLatest(EvtsActionTypes._SAVE_EVT_, saveEvtsData);
+    yield takeLatest(EvtsActionTypes._UPDATE_EVT, updateEvtData);
 }

@@ -17,3 +17,7 @@ export const _SAVE_EVT_ = '_SAVE_EVT_';
 export const _SAVE_EVT_SUCCESS = '_SAVE_EVT_SUCCESS';
 
 export const _RESET_SAVE_STATUS = '_RESET_SAVE_STATUS';
+
+export const _UPDATE_EVT = '_UPDATE_EVT';
+
+export const _UPDATE_EVT_SUCCESS = '_UPDATE_EVT_SUCCESS';

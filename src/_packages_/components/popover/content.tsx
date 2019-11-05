@@ -7,9 +7,13 @@ import WindowEventHandler from '../../utils/components/windowEventHandler';
 import WindowResizeHandler from '../../utils/components/windowResizeHandler';
 
 const wrapperDimension = function(boundingBox) {
-    boundingBox.width = boundingBox.right - boundingBox.left;
-    boundingBox.height = boundingBox.bottom - boundingBox.top;
-    return boundingBox;
+    if (!boundingBox) {
+        return {};
+    }
+    const { top, left, right, bottom } = boundingBox;
+    const width = boundingBox.right - boundingBox.left;
+    const height = boundingBox.bottom - boundingBox.top;
+    return { top, left, right, bottom, width, height };
 };
 
 export interface IPopoverContentProps {
@@ -24,6 +28,7 @@ export interface IPopoverContentProps {
     containerSelector?: string; // trigger additional class
     contentRefChange?: (contentRefInstance: any) => void;
     disableEvents?: string[];
+    isUnmountOnInvisible: boolean;
 }
 
 export interface IPopoverContentState {
@@ -107,14 +112,23 @@ class Content extends React.Component<
     onWindowScroll = throttle(this.adjustPosition, 16);
 
     render() {
-        const { visible, containerSelector, className } = this.props;
+        const {
+            visible,
+            containerSelector,
+            className,
+            isUnmountOnInvisible,
+        } = this.props;
         const { style } = this.state;
 
         let wrapperStyle: React.CSSProperties = {
             ...style,
             zIndex: 2000,
-            visibility: visible ? 'visible' : 'hidden',
+            // visibility: visible ? 'visible' : 'hidden',
         };
+
+        if (isUnmountOnInvisible == false) {
+            wrapperStyle.visibility = visible ? 'visible' : 'hidden';
+        }
 
         const containerNode = document.querySelector(containerSelector);
 
@@ -132,7 +146,14 @@ class Content extends React.Component<
                 />
             </div>
         );
-        return createPortal(wrappedChildren, containerNode);
+
+        if (isUnmountOnInvisible) {
+            return visible
+                ? createPortal(wrappedChildren, containerNode)
+                : null;
+        } else {
+            return createPortal(wrappedChildren, containerNode);
+        }
     }
 }
 

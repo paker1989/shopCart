@@ -31,6 +31,8 @@ export namespace CalendarRedux {
         ctxMenuType?: 'activity' | 'reminder',
         ctxMenuEvtId?: any;
         ctxMenuVisible?: boolean;
+        ctxColor?: string;
+        
     }
 
     export type TPopReducerStatsType = IDefinerPopStats & ICxtMenuPropStats;

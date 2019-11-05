@@ -1,0 +1,25 @@
+$color-width: 18px;
+$color-margin: 6px;
+
+.simple-color-picker {
+  display: flex;
+  flex-wrap: wrap;
+
+  .color-wrapper {
+    border-radius: 50%;
+    width: $color-width;
+    height: $color-width;
+    cursor: pointer;
+    margin-right: $color-margin;
+    margin-bottom: $color-margin;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease;
+    }
+
+    .selected-color {
+      color: #fff;
+    }
+  }
+}

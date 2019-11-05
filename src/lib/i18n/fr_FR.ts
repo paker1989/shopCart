@@ -45,6 +45,7 @@ const fr_FR = {
     'cal.noEvts': 'Aucun événement planifié pour ce jour.',
     'cal.nbReminders': '{nb} rappels',
     'cal.moreResults': '{nbMore, plural, one {# autre} other {# autres}} ',
+    'cal.delete': 'Supprimer',
     'comp.short.sun': 'D',
     'comp.short.mon': 'L',
     'comp.short.tues': 'M',

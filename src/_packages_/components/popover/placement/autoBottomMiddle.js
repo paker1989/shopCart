@@ -30,6 +30,8 @@ export default (
         nearTop,
         vertDimension,
         horDimension;
+    
+    debugger;
 
     const horCushion = options.horCushion || options.cushion;
     const verCushion = options.verCushion || options.cushion;

@@ -32,3 +32,16 @@ export const saveEvt = (
 export const resetSaveEvtStatus = (): CalendarRedux.IReduxAction => ({
     type: EvtsActionType._RESET_SAVE_STATUS,
 });
+
+export const updateEvt = (
+    id: any,
+    updates: CalEvtDataNS.ICalEvtUpdatableProps,
+    originalType: string
+): CalendarRedux.IReduxAction => ({
+    type: EvtsActionType._UPDATE_EVT,
+    payload: {
+        originalType,
+        updates,
+        id,
+    },
+});

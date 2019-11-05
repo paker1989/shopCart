@@ -20,6 +20,7 @@ const initialState: CalendarRedux.TPopReducerStatsType = {
     ctxMenuType: 'activity',
     ctxMenuEvtId: null,
     ctxMenuVisible: false,
+    ctxColor: null
 };
 
 export default function(

@@ -9,9 +9,10 @@ const wrapperDimension = function(boundingBox) {
     if (!boundingBox) {
         return {};
     }
-    boundingBox.width = boundingBox.right - boundingBox.left;
-    boundingBox.height = boundingBox.bottom - boundingBox.top;
-    return boundingBox;
+    const { top, left, right, bottom } = boundingBox;
+    const width = boundingBox.right - boundingBox.left;
+    const height = boundingBox.bottom - boundingBox.top;
+    return { top, left, right, bottom, width, height };
 };
 
 export interface ICalPopoverCommonState {

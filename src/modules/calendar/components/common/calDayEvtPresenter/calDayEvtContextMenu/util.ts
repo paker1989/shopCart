@@ -2,9 +2,13 @@ import getPositionnedParent from '../../../../../../_packages_/utils/getPosition
 import Placement from '../../../../../../_packages_/components/popover/placement';
 
 function wrapperDimension(boundingBox) {
-    boundingBox.width = boundingBox.right - boundingBox.left;
-    boundingBox.height = boundingBox.bottom - boundingBox.top;
-    return boundingBox;
+    if (!boundingBox) {
+        return {};
+    }
+    const { top, left, right, bottom } = boundingBox;
+    const width = boundingBox.right - boundingBox.left;
+    const height = boundingBox.bottom - boundingBox.top;
+    return { top, left, right, bottom, width, height };
 }
 
 export function getPosition(
@@ -27,9 +31,9 @@ export function getPosition(
         positionnedParent.getBoundingClientRect()
     );
 
-    console.log(triggerBox);
-    console.log(wrappedContentBox);
-    console.log(parentBoundingBox);
+    // console.log(triggerBox);
+    // console.log(wrappedContentBox);
+    // console.log(parentBoundingBox);
     return Placement.autoBottomLeft(
         triggerBox,
         wrappedContentBox,

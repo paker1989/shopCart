@@ -24,6 +24,7 @@ export interface IPopoverProps {
     onBeforeClose?: () => void;
     onShow?: () => void;
     disableEvents?: string[];
+    isUnmountOnInvisible: boolean;
 }
 
 export interface IPopoverState {
@@ -46,6 +47,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
         closeOnOutSide: true,
         disableEvents: [],
         closeOnClickContent: false,
+        isUnmountOnInvisible: false
     };
 
     constructor(props) {
@@ -179,6 +181,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
             className,
             wrapperClassName,
             disableEvents,
+            isUnmountOnInvisible
         } = this.props;
 
         const visible = this.getVisible();
@@ -206,6 +209,7 @@ class Popover extends React.Component<IPopoverProps, IPopoverState> {
                     verCushion,
                     className,
                     disableEvents,
+                    isUnmountOnInvisible
                 })}
             </div>
         );

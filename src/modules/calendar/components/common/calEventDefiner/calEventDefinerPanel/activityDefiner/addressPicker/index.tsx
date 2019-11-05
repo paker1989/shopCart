@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { injectIntl, IntlShape } from 'react-intl';
-import debounce from 'lodash/debounce';
 
 import CalInput from '../../../../../common/calInput';
 import Popover from '../../../../../../../../_packages_/components/popover';
+import WindowFrozener from '../../../../windowFrozener';
 
 import './addressPicker.scss';
+
 
 const _test_predictions = [
     { description: '164 Avenue Victor Hugo, Valence, France' },
@@ -142,6 +143,7 @@ class AddressPicker extends React.Component<
                                 </div>
                             ))}
                         </div>
+                        <WindowFrozener/>
                     </div>
                 </Popover.Content>
             </Popover>

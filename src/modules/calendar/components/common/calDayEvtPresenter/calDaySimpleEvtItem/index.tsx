@@ -84,7 +84,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     const handleContextmenu = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>
     ) => {
-        const { isRightClickable, id } = getEvtCxtMenuProps(item);
+        const { isRightClickable, id, color } = getEvtCxtMenuProps(item);
         if (isRightClickable) {
             console.log('stop propagation');
             e.preventDefault();
@@ -96,6 +96,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                     ctxMenuEvtId: id,
                     ctxMenuX: e.clientX,
                     ctxMenuY: e.clientY,
+                    ctxColor: color,
                 })
             );
         }

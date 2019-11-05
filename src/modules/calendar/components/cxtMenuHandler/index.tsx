@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
     ctxMenuType: state.popReducers.ctxMenuType,
     ctxMenuEvtId: state.popReducers.ctxMenuEvtId,
     ctxMenuVisible: state.popReducers.ctxMenuVisible,
+    color: state.popReducers.ctxColor,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ class CxtMenuHandler extends React.Component<any, any> {
             ctxMenuEvtId,
             ctxMenuVisible,
             updateCxtMenuProps,
+            color,
         } = this.props;
 
         const onVisibleChange = (visible: boolean) => {
@@ -46,6 +48,7 @@ class CxtMenuHandler extends React.Component<any, any> {
                         ctxMenuType={ctxMenuType}
                         ctxMenuEvtId={ctxMenuEvtId}
                         onVisibleChange={onVisibleChange}
+                        ctxColor={color}
                     />
                 )}
             </React.Fragment>

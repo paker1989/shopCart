@@ -13,4 +13,8 @@ export default {
         alldayActivityColor: 'rgb(121, 134, 203)',
         reminderColor: '#3f51b5',
     },
+    presetColors: [
+        '#D50000', '#E67C73', '#F4511E', '#F6BF26', '#33B679', '#0B8043',
+        '#039BE5', '#3F51B5', '#7986CB', '#8E24AA', '#616161'
+    ]
 };
