@@ -67,7 +67,6 @@ export default function(
                 let index = state.cachedEvts[updatedItemKey].findIndex(
                     e => e._id == item._id
                 );
-                console.log(index);
                 if (index != -1) {
                     state.cachedEvts[updatedItemKey].splice(index, 1);
                 }
@@ -75,6 +74,19 @@ export default function(
                     ...state.cachedEvts[updatedItemKey],
                     item,
                 ];
+            }
+            return { ...state };
+        case EvtsActionType._DELETE_EVT_SUCCESS:
+            const { deletedItem } = action.payload;
+            const deletedItemKey = getDateKey(deletedItem);
+            if (state.cachedEvts[deletedItemKey]) {
+                let index = state.cachedEvts[deletedItemKey].findIndex(
+                    e => e._id == deletedItem._id
+                );
+                if (index != -1) {
+                        state.cachedEvts[deletedItemKey].splice(index, 1);
+                }
+                state.cachedEvts[deletedItemKey] = [...state.cachedEvts[deletedItemKey]];
             }
             return { ...state };
         default:

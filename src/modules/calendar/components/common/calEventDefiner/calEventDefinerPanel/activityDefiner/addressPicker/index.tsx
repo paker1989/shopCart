@@ -106,6 +106,7 @@ class AddressPicker extends React.Component<
                 isVisible={isVisible}
                 onVisibleChange={this.onVisibleChange}
                 disableEvents={['resize', 'scroll']}
+                isUnmountOnInvisible={true}
             >
                 <Popover.Trigger.ClickTrigger>
                     <div className="address-picker-container__inputWrapper">

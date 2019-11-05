@@ -69,7 +69,10 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
                     style={{ ...position }}
                     ref={self}
                 >
-                    <div className="delete-container">
+                    <div className="delete-container" onClick={() => {
+                        dispatch(EvtActionCreator.deleteEvt(ctxMenuEvtId, ctxMenuType));
+                        onVisibleChange && onVisibleChange(false);
+                    }}>
                         <div className="item-icon">
                             <span>
                                 <svg className="ali-icon" aria-hidden="true">

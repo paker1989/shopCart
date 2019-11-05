@@ -42,9 +42,7 @@ const saveEvent = (req, res, next) => {
                 });
                 break;
         }
-
-    }
-    catch (err) {
+    } catch (err) {
         handleError(err);
     }
 };
@@ -157,26 +155,53 @@ const updateEvent = (req, res, next) => {
         const { id, originalType, updates } = req.body.params;
         switch (originalType) {
             case 'activity':
-                Activity
-                    .findById(id, (err, activity1) => {
+                Activity.findById(id, (err, activity1) => {
+                    if (err) {
+                        handleError(err);
+                        return;
+                    }
+                    const { color } = updates;
+                    if (color) {
+                        activity1.opts.color = color;
+                    }
+                    activity1.save((err, activity2) => {
                         if (err) {
                             handleError(err);
                             return;
                         }
-                        const { color } = updates;
-                        if (color) {
-                            activity1.opts.color = color;
-                        }
-                        activity1.save((err, activity2) => {
-                            if (err) {
-                                handleError(err);
-                                return;
-                            }
-                            res.status(200).send({ event: activity2 });
-                        })
-                    })
+                        res.status(200).send({ event: activity2 });
+                    });
+                });
                 break;
             case 'reminder':
+                break;
+        }
+    } catch (err) {
+        handleError(err);
+    }
+};
+
+const deleteEvent = (req, res) => {
+    try {
+        const { id, type } = req.body.params;
+        switch (type) {
+            case 'activity':
+                Activity.findByIdAndDelete(id, (err, deletedItem) => {
+                    if (err) {
+                        handleError(err);
+                        return;
+                    }
+                    res.status(200).send({ deletedItem });
+                });
+                break;
+            case 'reminder':
+                Reminder.findByIdAndDelete(id, (err, deletedItem) => {
+                    if (err) {
+                        handleError(err);
+                        return;
+                    }
+                    res.status(200).send({ deletedItem });
+                });
                 break;
         }
     } catch (err) {
@@ -189,5 +214,6 @@ router.post('/getDayEvents', getDayEvents);
 router.post('/getWeekEvents', getWeekEvents);
 router.post('/getMonthEvents', getMonthEvents);
 router.post('/updateEvent', updateEvent);
+router.post('/deleteEvent', deleteEvent);
 
 module.exports = router;

@@ -43,7 +43,28 @@ function* updateEvtData(reqObj) {
     }
 }
 
+function* deleteEvtData(reqObj) {
+    const { type, id } = reqObj.payload;
+    try {
+        const res = yield axios.post('/events/deleteEvent', {
+            params: { type, id },
+        });
+
+        if (res && res.data) {
+            yield put({
+                type: EvtsActionTypes._DELETE_EVT_SUCCESS,
+                payload: {
+                    deletedItem: res.data.deletedItem,
+                },
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export function* saveCalEvtsSaga() {
     yield takeLatest(EvtsActionTypes._SAVE_EVT_, saveEvtsData);
     yield takeLatest(EvtsActionTypes._UPDATE_EVT, updateEvtData);
+    yield takeLatest(EvtsActionTypes._DELETE_EVT, deleteEvtData);
 }

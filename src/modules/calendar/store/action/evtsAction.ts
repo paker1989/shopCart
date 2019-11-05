@@ -45,3 +45,15 @@ export const updateEvt = (
         id,
     },
 });
+
+export const deleteEvt = (
+    id: any,
+    type: string
+): CalendarRedux.IReduxAction => ({
+    type: EvtsActionType._DELETE_EVT,
+    payload: {
+        type,
+        id,
+    },
+});
+
