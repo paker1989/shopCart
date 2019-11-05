@@ -1,6 +1,4 @@
 ## task steps: (with complexity level 1 - 5)
-14. 右键点击更改color + delete;
-19. 禁止scroll和resize;
 15. `calViewEventDetailPanel`,
 8. Notify -> 撤销删除和添加 (3)
 9. 动画 (4)
@@ -28,3 +26,5 @@
 - (bug): 如果时间重叠的话layout不对劲，需要刷新才行 --> fix: setPosition useEffet not fired;
 - month layout initmodal的时候时间段是0, 所以显示不了。--> 换了一个setDateRange接口: e.g. now = 21: 11 -> allDayEvt = true, timeRange: 21:00 - 21: 30;
 - first layout picker position is not good
+14. 右键点击更改color + delete;
+19. 禁止scroll和resize;
