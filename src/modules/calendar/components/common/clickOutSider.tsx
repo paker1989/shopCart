@@ -12,17 +12,16 @@ const ClickOutSider = (props: IClickOutSiderProps) => {
         const { target } = evt;
 
         const container = getContainer();
-
         if (!container.contains(target as Node)) {
             cb();
         }
     };
 
     useEffect(() => {
-        document.addEventListener('click', isMouseEvtOutSide);
+        document.addEventListener('click', isMouseEvtOutSide, false);
 
         return () => {
-            document.removeEventListener('click', isMouseEvtOutSide);
+            document.removeEventListener('click', isMouseEvtOutSide, false);
         };
     }, []);
 

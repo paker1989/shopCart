@@ -2,7 +2,6 @@ import * as React from 'react';
 import throttle from 'lodash/throttle';
 
 import Position from './position';
-
 import { CalendarNS } from '../../utils/types';
 
 const wrapperDimension = function(boundingBox) {
@@ -51,7 +50,6 @@ class CalPopover<
         // if (!dragPopNode && !dragNodeClientRect) {
         //     return;
         // }
-
         if (!this.node) {
             this.node = document.getElementById(id);
         }
@@ -63,15 +61,9 @@ class CalPopover<
                 ? dragPopNode.getBoundingClientRect()
                 : dragNodeClientRect
         );
-        // console.log('====definer box ==');
-        // console.log(definerBoundingBox);
-        // console.log('====refBounding box ==');
-        // console.log(refBoundingBox);
         const position = positionner(definerBoundingBox, refBoundingBox, {
             ...otherProps,
         });
-        // console.log('=====position result');
-        // console.log(position);
 
         this.setState({
             style: {

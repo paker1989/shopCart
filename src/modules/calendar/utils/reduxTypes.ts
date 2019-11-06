@@ -28,12 +28,22 @@ export namespace CalendarRedux {
     export interface ICxtMenuPropStats {
         ctxMenuX?: number | string;
         ctxMenuY?: number | string;
-        ctxMenuType?: 'activity' | 'reminder',
+        ctxMenuType?: 'activity' | 'reminder';
         ctxMenuEvtId?: any;
         ctxMenuVisible?: boolean;
         ctxColor?: string;
-        
     }
 
-    export type TPopReducerStatsType = IDefinerPopStats & ICxtMenuPropStats;
+    export interface IViewPropStats {
+        viewShowPop?: boolean;
+        viewPositionner?: string;
+        viewTopCurshion?: number;
+        viewBottomCurshion?: number;
+        viewAsideCurshion?: number;
+        viewPopId?: string;
+    }
+
+    export type TPopReducerStatsType = IDefinerPopStats &
+        ICxtMenuPropStats &
+        IViewPropStats;
 }

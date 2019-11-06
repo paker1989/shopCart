@@ -20,7 +20,13 @@ const initialState: CalendarRedux.TPopReducerStatsType = {
     ctxMenuType: 'activity',
     ctxMenuEvtId: null,
     ctxMenuVisible: false,
-    ctxColor: null
+    ctxColor: null,
+    viewShowPop: false,
+    viewPositionner: null,
+    viewTopCurshion: 0,
+    viewBottomCurshion: 0,
+    viewAsideCurshion: 0,
+    viewPopId: null,
 };
 
 export default function(
@@ -31,6 +37,8 @@ export default function(
         case PopActionType.UPDATE_DEF_DATA:
             return { ...state, ...action.payload };
         case PopActionType.UPDATE_CXTMENU_PROPS:
+            return { ...state, ...action.payload };
+        case PopActionType.UPDATE_VIEW_PROPS:
             return { ...state, ...action.payload };
         default:
             return state;

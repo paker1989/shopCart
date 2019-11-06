@@ -93,9 +93,6 @@ function destroyAll(): void {
 }
 
 export default {
-    // initEventDefiner,
-    // destroyDefiner,
-    // destroyAll,
     Position,
     getId,
     getCurrentDragNode,

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import isNumber from 'lodash/isNumber';
 
-import Positionner from '../../position';
 import CalDaySimpleEvtItem from '../calDaySimpleEvtItem';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
 import useSortedEvtList from '../../../../utils/hooks/useSortedEvtList';
-import CalDayCompleteEvtPop from '../calDayCompleteEvtPop';
 import calEventPresenterManager from '../../calEventPresenterManager';
+import * as PopActionCreator from '../../../../store/action/popAction';
 
 import './calDaySimpleEvtList.scss';
 
@@ -40,9 +41,12 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     const [previewList, setPreviewList] = useState([]);
     const [nbMore, setNbMore] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    const [dragNode, setDragNode] = useState(null);
-    const [popId, setPopId] = useState(calEventPresenterManager.getId());
     const nbMoreRef = useRef(null);
+    const dispatch = useDispatch();
+    const [showEvtView, setShowEvtView] = useState(false);
+    const showViewPop = useSelector(
+        (state: any) => state.popReducers.viewShowPop
+    );
 
     useEffect(() => {
         let res;
@@ -77,12 +81,47 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     }, [nbDisplayEvt]);
 
     useEffect(() => {
-        setPopId(calEventPresenterManager.getId());
-    }, [selectedIndex]);
+        if (!showViewPop && showEvtView) {
+            setShowEvtView(false);
+        }
+    }, [showViewPop]);
 
-    const onSelectItem = (selectedIndex: number, refObj: HTMLDivElement) => {
-        setSelectedIndex(selectedIndex);
-        setDragNode(refObj);
+    const onSelectItem = (
+        evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        newIndex: number,
+        refObj: HTMLDivElement
+    ) => {
+        evt.stopPropagation();
+        evt.nativeEvent.stopImmediatePropagation();
+
+        if (showEvtView && selectedIndex === newIndex) {
+            dispatch(
+                PopActionCreator.updateViewPopProps({
+                    viewShowPop: false,
+                    viewPopId: null,
+                })
+            );
+            setShowEvtView(false);
+        } else {
+            if (!showEvtView) {
+                setShowEvtView(true);
+            }
+            setSelectedIndex(newIndex);
+
+            const selectedItem = sortedList[newIndex];
+            calEventPresenterManager.setEvtTriggerNode(refObj);
+            calEventPresenterManager.setSelectedItem(selectedItem);
+            dispatch(
+                PopActionCreator.updateViewPopProps({
+                    viewAsideCurshion: 10,
+                    viewTopCurshion: 10,
+                    viewBottomCurshion: 10,
+                    viewPopId: calEventPresenterManager.getId(),
+                    viewPositionner: 'autoAside',
+                    viewShowPop: true,
+                })
+            );
+        }
     };
 
     const nbMoreClass = cx({
@@ -120,6 +159,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                     }}
                     onClick={e => {
                         onSelectItem(
+                            e,
                             previewList.length,
                             nbMoreRef ? nbMoreRef.current : null
                         );
@@ -130,18 +170,6 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                         values={{ nbMore }}
                     />
                 </div>
-            )}
-            {selectedIndex !== -1 && (
-                <CalDayCompleteEvtPop
-                    zIndex={1111}
-                    asideCurshion={10}
-                    topCurshion={30}
-                    bottomCurshion={30}
-                    id={popId}
-                    dragPopNode={dragNode}
-                    item={previewList[selectedIndex]}
-                    positionner={Positionner.autoAside}
-                />
             )}
         </div>
     );

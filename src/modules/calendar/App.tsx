@@ -10,9 +10,9 @@ import Header from './components/header';
 import CalBody from './components/calBody';
 import PopHandler from './components/popHandler';
 import CxtMenuHandler from './components/cxtMenuHandler';
+import ViewPopHandler from './components/viewPopHandler';
 
 import './assets/style/app.scss';
-
 const mapDispatchToProps = dispatch => ({
     toTargetDate: (currentDate: Date) =>
         dispatch(dateActionCreator.toTargetDate(currentDate)),
@@ -64,6 +64,7 @@ class App extends React.Component<any, any> {
                     <div className="calendar-footer" />
                     <PopHandler />
                     <CxtMenuHandler />
+                    <ViewPopHandler />
                 </div>
             </I18nProvider>
         );

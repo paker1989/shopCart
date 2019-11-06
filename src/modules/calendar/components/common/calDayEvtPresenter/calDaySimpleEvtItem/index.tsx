@@ -21,7 +21,11 @@ import './calDaySimpleEvtItem.scss';
 export interface CalDaySimpleEvtItemProps {
     item: CalEvtDataNS.ICalEvtSortedItemType;
     index: number;
-    onSelect: (index: number, refObj: HTMLDivElement) => void;
+    onSelect: (
+        evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        index: number,
+        refObj: HTMLDivElement
+    ) => void;
     selected: boolean;
     type: 'timing' | 'normal';
     minSplitterHeight?: number; // timing type only
@@ -86,7 +90,6 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     ) => {
         const { isRightClickable, id, color } = getEvtCxtMenuProps(item);
         if (isRightClickable) {
-            console.log('stop propagation');
             e.preventDefault();
             e.stopPropagation();
             dispatch(
@@ -219,8 +222,8 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             onMouseDown={e => {
                 e.stopPropagation();
             }}
-            onClick={() => {
-                onSelect(index, self ? self.current : null);
+            onClick={e => {
+                onSelect(e, index, self ? self.current : null);
             }}
             onContextMenu={handleContextmenu}
         >

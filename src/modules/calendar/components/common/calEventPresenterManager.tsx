@@ -6,9 +6,12 @@ import Position from './position';
 
 import CalConfig from '../../assets/scripts/calendar.config';
 import { CalendarNS } from '../../utils/types';
+import { CalEvtDataNS } from '../../utils/evtTypes';
 
 let _CAL_POPOVER_ID = 0;
 let _CAL_EVENT_Z_INDEX = 999;
+let _CAL_EVT_TRIGGER;
+let _SELECTED_ITEM: CalEvtDataNS.ICalEvtSortedItemType;
 
 const calEventPresenterManager = {};
 
@@ -80,6 +83,23 @@ function destroyAll(): void {
 function getId() {
     return `${CalConfig.calEventPresenterIdPrefix}-${++_CAL_POPOVER_ID}`;
 }
+
+function getEvtTriggerNode() {
+    return _CAL_EVT_TRIGGER;
+}
+
+function setEvtTriggerNode(triggerNode) {
+    _CAL_EVT_TRIGGER = triggerNode;
+}
+
+function setSelectedItem(item: CalEvtDataNS.ICalEvtSortedItemType) {
+    _SELECTED_ITEM = item;
+}
+
+function getSelectedItem(): CalEvtDataNS.ICalEvtSortedItemType {
+    return _SELECTED_ITEM;
+}
+
 export default {
     initPresenter,
     Position,
@@ -87,4 +107,8 @@ export default {
     destroyAll,
     getPopReference,
     getId,
+    getEvtTriggerNode,
+    setEvtTriggerNode,
+    setSelectedItem,
+    getSelectedItem,
 };

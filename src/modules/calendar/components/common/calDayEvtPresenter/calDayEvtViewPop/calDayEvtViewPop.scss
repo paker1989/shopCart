@@ -5,7 +5,7 @@ $containerWidth: 400px;
 $containerMinHeight: 90px;
 $containerMaxHeight: 300px;
 
-.caldayCompleteEvt-pop {
+.caldayEvtView-pop {
   position: fixed;
   background: #fff;
   color: $fontColor;
@@ -14,7 +14,7 @@ $containerMaxHeight: 300px;
   box-shadow: $calDayEvtPresenterShadow;
 }
 
-.caldayCompleteEvt-content {
+.caldayEvtView-content {
   position: relative;
   width: $containerWidth;
   min-height: $containerMinHeight;

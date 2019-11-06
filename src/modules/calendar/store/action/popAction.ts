@@ -21,3 +21,10 @@ export const updateCxtMenuProps = (
     type: PopActionType.UPDATE_CXTMENU_PROPS,
     payload: { ...cxtMenuProps },
 });
+
+export const updateViewPopProps = (
+    viewPopProps: CalendarRedux.IViewPropStats
+): CalendarRedux.IReduxAction => ({
+    type: PopActionType.UPDATE_VIEW_PROPS,
+    payload: { ...viewPopProps },
+});
