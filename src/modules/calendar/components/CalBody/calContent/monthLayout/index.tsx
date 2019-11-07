@@ -81,7 +81,16 @@ class MonthLayout extends React.Component<any, IMonthLayoutState> {
             defTimeRange,
             updateDefPop,
             defShowPop,
+            currentYear,
+            currentMonth,
+            fetchMonthEvts,
         } = this.props;
+        if (
+            currentYear !== prevProps.currentYear ||
+            currentMonth !== prevProps.currentMonth
+        ) {
+            fetchMonthEvts(currentYear, currentMonth);
+        }
         // handle global create event
         if (
             prevProps.globalInitStatus !== 'init' &&

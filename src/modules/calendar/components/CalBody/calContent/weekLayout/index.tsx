@@ -70,7 +70,7 @@ class WeekLayout extends React.Component<IWeekLayoutProps, IWeekLayoutState> {
     }
 
     componentDidMount() {
-        const { currentYear, currentWeek, fetchEvts } = this.props;
+        const { currentYear, currentWeek } = this.props;
         this.populateDatesOfWeek(currentYear, currentWeek, _is_display_we);
     }
 
