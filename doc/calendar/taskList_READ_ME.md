@@ -22,7 +22,7 @@
 
 -   edit event 更改 type 的时候需要特殊处理: 删除 original type then insert into another;
 -   cross day event handle;
--   EvtsActionType.\_SAVE_EVT_SUCCESS: 只支持新元素，不支持 update
+-   EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持 update
 -   `caldefinerpop`和`ctxMenu`都需要加上 clickOnOutSide 自我关闭的功能;
 
 _done_

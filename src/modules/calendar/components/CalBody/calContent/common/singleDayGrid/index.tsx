@@ -3,6 +3,7 @@ import cx from 'classnames';
 import throttle from 'lodash/throttle';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 
 import { CalendarNS } from '../../../../../utils/types';
 import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
@@ -12,9 +13,11 @@ import WindowEventHandler from '../../../../../../../_packages_/utils/components
 import WindowResizeHandler from '../../../../../../../_packages_/utils/components/windowResizeHandler';
 
 import './singleDayGrid.scss';
+import { getPath } from '../../../../../utils/routeHelper';
 
 const mapStateToProps = (state, ownProps) => ({
     evts: state.evtsReducers.cachedEvts[getYYYYMMDDDate(ownProps.value)],
+    locale: state.layoutReducers.locale,
 });
 
 export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
@@ -32,6 +35,8 @@ export interface ISingleDayGridProps extends CalendarNS.IMonthCalEventProps {
     ) => void;
     onMouseEventChange?: CalendarNS.FnOnDaySplitter;
     evts?: CalEvtDataNS.ICalEvtCompleteDataModelType[];
+    history?: any;
+    locale?: string;
 }
 
 const _test_calEventBody_bg = 'rgb(121, 134, 203)';
@@ -92,6 +97,12 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
         });
     }, 500);
 
+    goToDate = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        evt.nativeEvent.stopPropagation();
+        const { history, locale, value } = this.props;
+        history.push(getPath(value, { layout: 'day', lang: locale }));
+    };
+
     render() {
         const {
             evts,
@@ -143,7 +154,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                 }}
             >
                 <div className={showValueClass}>
-                    <div className="showValue__base">
+                    <div className="showValue__base" onMouseDown={this.goToDate}>
                         <span>{showValue}</span>
                     </div>
                 </div>
@@ -179,4 +190,4 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
     }
 }
 
-export default connect(mapStateToProps)(SingleDayGrid);
+export default connect(mapStateToProps)(withRouter(SingleDayGrid));
