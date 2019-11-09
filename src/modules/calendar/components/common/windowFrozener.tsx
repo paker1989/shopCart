@@ -1,12 +1,24 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 
-const WindowFrozener = () => {
+export interface IWindowFrozenerProps {
+    getContainer?: () => Node;
+    allowScroll?: boolean;
+}
+
+const WindowFrozener = (props: IWindowFrozenerProps) => {
+    const { getContainer, allowScroll } = props;
+
     const stopWheelZoom = event => {
-        // if (event.ctrlKey == true) {
-        //     event.preventDefault();
-        // }
-        event.preventDefault();
+        console.log('stopWheelZoom');
+        if (typeof getContainer === 'function' && allowScroll) {
+            const container = getContainer();
+            if (!container.contains(event.target as Node)) {
+                event.preventDefault();
+            }
+        } else {
+            event.preventDefault();
+        }
     };
 
     const stopKeyZoom = event => {

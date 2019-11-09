@@ -7,10 +7,9 @@ export interface IActivityViewDetailProps {
 
 const ActivityViewDetail = (props: IActivityViewDetailProps) => {
     const { activity } = props;
-    console.log(activity);
 
     return (
-        <div className="activity-view">
+        <React.Fragment>
             <div className="action-container">
                 <div className="action-icons">
                     <span className="icon-label">
@@ -71,7 +70,7 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                             </span>
                         </div>
                         <div className="field-body">
-                            <span className="info-address">
+                            <span className="text-label">
                                 {activity.opts.address}
                             </span>
                         </div>
@@ -92,14 +91,14 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                             </span>
                         </div>
                         <div className="field-body">
-                            <span className="info-dscrptn">
+                            <span className="text-label">
                                 {activity.opts.description}
                             </span>
                         </div>
                     </div>
                 )}
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 

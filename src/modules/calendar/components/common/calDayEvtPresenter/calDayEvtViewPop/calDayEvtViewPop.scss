@@ -18,15 +18,15 @@ $filed-margin: 10px;
   color: $fontColor;
   font-size: $fontSizeBasic;
   border-radius: 8px;
+  max-height: $containerMaxHeight;
   box-shadow: $calDayEvtPresenterShadow;
 }
 
 .caldayEvtView-content {
   position: relative;
   width: $containerWidth;
-  // min-height: $containerMinHeight;
-  max-height: $containerMaxHeight;
-  overflow-y: auto;
+  height: 100%;
+  padding-right: 6px;
 
   .action-container {
     position: relative;
@@ -35,7 +35,7 @@ $filed-margin: 10px;
     justify-content: flex-end;
     width: 100%;
     height: $action-height;
-    padding-right: 20px;
+    // padding-right: 20px;
   }
 
   .action-icons {
@@ -59,13 +59,14 @@ $filed-margin: 10px;
     position: relative;
     width: 100%;
     padding: 0 12px 12px 0;
-    max-height: $containerMaxHeight;
+    height: calc(100% - #{$action-height});
     overflow-y: auto;
     @include customizeScrollbar();
 
     .field {
       position: relative;
       display: flex;
+      width: 100%;
       align-items: flex-start;
       margin-bottom: $filed-margin;
 
@@ -104,8 +105,9 @@ $filed-margin: 10px;
     font-size: 22px;
   }
 
-  .info-time {
-    // font-size: 14px;
+  .text-label {
+    white-space: normal;
+    word-break: break-word;
   }
 
 }

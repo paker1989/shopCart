@@ -32,7 +32,10 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
 
     componentDidUpdate(prevProps: CalDayEvtViewPopProps) {
         if (prevProps.id !== this.props.id) {
-            this.adjustPosition();
+            this.self.current.style.height = '';
+            setTimeout(() => {
+                this.adjustPosition();
+            }, 0);
         }
     }
 
@@ -57,7 +60,10 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
                 ref={this.self}
             >
                 <CalDaycalDayEvtViewContent item={item} />
-                <WindowFrozener />
+                <WindowFrozener
+                    getContainer={this.getContainer}
+                    allowScroll={true}
+                />
                 <ClickOutSider
                     getContainer={this.getContainer}
                     cb={() => {
