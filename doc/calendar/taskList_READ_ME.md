@@ -1,9 +1,10 @@
 ## task steps: (with complexity level 1 - 5)
 
 15. `calViewEventDetailPanel`:
-    - activity panel;
+    - activity panel; --> done;
     - multiple reminders panel;
     - single reminder panel;
+    - no more event panel;
 16. Notify -> 撤销删除和添加 (3)
 17. 动画 (4)
 18. 拖拽 holdon 的`calEventPop` (4)
@@ -19,11 +20,10 @@
 ## bug
 
 ## hold on point:
-
+-   目前day reminder自动隐藏，其实还是需要显示的;
 -   edit event 更改 type 的时候需要特殊处理: 删除 original type then insert into another;
 -   cross day event handle;
--   EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持 update
--   `caldefinerpop`和`ctxMenu`都需要加上 clickOnOutSide 自我关闭的功能;
+-   add `isDone` mark on `reminder`, 目前`viewReminderPop`只有`_test_is_done`
 
 _done_
 
@@ -36,3 +36,5 @@ _done_
 
 14. 右键点击更改 color + delete;
 15. 禁止 scroll 和 resize;
+-   EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持 update
+-   `caldefinerpop`和`ctxMenu`都需要加上 clickOnOutSide 自我关闭的功能;

@@ -12,6 +12,7 @@ $appFrameBorderColor: #dadce0; // app主体框架的border color
 $appScrollBarColor: darken(#dadce0, 10%);
 $fontSubTitleColor: #70757a;
 $hoverBgColor: lighten(#dadce0, 5%);
+$light-hoverBgColor: lighten(#dadce0, 7%);
 $activeBgColor: darken(#dadce0, 14%);
 $singleDayGridTodayBgColor: #1a73e8;
 $singleDayGridSelectedBgColor: lighten($singleDayGridTodayBgColor, 30%);
@@ -158,6 +159,21 @@ a {
 
     &:hover {
         background: $hoverBgColor;
+    }
+}
+
+.action-text-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in;
+
+    &:hover {
+        background: $light-hoverBgColor;
     }
 }
 

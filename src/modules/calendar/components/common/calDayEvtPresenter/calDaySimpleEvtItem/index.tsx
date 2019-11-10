@@ -219,7 +219,8 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
             ref={self}
             className={wrapperClass}
             style={layoutStyle}
-            onMouseDown={e => {
+            onMouseDown={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                console.log('on evt mouse down');
                 e.stopPropagation();
             }}
             onClick={e => {

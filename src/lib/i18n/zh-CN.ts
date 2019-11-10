@@ -46,6 +46,8 @@ const zh_CN = {
     'cal.nbReminders': '{nb}条提醒',
     'cal.moreResults': '还有{nbMore}项',
     'cal.delete': '删除',
+    'cal.reminderdone': '{nb}条处理完毕的提醒',
+    'cal.markasdone': '标记为完成',
     'comp.short.sun': '日',
     'comp.short.mon': '一',
     'comp.short.tues': '二',

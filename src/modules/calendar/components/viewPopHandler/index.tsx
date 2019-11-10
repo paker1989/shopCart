@@ -39,6 +39,7 @@ class ViewPopHandler extends React.Component<any, any> {
                         topCurshion={viewTopCurshion}
                         id={viewPopId}
                         positionner={Position[viewPositionner]}
+                        zIndex={999}
                     ></CalDayEvtViewPop>
                 )}
             </React.Fragment>

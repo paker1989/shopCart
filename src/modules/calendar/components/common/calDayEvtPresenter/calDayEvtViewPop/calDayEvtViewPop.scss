@@ -1,113 +1,186 @@
-@import "../../../../assets/style/theme.scss";
-@import "../../../../assets/style/mixin.scss";
+@import '../../../../assets/style/theme.scss';
+@import '../../../../assets/style/mixin.scss';
 
 $panelPadding: 8px 10px;
-$containerWidth: 400px;
-// $containerMinHeight: 90px;
+$containerWidth: 430px;
 $containerMaxHeight: 700px;
 
-$action-height: 40px;
-$icon-label-dimension: 17px;
+$action-height: 50px;
+$icon-label-dimension: 18px;
 $color-dot-dimension: 12px;
 $field-label-width: 60px;
-$filed-margin: 10px;
+$filed-margin: 15px;
+
+$footer-height: 45px;
 
 .caldayEvtView-pop {
-  position: fixed;
-  background: #fff;
-  color: $fontColor;
-  font-size: $fontSizeBasic;
-  border-radius: 8px;
-  max-height: $containerMaxHeight;
-  box-shadow: $calDayEvtPresenterShadow;
+    position: fixed;
+    background: #fff;
+    color: $fontColor;
+    font-size: $fontSizeBasic;
+    border-radius: 8px;
+    max-height: $containerMaxHeight;
+    box-shadow: $calDayEvtPresenterShadow;
 }
 
 .caldayEvtView-content {
-  position: relative;
-  width: $containerWidth;
-  height: 100%;
-  padding-right: 6px;
-
-  .action-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    height: $action-height;
-    // padding-right: 20px;
-  }
+    width: $containerWidth;
+    height: 100%;
 
-  .action-icons {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .icon-label {
-    position: relative;
-
-    .ali-icon {
-      width: $icon-label-dimension;
-      height: $icon-label-dimension;
-      color: #5f6368;
+    .action-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        height: $action-height;
+        padding-right: 10px;
     }
-  }
 
-  .fields-container {
-    position: relative;
-    width: 100%;
-    padding: 0 12px 12px 0;
-    height: calc(100% - #{$action-height});
-    overflow-y: auto;
-    @include customizeScrollbar();
+    .action-icons {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    .field {
-      position: relative;
-      display: flex;
-      width: 100%;
-      align-items: flex-start;
-      margin-bottom: $filed-margin;
+    .icon-label {
+        position: relative;
 
-      &.is-double-margin {
-        margin-bottom: $filed-margin * 2;
-      }
+        .ali-icon {
+            width: $icon-label-dimension;
+            height: $icon-label-dimension;
+            color: #5f6368;
+        }
+    }
+
+    .fields-container {
+        position: relative;
+        width: 100%;
+        padding: 0 12px 0px 0;
+        height: calc(100% - #{$action-height});
+        overflow-y: auto;
+        margin-right: 6px;
+        @include customizeScrollbar();
+
+        .field {
+            position: relative;
+            display: flex;
+            width: 100%;
+            align-items: flex-start;
+            margin-bottom: $filed-margin;
+
+            &.is-double-margin {
+                margin-bottom: 20px;
+            }
+        }
+
+        .field-body {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            color: #3c4043;
+
+            &.inline {
+                flex-direction: row;
+            }
+
+            .done-actions {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                justify-content: flex-end;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+
+            &:hover .done-actions {
+                opacity: 1;
+            }
+        }
+    }
+
+    .footer-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: $footer-height;
+        border-top: 1px solid $appFrameBorderColor;
+
+        .action-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0 15px;
+
+            &.right {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    .color-dot {
+        display: block;
+        width: $color-dot-dimension;
+        height: $color-dot-dimension;
+        border-radius: 4px;
+    }
+
+    .size-h1 {
+        font-size: 22px;
+    }
+
+    .size-h2 {
+        font-size: 16px;
+    }
+
+    .size-h3 {
+        font-size: 14px;
+    }
+
+    .text-label {
+        white-space: normal;
+        word-break: break-word;
+
+        &.height-h0 {
+            line-height: 30px;
+        }
+
+        &.height-h1 {
+            line-height: 25px;
+        }
+
+        &.height-h2 {
+            line-height: 18px;
+        }
     }
 
     .field-label {
-      flex: 0 0 $field-label-width;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 25px;
+        flex: 0 0 $field-label-width;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.height-h0 {
+            height: 30px;
+        }
+
+        &.height-h1 {
+            height: 25px;
+        }
+
+        &.height-h2 {
+            height: 18px;
+        }
     }
 
-    .field-body {
-      flex: 1;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      color: #3c4043;
-      font-size: 13px;
-      white-space: normal;
+    .is-done {
+        color: $fontSubTitleColor;
+        text-decoration: line-through;
     }
-  }
-
-  .color-dot {
-    display: block;
-    width: $color-dot-dimension;
-    height: $color-dot-dimension;
-    border-radius: 4px;
-  }
-
-  .info-title {
-    font-size: 22px;
-  }
-
-  .text-label {
-    white-space: normal;
-    word-break: break-word;
-  }
-
 }

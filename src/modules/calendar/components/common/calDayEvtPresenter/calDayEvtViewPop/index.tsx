@@ -1,4 +1,5 @@
 import * as React from 'react';
+import throttle from 'lodash/throttle';
 
 import CalPopover from '../../calPopover';
 import { CalendarNS } from '../../../../utils/types';
@@ -9,6 +10,7 @@ import ClickOutSider from '../../clickOutSider';
 import { connect } from 'react-redux';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
 import calEventPresenterManager from '../../calEventPresenterManager';
+import WindowResizeHandler from '../../../../../../_packages_/utils/components/windowResizeHandler';
 
 import './calDayEvtViewPop.scss';
 
@@ -43,6 +45,13 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
         return this.self ? this.self.current : null;
     };
 
+    onResize = throttle(() => {
+        this.self.current.style.height = '';
+        setTimeout(() => {
+            this.adjustPosition();
+        }, 0);
+    }, 500);
+
     render() {
         const { zIndex, id, updateViewProps } = this.props;
         const { style } = this.state;
@@ -64,6 +73,7 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
                     getContainer={this.getContainer}
                     allowScroll={true}
                 />
+                <WindowResizeHandler onResize={this.onResize} />
                 <ClickOutSider
                     getContainer={this.getContainer}
                     cb={() => {

@@ -1,10 +1,6 @@
 import * as PopActionType from '../actionType/popActionType';
 import { CalendarRedux } from '../../utils/reduxTypes';
 
-// interface IIntPopReducerStats
-//     extends CalendarRedux.IGlobalDefinerProps,
-//         CalendarRedux.IDefinerPopStats {}
-
 const initialState: CalendarRedux.TPopReducerStatsType = {
     defShowPop: false,
     defTimeRange: null,
@@ -33,13 +29,43 @@ export default function(
     state = initialState,
     action: CalendarRedux.IReduxAction
 ) {
+    let defShowPop, viewShowPop, ctxMenuVisible;
     switch (action.type) {
         case PopActionType.UPDATE_DEF_DATA:
-            return { ...state, ...action.payload };
+            if (action.payload.defShowPop) {
+                ctxMenuVisible = false;
+                viewShowPop = false;
+                return {
+                    ...state,
+                    ...action.payload,
+                    ctxMenuVisible,
+                    viewShowPop,
+                };
+            } else {
+                return { ...state, ...action.payload };
+            }
         case PopActionType.UPDATE_CXTMENU_PROPS:
-            return { ...state, ...action.payload };
+            if (action.payload.ctxMenuVisible) {
+                defShowPop = false;
+                viewShowPop = false;
+                return { ...state, ...action.payload, defShowPop, viewShowPop };
+            } else {
+                return { ...state, ...action.payload };
+            }
+
         case PopActionType.UPDATE_VIEW_PROPS:
-            return { ...state, ...action.payload };
+            if (action.payload.viewShowPop) {
+                ctxMenuVisible = false;
+                defShowPop = false;
+                return {
+                    ...state,
+                    ...action.payload,
+                    ctxMenuVisible,
+                    defShowPop,
+                };
+            } else {
+                return { ...state, ...action.payload };
+            }
         default:
             return state;
     }

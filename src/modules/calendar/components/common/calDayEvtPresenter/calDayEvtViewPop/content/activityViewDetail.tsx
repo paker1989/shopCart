@@ -44,20 +44,22 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
             </div>
             <div className="fields-container">
                 <div className="field is-double-margin">
-                    <div className="field-label">
+                    <div className="field-label height-h1">
                         <div
                             className="color-dot"
                             style={{ backgroundColor: activity.opts.color }}
                         ></div>
                     </div>
                     <div className="field-body">
-                        <span className="info-title">{activity.title}</span>
-                        <span className="info-time">Monday, November 4</span>
+                        <span className="text-label size-h1 height-h1">
+                            {activity.title}
+                        </span>
+                        <span className="size-h2">Monday, November 4</span>
                     </div>
                 </div>
                 {activity.opts.address && (
                     <div className="field">
-                        <div className="field-label">
+                        <div className="field-label height-h2">
                             <span className="icon-label">
                                 <div className="icon-circle-wrapper">
                                     <svg
@@ -70,7 +72,7 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                             </span>
                         </div>
                         <div className="field-body">
-                            <span className="text-label">
+                            <span className="text-label height-h2">
                                 {activity.opts.address}
                             </span>
                         </div>
@@ -78,7 +80,7 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                 )}
                 {activity.opts.description && (
                     <div className="field">
-                        <div className="field-label">
+                        <div className="field-label height-h2">
                             <span className="icon-label">
                                 <div className="icon-circle-wrapper">
                                     <svg
@@ -91,7 +93,7 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                             </span>
                         </div>
                         <div className="field-body">
-                            <span className="text-label">
+                            <span className="text-label height-h2">
                                 {activity.opts.description}
                             </span>
                         </div>
