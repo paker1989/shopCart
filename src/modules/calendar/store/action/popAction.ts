@@ -28,3 +28,10 @@ export const updateViewPopProps = (
     type: PopActionType.UPDATE_VIEW_PROPS,
     payload: { ...viewPopProps },
 });
+
+export const updateDayPresenterPopProps = (
+    dayPresenterPopProps: CalendarRedux.IDayPresenterPropStats
+): CalendarRedux.IReduxAction => ({
+    type: PopActionType.UPDATE_DAY_PRESENTER_PROPS,
+    payload: { ...dayPresenterPopProps },
+});

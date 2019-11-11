@@ -76,6 +76,7 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
                         loadingContent
                     ) : (
                         <CalDaySimpleEvtList
+                           seletedDate={date}
                             evts={calEvts}
                             showNoEvtReminder={true}
                         />

@@ -85,6 +85,8 @@ $timingStyleLineheight: 20px;
 
   & .cal-unit {
     margin-right: $itemMargin;
+    display: flex;
+    align-items: center;
   }
 
   & .cal-dot {

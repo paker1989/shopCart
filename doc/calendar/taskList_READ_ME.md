@@ -1,29 +1,36 @@
 ## task steps: (with complexity level 1 - 5)
 
 15. `calViewEventDetailPanel`:
-    - activity panel; --> done;
-    - multiple reminders panel;
-    - single reminder panel;
     - no more event panel;
+    - timing display;
+    - actions such as `delete`, `close` support for `calViewEventDetailPanel` & `ctxMenuPop`;
+27. - 定义事件的时候不能cross defined event; (come from user feedback);
+28. - `timingPicker` (come from user feedback);
+26. support photo add;
 16. Notify -> 撤销删除和添加 (3)
+23. `calEditEventDetailPanel`,
 17. 动画 (4)
 18. 拖拽 holdon 的`calEventPop` (4)
 19. 导入法国节日: (4)
     > a checkbox in `shelf`
 20. create user authentication module;
-21. 点击`timeRange`可以换时间: `calevtPop.ref.current` should be in redux stats; (3)
 22. implement display weekend flag; (2)
-23. `calEditEventDetailPanel`,
 24. toggle shelf,
 25. refine UI
 
 ## bug
+- `dayPresenter`选择事件的时候没有style了; （style of being selected）
+
 
 ## hold on point:
--   目前day reminder自动隐藏，其实还是需要显示的;
+-   *implement `anchorId` mechanism for pops, reason: 如果来自`dayPresenterPop`的pop，那么不能关闭该  `dayPresenterPop`;*
+-   support `clickOutSider`&`windowFrozener` for `dayPresenterPop`;
+-   ctxMenu on select single item;
 -   edit event 更改 type 的时候需要特殊处理: 删除 original type then insert into another;
 -   cross day event handle;
 -   add `isDone` mark on `reminder`, 目前`viewReminderPop`只有`_test_is_done`
+
+## user feedback
 
 
 _done_
@@ -40,3 +47,7 @@ _done_
 -   `caldefinerpop`和`ctxMenu`都需要加上 clickOnOutSide 自我关闭的功能;
 -   `yearlayout`底部的event显示为什么有问题
 - `2 rappels`在`weeklayout`不显示;
+- activity panel; --> done;
+- multiple reminders panel; --> done;
+- 目前day reminder自动隐藏，其实还是需要显示的;
+- single reminder panel;

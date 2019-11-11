@@ -43,7 +43,18 @@ export namespace CalendarRedux {
         viewPopId?: string;
     }
 
+    export interface IDayPresenterPropStats {
+        dayPresenterShowPop?: boolean;
+        dayPresenterDate?: Date;
+        dayPresenterPositionner?: string;
+        dayPresenterTopCurshion?: number;
+        dayPresenterBottomCurshion?: number;
+        dayPresenterAsideCurshion?: number;
+        dayPresenterPopId?: string;
+    }
+
     export type TPopReducerStatsType = IDefinerPopStats &
         ICxtMenuPropStats &
-        IViewPropStats;
+        IViewPropStats &
+        IDayPresenterPropStats;
 }

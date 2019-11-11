@@ -115,6 +115,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
             isWeekStart,
             isEnd,
             isStart,
+            value,
         } = this.props;
         const { evtsContainerHeight } = this.state;
 
@@ -161,6 +162,7 @@ class SingleDayGrid extends React.Component<ISingleDayGridProps, any> {
                 {evts && (
                     <div className="evts-present-wrapper">
                         <CalDaySimpleEvtList
+                            seletedDate={value}
                             evts={evts}
                             containerHeight={evtsContainerHeight}
                         />

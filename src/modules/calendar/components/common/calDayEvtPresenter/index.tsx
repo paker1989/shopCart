@@ -4,12 +4,11 @@ import { createPortal } from 'react-dom';
 import CalPopover from '../calPopover';
 import Position from '../position';
 import DayEvtPresenterContent from './content';
+import { CalendarNS } from '../../../utils/types';
 import WindowEventHandler from '../../../../../_packages_/utils/components/windowEventHandler';
 import WindowResizeHandler from '../../../../../_packages_/utils/components/windowResizeHandler';
 
 import './dayEvtPresenter.scss';
-import { CalendarNS } from '../../../utils/types';
-import { isSameDay } from '../../../../../_packages_/components/datePicker/common/util';
 
 class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
     private self: React.RefObject<HTMLDivElement>;
@@ -22,12 +21,6 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
       super(props);
       this.self = React.createRef();
     }
-
-    // componentDidUpdate(prevProps) {
-    //     if (!isSameDay(prevProps.date, this.props.date)) {
-    //         this.updatePosition();
-    //     }
-    // }
 
     updatePosition = () => {
       if (!this.self || !this.self.current) {

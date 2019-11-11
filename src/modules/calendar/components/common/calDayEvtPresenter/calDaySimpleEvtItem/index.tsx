@@ -46,12 +46,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
     } = props;
     const [layoutStyle, setLayoutStyle] = useState({});
     const dispatch = useDispatch();
-    // const [contextMenuProps, setContextMenuProps] = useState({
-    //     visible: true,
-    //     x: 0,
-    //     y: 0,
 
-    // });
     const self = useRef(null);
     const wrapperClass = cx({
         ['itemWrapper']: true,
@@ -180,37 +175,65 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                 break;
             } else {
                 date = convertDBTimeFormatToDate(data.time);
-                content = (
-                    <div className="calday-simpleevt-item is-timingEvt is-reminder">
-                        <div className="cal-unit cal-dot">
-                            <b
-                                style={{ backgroundColor: 'rgb(63, 81, 181)' }}
-                            ></b>
-                        </div>
-                        <span className="cal-unit cal-date">
-                            <FormattedTime
-                                value={date}
-                                hour12={true}
-                                hour="numeric"
-                            />
-                        </span>
-                        <span className="cal-unit cal-icon">
-                            <svg className="ali-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-tag-fill"></use>
-                            </svg>
-                        </span>
-                        <span className="cal-unit cal-text">
-                            {data.reminders.length > 1 ? (
-                                <FormattedMessage
-                                    id="cal.nbReminders"
-                                    values={{ nb: data.reminders.length }}
+                content =
+                    type === 'normal' ? (
+                        <div className="calday-simpleevt-item is-timingEvt is-reminder">
+                            <div className="cal-unit cal-dot">
+                                <b
+                                    style={{
+                                        backgroundColor: 'rgb(63, 81, 181)',
+                                    }}
+                                ></b>
+                            </div>
+                            <span className="cal-unit cal-date">
+                                <FormattedTime
+                                    value={date}
+                                    hour12={true}
+                                    hour="numeric"
                                 />
-                            ) : (
-                                data.reminders[0].title
-                            )}
-                        </span>
-                    </div>
-                );
+                            </span>
+                            <span className="cal-unit cal-icon">
+                                <svg className="ali-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-tag-fill"></use>
+                                </svg>
+                            </span>
+                            <span className="cal-unit cal-text">
+                                {data.reminders.length > 1 ? (
+                                    <FormattedMessage
+                                        id="cal.nbReminders"
+                                        values={{ nb: data.reminders.length }}
+                                    />
+                                ) : (
+                                    data.reminders[0].title
+                                )}
+                            </span>
+                        </div>
+                    ) : (
+                        <div className="calday-simpleevt-item is-allday is-reminder">
+                            <span className="cal-unit cal-icon">
+                                <svg className="ali-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-tag-fill"></use>
+                                </svg>
+                            </span>
+                            <span className="cal-unit cal-text">
+                                {data.reminders.length > 1 ? (
+                                    <FormattedMessage
+                                        id="cal.nbReminders"
+                                        values={{ nb: data.reminders.length }}
+                                    />
+                                ) : (
+                                    data.reminders[0].title
+                                )}
+                            </span>
+                            <span className="cal-unit cal-date">
+                                <FormattedTime
+                                    value={date}
+                                    hour12={true}
+                                    hour="numeric"
+                                />
+                            </span>
+                        </div>
+                    );
                 break;
             }
     }

@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import * as dateActionCreator from './store/action/dateAction';
-import * as layoutActionCreator from './store/action/layoutAction';
 import { connect } from 'react-redux';
 
+import * as dateActionCreator from './store/action/dateAction';
+import * as layoutActionCreator from './store/action/layoutAction';
 import CalConfig from './assets/scripts/calendar.config';
 import I18nProvider from './utils/i18nProvider';
 import Header from './components/header';
 import CalBody from './components/calBody';
-import PopHandler from './components/popHandler';
+import DefinerPopHandler from './components/definerPopHandler';
 import CxtMenuHandler from './components/cxtMenuHandler';
 import ViewPopHandler from './components/viewPopHandler';
+import DayPresenterPopHandler from './components/DayPresenterPopHandler';
 
 import './assets/style/app.scss';
+
 const mapDispatchToProps = dispatch => ({
     toTargetDate: (currentDate: Date) =>
         dispatch(dateActionCreator.toTargetDate(currentDate)),
@@ -62,9 +64,10 @@ class App extends React.Component<any, any> {
                         <CalBody />
                     </div>
                     <div className="calendar-footer" />
-                    <PopHandler />
+                    <DefinerPopHandler />
                     <CxtMenuHandler />
                     <ViewPopHandler />
+                    <DayPresenterPopHandler />
                 </div>
             </I18nProvider>
         );

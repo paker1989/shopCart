@@ -84,6 +84,7 @@ class DefaultHeader extends React.Component<
                 <div className="evtList-wrapper">
                     {wholedayEvts && (
                         <CalDaySimpleEvtList
+                            seletedDate={date}
                             evts={wholedayEvts}
                             nbDisplayEvt={nbDisplayEvts}
                             updateSortedEvtsLength={updateNbEvts}

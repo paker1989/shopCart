@@ -1,51 +1,82 @@
-@import "../../../../assets/style/theme.scss";
-
+@import '../../../../assets/style/theme.scss';
 
 $delete-height: 40px;
+$action-field-height: 40px;
+$action-icon-basis: 40px;
 
 .calevt-ctxmenu {
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // right: 0;
-  // bottom: 0;
-  // z-index: 700;
-  // background: transparent;
-  // user-select: none;
 
-  .ctx-content {
-    position: fixed;
-    width: $calCtxMenuWidth;
-    background: white;
-    border-radius: 2px;
-    box-shadow: $calEvtCtxMenuShadow;
-    z-index: 700;
+    .ctx-content {
+        position: fixed;
+        width: $calCtxMenuWidth;
+        background: white;
+        border-radius: 2px;
+        box-shadow: $calEvtCtxMenuShadow;
+        z-index: 700;
+        color: $fontColor;
 
-    &.is-activity {
-      position: relative;
+        &.is-activity {
+            position: relative;
 
-      .delete-container {
-        display: flex;
-        align-items: center;
-        padding-left: 20px;
-        line-height: $delete-height;
-        border-bottom: 1px solid $appFrameBorderColor;
-        cursor: pointer;
-        transition: all 0.2s ease;
+            .delete-container {
+                display: flex;
+                align-items: center;
+                padding-left: 20px;
+                line-height: $delete-height;
+                border-bottom: 1px solid $appFrameBorderColor;
+                cursor: pointer;
+                transition: all 0.2s ease;
 
-        &:hover {
-          background: $hoverBgColor;
+                &:hover {
+                    background: $hoverBgColor;
+                }
+
+                .item-icon {
+                    margin-right: 25px;
+                }
+
+                .text-wrapper {
+                  font-size: 13px;
+                }
+            }
+
+            .color-picker {
+                position: relative;
+                padding: 10px 16px 3px 16px;
+            }
         }
 
-        .item-icon {
-          margin-right: 25px;
-        }
-      }
+        &.is-reminder {
+            display: flex;
+            flex-direction: column;
 
-      .color-picker {
-        position: relative;
-        padding: 10px 16px 3px 16px;
-      }
+            .action-field {
+                position: relative;
+                width: 100%;
+                height: $action-field-height;
+                display: flex;
+                transition: background .1s ease-in;
+
+                &:hover {
+                  cursor: pointer;
+                  background: $light-hoverBgColor;
+                }
+
+                .label-wrapper {
+                    height: $action-field-height;
+                    flex: 0 0 $action-icon-basis;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .text-wrapper {
+                    display: flex;
+                    align-items: center;
+                    line-height: $action-field-height;
+                    font-size: 13px;
+                }
+            }
+        }
     }
-  }
 }

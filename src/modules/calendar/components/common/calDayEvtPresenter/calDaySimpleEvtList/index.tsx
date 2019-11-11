@@ -15,26 +15,29 @@ import * as PopActionCreator from '../../../../store/action/popAction';
 import './calDaySimpleEvtList.scss';
 
 export interface ICalDaySimpleEvtListProps {
+    seletedDate: Date;
     evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     containerHeight?: number;
     nbDisplayEvt?: number;
     showNoEvtReminder?: boolean;
     updateSortedEvtsLength?: (nbSortedEvts: number) => void;
+    popAnchorId?: string; // indicate the pop id which contains current list; (pop case)
 }
 
 const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     const {
+        seletedDate,
         evts,
         containerHeight,
         nbDisplayEvt,
         showNoEvtReminder,
         updateSortedEvtsLength,
+        popAnchorId,
     } = props;
 
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
         ? useSortedEvtList(evts)
         : [];
-
     const [maxDisplay, setMaxDisplay] = useState(
         isNumber(nbDisplayEvt) ? nbDisplayEvt : -1
     );
@@ -42,11 +45,15 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
     const [nbMore, setNbMore] = useState(0);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const nbMoreRef = useRef(null);
-    const dispatch = useDispatch();
     const [showEvtView, setShowEvtView] = useState(false);
     const showViewPop = useSelector(
         (state: any) => state.popReducers.viewShowPop
     );
+    const [showDayPresenter, setShowDayPresenter] = useState(false);
+    const showDayPresenterPop = useSelector(
+        (state: any) => state.popReducers.dayPresenterShowPop
+    );
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let res;
@@ -86,6 +93,43 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
         }
     }, [showViewPop]);
 
+    useEffect(() => {
+        if (!showDayPresenterPop && showDayPresenter) {
+            setShowDayPresenter(false);
+        }
+    }, [showDayPresenterPop]);
+
+    const showMore = (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        evt.stopPropagation();
+        evt.nativeEvent.stopImmediatePropagation();
+
+        if (showDayPresenter) {
+            dispatch(
+                PopActionCreator.updateDayPresenterPopProps({
+                   dayPresenterShowPop: false,
+                   dayPresenterPopId: null
+                })
+            );
+            setShowDayPresenter(false);
+            return;
+        }
+
+        setShowDayPresenter(true);
+        calEventPresenterManager.setEvtTriggerNode(nbMoreRef.current);
+        dispatch(
+            PopActionCreator.updateDayPresenterPopProps({
+               dayPresenterShowPop: true,
+               dayPresenterPopId: calEventPresenterManager.getId(),
+               dayPresenterAsideCurshion: 10,
+               dayPresenterBottomCurshion: 10,
+               dayPresenterTopCurshion: 10,
+               dayPresenterPositionner: 'autoAside',
+               dayPresenterDate: seletedDate,
+            })
+        );
+
+    }
+
     const onSelectItem = (
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
         newIndex: number,
@@ -102,26 +146,26 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                 })
             );
             setShowEvtView(false);
-        } else {
-            if (!showEvtView) {
-                setShowEvtView(true);
-            }
-            setSelectedIndex(newIndex);
-
-            const selectedItem = sortedList[newIndex];
-            calEventPresenterManager.setEvtTriggerNode(refObj);
-            calEventPresenterManager.setSelectedItem(selectedItem);
-            dispatch(
-                PopActionCreator.updateViewPopProps({
-                    viewAsideCurshion: 10,
-                    viewTopCurshion: 10,
-                    viewBottomCurshion: 10,
-                    viewPopId: calEventPresenterManager.getId(),
-                    viewPositionner: 'autoAside',
-                    viewShowPop: true,
-                })
-            );
+            return;
         }
+
+        if (!showEvtView) {
+            setShowEvtView(true);
+        }
+        setSelectedIndex(newIndex);
+        const selectedItem = previewList[newIndex];
+        calEventPresenterManager.setEvtTriggerNode(refObj);
+        calEventPresenterManager.setSelectedItem(selectedItem);
+        dispatch(
+            PopActionCreator.updateViewPopProps({
+                viewAsideCurshion: 10,
+                viewTopCurshion: 10,
+                viewBottomCurshion: 10,
+                viewPopId: calEventPresenterManager.getId(),
+                viewPositionner: 'autoAside',
+                viewShowPop: true,
+            })
+        );
     };
 
     const nbMoreClass = cx({
@@ -157,13 +201,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                     onMouseDown={e => {
                         e.stopPropagation();
                     }}
-                    onClick={e => {
-                        onSelectItem(
-                            e,
-                            previewList.length,
-                            nbMoreRef ? nbMoreRef.current : null
-                        );
-                    }}
+                    onClick={showMore}
                 >
                     <FormattedMessage
                         id="cal.moreResults"

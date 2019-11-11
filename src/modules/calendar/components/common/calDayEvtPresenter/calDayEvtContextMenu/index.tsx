@@ -69,10 +69,18 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
                     style={{ ...position }}
                     ref={self}
                 >
-                    <div className="delete-container" onClick={() => {
-                        dispatch(EvtActionCreator.deleteEvt(ctxMenuEvtId, ctxMenuType));
-                        onVisibleChange && onVisibleChange(false);
-                    }}>
+                    <div
+                        className="delete-container"
+                        onClick={() => {
+                            dispatch(
+                                EvtActionCreator.deleteEvt(
+                                    ctxMenuEvtId,
+                                    ctxMenuType
+                                )
+                            );
+                            onVisibleChange && onVisibleChange(false);
+                        }}
+                    >
                         <div className="item-icon">
                             <span>
                                 <svg className="ali-icon" aria-hidden="true">
@@ -80,7 +88,7 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
                                 </svg>
                             </span>
                         </div>
-                        <span>
+                        <span className="text-wrapper">
                             <FormattedMessage id="cal.delete" />
                         </span>
                     </div>
@@ -99,7 +107,28 @@ const CalDayEvtContextMenu = (props: ICalDayEvtContextMenuProps) => {
                     className="ctx-content is-reminder"
                     style={{ ...position }}
                     ref={self}
-                ></div>
+                >
+                    <div className="action-field">
+                        <span className="label-wrapper">
+                            <svg className="ali-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-done"></use>
+                            </svg>
+                        </span>
+                        <span className="text-wrapper">
+                            <FormattedMessage id="cal.markasdone" />
+                        </span>
+                    </div>
+                    <div className="action-field">
+                        <span className="label-wrapper">
+                            <svg className="ali-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-shanchu"></use>
+                            </svg>
+                        </span>
+                        <span className="text-wrapper">
+                            <FormattedMessage id="cal.delete" />
+                        </span>
+                    </div>
+                </div>
             );
             break;
     }
