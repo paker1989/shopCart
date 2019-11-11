@@ -96,6 +96,7 @@ export namespace CalendarNS {
         onClose?: () => void;
         getDragNode?: (date: Date) => Promise<ISimuBoundingClientRect>;
         loadEvts?: any;
+        updatePosition?: () => void;
         // simpleEvts?: CalEvtDataNS.ICalEvtSimpleDataModel[];
     }
 

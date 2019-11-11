@@ -96,7 +96,7 @@ const ReminderViewDetail = (props: IReminderViewDetailProps) => {
                             <span className="text-label size-h3 height-h0 is-done">
                                 {reminder.title}
                             </span>
-                            <div className="done-actions">
+                            <div className="on-hover-actions">
                                 <span className="icon-label">
                                     <div className="icon-circle-wrapper">
                                         <svg

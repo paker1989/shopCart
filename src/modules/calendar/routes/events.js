@@ -108,14 +108,15 @@ const getWeekEvents = (req, res, next) => {
                         month = parseInt(dateKeyArray.slice(4, 6).join(''));
                         dayAt = parseInt(dateKeyArray.slice(6, 8).join(''));
                         return {
-                            'opts.time.from.year': year,
-                            'opts.time.from.month': month,
-                            'opts.time.from.dayAt': dayAt,
+                            'opts.time.year': year,
+                            'opts.time.month': month,
+                            'opts.time.dayAt': dayAt,
                         };
                     }),
                 ],
             }).select('-meta'),
         ]).then(([activities, reminders]) => {
+            console.log(reminders);
             const evts = activities.concat(reminders);
             res.status(200).send({ evts });
         });

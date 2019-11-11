@@ -30,7 +30,7 @@ const calDayEvtViewContent = (props: ICalDayEvtViewContentProps) => {
                 );
             } else {
                 Content = (
-                    <SortedRemindersViewDetail reminders={sortedReminder} />
+                    <SortedRemindersViewDetail sortedReminder={sortedReminder} />
                 );
             }
             break;

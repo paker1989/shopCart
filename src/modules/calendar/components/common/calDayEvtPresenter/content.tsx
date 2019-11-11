@@ -12,7 +12,7 @@ import { CalendarNS } from '../../../utils/types';
 import './dayEvtPresenter.scss';
 
 const Content = (props: CalendarNS.ICalEventPresenterProps) => {
-    const { showClose, date } = props;
+    const { showClose, date, updatePosition } = props;
     const dateKey = getYYYYMMDDDate(date);
     const evtData = useSelector(
         (state: any) => state.evtsReducers.cachedEvts[dateKey]
@@ -35,6 +35,11 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
             setCalEvts(evtData);
         }
     }, [evtData]);
+
+    useEffect(() => {
+        // console.log('content update position');
+        updatePosition && updatePosition();
+    }, [calEvts.length]);
 
     const renderClose = showClose && (
         <div className="dayEvent-presenter-content__close" onClick={onClose}>

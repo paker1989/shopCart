@@ -12,16 +12,17 @@ import {
     convertDBTimingToTimRange,
     isTimeRangeDoubled,
 } from '../../../../utils/timeRangeHelper';
+import { getIdFromSortedEvt } from '../../../../utils/eventUtils';
 
-import './calDaySimpleTimingActivityList.scss';
+import './calDaySimpleTimingEvtList.scss';
 
-export interface ICaldaySimpleTimingActivityListProps {
-    evts: CalEvtDataNS.ICalEvtCompleteActivityDataModel[];
+export interface ICaldaySimpleTimingEvtListProps {
+    evts: CalEvtDataNS.ICalEvtCompleteDataModelType[];
     minSplitterHeight: number;
 }
 
-const CalDaySimpleTimingActivityList = (
-    props: ICaldaySimpleTimingActivityListProps
+const CalDaySimpleTimingEvtList = (
+    props: ICaldaySimpleTimingEvtListProps
 ) => {
     const { evts, minSplitterHeight } = props;
     const sortedList: CalEvtDataNS.ICalEvtSortedItemType[] = evts
@@ -85,8 +86,7 @@ const CalDaySimpleTimingActivityList = (
     return (
         <div className="caldayEvt-timing-list">
             {sortedList.map((sortedEvt, index) => {
-                ownId = (sortedEvt as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
-                    ._id;
+                ownId = getIdFromSortedEvt(sortedEvt);
                 evtTimeRange = convertDBTimingToTimRange(
                     getDBTimingFromTimingItem(sortedEvt)
                 );
@@ -97,11 +97,7 @@ const CalDaySimpleTimingActivityList = (
                         );
                         return isTimeRangeDoubled(evtTimeRange, itemTimeRange);
                     })
-                    .map(
-                        item =>
-                            (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
-                                ._id
-                    );
+                    .map(item => getIdFromSortedEvt(item));
                 stIndex = stIdArray.length <= 1 ? -1 : stIdArray.indexOf(ownId);
 
                 return (
@@ -122,4 +118,4 @@ const CalDaySimpleTimingActivityList = (
     );
 };
 
-export default CalDaySimpleTimingActivityList;
+export default CalDaySimpleTimingEvtList;

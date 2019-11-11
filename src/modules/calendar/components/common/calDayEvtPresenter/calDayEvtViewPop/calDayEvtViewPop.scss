@@ -87,7 +87,7 @@ $footer-height: 45px;
                 flex-direction: row;
             }
 
-            .done-actions {
+            .on-hover-actions {
                 display: flex;
                 align-items: center;
                 flex: 1;
@@ -96,7 +96,7 @@ $footer-height: 45px;
                 transition: opacity 0.2s ease;
             }
 
-            &:hover .done-actions {
+            &:hover .on-hover-actions {
                 opacity: 1;
             }
         }

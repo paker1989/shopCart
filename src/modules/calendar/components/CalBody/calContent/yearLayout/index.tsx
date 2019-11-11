@@ -88,37 +88,6 @@ class YearLayout extends React.Component<IYearLayoutProps, IYearLayoutState> {
                 globalInitStatus: 'ready',
             });
         }
-
-        // if (prevProps.displayYear !== this.props.displayYear) {
-        //     this.props.updatePresenter(false, {});
-        // }
-        // comment it temporailly for calEvtDefinerPop case
-        // if (
-        //     prevProps.definerCalEvtSignal === true &&
-        //     this.props.definerCalEvtSignal === false
-        // ) {
-        //     this.props.updatePresenter(false, {});
-        //     CalEventDefiner.destroyDefiner(this.currentPopId);
-        // } else if (
-        //     prevProps.definerCalEvtSignal === false &&
-        //     this.props.definerCalEvtSignal === true
-        // ) {
-        //     CalEventDefiner.destroyDefiner(this.currentPopId);
-        //     const dateToUse =
-        //         new Date().getFullYear() === this.props.displayYear
-        //             ? new Date()
-        //             : getFirstDayOfMonth(this.props.displayYear, 1);
-        //     const timeRange: CalendarNS.ITimeRangeFormat = getDateRange(
-        //         dateToUse,
-        //         dateToUse
-        //     );
-        //     this.props.updatePresenter(true, {
-        //         timeRange,
-        //         positionner: Position.autoCentral,
-        //         dragPopNode: null,
-        //         bottomCurshion: 50,
-        //     });
-        // }
     }
 
     handleDateClick = (

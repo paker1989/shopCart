@@ -25,8 +25,8 @@
 -   cross day event handle;
 -   add `isDone` mark on `reminder`, 目前`viewReminderPop`只有`_test_is_done`
 
-_done_
 
+_done_
 13. fix 所有关于 edit 的 bug，使之 ready to be saved;
 14. db 模型的设计; implementation: create, delete (4)
 
@@ -38,3 +38,5 @@ _done_
 15. 禁止 scroll 和 resize;
 -   EvtsActionType._SAVE_EVT_SUCCESS: 只支持新元素，不支持 update
 -   `caldefinerpop`和`ctxMenu`都需要加上 clickOnOutSide 自我关闭的功能;
+-   `yearlayout`底部的event显示为什么有问题
+- `2 rappels`在`weeklayout`不显示;

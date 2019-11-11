@@ -14,7 +14,7 @@ import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
 import SingleHourGrid from '../singleHourGrid';
 import CalNowTimeline from '../../../../common/calNowTimeline';
-import CalDaySimpleTimingActivityList from '../../../../common/calDayEvtPresenter/calDaySimpleTimingActivityList';
+import CalDaySimpleTimingEvtList from '../../../../common/calDayEvtPresenter/calDaySimpleTimingEvtList';
 import { CalendarRedux } from '../../../../../utils/reduxTypes';
 import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
@@ -234,10 +234,8 @@ class SingleDayColumn extends React.Component<
             draggingTimeRange
         );
         const HourGrids = this.getHourGrids(value);
-        // do not display timing reminder
-        const timingEvts = evts
-            ? evts.filter(evt => !evt.allDayEvt && evt.type === 'activity')
-            : null;
+        // do not display allday evts
+        const timingEvts = evts ? evts.filter(evt => !evt.allDayEvt) : null;
 
         const displayNowTimeline = isSameDay(value, new Date());
         return (
@@ -258,7 +256,7 @@ class SingleDayColumn extends React.Component<
                     />
                 )}
                 {timingEvts && (
-                    <CalDaySimpleTimingActivityList
+                    <CalDaySimpleTimingEvtList
                         evts={timingEvts}
                         minSplitterHeight={minSplitterHeight}
                     />

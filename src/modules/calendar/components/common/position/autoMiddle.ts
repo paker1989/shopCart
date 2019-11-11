@@ -9,6 +9,7 @@ export default (
     ref: ClientRect | DOMRect,
     options?: CalendarNS.ICalPopoverPositionProps
 ) => {
+    debugger;
     const { bottomCurshion, topCurshion } = options;
     const viewportSize = getViewportSize();
 

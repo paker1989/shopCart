@@ -19,3 +19,14 @@ export function getEvtCxtMenuProps(
         };
     }
 }
+
+export function getIdFromSortedEvt(
+    evt: CalEvtDataNS.ICalEvtSortedItemType
+): any {
+    if ((evt as CalEvtDataNS.ICalEvtSortedReminderDataModel).reminders) {
+        return (evt as CalEvtDataNS.ICalEvtSortedReminderDataModel).reminders[0]
+            ._id;
+    } else {
+        return (evt as CalEvtDataNS.ICalEvtCompleteActivityDataModel)._id;
+    }
+}
