@@ -7,12 +7,18 @@ import CalDaySimpleEvtList from './calDaySimpleEvtList';
 import { DayConverter } from '../../../../../_packages_/utils/i18nHelper';
 import * as EvtsActionCreator from '../../../store/action/evtsAction';
 import { getYYYYMMDDDate } from '../../../utils/timeUtils';
-import { CalendarNS } from '../../../utils/types';
 
 import './dayEvtPresenter.scss';
 
-const Content = (props: CalendarNS.ICalEventPresenterProps) => {
-    const { showClose, date, updatePosition } = props;
+export interface ICalEventPresenterContentProps {
+    onClose?: () => void;
+    showClose: boolean;
+    date?: Date;
+    updatePosition?: () => void;
+    popId: string;
+}
+const Content = (props: ICalEventPresenterContentProps) => {
+    const { onClose, showClose, date, updatePosition, popId } = props;
     const dateKey = getYYYYMMDDDate(date);
     const evtData = useSelector(
         (state: any) => state.evtsReducers.cachedEvts[dateKey]
@@ -20,10 +26,6 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
     const dispatch = useDispatch();
     const [calEvts, setCalEvts] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const onClose = () => {
-        props.onClose();
-    };
 
     //load evts when it is undefined
     useEffect(() => {
@@ -76,7 +78,8 @@ const Content = (props: CalendarNS.ICalEventPresenterProps) => {
                         loadingContent
                     ) : (
                         <CalDaySimpleEvtList
-                           seletedDate={date}
+                            popAnchorId={popId}
+                            seletedDate={date}
                             evts={calEvts}
                             showNoEvtReminder={true}
                         />

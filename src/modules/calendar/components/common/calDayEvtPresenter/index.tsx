@@ -18,19 +18,19 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
     };
 
     constructor(props) {
-      super(props);
-      this.self = React.createRef();
+        super(props);
+        this.self = React.createRef();
     }
 
     updatePosition = () => {
-      if (!this.self || !this.self.current) {
-          return;
-      }
-      this.self.current.style.height = '';
-      setTimeout(() => {
-          this.adjustPosition();
-      }, 0);
-    }
+        if (!this.self || !this.self.current) {
+            return;
+        }
+        this.self.current.style.height = '';
+        setTimeout(() => {
+            this.adjustPosition();
+        }, 0);
+    };
 
     render() {
         const { containerNode, zIndex, id, ...otherProps } = this.props;
@@ -47,7 +47,11 @@ class DayEvtPresenter extends CalPopover<CalendarNS.ICalEventPresenterProps> {
                 id={id}
                 ref={this.self}
             >
-                <DayEvtPresenterContent {...otherProps} updatePosition={this.updatePosition}/>
+                <DayEvtPresenterContent
+                    popId={id}
+                    updatePosition={this.updatePosition}
+                    {...otherProps}
+                />
                 <WindowResizeHandler onResize={this.onWindowResize} />
                 <WindowEventHandler
                     eventName="scroll"

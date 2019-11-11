@@ -31,6 +31,7 @@ export interface CalDaySimpleEvtItemProps {
     minSplitterHeight?: number; // timing type only
     stIndex?: number; // same timing index: timing type only
     stArrayLenth?: number;
+    referredPopId?: string;
 }
 
 const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
@@ -43,6 +44,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
         minSplitterHeight,
         stIndex,
         stArrayLenth,
+        referredPopId,
     } = props;
     const [layoutStyle, setLayoutStyle] = useState({});
     const dispatch = useDispatch();
@@ -95,6 +97,7 @@ const CalDaySimpleEvtItem = (props: CalDaySimpleEvtItemProps) => {
                     ctxMenuX: e.clientX,
                     ctxMenuY: e.clientY,
                     ctxColor: color,
+                    ctxReferredPopId: referredPopId,
                 })
             );
         }

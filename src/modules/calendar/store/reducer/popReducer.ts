@@ -17,12 +17,14 @@ const initialState: CalendarRedux.TPopReducerStatsType = {
     ctxMenuEvtId: null,
     ctxMenuVisible: false,
     ctxColor: null,
+    ctxReferredPopId: null,
     viewShowPop: false,
     viewPositionner: null,
     viewTopCurshion: 0,
     viewBottomCurshion: 0,
     viewAsideCurshion: 0,
     viewPopId: null,
+    viewReferredPopId: null,
     dayPresenterShowPop: false,
     dayPresenterDate: null,
     dayPresenterPositionner: null,
@@ -57,7 +59,14 @@ export default function(
             if (action.payload.ctxMenuVisible) {
                 defShowPop = false;
                 viewShowPop = false;
-                dayPresenterShowPop = false;
+                if (
+                    state.dayPresenterShowPop &&
+                    action.payload.ctxReferredPopId !== state.dayPresenterPopId
+                ) {
+                    dayPresenterShowPop = false;
+                } else {
+                    dayPresenterShowPop = state.dayPresenterShowPop;
+                }
                 return {
                     ...state,
                     ...action.payload,
@@ -73,7 +82,14 @@ export default function(
             if (action.payload.viewShowPop) {
                 ctxMenuVisible = false;
                 defShowPop = false;
-                dayPresenterShowPop = false;
+                if (
+                    state.dayPresenterShowPop &&
+                    action.payload.viewReferredPopId !== state.dayPresenterPopId
+                ) {
+                    dayPresenterShowPop = false;
+                } else {
+                    dayPresenterShowPop = state.dayPresenterShowPop;
+                }
                 return {
                     ...state,
                     ...action.payload,

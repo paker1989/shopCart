@@ -106,8 +106,8 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
         if (showDayPresenter) {
             dispatch(
                 PopActionCreator.updateDayPresenterPopProps({
-                   dayPresenterShowPop: false,
-                   dayPresenterPopId: null
+                    dayPresenterShowPop: false,
+                    dayPresenterPopId: null,
                 })
             );
             setShowDayPresenter(false);
@@ -118,17 +118,16 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
         calEventPresenterManager.setEvtTriggerNode(nbMoreRef.current);
         dispatch(
             PopActionCreator.updateDayPresenterPopProps({
-               dayPresenterShowPop: true,
-               dayPresenterPopId: calEventPresenterManager.getId(),
-               dayPresenterAsideCurshion: 10,
-               dayPresenterBottomCurshion: 10,
-               dayPresenterTopCurshion: 10,
-               dayPresenterPositionner: 'autoAside',
-               dayPresenterDate: seletedDate,
+                dayPresenterShowPop: true,
+                dayPresenterPopId: calEventPresenterManager.getId(),
+                dayPresenterAsideCurshion: 10,
+                dayPresenterBottomCurshion: 10,
+                dayPresenterTopCurshion: 10,
+                dayPresenterPositionner: 'autoAside',
+                dayPresenterDate: seletedDate,
             })
         );
-
-    }
+    };
 
     const onSelectItem = (
         evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -164,6 +163,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                 viewPopId: calEventPresenterManager.getId(),
                 viewPositionner: 'autoAside',
                 viewShowPop: true,
+                viewReferredPopId: popAnchorId,
             })
         );
     };
@@ -190,6 +190,7 @@ const CalDaySimpleEvtList = (props: ICalDaySimpleEvtListProps) => {
                             item={item}
                             key={index}
                             index={index}
+                            referredPopId={popAnchorId}
                         />
                     ))}
                 </div>

@@ -32,6 +32,7 @@ export namespace CalendarRedux {
         ctxMenuEvtId?: any;
         ctxMenuVisible?: boolean;
         ctxColor?: string;
+        ctxReferredPopId?: string;
     }
 
     export interface IViewPropStats {
@@ -41,6 +42,7 @@ export namespace CalendarRedux {
         viewBottomCurshion?: number;
         viewAsideCurshion?: number;
         viewPopId?: string;
+        viewReferredPopId?: string;
     }
 
     export interface IDayPresenterPropStats {
