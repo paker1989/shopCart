@@ -4,7 +4,6 @@
     - no more event panel;
     - timing display;
     - actions such as `delete`, `close` support for `calViewEventDetailPanel` & `ctxMenuPop`;
-27. - 定义事件的时候不能cross defined event; (come from user feedback);
 28. - `timingPicker` (come from user feedback);
 26. support photo add;
 16. Notify -> 撤销删除和添加 (3)
@@ -17,6 +16,7 @@
 22. implement display weekend flag; (2)
 24. toggle shelf,
 25. refine UI
+29. support mark as done;
 
 ## bug
 - `dayPresenter`选择事件的时候没有style了; （style of being selected）
@@ -51,3 +51,4 @@ _done_
 - multiple reminders panel; --> done;
 - 目前day reminder自动隐藏，其实还是需要显示的;
 - single reminder panel;
+27. - 定义事件的时候不能cross defined event; (come from user feedback);

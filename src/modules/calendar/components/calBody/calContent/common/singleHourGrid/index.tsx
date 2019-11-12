@@ -7,6 +7,7 @@ import calConfig from '../../../../../assets/scripts/calendar.config';
 import './singleHourGrid.scss';
 
 export interface ISingleHourGridProps {
+    onDragging?: boolean;
     dayAt: Date;
     hourAt: number; // from 1 to 24;
     onMouseEventChange?: CalendarNS.FnOnMinuteSplitter;
@@ -14,7 +15,10 @@ export interface ISingleHourGridProps {
 
 class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
     gridRef: React.RefObject<HTMLDivElement>;
-    // mouseDownTimer: any;
+
+    static defaultProps = {
+        onDragging: false,
+    };
 
     constructor(props) {
         super(props);
@@ -34,7 +38,7 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
     };
 
     render() {
-        const { hourAt } = this.props;
+        const { hourAt, onDragging } = this.props;
         const { hourSplitter } = calConfig;
 
         const wrapperClass = cx({
@@ -50,6 +54,7 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
                         this.handleMinSplitterEvent(evt, i, 'mousedown');
                     }}
                     onMouseEnter={(evt: React.MouseEvent<HTMLDivElement>) => {
+                        // console.log('mouse-enter');
                         this.handleMinSplitterEvent(evt, i, 'mouseenter');
                     }}
                     onMouseUp={(evt: React.MouseEvent<HTMLDivElement>) => {
@@ -61,7 +66,12 @@ class SingleHourGrid extends React.Component<ISingleHourGridProps, any> {
                     style={{ height: `${100 / hourSplitter}%` }}
                     key={`minSplitter-${i}`}
                     className="calbody-content-singleHourGrid-container__minSplitter"
-                />
+                >
+                    <div
+                        className="overlay"
+                        style={{ zIndex: onDragging ? 999 : 0 }}
+                    ></div>
+                </div>
             );
         }
 

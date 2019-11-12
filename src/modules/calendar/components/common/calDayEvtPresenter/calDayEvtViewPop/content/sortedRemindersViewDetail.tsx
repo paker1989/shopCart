@@ -1,18 +1,25 @@
 import * as React from 'react';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 import { FormattedMessage } from 'react-intl';
+import { CalendarNS } from '../../../../../utils/types';
 
-export interface ISortedRemindersViewDetailProps {
+export interface ISortedRemindersViewDetailProps
+    extends CalendarNS.ICalDayViewContentCommonProps {
     sortedReminder: CalEvtDataNS.ICalEvtSortedReminderDataModel;
 }
 
 const SortedRemindersViewDetail = (props: ISortedRemindersViewDetailProps) => {
-    const { sortedReminder } = props;
+    const { sortedReminder, onClose } = props;
     return (
         <React.Fragment>
             <div className="action-container">
                 <span className="icon-label">
-                    <div className="icon-circle-wrapper">
+                    <div
+                        className="icon-circle-wrapper"
+                        onClick={() => {
+                            onClose && onClose();
+                        }}
+                    >
                         <svg className="ali-icon" aria-hidden="true">
                             <use xlinkHref="#icon-close"></use>
                         </svg>

@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
+import { CalendarNS } from '../../../../../utils/types';
 
-export interface IReminderViewDetailProps {
+export interface IReminderViewDetailProps
+    extends CalendarNS.ICalDayViewContentCommonProps {
     reminder: CalEvtDataNS.ICalEvtCompleteReminderDataModel;
 }
 
 const _test_done_flag = true;
 
 const ReminderViewDetail = (props: IReminderViewDetailProps) => {
-    const { reminder } = props;
+    const { reminder, onClose, onDelete } = props;
     return (
         <React.Fragment>
             <div className="action-container">
@@ -33,7 +35,12 @@ const ReminderViewDetail = (props: IReminderViewDetailProps) => {
                         </span>
                     )}
                     <span className="icon-label">
-                        <div className="icon-circle-wrapper">
+                        <div
+                            className="icon-circle-wrapper"
+                            onClick={() => {
+                                onClose && onClose();
+                            }}
+                        >
                             <svg className="ali-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-close"></use>
                             </svg>

@@ -14,25 +14,29 @@ export interface ICalDayEvtViewContentProps
 }
 
 const calDayEvtViewContent = (props: ICalDayEvtViewContentProps) => {
-    const { item } = props;
+    const { item, ...otherProps } = props;
 
     let Content;
     switch (item.type) {
         case 'activity':
             const activity = item as CalEvtDataNS.ICalEvtCompleteActivityDataModel;
-            Content = <ActivityViewDetail activity={activity} />;
+            Content = (
+                <ActivityViewDetail activity={activity} {...otherProps} />
+            );
             break;
         case 'reminder':
             const sortedReminder = item as CalEvtDataNS.ICalEvtSortedReminderDataModel;
             if (sortedReminder.reminders.length === 1) {
                 Content = (
                     <ReminderViewDetail
+                        {...otherProps}
                         reminder={sortedReminder.reminders[0]}
                     />
                 );
             } else {
                 Content = (
                     <SortedRemindersViewDetail
+                        {...otherProps}
                         sortedReminder={sortedReminder}
                     />
                 );

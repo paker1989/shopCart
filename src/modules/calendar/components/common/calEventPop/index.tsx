@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 import assign from 'lodash/assign';
 
+import { getDragPopZIndex } from '../../../utils/calZIndexManager';
+
 import { CalendarNS } from '../../../utils/types';
 
 import './calEventPop.scss';
@@ -53,6 +55,7 @@ export default class CalendarEventPop extends React.Component<
         const defaultModalStyle: React.CSSProperties = {
             position: 'absolute',
             background: _test_bg_color,
+            zIndex: getDragPopZIndex(),
         };
 
         const wrapperStyle = popStyle

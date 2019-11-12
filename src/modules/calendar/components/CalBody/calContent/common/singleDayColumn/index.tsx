@@ -20,6 +20,7 @@ import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 
 import './singleDayColumn.scss';
+import { cps } from 'redux-saga/effects';
 
 const _test_nb_cases = 24;
 
@@ -203,11 +204,13 @@ class SingleDayColumn extends React.Component<
     };
 
     getHourGrids = (value: Date) => {
+        const { dragStatus } = this.state;
         const hourGrids = [];
         for (let i = 0; i < _test_nb_cases; i++) {
             hourGrids.push(
                 <li key={`key${i}`}>
                     <SingleHourGrid
+                        onDragging={dragStatus === 'dragging'}
                         dayAt={value}
                         hourAt={i}
                         onMouseEventChange={this.onMouseEventChange}

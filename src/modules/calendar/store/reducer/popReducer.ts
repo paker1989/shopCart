@@ -38,7 +38,12 @@ export default function(
     state = initialState,
     action: CalendarRedux.IReduxAction
 ) {
-    let defShowPop, viewShowPop, ctxMenuVisible, dayPresenterShowPop;
+    let defShowPop,
+        viewShowPop,
+        ctxMenuVisible,
+        dayPresenterShowPop,
+        viewReferredPopId,
+        ctxReferredPopId;
     switch (action.type) {
         case PopActionType.UPDATE_DEF_DATA:
             if (action.payload.defShowPop) {
@@ -101,20 +106,53 @@ export default function(
                 return { ...state, ...action.payload };
             }
         case PopActionType.UPDATE_DAY_PRESENTER_PROPS:
-            if (action.payload.dayPresenterShowPop) {
-                ctxMenuVisible = false;
-                defShowPop = false;
-                viewShowPop = false;
+            if (action.payload.dayPresenterShowPop == false) {
+                if (
+                    state.viewShowPop &&
+                    state.viewReferredPopId === state.dayPresenterPopId
+                ) {
+                    viewShowPop = false;
+                    viewReferredPopId = null;
+                } else {
+                    viewShowPop = state.viewShowPop;
+                    viewReferredPopId = state.viewReferredPopId;
+                }
+                if (
+                    state.ctxMenuVisible &&
+                    state.ctxReferredPopId === state.dayPresenterPopId
+                ) {
+                    ctxMenuVisible = false;
+                    ctxReferredPopId = null;
+                } else {
+                    ctxMenuVisible = state.ctxMenuVisible;
+                    ctxReferredPopId = state.ctxReferredPopId;
+                }
+
                 return {
                     ...state,
                     ...action.payload,
-                    ctxMenuVisible,
-                    defShowPop,
                     viewShowPop,
+                    viewReferredPopId,
+                    ctxMenuVisible,
+                    ctxReferredPopId,
                 };
             } else {
-                return { ...state, ...action.payload };
+                if (action.payload.dayPresenterShowPop) {
+                    ctxMenuVisible = false;
+                    defShowPop = false;
+                    viewShowPop = false;
+                    return {
+                        ...state,
+                        ...action.payload,
+                        ctxMenuVisible,
+                        defShowPop,
+                        viewShowPop,
+                    };
+                } else {
+                    return { ...state, ...action.payload };
+                }
             }
+
         default:
             return state;
     }
