@@ -5,6 +5,7 @@ import CalPopover from '../../calPopover';
 import { CalendarNS } from '../../../../utils/types';
 import CalDaycalDayEvtViewContent from './content';
 import * as PopActionCreator from '../../../../store/action/popAction';
+import * as EvtActionCreator from '../../../../store/action/evtsAction';
 import WindowFrozener from '../../windowFrozener';
 import ClickOutSider from '../../clickOutSider';
 import { connect } from 'react-redux';
@@ -17,11 +18,14 @@ import './calDayEvtViewPop.scss';
 export interface CalDayEvtViewPopProps
     extends CalendarNS.ICalPopoverCommonProps {
     updateViewProps?: (viewProps: CalendarRedux.IViewPropStats) => void;
+    deleteEvt?:  (id: any, type: string) => void;
 }
 
 const mapDispatchToProps = dispatch => ({
     updateViewProps: (viewProps: CalendarRedux.IViewPropStats) =>
         dispatch(PopActionCreator.updateViewPopProps(viewProps)),
+    deleteEvt: (id: any, type: string) =>
+        dispatch(EvtActionCreator.deleteEvt(id, type)),
 });
 
 class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
@@ -52,8 +56,22 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
         }, 0);
     }, 500);
 
+    onClose = () => {
+        this.props.updateViewProps({
+            viewShowPop: false,
+            viewPopId: null,
+        });
+    };
+
+    onDelete = () => {
+        const item = calEventPresenterManager.getSelectedItem();
+        
+        this.props.deleteEvt(item, item.type);
+        this.onClose();
+    }
+
     render() {
-        const { zIndex, id, updateViewProps } = this.props;
+        const { zIndex, id } = this.props;
         const { style } = this.state;
         const item = calEventPresenterManager.getSelectedItem();
 
@@ -68,7 +86,8 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
                 id={id}
                 ref={this.self}
             >
-                <CalDaycalDayEvtViewContent item={item} />
+
+                <CalDaycalDayEvtViewContent item={item} onClose={this.onClose}/>
                 <WindowFrozener
                     getContainer={this.getContainer}
                     allowScroll={true}
@@ -76,12 +95,7 @@ class CalDayEvtViewPop extends CalPopover<CalDayEvtViewPopProps> {
                 <WindowResizeHandler onResize={this.onResize} />
                 <ClickOutSider
                     getContainer={this.getContainer}
-                    cb={() => {
-                        updateViewProps({
-                            viewShowPop: false,
-                            viewPopId: null,
-                        });
-                    }}
+                    cb={this.onClose}
                 />
             </div>
         );

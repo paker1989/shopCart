@@ -4,10 +4,12 @@ import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 import ActivityViewDetail from './activityViewDetail';
 import ReminderViewDetail from './reminderViewDetail';
 import SortedRemindersViewDetail from './sortedRemindersViewDetail';
+import { CalendarNS } from '../../../../../utils/types';
 
 import '../calDayEvtViewPop.scss';
 
-export interface ICalDayEvtViewContentProps {
+export interface ICalDayEvtViewContentProps
+    extends CalendarNS.ICalDayViewContentCommonProps {
     item: CalEvtDataNS.ICalEvtSortedItemType;
 }
 
@@ -30,7 +32,9 @@ const calDayEvtViewContent = (props: ICalDayEvtViewContentProps) => {
                 );
             } else {
                 Content = (
-                    <SortedRemindersViewDetail sortedReminder={sortedReminder} />
+                    <SortedRemindersViewDetail
+                        sortedReminder={sortedReminder}
+                    />
                 );
             }
             break;

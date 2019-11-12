@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
+import { CalendarNS } from '../../../../../utils/types';
 
-export interface IActivityViewDetailProps {
+export interface IActivityViewDetailProps
+    extends CalendarNS.ICalDayViewContentCommonProps {
     activity: CalEvtDataNS.ICalEvtCompleteActivityDataModel;
 }
 
 const ActivityViewDetail = (props: IActivityViewDetailProps) => {
-    const { activity } = props;
+    const { activity, onClose, onDelete } = props;
+    console.log(activity);
 
     return (
         <React.Fragment>
@@ -34,7 +37,12 @@ const ActivityViewDetail = (props: IActivityViewDetailProps) => {
                         </div>
                     </span>
                     <span className="icon-label">
-                        <div className="icon-circle-wrapper">
+                        <div
+                            className="icon-circle-wrapper"
+                            onClick={() => {
+                                onClose && onClose();
+                            }}
+                        >
                             <svg className="ali-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-close"></use>
                             </svg>

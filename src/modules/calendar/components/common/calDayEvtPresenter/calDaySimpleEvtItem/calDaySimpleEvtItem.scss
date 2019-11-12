@@ -71,6 +71,7 @@ $timingStyleLineheight: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
   overflow-x: hidden;
+  overflow-y: hidden;
 
   &.is-allday {
     color: #fff;

@@ -133,6 +133,12 @@ export namespace CalendarNS {
         definerPopId: string;
     }
 
+    export interface ICalDayViewContentCommonProps {
+        onClose?: (...args) => void;
+        onEdit?: (...args) => void;
+        onDelete?: (...args) => void;
+    }
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';
