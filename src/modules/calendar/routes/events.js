@@ -116,7 +116,6 @@ const getWeekEvents = (req, res, next) => {
                 ],
             }).select('-meta'),
         ]).then(([activities, reminders]) => {
-            console.log(reminders);
             const evts = activities.concat(reminders);
             res.status(200).send({ evts });
         });

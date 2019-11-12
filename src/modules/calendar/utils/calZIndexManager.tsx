@@ -1,6 +1,6 @@
 const __timingActivityZIndex__ = 501;
 
-const _zIndex_drag_pop = 400;
+const _zIndex_drag_pop = 550;
 
 const __zIndex_Popup__ = 600;
 
