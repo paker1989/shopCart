@@ -1,30 +1,68 @@
-@import '../../../../../assets/style/theme.scss';
+@import "../../../../../assets/style/theme.scss";
+
+$datePicker-input-length: 100px;
 
 .timeRange-diplayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: $fontColor;
+  font-size: $fontSizeBasic;
+
+  &-body {
     position: relative;
     width: 100%;
     height: 100%;
-    color: $fontColor;
-    font-size: $fontSizeBasic;
+    display: flex;
+    align-items: center;
+  }
 
-    &-body {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
+  &-part {
+    &:first-child {
+      padding-left: $calEventDefinerOptionMainLeftPadding;
+      padding-right: 6px;
+    }
+    &:last-child {
+      padding-left: 6px;
+    }
+    & > span:first-child {
+      padding-right: 10px;
+    }
+  }
+
+  .cal-datepicker-container {
+    position: relative;
+    display: inline-block;
+    height: $calEventDefinerOptionHeight;
+
+    .trigger-wrapper {
+      height: $calEventDefinerOptionHeight;
     }
 
-    &-part {
-        &:first-child {
-            padding-left: $calEventDefinerOptionMainLeftPadding;
-            padding-right: 6px;
-        }
-        &:last-child {
-            padding-left: 6px;
-        }
-        & > span:first-child {
-            padding-right: 10px;
-        }
+    & .puretext-input {
+      width: $datePicker-input-length;
     }
+  }
+
+  .puretext-input {
+    border-radius: 3px;
+    &.is-focus {
+      background: $weekLineBgColor;
+    }
+    & input {
+      font-size: $fontSizeBasic;
+      padding-left: $calEventDefinerOptionMainLeftPadding;
+    }
+
+    & .grey-border {
+      display: none;
+    }
+  }
+}
+
+.datepicker-content-wrapper {
+  background: #fff;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px;
+  padding: 5px 10px 0 10px;
 }

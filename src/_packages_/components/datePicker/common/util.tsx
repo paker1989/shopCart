@@ -258,7 +258,7 @@ export function getFormattedDate(date: Date, format = 'default'): any {
                 <FormattedDate
                     value={date}
                     year="numeric"
-                    month="long"
+                    month="short"
                     day="2-digit"
                 />
             );
