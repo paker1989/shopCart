@@ -48,3 +48,5 @@ export const getInitReminderModel = (
         color: CalConfig.colors.reminderColor,
     };
 };
+
+export const getTimeRangeConstants()
