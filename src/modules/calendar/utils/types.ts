@@ -139,6 +139,11 @@ export namespace CalendarNS {
         onDelete?: (...args) => void;
     }
 
+    export interface ITimingOptionProps {
+        date: Date;
+        offset: string | number;
+    }
+
     export type TTimingDisplayPattern = '12h' | '24h';
 
     export type TLocales = 'en' | 'fr' | 'zh';

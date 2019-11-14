@@ -28,11 +28,7 @@ $optionsWidth: 170px;
     background: #fff;
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
 
-    & .item-title {
-      line-height: 38px;
-    }
-
-    & .item-wrapper {
+    .item-wrapper {
       color: $fontColor;
       display: flex;
       align-items: center;
@@ -47,14 +43,18 @@ $optionsWidth: 170px;
       &:not(.is-disabled):active {
         background: $activeBgColor;
       }
-    }
 
-    &-options {
-      width: $optionsWidth;
-
-      & .item-wrapper {
-        justify-content: space-between;
+      .item-title {
+        line-height: 38px;
       }
     }
+
+    // &-options {
+    //   width: $optionsWidth;
+
+    //   & .item-wrapper {
+    //     justify-content: space-between;
+    //   }
+    // }
   }
 }

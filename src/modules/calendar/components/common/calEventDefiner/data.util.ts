@@ -1,6 +1,10 @@
+import { IntlShape } from 'react-intl';
 import { CalEvtDataNS } from '../../../utils/evtTypes';
 import { CalendarNS } from '../../../utils/types';
-import { convertTimeFormatToDate } from '../../../utils/timeRangeHelper';
+import {
+    convertTimeFormatToDate,
+    convertMinAddToDate,
+} from '../../../utils/timeRangeHelper';
 import CalConfig from '../../../assets/scripts/calendar.config';
 
 export const getInitActivityModel = (
@@ -49,4 +53,19 @@ export const getInitReminderModel = (
     };
 };
 
-export const getTimeRangeConstants()
+export const getTimePickerItems = (
+    initTiming: CalendarNS.ITimingFormat
+): CalendarNS.ITimingOptionProps[] => {
+    console.log('calculating getTimePickerItems');
+    const { hourSplitter, nbTimingPickerOptions } = CalConfig;
+    const minAddUnit = Math.round(60 / hourSplitter);
+    const datesForTiming = [];
+    const initDate = convertTimeFormatToDate(initTiming);
+    for (let i = 0; i < nbTimingPickerOptions; i++) {
+        datesForTiming.push({
+            date: convertMinAddToDate(initDate, minAddUnit * i),
+            offset: minAddUnit * i,
+        });
+    }
+    return datesForTiming;
+};

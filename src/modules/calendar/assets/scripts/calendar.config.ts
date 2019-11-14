@@ -1,5 +1,6 @@
 export default {
     hourSplitter: 2, // devide n times of 1 hour
+    nbTimingPickerOptions: 18,
     calEventDefinerIdPrefix: 'cal-event-definer',
     calEventPresenterIdPrefix: 'cal-event-presenter',
     defaultLocale: 'en',

@@ -15,14 +15,14 @@ export interface ICalDatePickerProps {
 const CalDatePicker = (props: ICalDatePickerProps) => {
     const { value, showValue } = props;
     const [visible, setVisible] = useState(false);
-
+    
     const onVisibleChange = (visible: boolean) => {
         setVisible(visible);
     };
 
     return (
         <Popover
-            wrapperClassName="cal-datepicker-container"
+            wrapperClassName="cal-time-container is-datePicker"
             position={Popover.Placement.autoBottomLeft}
             verCushion={5}
             isVisible={visible}

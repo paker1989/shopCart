@@ -29,6 +29,7 @@
 -   edit event 更改 type 的时候需要特殊处理: 删除 original type then insert into another;
 -   cross day event handle;
 -   add `isDone` mark on `reminder`, 目前`viewReminderPop`只有`_test_is_done`
+-   `calEventDefinerPop`里`input`的`width`问题。
 
 ## user feedback
 

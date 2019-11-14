@@ -54,19 +54,23 @@ export function convertMinAddToTiming(
     dayAt: Date,
     addedMin: number
 ): CalendarNS.ITimingFormat {
-    const addedDate = new Date(
-        dayAt.getFullYear(),
-        dayAt.getMonth(),
-        dayAt.getDate(),
-        dayAt.getHours(),
-        dayAt.getMinutes() + addedMin
-    );
+    const addedDate = convertMinAddToDate(dayAt, addedMin);
 
     return {
         dayAt: addedDate,
         hourAt: addedDate.getHours(),
         minAt: addedDate.getMinutes(),
     };
+}
+
+export function convertMinAddToDate(dayAt: Date, addedMin: number): Date {
+    return new Date(
+        dayAt.getFullYear(),
+        dayAt.getMonth(),
+        dayAt.getDate(),
+        dayAt.getHours(),
+        dayAt.getMinutes() + addedMin
+    );
 }
 
 /**

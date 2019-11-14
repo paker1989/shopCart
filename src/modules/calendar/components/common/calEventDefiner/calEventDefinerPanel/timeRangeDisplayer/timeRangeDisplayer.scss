@@ -1,6 +1,12 @@
 @import "../../../../../assets/style/theme.scss";
+@import "../../../../../assets/style/mixin.scss";
 
-$datePicker-input-length: 100px;
+$datePicker-input-length: 110px;
+$timingPicker-input-length: 70px;
+
+$timing-wrapper-width: 180px;
+$timing-wrapper-height: 200px;
+$timing-item-padding: 0 14px;
 
 .timeRange-diplayer {
   position: relative;
@@ -30,7 +36,7 @@ $datePicker-input-length: 100px;
     }
   }
 
-  .cal-datepicker-container {
+  .cal-time-container {
     position: relative;
     display: inline-block;
     height: $calEventDefinerOptionHeight;
@@ -39,8 +45,16 @@ $datePicker-input-length: 100px;
       height: $calEventDefinerOptionHeight;
     }
 
-    & .puretext-input {
-      width: $datePicker-input-length;
+    &.is-datePicker {
+      .puretext-input {
+        width: $datePicker-input-length;
+      }
+    }
+
+    &.is-timePicker {
+      .puretext-input {
+        width: $timingPicker-input-length;
+      }
     }
   }
 
@@ -48,10 +62,12 @@ $datePicker-input-length: 100px;
     border-radius: 3px;
     &.is-focus {
       background: $weekLineBgColor;
+      // width: auto;
     }
     & input {
       font-size: $fontSizeBasic;
-      padding-left: $calEventDefinerOptionMainLeftPadding;
+      padding-left: 5px;
+      // padding-left: 0;
     }
 
     & .grey-border {
@@ -65,4 +81,39 @@ $datePicker-input-length: 100px;
   z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px;
   padding: 5px 10px 0 10px;
+}
+
+
+.timingPicker-content-wrapper {
+  position: relative;
+  width: $timing-wrapper-width;
+  height: $timing-wrapper-height;
+  overflow-y: auto;
+  padding: 8px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+    0 3px 5px -1px rgba(0, 0, 0, 0.2);
+  @include customizeScrollbar();
+
+  .item-wrapper {
+    color: $fontColor;
+    display: flex;
+    align-items: center;
+    padding: $timing-item-padding;
+    cursor: pointer;
+    transition: background 0.2s ease-in;
+
+    &:not(.is-disabled):hover {
+      background: $hoverBgColor;
+    }
+
+    &:not(.is-disabled):active {
+      background: $activeBgColor;
+    }
+
+    .item-title {
+      line-height: 38px;
+    }
+  }
 }

@@ -13,12 +13,16 @@ export interface ICalInputProps {
     value?: string;
     delay?: number;
     onChange?: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+    size?: number;
+    // resizeToValLength: boolean; // set size to auto fit the value length
+    // minLength?: string | number; // required if `resizeToValLength` = true
 }
 class CalInput extends React.Component<ICalInputProps, any> {
     static defaultProps = {
         placeholder: _test_default_placeholder,
         value: '',
         onChange: (evt: React.ChangeEvent<HTMLInputElement>) => {},
+        // resizeToValLength: false
     };
 
     inputRef: React.RefObject<HTMLInputElement>;
@@ -39,10 +43,6 @@ class CalInput extends React.Component<ICalInputProps, any> {
        onChange && onChange(evt);
     }
 
-    // handleKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
-    //     //  todo
-    // };
-
     render() {
         const { placeholder, value, className, onChange } = this.props;
         const { isFocus } = this.state;
@@ -54,13 +54,13 @@ class CalInput extends React.Component<ICalInputProps, any> {
             className
         );
 
-        // console.log(throttle);
         return (
             <div className={wrapperClass}>
                 <input
                     ref={this.inputRef}
                     placeholder={placeholder}
                     value={value}
+                    // size={size}
                     onChange={this.handleChange}
                     onFocus={() => {
                         this.setState({ isFocus: true });

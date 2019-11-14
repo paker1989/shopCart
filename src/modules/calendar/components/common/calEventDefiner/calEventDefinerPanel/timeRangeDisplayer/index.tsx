@@ -1,10 +1,10 @@
 import * as React from 'react';
-import cx from 'classnames';
 import { IntlShape, injectIntl } from 'react-intl';
 
 import { CalendarNS } from '../../../../../utils/types';
 import { getTimingDisplay } from '../../../../../utils/timeRangeHelper';
 import CalDatePicker from './calDatePicker';
+import CalTimingPicker from './calTimingPicker';
 
 import './timeRangeDisplayer.scss';
 
@@ -44,14 +44,16 @@ class TimeRangeDisplayer extends React.Component<
                         showValue={dayFromShowValue}
                     />
                     {!isWholeDayEvt && (
-                        <span>{getTimingDisplay(time.from, '12h')}</span>
+                        // <span>{getTimingDisplay(time.from, '12h')}</span>
+                        <CalTimingPicker timing={time.from} pattern='12h' />
                     )}
                 </div>
                 {!isReminder && <span>-</span>}
                 {!isReminder && (
                     <div className="timeRange-diplayer-part">
                         {!isWholeDayEvt && (
-                            <span>{getTimingDisplay(time.to, '12h')}</span>
+                            // <span>{getTimingDisplay(time.to, '12h')}</span>
+                            <CalTimingPicker timing={time.to} pattern='12h' />
                         )}
                         {/* <span>{getFormattedDate(time.to.dayAt, 'literal')}</span> */}
                         <CalDatePicker
