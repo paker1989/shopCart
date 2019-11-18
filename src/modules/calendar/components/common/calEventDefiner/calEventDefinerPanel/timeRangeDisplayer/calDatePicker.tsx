@@ -13,12 +13,16 @@ export interface ICalDatePickerProps {
 }
 
 const CalDatePicker = (props: ICalDatePickerProps) => {
-    const { value, showValue } = props;
+    const { value, showValue, onSelect } = props;
     const [visible, setVisible] = useState(false);
     
     const onVisibleChange = (visible: boolean) => {
         setVisible(visible);
     };
+
+    const toSiblingMonth = () => {
+
+    }
 
     return (
         <Popover
@@ -43,9 +47,9 @@ const CalDatePicker = (props: ICalDatePickerProps) => {
                     <DatePicker
                         value={value}
                         isPopover={false}
-                        onClick={() => {}}
+                        onClick={onSelect}
                         format="YYYY/MM/DD"
-                        toSiblingMonth={() => {}}
+                        toSiblingMonth={toSiblingMonth}
                     />
                     <WindowFrozener />
                 </div>
