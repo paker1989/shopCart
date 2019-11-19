@@ -22,6 +22,12 @@ class TimeRangeDisplayer extends React.Component<
         isReminder: false,
         isWholeDayEvt: false,
     };
+
+    selectDate = (actionType: 'from' | 'to', val: Date): void => {
+      console.log('actionType = ' + actionType);
+      console.log(val);
+    }
+
     render() {
         const { time, isReminder, isWholeDayEvt, intl } = this.props;
         const dayFromShowValue = intl.formatDate(time.from.dayAt, {
@@ -40,6 +46,7 @@ class TimeRangeDisplayer extends React.Component<
                 <div className="timeRange-diplayer-part">
                     {/* <span>{getFormattedDate(time.from.dayAt, 'literal')}</span> */}
                     <CalDatePicker
+                        onSelect={this.selectDate.bind(this, 'from')}
                         value={time.from.dayAt}
                         showValue={dayFromShowValue}
                     />
@@ -59,6 +66,7 @@ class TimeRangeDisplayer extends React.Component<
                         <CalDatePicker
                             value={time.to.dayAt}
                             showValue={dayToShowValue}
+                            onSelect={this.selectDate.bind(this, 'from')}
                         />
                     </div>
                 )}

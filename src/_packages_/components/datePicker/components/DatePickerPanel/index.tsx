@@ -39,6 +39,7 @@ class DatePickerPanel extends React.Component<
 
     constructor(props) {
         super(props);
+        // debugger;
         const {
             presentOnly,
             displayYear,
@@ -82,6 +83,7 @@ class DatePickerPanel extends React.Component<
     };
 
     handleMonthChange = (actionType: DatePickers.EMonthChangeType): void => {
+        debugger;
         const { toSiblingMonth } = this.props;
         const { displayYear, displayMonth } = this.state;
 
