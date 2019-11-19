@@ -45,6 +45,7 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                         <TimeRangeDisplayer
                             time={timeRange}
                             isWholeDayEvt={initDayEvtValue}
+                            onChange={onChange}
                         />
                     </div>
                 </div>
@@ -77,8 +78,8 @@ class ActivityDefiner extends React.Component<IActivityDefinerProps, any> {
                                 })}
                             />
                         </span>
-                    </div>
                 </div>
+                    </div>
             </div>
         );
     }

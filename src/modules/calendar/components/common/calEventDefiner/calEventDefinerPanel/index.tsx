@@ -62,7 +62,7 @@ class CalEventDefinerPanel extends React.Component<
     }
 
     handleFieldChange = (fieldName: string, value: any) => {
-        const { activityModel, reminderModel } = this.state;
+        const { activityModel, reminderModel, isDayEvt, type } = this.state;
         const { edited, setEdited } = this.props;
         if (edited === false) {
             setEdited();
@@ -94,6 +94,23 @@ class CalEventDefinerPanel extends React.Component<
                 this.setState({
                     reminderModel: { ...reminderModel, repeatOption: value },
                 });
+                break;
+            case 'fromDate':
+                console.log(value);
+                console.log(type);
+                console.log(isDayEvt);
+                if (type === 'activity') {
+                    // this.setState({
+                    //     activityModel: { ...activityModel, time: value },
+                    // });  
+                } else {
+
+                }
+                break;
+            case 'toDate':
+                console.log(value);
+                console.log(type);
+                console.log(isDayEvt);
                 break;
         }
     };
@@ -129,7 +146,8 @@ class CalEventDefinerPanel extends React.Component<
                 break;
         }
 
-        updateDefPop({ // close popup anyway
+        updateDefPop({
+            // close popup anyway
             defTimeRange: null,
             globalInitStatus: 'stop',
             defShowPop: false,

@@ -87,6 +87,7 @@ class ReminderDefiner extends React.Component<
                         <div className="calReminder-definer-container__option--main">
                             <TimeRangeDisplayer
                                 time={timeRange}
+                                onChange={onChange}
                                 isReminder={true}
                                 isWholeDayEvt={isWholeDayEvt}
                             />

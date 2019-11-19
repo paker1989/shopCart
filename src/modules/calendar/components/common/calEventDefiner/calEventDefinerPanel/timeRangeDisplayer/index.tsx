@@ -2,18 +2,21 @@ import * as React from 'react';
 import { IntlShape, injectIntl } from 'react-intl';
 
 import { CalendarNS } from '../../../../../utils/types';
-import { getTimingDisplay } from '../../../../../utils/timeRangeHelper';
+import { getTimingDisplay, getAddedMinOfTimeRange } from '../../../../../utils/timeRangeHelper';
 import CalDatePicker from './calDatePicker';
 import CalTimingPicker from './calTimingPicker';
 
 import './timeRangeDisplayer.scss';
+import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 
 export interface ITimeRangeDisplayerProps {
     time: CalendarNS.ITimeRangeFormat;
     isReminder?: boolean;
     isWholeDayEvt?: boolean;
     intl: IntlShape;
+    onChange: (field: string, value: any) => void;
 }
+
 class TimeRangeDisplayer extends React.Component<
     ITimeRangeDisplayerProps,
     any
@@ -26,6 +29,15 @@ class TimeRangeDisplayer extends React.Component<
     selectDate = (actionType: 'from' | 'to', val: Date): void => {
       console.log('actionType = ' + actionType);
       console.log(val);
+      const { time, onChange } = this.props;
+    //   const minDiff = getAddedMinOfTimeRange(time);
+      switch(actionType) {
+          case 'from': 
+            onChange('fromDate', val);
+            break;
+          case 'to':
+            onChange('toDate', val);
+      }
     }
 
     render() {
@@ -66,7 +78,7 @@ class TimeRangeDisplayer extends React.Component<
                         <CalDatePicker
                             value={time.to.dayAt}
                             showValue={dayToShowValue}
-                            onSelect={this.selectDate.bind(this, 'from')}
+                            onSelect={this.selectDate.bind(this, 'to')}
                         />
                     </div>
                 )}

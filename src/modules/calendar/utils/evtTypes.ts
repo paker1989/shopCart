@@ -33,7 +33,8 @@ export namespace CalEvtDataNS {
     }
 
     export interface ICalEvtActivityOptionDataModel {
-        time: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat;
+        // time: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat;
+        time: CalendarNS.IDBTimingRangeFormat;
         description?: string;
         address?: string;
         color: string;
