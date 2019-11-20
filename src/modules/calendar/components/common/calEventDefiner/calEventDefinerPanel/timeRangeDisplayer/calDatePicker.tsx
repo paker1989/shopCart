@@ -44,6 +44,7 @@ const CalDatePicker = (props: ICalDatePickerProps) => {
             isVisible={visible}
             onVisibleChange={onVisibleChange}
             isUnmountOnInvisible={true}
+            closeOnClickContent={true}
         >
             <Popover.Trigger.ClickTrigger>
                 <div className="trigger-wrapper">

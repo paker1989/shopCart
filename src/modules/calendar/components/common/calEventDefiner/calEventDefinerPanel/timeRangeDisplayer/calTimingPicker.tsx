@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
 import { IntlShape, injectIntl, FormattedTime } from 'react-intl';
 
 import Popover from '../../../../../../../_packages_/components/popover';
@@ -8,14 +8,15 @@ import WindowFrozener from '../../../windowFrozener';
 import { CalendarNS } from '../../../../../utils/types';
 import { getTimePickerItems } from '../../data.util';
 import {
-    convertDBTimeFormatToDate,
     convertTimeFormatToDate,
+    convertDateToITimingFormat,
 } from '../../../../../utils/timeRangeHelper';
 
 export interface ICalTimingPickerProps {
     timing?: CalendarNS.ITimingFormat;
     pattern?: CalendarNS.TTimingDisplayPattern;
     intl: IntlShape;
+    onSelect: (value: CalendarNS.ITimingFormat) => void;
 }
 
 const CalTimingPicker = (props: ICalTimingPickerProps) => {
@@ -36,9 +37,13 @@ const CalTimingPicker = (props: ICalTimingPickerProps) => {
         return getTimePickerItems(timing);
     }, [timing.dayAt.getTime(), timing.hourAt, timing.minAt]);
 
-    const getContainer = React.useCallback(() => {
+    const getContainer = useCallback(() => {
         return contentRef ? contentRef.current : null;
     }, []);
+
+    const selectTiming = (val: Date): CalendarNS.ITimingFormat => {
+        return convertDateToITimingFormat(val);
+    };
 
     return (
         <Popover
@@ -67,7 +72,12 @@ const CalTimingPicker = (props: ICalTimingPickerProps) => {
                                 className="item-wrapper"
                                 key={`timing-picker-option-${index}`}
                             >
-                                <span className="item-title font-layout-option">
+                                <span
+                                    className="item-title font-layout-option"
+                                    onClick={() => {
+                                        selectTiming(item.date);
+                                    }}
+                                >
                                     <FormattedTime
                                         value={item.date}
                                         hour12={pattern === '12h'}

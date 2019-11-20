@@ -12,6 +12,7 @@ import { populateMonthWeekByDate, getDayRangeOfWeek } from '../utils/timeUtils';
 import CalConfig from '../assets/scripts/calendar.config';
 import { CalendarNS } from './types';
 import { CalEvtDataNS } from './evtTypes';
+import { func } from 'prop-types';
 
 export const _MIN_SPLITTER_ = 60 / CalConfig.hourSplitter;
 
@@ -71,6 +72,16 @@ export function convertMinAddToDate(dayAt: Date, addedMin: number): Date {
         dayAt.getHours(),
         dayAt.getMinutes() + addedMin
     );
+}
+
+export function convertDateToITimingFormat(
+    day: Date
+): CalendarNS.ITimingFormat {
+    return {
+        dayAt: day,
+        hourAt: day.getHours(),
+        minAt: day.getMinutes(),
+    };
 }
 
 /**

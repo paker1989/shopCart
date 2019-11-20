@@ -6,7 +6,11 @@ import { IntlShape, FormattedMessage, injectIntl } from 'react-intl';
 import CalInput from '../../calInput';
 import ReminderDefiner from './reminderDefiner';
 import ActivityDefiner from './activityDefiner';
-import { getInitActivityModel, getInitReminderModel } from '../data.util';
+import {
+    getInitActivityModel,
+    getInitReminderModel,
+    updateDateForDBTiming,
+} from '../data.util';
 import * as EvtActionCreator from '../../../../store/action/evtsAction';
 import * as PopActionCreator from '../../../../store/action/popAction';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
@@ -14,6 +18,10 @@ import { CalendarNS } from '../../../../utils/types';
 import { CalendarRedux } from '../../../../utils/reduxTypes';
 
 import './calEventDefinePanel.scss';
+import {
+    convertMinAddToDate,
+    getAddedMinOfTimeRange,
+} from '../../../../utils/timeRangeHelper';
 
 export interface ICalEventDefinerPanelProps
     extends CalendarNS.ICalEventDefinerLifeCycleProps {
@@ -63,7 +71,7 @@ class CalEventDefinerPanel extends React.Component<
 
     handleFieldChange = (fieldName: string, value: any) => {
         const { activityModel, reminderModel, isDayEvt, type } = this.state;
-        const { edited, setEdited } = this.props;
+        const { edited, setEdited, timeRange, updateDefPop } = this.props;
         if (edited === false) {
             setEdited();
         }
@@ -96,21 +104,57 @@ class CalEventDefinerPanel extends React.Component<
                 });
                 break;
             case 'fromDate':
-                console.log(value);
-                console.log(type);
-                console.log(isDayEvt);
-                if (type === 'activity') {
-                    // this.setState({
-                    //     activityModel: { ...activityModel, time: value },
-                    // });  
-                } else {
-
-                }
+                // console.log(value);
+                // console.log(type);
+                // console.log(isDayEvt);
+                const valueDate = value as Date;
+                valueDate.setHours(timeRange.from.hourAt, timeRange.from.minAt);
+                let newFrom: CalendarNS.ITimingFormat = {
+                    dayAt: valueDate,
+                    hourAt: timeRange.from.hourAt,
+                    minAt: timeRange.from.minAt,
+                };
+                let timingDiff = getAddedMinOfTimeRange(timeRange);
+                let newToDate: Date = convertMinAddToDate(
+                    valueDate,
+                    timingDiff
+                );
+                let newTo: CalendarNS.ITimingFormat = {
+                    dayAt: newToDate,
+                    hourAt: timeRange.to.hourAt,
+                    minAt: timeRange.to.minAt,
+                };
+                updateDefPop({
+                    defTimeRange: {
+                        from: { ...newFrom },
+                        to: { ...newTo },
+                    },
+                });
                 break;
             case 'toDate':
-                console.log(value);
-                console.log(type);
-                console.log(isDayEvt);
+                const valueDate1 = value as Date;
+                valueDate1.setHours(timeRange.to.hourAt, timeRange.to.minAt);
+                let newTo1: CalendarNS.ITimingFormat = {
+                    dayAt: valueDate1,
+                    hourAt: timeRange.to.hourAt,
+                    minAt: timeRange.to.minAt,
+                };
+                let timingDiff1 = getAddedMinOfTimeRange(timeRange);
+                let newFromDate1: Date = convertMinAddToDate(
+                    valueDate1,
+                    -timingDiff1
+                );
+                let newFrom1: CalendarNS.ITimingFormat = {
+                    dayAt: newFromDate1,
+                    hourAt: timeRange.from.hourAt,
+                    minAt: timeRange.from.minAt,
+                };
+                updateDefPop({
+                    defTimeRange: {
+                        from: { ...newFrom1 },
+                        to: { ...newTo1 },
+                    },
+                });
                 break;
         }
     };

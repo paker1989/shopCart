@@ -71,17 +71,14 @@ export function getDateKey(
     if (item.type === 'activity') {
         const time = (item as CalEvtDataNS.ICalEvtCompleteActivityDataModel)
             .opts.time;
-        if ((time as CalendarNS.IDBTimingRangeFormat).from) {
-            const {
-                year,
-                month,
-                dayAt,
-            } = (time as CalendarNS.IDBTimingRangeFormat).from;
-            return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
-        } else {
-            const { year, month, dayAt } = time as CalendarNS.IDBTimingFormat;
-            return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
-        }
+        // if ((time as CalendarNS.IDBTimingRangeFormat).from) {
+        const { year, month, dayAt } = time.from;
+        return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
+        // }
+        // else {
+        //     const { year, month, dayAt } = time as CalendarNS.IDBTimingFormat;
+        //     return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
+        // }
     } else {
         const time = (item as CalEvtDataNS.ICalEvtCompleteReminderDataModel)
             .opts.time;
@@ -89,4 +86,3 @@ export function getDateKey(
         return `${year}${fixedTo2(month)}${fixedTo2(dayAt)}`;
     }
 }
-

@@ -2,12 +2,10 @@ import * as React from 'react';
 import { IntlShape, injectIntl } from 'react-intl';
 
 import { CalendarNS } from '../../../../../utils/types';
-import { getTimingDisplay, getAddedMinOfTimeRange } from '../../../../../utils/timeRangeHelper';
 import CalDatePicker from './calDatePicker';
 import CalTimingPicker from './calTimingPicker';
 
 import './timeRangeDisplayer.scss';
-import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 
 export interface ITimeRangeDisplayerProps {
     time: CalendarNS.ITimeRangeFormat;
@@ -27,18 +25,29 @@ class TimeRangeDisplayer extends React.Component<
     };
 
     selectDate = (actionType: 'from' | 'to', val: Date): void => {
-      console.log('actionType = ' + actionType);
-      console.log(val);
-      const { time, onChange } = this.props;
-    //   const minDiff = getAddedMinOfTimeRange(time);
-      switch(actionType) {
-          case 'from': 
-            onChange('fromDate', val);
-            break;
-          case 'to':
-            onChange('toDate', val);
-      }
-    }
+        const { onChange } = this.props;
+        switch (actionType) {
+            case 'from':
+                onChange('fromDate', val);
+                break;
+            case 'to':
+                onChange('toDate', val);
+        }
+    };
+
+    selectTiming = (
+        actionType: 'from' | 'to',
+        val: CalendarNS.ITimingFormat
+    ): void => {
+        const { onChange } = this.props;
+        switch (actionType) {
+            case 'from':
+                onChange('fromTiming', val);
+                break;
+            case 'to':
+                onChange('toTiming', val);
+        }
+    };
 
     render() {
         const { time, isReminder, isWholeDayEvt, intl } = this.props;
@@ -64,7 +73,11 @@ class TimeRangeDisplayer extends React.Component<
                     />
                     {!isWholeDayEvt && (
                         // <span>{getTimingDisplay(time.from, '12h')}</span>
-                        <CalTimingPicker timing={time.from} pattern='12h' />
+                        <CalTimingPicker
+                            timing={time.from}
+                            pattern="12h"
+                            onSelect={this.selectTiming.bind(this, 'from')}
+                        />
                     )}
                 </div>
                 {!isReminder && <span>-</span>}
@@ -72,7 +85,11 @@ class TimeRangeDisplayer extends React.Component<
                     <div className="timeRange-diplayer-part">
                         {!isWholeDayEvt && (
                             // <span>{getTimingDisplay(time.to, '12h')}</span>
-                            <CalTimingPicker timing={time.to} pattern='12h' />
+                            <CalTimingPicker
+                                timing={time.to}
+                                pattern="12h"
+                                onSelect={this.selectTiming.bind(this, 'to')}
+                            />
                         )}
                         {/* <span>{getFormattedDate(time.to.dayAt, 'literal')}</span> */}
                         <CalDatePicker

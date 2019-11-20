@@ -69,3 +69,16 @@ export const getTimePickerItems = (
     }
     return datesForTiming;
 };
+
+export const updateDateForDBTiming = (
+    value: Date,
+    origin?: CalendarNS.IDBTimingFormat
+): CalendarNS.IDBTimingFormat => {
+    return {
+        year: value.getFullYear(),
+        month: value.getMonth() + 1,
+        dayAt: value.getDate(),
+        hourAt: origin ? origin.hourAt : value.getHours(),
+        minAt: origin ? origin.minAt : value.getMinutes(),
+    };
+};
