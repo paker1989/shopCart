@@ -48,6 +48,8 @@ const zh_CN = {
     'cal.delete': '删除',
     'cal.reminderdone': '{nb}条处理完毕的提醒',
     'cal.markasdone': '标记为完成',
+    'cal.minOffset': '({offset}分钟)',
+    'cal.hourOffset': '({offset}小时)',
     'comp.short.sun': '日',
     'comp.short.mon': '一',
     'comp.short.tues': '二',

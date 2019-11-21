@@ -21,7 +21,9 @@ import './calEventDefinePanel.scss';
 import {
     convertMinAddToDate,
     getAddedMinOfTimeRange,
+    convertDateToITimingFormat,
 } from '../../../../utils/timeRangeHelper';
+import { cps } from 'redux-saga/effects';
 
 export interface ICalEventDefinerPanelProps
     extends CalendarNS.ICalEventDefinerLifeCycleProps {
@@ -153,6 +155,35 @@ class CalEventDefinerPanel extends React.Component<
                     defTimeRange: {
                         from: { ...newFrom1 },
                         to: { ...newTo1 },
+                    },
+                });
+                break;
+            case 'fromTiming':
+                console.log(value);
+                let newFromTiming: CalendarNS.ITimingFormat = convertDateToITimingFormat(
+                    value as Date
+                );
+                let timingDiff2 = getAddedMinOfTimeRange(timeRange);
+                let newToTimingDate: Date = convertMinAddToDate(
+                    value as Date,
+                    timingDiff2
+                );
+                updateDefPop({
+                    defTimeRange: {
+                        from: { ...newFromTiming },
+                        to: { ...convertDateToITimingFormat(newToTimingDate) },
+                    },
+                });
+                break;
+            case 'toTiming':
+                console.log(value);
+                let newToTiming: CalendarNS.ITimingFormat = convertDateToITimingFormat(
+                    value as Date
+                );
+                updateDefPop({
+                    defTimeRange: {
+                        from: { ...timeRange.from },
+                        to: { ...newToTiming },
                     },
                 });
                 break;

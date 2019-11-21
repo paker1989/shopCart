@@ -6,6 +6,11 @@ import CalDatePicker from './calDatePicker';
 import CalTimingPicker from './calTimingPicker';
 
 import './timeRangeDisplayer.scss';
+import {
+    convertMinAddToDate,
+    convertDateToITimingFormat,
+    convertTimeFormatToDate,
+} from '../../../../../utils/timeRangeHelper';
 
 export interface ITimeRangeDisplayerProps {
     time: CalendarNS.ITimeRangeFormat;
@@ -62,6 +67,16 @@ class TimeRangeDisplayer extends React.Component<
             day: '2-digit',
         });
 
+        const fromTimingRef: CalendarNS.ITimingFormat = {
+            dayAt: time.from.dayAt,
+            hourAt: 0,
+            minAt: 0,
+        };
+
+        const toTimingRef = convertDateToITimingFormat(
+            convertMinAddToDate(convertTimeFormatToDate(time.from), 30)
+        ); // add 30 mins as to timingPicker reference
+
         let timeRangeBody = (
             <div className="timeRange-diplayer-body">
                 <div className="timeRange-diplayer-part">
@@ -74,7 +89,8 @@ class TimeRangeDisplayer extends React.Component<
                     {!isWholeDayEvt && (
                         // <span>{getTimingDisplay(time.from, '12h')}</span>
                         <CalTimingPicker
-                            timing={time.from}
+                            value={time.from}
+                            refTiming={fromTimingRef}
                             pattern="12h"
                             onSelect={this.selectTiming.bind(this, 'from')}
                         />
@@ -86,9 +102,11 @@ class TimeRangeDisplayer extends React.Component<
                         {!isWholeDayEvt && (
                             // <span>{getTimingDisplay(time.to, '12h')}</span>
                             <CalTimingPicker
-                                timing={time.to}
+                                value={time.to}
+                                refTiming={toTimingRef}
                                 pattern="12h"
                                 onSelect={this.selectTiming.bind(this, 'to')}
+                                showOffset={true}
                             />
                         )}
                         {/* <span>{getFormattedDate(time.to.dayAt, 'literal')}</span> */}

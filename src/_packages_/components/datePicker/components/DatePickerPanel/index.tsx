@@ -83,7 +83,6 @@ class DatePickerPanel extends React.Component<
     };
 
     handleMonthChange = (actionType: DatePickers.EMonthChangeType): void => {
-        debugger;
         const { toSiblingMonth } = this.props;
         const { displayYear, displayMonth } = this.state;
 

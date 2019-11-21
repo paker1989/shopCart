@@ -46,8 +46,11 @@ const fr_FR = {
     'cal.nbReminders': '{nb, plural, one {# rappel} other {# rappels}}',
     'cal.moreResults': '{nbMore, plural, one {# autre} other {# autres}}',
     'cal.delete': 'Supprimer',
-    'cal.reminderdone': '{nb, plural, one {# rappel} other {# rappels}} marqué comme terminé',
+    'cal.reminderdone':
+        '{nb, plural, one {# rappel} other {# rappels}} marqué comme terminé',
     'cal.markasdone': 'Marquer comme terminé',
+    'cal.minOffset': '({offset} mins)',
+    'cal.hourOffset': '({offset, plural, one {# heure} other {# heures}})',
     'comp.short.sun': 'D',
     'comp.short.mon': 'L',
     'comp.short.tues': 'M',

@@ -10,7 +10,7 @@ const WindowFrozener = (props: IWindowFrozenerProps) => {
     const { getContainer, allowScroll } = props;
 
     const stopWheelZoom = event => {
-        console.log('stopWheelZoom');
+        // console.log('stopWheelZoom');
         if (typeof getContainer === 'function' && allowScroll) {
             const container = getContainer();
             if (!container.contains(event.target as Node)) {

@@ -54,17 +54,34 @@ export const getInitReminderModel = (
 };
 
 export const getTimePickerItems = (
-    initTiming: CalendarNS.ITimingFormat
+    initTiming: CalendarNS.ITimingFormat,
+    intl: IntlShape
 ): CalendarNS.ITimingOptionProps[] => {
-    console.log('calculating getTimePickerItems');
+    console.log('getTimePickerItems');
     const { hourSplitter, nbTimingPickerOptions } = CalConfig;
     const minAddUnit = Math.round(60 / hourSplitter);
     const datesForTiming = [];
     const initDate = convertTimeFormatToDate(initTiming);
+    let offset;
     for (let i = 0; i < nbTimingPickerOptions; i++) {
+        let offsetVal = minAddUnit * i;
+        offset =
+            offsetVal < 60
+                ? intl.formatMessage(
+                      { id: 'cal.minOffset' },
+                      {
+                          offset: offsetVal,
+                      }
+                  )
+                : intl.formatMessage(
+                      { id: 'cal.hourOffset' },
+                      {
+                          offset: offsetVal / 60,
+                      }
+                  );
         datesForTiming.push({
             date: convertMinAddToDate(initDate, minAddUnit * i),
-            offset: minAddUnit * i,
+            offset,
         });
     }
     return datesForTiming;

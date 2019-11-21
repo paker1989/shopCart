@@ -46,8 +46,11 @@ const en_US = {
     'cal.nbReminders': '{nb, plural, one {# reminder} other {# reminders}}',
     'cal.moreResults': '{nbMore} more',
     'cal.delete': 'Delete',
-    'cal.reminderdone': '{nb, plural, one {# reminder is} other {# reminders are}} marked as done',
+    'cal.reminderdone':
+        '{nb, plural, one {# reminder is} other {# reminders are}} marked as done',
     'cal.markasdone': 'Mark as done',
+    'cal.minOffset': '({offset} mins)',
+    'cal.hourOffset': '({offset, plural, one {# hour} other {# hours}})',
     'comp.short.sun': 'S',
     'comp.short.mon': 'M',
     'comp.short.tues': 'T',

@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useMemo, useState, useRef, useCallback } from 'react';
-import { IntlShape, injectIntl, FormattedTime } from 'react-intl';
+import cx from 'classnames';
+import {
+    IntlShape,
+    injectIntl,
+    FormattedTime,
+    FormattedMessage,
+} from 'react-intl';
 
 import Popover from '../../../../../../../_packages_/components/popover';
 import CalInput from '../../../calInput';
@@ -9,18 +15,22 @@ import { CalendarNS } from '../../../../../utils/types';
 import { getTimePickerItems } from '../../data.util';
 import {
     convertTimeFormatToDate,
+    isSameTiming,
     convertDateToITimingFormat,
 } from '../../../../../utils/timeRangeHelper';
+import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 
 export interface ICalTimingPickerProps {
-    timing?: CalendarNS.ITimingFormat;
+    value?: CalendarNS.ITimingFormat;
+    refTiming?: CalendarNS.ITimingFormat;
     pattern?: CalendarNS.TTimingDisplayPattern;
     intl: IntlShape;
-    onSelect: (value: CalendarNS.ITimingFormat) => void;
+    onSelect: (value: Date) => void;
+    showOffset?: boolean;
 }
 
 const CalTimingPicker = (props: ICalTimingPickerProps) => {
-    const { intl, timing, pattern } = props;
+    const { intl, value, refTiming, pattern, onSelect, showOffset } = props;
 
     const [visible, setVisible] = useState(false);
     const contentRef = useRef(null);
@@ -29,20 +39,20 @@ const CalTimingPicker = (props: ICalTimingPickerProps) => {
         setVisible(visible);
     };
 
-    const showValue = intl.formatTime(convertTimeFormatToDate(timing), {
+    const showValue = intl.formatTime(convertTimeFormatToDate(value), {
         hour12: pattern === '12h',
     });
 
     const timingOptions: CalendarNS.ITimingOptionProps[] = useMemo(() => {
-        return getTimePickerItems(timing);
-    }, [timing.dayAt.getTime(), timing.hourAt, timing.minAt]);
+        return getTimePickerItems(refTiming, intl);
+    }, [refTiming.dayAt.getTime()]);
 
     const getContainer = useCallback(() => {
         return contentRef ? contentRef.current : null;
     }, []);
 
-    const selectTiming = (val: Date): CalendarNS.ITimingFormat => {
-        return convertDateToITimingFormat(val);
+    const selectTiming = (val: Date): void => {
+        onSelect(val);
     };
 
     return (
@@ -67,24 +77,36 @@ const CalTimingPicker = (props: ICalTimingPickerProps) => {
             <Popover.Content>
                 <div className="timingPicker-content-wrapper" ref={contentRef}>
                     <div>
-                        {timingOptions.map((item, index) => (
-                            <div
-                                className="item-wrapper"
-                                key={`timing-picker-option-${index}`}
-                            >
-                                <span
-                                    className="item-title font-layout-option"
+                        {timingOptions.map((item, index) => {
+                            let wrapperClass = cx({
+                                ['item-wrapper']: true,
+                                ['is-selected']: isSameTiming(
+                                    convertDateToITimingFormat(item.date),
+                                    value
+                                ),
+                            });
+                            return (
+                                <div
+                                    className={wrapperClass}
+                                    key={`timing-picker-option-${index}`}
                                     onClick={() => {
                                         selectTiming(item.date);
                                     }}
                                 >
-                                    <FormattedTime
-                                        value={item.date}
-                                        hour12={pattern === '12h'}
-                                    />
-                                </span>
-                            </div>
-                        ))}
+                                    <div className="item-title font-layout-option">
+                                        <FormattedTime
+                                            value={item.date}
+                                            hour12={pattern === '12h'}
+                                        />
+                                        {showOffset && (
+                                            <span className="item-offset">
+                                                {item.offset}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                     <WindowFrozener
                         allowScroll={true}
@@ -96,8 +118,8 @@ const CalTimingPicker = (props: ICalTimingPickerProps) => {
     );
 };
 
-// CalTimingPicker.defaultProps = {
-//   pattern: '24h'
-// }
+CalTimingPicker.defaultProps = {
+    showOffset: false,
+};
 
 export default injectIntl(CalTimingPicker);

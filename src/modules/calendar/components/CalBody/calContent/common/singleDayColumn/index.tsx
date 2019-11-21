@@ -77,6 +77,7 @@ class SingleDayColumn extends React.Component<
     }
 
     componentDidUpdate(prevProps: ISingleDayColumnProps) {
+        // console.log('component update');
         const {
             value,
             draggingDate,
@@ -109,6 +110,8 @@ class SingleDayColumn extends React.Component<
             this.handleOnClick(defTimeRange.from);
             updateDefinerPop({ globalInitStatus: 'ready' });
         }
+
+        // handle edit time range
     }
 
     handleOnClick = (triggerTiming: CalendarNS.ITimingFormat) => {
