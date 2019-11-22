@@ -28,13 +28,13 @@ export namespace CalEvtDataNS {
             | 'everyWorkDay'
             | 'everyDay'
             | 'everySameDate';
-        time: CalendarNS.IDBTimingFormat;
+        time?: CalendarNS.IDBTimingFormat;
         color: string;
     }
 
     export interface ICalEvtActivityOptionDataModel {
         // time: CalendarNS.IDBTimingRangeFormat | CalendarNS.IDBTimingFormat;
-        time: CalendarNS.IDBTimingRangeFormat;
+        time?: CalendarNS.IDBTimingRangeFormat;
         description?: string;
         address?: string;
         color: string;

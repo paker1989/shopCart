@@ -440,3 +440,71 @@ export function getDBTimingFromTimingItem(
         return reminderItem.time;
     }
 }
+
+export function isSameTimeRange(
+    timeRange1: CalendarNS.ITimeRangeFormat,
+    timeRange2: CalendarNS.ITimeRangeFormat
+): boolean {
+    if (!timeRange1 || !timeRange2) {
+        return false;
+    }
+
+    return (
+        isSameDay(timeRange1.from.dayAt, timeRange2.from.dayAt) &&
+        isSameDay(timeRange1.to.dayAt, timeRange2.to.dayAt) &&
+        isSameTiming(timeRange1.from, timeRange2.from) &&
+        isSameTiming(timeRange1.to, timeRange2.to)
+    );
+}
+
+export function getIncludeTimeRange(
+    val: Date,
+    timeRange: CalendarNS.ITimeRangeFormat
+): CalendarNS.ITimeRangeFormat {
+    debugger;
+    const fromDate = convertTimeFormatToDate(timeRange.from);
+    const toDate = convertTimeFormatToDate(timeRange.to);
+    const valStart = new Date(val.getTime());
+    valStart.setHours(0, 0, 0);
+    const valEnd = new Date(val.getTime());
+    valEnd.setHours(23, 59, 59);
+
+    const isInclude =
+        fromDate.getTime() <= valEnd.getTime() &&
+        toDate.getTime() >= valStart.getTime();
+    if (!isInclude) {
+        return null;
+    }
+
+    return {
+        from:
+            valStart.getTime() >= fromDate.getTime()
+                ? convertDateToITimingFormat(valStart)
+                : { ...timeRange.from },
+        to:
+            valEnd.getTime() >= toDate.getTime()
+                ? { ...timeRange.to }
+                : convertDateToITimingFormat(valEnd),
+    };
+}
+
+export function convertTimeRangeToDBTimeRange(
+    timeRange: CalendarNS.ITimeRangeFormat
+): CalendarNS.IDBTimingRangeFormat {
+    return {
+        from: {
+            year: timeRange.from.dayAt.getFullYear(),
+            month: timeRange.from.dayAt.getMonth() + 1,
+            dayAt: timeRange.from.dayAt.getDate(),
+            hourAt: timeRange.from.hourAt,
+            minAt: timeRange.from.minAt,
+        },
+        to: {
+            year: timeRange.to.dayAt.getFullYear(),
+            month: timeRange.to.dayAt.getMonth() + 1,
+            dayAt: timeRange.to.dayAt.getDate(),
+            hourAt: timeRange.to.hourAt,
+            minAt: timeRange.to.minAt,
+        },
+    };
+}

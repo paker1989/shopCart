@@ -6,11 +6,7 @@ import { IntlShape, FormattedMessage, injectIntl } from 'react-intl';
 import CalInput from '../../calInput';
 import ReminderDefiner from './reminderDefiner';
 import ActivityDefiner from './activityDefiner';
-import {
-    getInitActivityModel,
-    getInitReminderModel,
-    updateDateForDBTiming,
-} from '../data.util';
+import { getInitActivityModel, getInitReminderModel } from '../data.util';
 import * as EvtActionCreator from '../../../../store/action/evtsAction';
 import * as PopActionCreator from '../../../../store/action/popAction';
 import { CalEvtDataNS } from '../../../../utils/evtTypes';
@@ -22,6 +18,7 @@ import {
     convertMinAddToDate,
     getAddedMinOfTimeRange,
     convertDateToITimingFormat,
+    convertTimeRangeToDBTimeRange,
 } from '../../../../utils/timeRangeHelper';
 import { cps } from 'redux-saga/effects';
 
@@ -61,13 +58,12 @@ class CalEventDefinerPanel extends React.Component<
 
     constructor(props) {
         super(props);
-        const { timeRange } = this.props;
         this.state = {
             type: 'activity',
             title: '',
             isDayEvt: this.props.initDayEvtValue,
-            activityModel: getInitActivityModel(timeRange),
-            reminderModel: getInitReminderModel(timeRange),
+            activityModel: getInitActivityModel(),
+            reminderModel: getInitReminderModel(),
         };
     }
 
@@ -106,9 +102,6 @@ class CalEventDefinerPanel extends React.Component<
                 });
                 break;
             case 'fromDate':
-                // console.log(value);
-                // console.log(type);
-                // console.log(isDayEvt);
                 const valueDate = value as Date;
                 valueDate.setHours(timeRange.from.hourAt, timeRange.from.minAt);
                 let newFrom: CalendarNS.ITimingFormat = {
@@ -177,6 +170,7 @@ class CalEventDefinerPanel extends React.Component<
                 break;
             case 'toTiming':
                 console.log(value);
+                // debugger;
                 let newToTiming: CalendarNS.ITimingFormat = convertDateToITimingFormat(
                     value as Date
                 );
@@ -198,15 +192,16 @@ class CalEventDefinerPanel extends React.Component<
             reminderModel,
             isDayEvt,
         } = this.state;
-        const { saveEvt, updateDefPop } = this.props;
+        const { saveEvt, updateDefPop, timeRange } = this.props;
 
+        const dbTiming = convertTimeRangeToDBTimeRange(timeRange);
         switch (type) {
             case 'activity':
                 let activity: CalEvtDataNS.ICalEvtCompleteActivityDataModel = {
                     type,
                     title,
                     allDayEvt: isDayEvt,
-                    opts: activityModel,
+                    opts: { ...activityModel, time: dbTiming },
                 };
                 saveEvt(activity);
                 break;
@@ -215,7 +210,7 @@ class CalEventDefinerPanel extends React.Component<
                     type,
                     title,
                     allDayEvt: isDayEvt,
-                    opts: reminderModel,
+                    opts: { ...reminderModel, time: dbTiming.from },
                 };
                 saveEvt(reminder);
                 break;

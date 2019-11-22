@@ -9,6 +9,8 @@ import {
     getCalEventPopPosition,
     getTimeRange,
     getTimeRangeDisplay,
+    getIncludeTimeRange,
+    isSameTimeRange,
 } from '../../../../../utils/timeRangeHelper';
 import { CalendarNS } from '../../../../../utils/types';
 import CalEventPop from '../../../../common/calEventPop';
@@ -20,7 +22,6 @@ import { getYYYYMMDDDate } from '../../../../../utils/timeUtils';
 import { CalEvtDataNS } from '../../../../../utils/evtTypes';
 
 import './singleDayColumn.scss';
-import { cps } from 'redux-saga/effects';
 
 const _test_nb_cases = 24;
 
@@ -110,8 +111,18 @@ class SingleDayColumn extends React.Component<
             this.handleOnClick(defTimeRange.from);
             updateDefinerPop({ globalInitStatus: 'ready' });
         }
-
         // handle edit time range
+        if (
+            prevProps.defShowPop &&
+            defShowPop &&
+            !isSameTimeRange(prevProps.defTimeRange, defTimeRange)
+        ) {
+            debugger;
+            const includedTimeRange = getIncludeTimeRange(value, defTimeRange);
+            if (includedTimeRange) {
+                this.handleOnSelect(defTimeRange);
+            }
+        }
     }
 
     handleOnClick = (triggerTiming: CalendarNS.ITimingFormat) => {
@@ -119,6 +130,14 @@ class SingleDayColumn extends React.Component<
         setTimeout(() => {
             this.onMouseEventChange(triggerTiming, 'mouseup');
         }, 0);
+    };
+
+    handleOnSelect = (timeRange: CalendarNS.ITimeRangeFormat) => {
+        this.setState({
+            dragStatus: 'holdon',
+            triggerTiming: timeRange.from,
+            draggingTimeRange: timeRange,
+        });
     };
 
     getDragNode = (
