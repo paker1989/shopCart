@@ -81,6 +81,8 @@
     "build-cal": "node src/modules/calendar/config/build.js",
     "se-dev": "webpack-dev-server --progress --inline --config src/modules/siteExpo/config/webpack.dev.config.js",
     "build-se": "node src/modules/siteExpo/config/build.js",
-    "build-se-demo": "node src/modules/siteExpo/config/build.github.js"
+    "build-se-demo": "node src/modules/siteExpo/config/build.github.js",
+    "carou-dev": "webpack-dev-server --progress --inline --config src/modules/demoCarousel/config/webpack.dev.config.js",
+    "build-carou": "node src/modules/demoCarousel/config/build.js"
   }
 }
