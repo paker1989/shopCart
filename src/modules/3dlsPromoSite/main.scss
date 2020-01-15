@@ -1,0 +1,98 @@
+@import './assets/style/theme.scss';
+
+$header-bottom-to-top: 136px;
+$carousel-text-left: 200px;
+
+.dls-promo-container {
+  position: relative;
+  width: 1680px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.carousel-container {
+  width: 100%;
+  height: 569px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: transparent radial-gradient(closest-side at 73% 68%, #239de8 0%, #005386 100%) 0% 0% no-repeat padding-box;
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+
+.carousel-main-img {
+  position: absolute;
+  height: auto;
+  top: -50px;
+  right: -350px;
+  width: 1500px;
+}
+
+.carousel-header {
+  position: absolute;
+  top: 20px;
+}
+
+.carousel-main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: $header-bottom-to-top;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+
+  &-text {
+    position: relative;
+    padding-left: $carousel-text-left;
+    padding-top: 70px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 50%;
+    text-align: left;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+
+    &--main {
+      font-size: 24px;
+      line-height: 35px;
+    }
+
+    &--sub {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 30px;
+    }
+
+    &--btn {
+      font-size: 20px;
+      padding: 8px 28px;
+      border-radius: 185px;
+      margin-top: 35px;
+    }
+  }
+}
+
+.carousel-discover {
+  position: absolute;
+  left: 50%;
+  top: 500px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+
+  &--text {
+    color: #ffffff;
+    font-size: 18px;
+    margin-left: 10px;
+  }
+}
+
+/*static css*/
+.dls-logo {
+  position: absolute;
+  top: 40px;
+  left: $carousel-text-left;
+  width: 125px;
+  height: 76px;
+}

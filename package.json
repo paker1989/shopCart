@@ -83,6 +83,8 @@
     "build-se": "node src/modules/siteExpo/config/build.js",
     "build-se-demo": "node src/modules/siteExpo/config/build.github.js",
     "carou-dev": "webpack-dev-server --progress --inline --config src/modules/demoCarousel/config/webpack.dev.config.js",
-    "build-carou": "node src/modules/demoCarousel/config/build.js"
+    "build-carou": "node src/modules/demoCarousel/config/build.js",
+    "3dls-dev": "webpack-dev-server --progress --inline --config src/modules/3dlsPromoSite/config/webpack.dev.config.js",
+    "build-3dls": "node src/modules/3dlsPromoSite/config/build.js"
   }
 }

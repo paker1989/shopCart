@@ -4,8 +4,9 @@ import './main.scss';
 
 
 const data = [
-    { source: './static/img/demo1.png', link: 'https://tangix.com' },
-    { source: './static/img/demo2.png' },
+    { source: './static/img/cls_banner.png', link: 'https://companion.3ds.com/CompanionManager/ui/#/' },
+    { source: './static/img/cls_banner2.png', link: 'https://companion.3ds.com/CompanionManager/ui/#/' },
+    { source: './static/img/demo2.png', },
     { source: './static/img/demo3.jpg' },
 ];
 
@@ -91,7 +92,13 @@ class App extends React.Component {
                         }
                         return (
                             <div className="component-container" key={`component-${index}`} style={style}>
-                                <img src={item.source}></img>
+                                <img src={item.source} onClick={() => {
+                                    if (item.link) {
+                                        window.open(item.link, '_blank');
+                                    } else {
+                                        return;
+                                    }
+                                }}></img>
                             </div>
                         )
                     })}
