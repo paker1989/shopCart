@@ -1,6 +1,6 @@
-import cx from 'classnames';
 import React from "react";
 
+import DiscoverContainer from './components/discoverContainer/discoverContainer';
 import './main.scss';
 import './assets/style/theme.scss';
 
@@ -22,13 +22,12 @@ class App extends React.Component {
             <div className="dls-promo-container">
                 <section className="carousel-container">
                     <div className="carousel-header">
-                        <img src="./static/img/dlslogo-sm.png" className="dls-logo" />
+                        <img src="./static/img/logo.png" className="dls-logo" />
                     </div>
                     <div className="carousel-main">
                         <div className="carousel-main-text">
                             <div className="carousel-main-text--main">
-                                <p>Learn anytime,</p>
-                                <p> anyplace, anywhere.</p>
+                                <p>learn anywhere, anytime.</p>
                             </div>
                             <div className="carousel-main-text--sub">
                                 <p>3DS Learning Space is a unique learning portal developed by</p>
@@ -38,12 +37,13 @@ class App extends React.Component {
                             <span role="button" className="btn carousel-main-text--btn">Contact Us</span>
                         </div>
                     </div>
-                    <img src="./static/img/1458@2x.png" className="carousel-main-img"></img>
-                    <div className="carousel-discover">
+                    <img src="./static/img/1495-new.png" className="carousel-main-img"></img>
+                    {/* <div className="carousel-discover">
                         <img src="./static/svg/arrow.svg"/>
                         <span className="carousel-discover--text">Discover</span>
-                    </div>
+                    </div> */}
                 </section>
+                <DiscoverContainer />
             </div>
         )
     }

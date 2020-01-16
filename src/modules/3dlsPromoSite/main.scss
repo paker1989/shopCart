@@ -5,9 +5,15 @@ $carousel-text-left: 200px;
 
 .dls-promo-container {
   position: relative;
-  width: 1680px;
-  height: 100vh;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
+  // height: 100%;
+  background-image: url('/static/svg/backdrop.svg');
+  background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: cover;
 }
 
 .carousel-container {
@@ -15,17 +21,17 @@ $carousel-text-left: 200px;
   height: 569px;
   overflow-x: hidden;
   overflow-y: hidden;
-  background: transparent radial-gradient(closest-side at 73% 68%, #239de8 0%, #005386 100%) 0% 0% no-repeat padding-box;
-  mix-blend-mode: multiply;
-  opacity: 1;
+  // background: transparent radial-gradient(closest-side at 73% 68%, #239de8 0%, #005386 100%) 0% 0% no-repeat padding-box;
+  // mix-blend-mode: multiply;
+  // opacity: 1;
 }
 
 .carousel-main-img {
   position: absolute;
   height: auto;
-  top: -50px;
-  right: -350px;
-  width: 1500px;
+  top: 80px;
+  right: -100px;
+  width: 1000px;
 }
 
 .carousel-header {
@@ -54,7 +60,7 @@ $carousel-text-left: 200px;
     letter-spacing: 0.5px;
 
     &--main {
-      font-size: 24px;
+      font-size: 28px;
       line-height: 35px;
     }
 
@@ -73,26 +79,10 @@ $carousel-text-left: 200px;
   }
 }
 
-.carousel-discover {
-  position: absolute;
-  left: 50%;
-  top: 500px;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-
-  &--text {
-    color: #ffffff;
-    font-size: 18px;
-    margin-left: 10px;
-  }
-}
-
 /*static css*/
 .dls-logo {
   position: absolute;
   top: 40px;
   left: $carousel-text-left;
-  width: 125px;
-  height: 76px;
+  width: 165px;
 }
