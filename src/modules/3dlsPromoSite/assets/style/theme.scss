@@ -9,3 +9,25 @@
     color: #005386;
     cursor: pointer;
 }
+
+.title {
+  &--main {
+      color: #005386;
+      letter-spacing: 0.42px;
+      font-size: 28px;
+      line-height: 80px;
+  }
+
+  &--sub {
+      color: #555555;
+      letter-spacing: 0.42px;
+      font-size: 17px;
+      line-height: 24px;
+      text-align: center;
+      & a {
+          text-decoration: underline;
+          color: #35b4ff;
+          font-weight: 600;
+      }
+  }
+}

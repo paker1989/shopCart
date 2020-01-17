@@ -6,6 +6,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-zent": "^2.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -70,7 +71,8 @@
     "sortablejs": "^1.10.0-rc2",
     "tinycolor2": "^1.4.1",
     "tslib": "^1.10.0",
-    "webpack-dev-middleware": "^3.7.0"
+    "webpack-dev-middleware": "^3.7.0",
+    "zent": "^8.0.0"
   },
   "scripts": {
     "shopcart-dev": "webpack-dev-server --progress --inline --config src/modules/shopCart/config/webpack.shopCart.dev.config.js",

@@ -1,16 +1,14 @@
 import React from "react";
 
 import DiscoverContainer from './components/discoverContainer/discoverContainer';
+import ContactUs from './components/ContactUs/ContactUs';
+import Footer from './components/footer/footer';
+
+
 import './main.scss';
 import './assets/style/theme.scss';
 
 
-// const data = [
-//     { source: './static/img/cls_banner.png', link: 'https://companion.3ds.com/CompanionManager/ui/#/' },
-//     { source: './static/img/cls_banner2.png', link: 'https://companion.3ds.com/CompanionManager/ui/#/' },
-//     { source: './static/img/demo2.png', },
-//     { source: './static/img/demo3.jpg' },
-// ];
 
 class App extends React.Component {
     constructor(props) {
@@ -30,20 +28,18 @@ class App extends React.Component {
                                 <p>learn anywhere, anytime.</p>
                             </div>
                             <div className="carousel-main-text--sub">
-                                <p>3DS Learning Space is a unique learning portal developed by</p>
-                                <p>Dassault Systèmes to host a scientific course library of Dassault</p>
-                                <p>Systèmes products and solutions.</p>
+                                <p>3DS Learning Space is a unique learning portal developed by
+                                Dassault Systèmes to host a scientific course library of Dassault
+                                Systèmes products and solutions.</p>
                             </div>
-                            <span role="button" className="btn carousel-main-text--btn">Contact Us</span>
+                            <span role="button" className="btn carousel-main-text--btn">Contact us</span>
                         </div>
                     </div>
                     <img src="./static/img/1495-new.png" className="carousel-main-img"></img>
-                    {/* <div className="carousel-discover">
-                        <img src="./static/svg/arrow.svg"/>
-                        <span className="carousel-discover--text">Discover</span>
-                    </div> */}
                 </section>
                 <DiscoverContainer />
+                <ContactUs />
+                <Footer />
             </div>
         )
     }

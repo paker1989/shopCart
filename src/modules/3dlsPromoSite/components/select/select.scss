@@ -1,0 +1,9 @@
+.cls-select-style {
+    & .zent-select-text {
+        height: 45px;
+    }
+}
+
+.zent-select[data-zv="8.0.0"].cls-select-style .zent-select-text {
+  line-height: 30px;
+}

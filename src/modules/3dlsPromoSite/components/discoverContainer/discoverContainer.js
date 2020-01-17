@@ -11,15 +11,15 @@ export default class DiscoverContainer extends React.Component {
                     <span className="discover-btn--text">Discover</span>
                 </div>
                 <div className="discover-main">
-                    <h3 className="discover-main--title">
+                    <h3 className="title--main">
                         Discover 3DS Learning Space
                     </h3>
-                    <section className="discover-main--des">
+                    <section className="title--sub">
                         <p>
                             Our learning portal{' '}
-                            <a href="https://companion.3ds.com" target="_blank">
+                            {/* <a href="https://companion.3ds.com" target="_blank"> */}
                                 3DS Learning Space
-                            </a>{' '}
+                            {/* </a>{' '} */}
                             provides an extensive online catalog made of
                             thousands
                         </p>
@@ -33,7 +33,7 @@ export default class DiscoverContainer extends React.Component {
                         </p>
                     </section>
                     <div className="discover-step">
-                        <div className="discover-step--timeline"></div>
+                        {/* <div className="discover-step--timeline"></div> */}
                         <div className="discover-step-body">
                             <div className="discover-step-main">
                                 <img src="./static/svg/brain.svg" />

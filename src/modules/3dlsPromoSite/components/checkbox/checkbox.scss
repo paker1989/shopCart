@@ -1,0 +1,25 @@
+// .cls-input-style {
+//     // padding: 10px 40px;
+//     height: 60px;
+//     & .zent-input {
+//       line-height: 60px;
+//       font-size: 14px;
+//       padding-left: 10px;
+//       border: 1px solid #AAAAAA;
+//     }
+// }
+// .zent-input-wrapper[data-zv="8.0.0"].zent-input--size-normal.cls-input-style {
+//   height: 45px;
+// }
+.zent-checkbox-wrap[data-zv="8.0.0"].cls-checkbox-style {
+  width: 100%;
+  text-align: left;
+}
+
+.zent-checkbox-label[data-zv="8.0.0"] {
+  color: #555555;
+  letter-spacing: 0.21px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: left;
+}
