@@ -60,6 +60,7 @@ $contact-item-margin-bottom: 20px;
 }
 
 .item-container {
+  position: relative;
   margin-bottom: $contact-item-margin-bottom;
 }
 
@@ -74,10 +75,22 @@ $contact-item-margin-bottom: 20px;
 .policy-switch {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   max-width: 600px;
   margin: auto;
+
+  &--main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--error {
+    color: #e63f41;
+    font-size: 13px;
+  }
 
   & .zent-switch {
     flex-shrink: 0;
@@ -98,17 +111,15 @@ $contact-item-margin-bottom: 20px;
   margin-top: 50px;
 
   & .btn.contact {
-      padding: 14px 120px;
-      background: #35B4FF;
-      color: #FFFFFF;
-      letter-spacing: 0.41px;
-      font-size: 21px;
-      font-weight: 600;
-      max-width: 100%;
+    padding: 14px 120px;
+    background: #35b4ff;
+    color: #ffffff;
+    letter-spacing: 0.41px;
+    font-size: 21px;
+    font-weight: 600;
+    max-width: 100%;
   }
 }
-
-
 
 @media only screen and (max-width: 1100px) {
   .contact-formula-container {
@@ -117,9 +128,14 @@ $contact-item-margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 768px) {
-    .contact-formula-container {
-      padding-left: 0;
-      padding-right: 0;
-    }
+  .contact-formula-container {
+    padding-left: 0;
+    padding-right: 0;
   }
+}
 
+@media only screen and (max-width: 400px) {
+  .contact-confirm .btn.contact {
+    padding: 12px 70px;
+  }
+}

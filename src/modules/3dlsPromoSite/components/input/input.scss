@@ -12,6 +12,17 @@
   height: 45px;
 }
 
+.zent-input-wrapper[data-zv="8.0.0"].cls-input-style.is-error {
+  border-color: #e63f41;
+}
+
 .cls-text-area-style .zent-textarea[data-zv="8.0.0"] {
   height: 74px;
+}
+
+.form-errormsg {
+  position: absolute;
+  color: #e63f41;
+  font-size: 13px;
+  left: 0;
 }

@@ -12,29 +12,194 @@ import Department from '../../assets/data/department';
 
 import './contactUs.scss';
 
+const _EMAIL_TEST_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 export default class ContactUs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            learningContentCheck: false,
-            certCheck: false,
-            buyCheck: false,
-            tofuCheck: false
+            // learningContentCheck: false,
+            // certCheck: false,
+            // buyCheck: false,
+            // tofuCheck: false,
+            formModels: {
+                learningContentCheck: {
+                    checked: false,
+                    name: 'learningContentCheck',
+                    mandatory: false
+                },
+                certCheck: {
+                    value: false,
+                    name: 'certCheck',
+                    mandatory: false
+                },
+                buyCheck: {
+                    value: false,
+                    name: 'buyCheck',
+                    mandatory: false
+                },
+                tofuCheck: {
+                    value: false,
+                    name: 'tofuCheck',
+                    mandatory: true,
+                    errorMsg: [
+                        'Your explicit consent to the privacy policy is required'],
+                    errorIndex: -1,
+                },
+                email: {
+                    value: '',
+                    name: 'email',
+                    mandatory: true,
+                    errorMsg: ['Please indicate your Email address',
+                        'The email address is not valid (name@domain.com)'],
+                    errorIndex: -1,
+                },
+                firstName: {
+                    value: '',
+                    name: 'firstName',
+                    mandatory: true,
+                    errorMsg: ['Please indicate your First name'],
+                    errorIndex: -1,
+                },
+                lastName: {
+                    value: '',
+                    name: 'lastName',
+                    mandatory: true,
+                    errorMsg: ['Please indicate your Last name'],
+                    errorIndex: -1,
+                },
+                company: {
+                    value: '',
+                    name: 'company',
+                    mandatory: true,
+                    errorMsg: ['Please indicate your Company'],
+                    errorIndex: -1,
+                },
+                phone: {
+                    value: '',
+                    name: 'phone',
+                    mandatory: true,
+                    errorMsg: ['Please indicate your Phone number',
+                        'This phone number is not valid'],
+                    errorIndex: -1,
+                },
+                country: {
+                    value: '',
+                    name: 'country',
+                    mandatory: true,
+                    errorMsg: ['Please select your country or area'],
+                    errorIndex: -1,
+                },
+                jobLevel: {
+                    value: '',
+                    name: 'jobLevel',
+                    mandatory: true,
+                    errorMsg: ['Please select your job Level'],
+                    errorIndex: -1,
+                },
+                department: {
+                    value: '',
+                    name: 'department',
+                    mandatory: true,
+                    errorMsg: ['Please select your department'],
+                    errorIndex: -1,
+                },
+                jobTitle: {
+                    value: '',
+                    name: 'jobTitle',
+                    mandatory: false
+                },
+                industry: {
+                    value: '',
+                    name: 'industry',
+                    mandatory: false
+                },
+                comment: {
+                    value: '',
+                    name: 'comment',
+                    mandatory: false
+                },
+            }
         }
     }
 
     toggleCheck = (fieldName, val) => {
+        if (this.state.formModels[fieldName].mandatory && val) {
+            this.state.formModels[fieldName].errorIndex = -1;
+        }
+        this.state.formModels[fieldName].checked = val;
         this.setState({
-            [fieldName]: val
+            formModels: this.state.formModels
         });
     }
 
+    onValueChange = (fieldName, value) => {
+        if (this.state.formModels[fieldName].errorIndex !== -1) {
+            // validate it
+            switch (fieldName) {
+                case 'email':
+                    if (_EMAIL_TEST_REGEX.test(value)) {
+                        this.state.formModels[fieldName].errorIndex = -1;
+                    }
+                    break;
+                default:
+                    if (value.length > 0) {
+                        this.state.formModels[fieldName].errorIndex = -1;
+                    }
+            }
+        }
+        this.state.formModels[fieldName].value = value;
+        this.setState({
+            formModels: this.state.formModels
+        });
+    }
+
+    submitForm = () => {
+        let flag = true;
+        for (let key in this.state.formModels) {
+            var filedProps = this.state.formModels[key];
+            switch (key) {
+                case 'email':
+                    if (filedProps.value.trim().length === 0) {
+                        filedProps.errorIndex = 0;
+                        flag = false;
+                    } else if (!_EMAIL_TEST_REGEX.test(filedProps.value)) {
+                        filedProps.errorIndex = 1;
+                        flag = false;
+                    }
+                    break;
+                case 'tofuCheck':
+                    if (!filedProps.value) {
+                        filedProps.errorIndex = 0;
+                        flag = false;
+                    }
+                    break;
+                default:
+                    if (filedProps.mandatory && filedProps.value.trim().length === 0) {
+                        filedProps.errorIndex = 0;
+                        flag = false;
+                    }
+                    break;
+            }
+        }
+        if (!flag) {
+            this.setState({
+                formModels: this.state.formModels
+            })
+        } else {
+            console.log('form is OK');
+        }
+
+    }
+
+
     render() {
-        const { learningContentCheck, certCheck, buyCheck, tofuCheck } = this.state;
+        const { formModels } = this.state;
+        const { setContactRef } = this.props;
 
         return (
             <div className="contact-us">
-                <div className="contact-us-title">
+                <div className="contact-us-title" ref={(ref) => setContactRef(ref)}>
                     <h3 className="title--main">Contact Us</h3>
                     <span className="title--sub">
                         Interested in our Learning Offer? Please contact us
@@ -44,48 +209,68 @@ export default class ContactUs extends React.Component {
                     <div className="contact-formula-form">
                         <div className="contact-formula-container">
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Email*" />
+                                <CLSInput type="text" placeholder="Email*"
+                                    {...formModels.email}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="First Name*" />
+                                <CLSInput type="text" placeholder="First Name*"
+                                    {...formModels.firstName}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Last Name*" />
+                                <CLSInput type="text" placeholder="Last Name*"
+                                    {...formModels.lastName}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="contact-separator"></div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Company*" />
+                                <CLSInput type="text" placeholder="Company*"
+                                    {...formModels.company}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSSelect placeholder="Country or Area*" data={Countries} />
+                                <CLSSelect placeholder="Country or Area*" data={Countries}
+                                    {...formModels.country}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Phone*" />
+                                <CLSInput type="text" placeholder="Phone*"
+                                    {...formModels.phone}
+                                    onValueChange={this.onValueChange} />
                             </div>
                         </div>
                         <div className="contact-formula-container">
                             <div className="item-container">
-                                <CLSSelect placeholder="Job Level*" data={JobLevels} />
+                                <CLSSelect placeholder="Job Level*" data={JobLevels}
+                                    {...formModels.jobLevel}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSSelect placeholder="Department*" data={Department} />
+                                <CLSSelect placeholder="Department*" data={Department}
+                                    {...formModels.department}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Job Title" />
+                                <CLSInput type="text" placeholder="Job Title"
+                                    {...formModels.jobTitle}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Related Industry" />
+                                <CLSInput type="text" placeholder="Related Industry"
+                                    {...formModels.industry}
+                                    onValueChange={this.onValueChange} />
                             </div>
                             <div className="item-container">
                                 <CLSCheckbox text="I would like more information on learning contents"
-                                    checked={learningContentCheck}
+                                    checked={formModels.learningContentCheck.checked}
                                     handleChange={(val) => {
                                         this.toggleCheck('learningContentCheck', val);
                                     }} />
                             </div>
                             <div className="item-container">
                                 <CLSCheckbox text="I would like more information on Certification"
-                                    checked={certCheck}
+                                    checked={formModels.certCheck.checked}
                                     handleChange={(val) => {
                                         this.toggleCheck('certCheck', val);
                                     }}
@@ -93,33 +278,45 @@ export default class ContactUs extends React.Component {
                             </div>
                             <div className="item-container">
                                 <CLSCheckbox text="I would like more information about how to buy"
-                                    checked={buyCheck}
+                                    checked={formModels.buyCheck.checked}
                                     handleChange={(val) => {
                                         this.toggleCheck('buyCheck', val);
                                     }}
                                 />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="textarea" placeholder="Please give us more details about your learning needs" />
+                                <CLSInput type="textarea"
+                                    placeholder="Please give us more details about your learning needs"
+                                    {...formModels.comment}
+                                    onValueChange={this.onValueChange} />
                             </div>
                         </div>
                     </div>
+
                     <div className="policy-switch">
-                        <Switch
-                            // size="small"
-                            checked={tofuCheck}
-                           onChange={(val) => {
-                               this.toggleCheck('tofuCheck', val)
-                           }}
-                        />
-                        <span className="align-left title--sub">
-                            I acknowledge I have read and I hereby accept the
-                            privacy policy under which my Personal Data will be used
-                            by Dassault Systèmes*
-                    </span>
+                        <div className="policy-switch--main">
+                            <Switch
+                                // size="small"
+                                checked={formModels.tofuCheck.value}
+                                onChange={(val) => {
+                                    this.toggleCheck('tofuCheck', val)
+                                }}
+                            />
+                            <span className="align-left title--sub">
+                                I acknowledge I have read and I hereby accept the
+                                privacy policy under which my Personal Data will be used
+                                by Dassault Systèmes*</span>
+                        </div>
+                        {formModels['tofuCheck'].errorIndex !== -1 && 
+                          <span className="policy-switch--error">
+                              {formModels['tofuCheck']['errorMsg'][0]}
+                            </span>}
+
                     </div>
                     <div className="contact-confirm">
-                        <div role="button" className="btn contact">Submit</div>
+                        <div role="button" className="btn contact" onClick={
+                            this.submitForm
+                        }>Submit</div>
                     </div>
                 </div>
 

@@ -4,21 +4,25 @@ import './discoverContainer.scss';
 
 export default class DiscoverContainer extends React.Component {
     render() {
+        const { setDiscoverRef, scrollTo } = this.props;
+
         return (
             <div className="discover-container">
                 <div className="discover-btn">
                     <img src="./static/svg/arrow.svg" />
-                    <span className="discover-btn--text">Discover</span>
+                    <span className="discover-btn--text" onClick={() => {
+                        scrollTo('discover');
+                    }}>Discover</span>
                 </div>
                 <div className="discover-main">
-                    <h3 className="title--main">
+                    <h3 className="title--main align-center" ref={(ref) => setDiscoverRef(ref)}>
                         Discover 3DS Learning Space
                     </h3>
                     <section className="title--sub">
                         <p>
                             Our learning portal{' '}
                             {/* <a href="https://companion.3ds.com" target="_blank"> */}
-                                3DS Learning Space
+                            3DS Learning Space
                             {/* </a>{' '} */}
                             provides an extensive online catalog made of
                             thousands

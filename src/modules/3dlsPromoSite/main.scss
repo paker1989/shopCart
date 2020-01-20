@@ -69,6 +69,7 @@ $carousel-text-left: 200px;
       margin-top: 20px;
       font-size: 17px;
       line-height: 30px;
+      text-align: justify;
     }
 
     &--btn {
@@ -97,7 +98,7 @@ $carousel-text-left: 200px;
   .carousel-main-text {
     width: 100%;
     text-align: center;
-    padding: 20px 0 0 0;
+    padding: 20px 5px 0 5px;
   }
 
   .carousel-header {
