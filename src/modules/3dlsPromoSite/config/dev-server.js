@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-// const eventRoutes = require('../routes/events');
+const contactRoutes = require('../routes/contacts');
 const webpackDevConfig = require('./webpack.dev.config');
 const config = require('./config');
 
@@ -41,6 +41,8 @@ app.use((err, req, res, next) => {
     console.log(err.stack);
     res.status(500).end();
 })
+
+app.use('/contact', contactRoutes);
 
 const port = config.dev.port;
 

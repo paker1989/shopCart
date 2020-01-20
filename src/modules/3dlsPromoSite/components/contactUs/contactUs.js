@@ -1,10 +1,10 @@
 import * as React from 'react';
+import axios from 'axios';
 
 import { Switch } from 'zent';
 import CLSInput from '../input/input';
 import CLSSelect from '../select/select';
 import CLSCheckbox from '../checkbox/checkbox';
-
 
 import Countries from '../../assets/data/countries';
 import JobLevels from '../../assets/data/jobLevels';
@@ -26,32 +26,35 @@ export default class ContactUs extends React.Component {
                 learningContentCheck: {
                     checked: false,
                     name: 'learningContentCheck',
-                    mandatory: false
+                    mandatory: false,
                 },
                 certCheck: {
-                    value: false,
+                    checked: false,
                     name: 'certCheck',
-                    mandatory: false
+                    mandatory: false,
                 },
                 buyCheck: {
-                    value: false,
+                    checked: false,
                     name: 'buyCheck',
-                    mandatory: false
+                    mandatory: false,
                 },
                 tofuCheck: {
-                    value: false,
+                    checked: false,
                     name: 'tofuCheck',
                     mandatory: true,
                     errorMsg: [
-                        'Your explicit consent to the privacy policy is required'],
+                        'Your explicit consent to the privacy policy is required',
+                    ],
                     errorIndex: -1,
                 },
                 email: {
                     value: '',
                     name: 'email',
                     mandatory: true,
-                    errorMsg: ['Please indicate your Email address',
-                        'The email address is not valid (name@domain.com)'],
+                    errorMsg: [
+                        'Please indicate your Email address',
+                        'The email address is not valid (name@domain.com)',
+                    ],
                     errorIndex: -1,
                 },
                 firstName: {
@@ -79,8 +82,10 @@ export default class ContactUs extends React.Component {
                     value: '',
                     name: 'phone',
                     mandatory: true,
-                    errorMsg: ['Please indicate your Phone number',
-                        'This phone number is not valid'],
+                    errorMsg: [
+                        'Please indicate your Phone number',
+                        'This phone number is not valid',
+                    ],
                     errorIndex: -1,
                 },
                 country: {
@@ -107,20 +112,20 @@ export default class ContactUs extends React.Component {
                 jobTitle: {
                     value: '',
                     name: 'jobTitle',
-                    mandatory: false
+                    mandatory: false,
                 },
                 industry: {
                     value: '',
                     name: 'industry',
-                    mandatory: false
+                    mandatory: false,
                 },
                 comment: {
                     value: '',
                     name: 'comment',
-                    mandatory: false
+                    mandatory: false,
                 },
-            }
-        }
+            },
+        };
     }
 
     toggleCheck = (fieldName, val) => {
@@ -128,10 +133,11 @@ export default class ContactUs extends React.Component {
             this.state.formModels[fieldName].errorIndex = -1;
         }
         this.state.formModels[fieldName].checked = val;
+        console.log('toggle check');
         this.setState({
-            formModels: this.state.formModels
+            formModels: this.state.formModels,
         });
-    }
+    };
 
     onValueChange = (fieldName, value) => {
         if (this.state.formModels[fieldName].errorIndex !== -1) {
@@ -149,12 +155,13 @@ export default class ContactUs extends React.Component {
             }
         }
         this.state.formModels[fieldName].value = value;
+        console.log('onValuechange');
         this.setState({
-            formModels: this.state.formModels
+            formModels: this.state.formModels,
         });
-    }
+    };
 
-    submitForm = () => {
+    validateForm = () => {
         let flag = true;
         for (let key in this.state.formModels) {
             var filedProps = this.state.formModels[key];
@@ -169,13 +176,16 @@ export default class ContactUs extends React.Component {
                     }
                     break;
                 case 'tofuCheck':
-                    if (!filedProps.value) {
+                    if (!filedProps.checked) {
                         filedProps.errorIndex = 0;
                         flag = false;
                     }
                     break;
                 default:
-                    if (filedProps.mandatory && filedProps.value.trim().length === 0) {
+                    if (
+                        filedProps.mandatory &&
+                        filedProps.value.trim().length === 0
+                    ) {
                         filedProps.errorIndex = 0;
                         flag = false;
                     }
@@ -183,15 +193,25 @@ export default class ContactUs extends React.Component {
             }
         }
         if (!flag) {
+            console.log('validateForm');
             this.setState({
-                formModels: this.state.formModels
-            })
+                formModels: this.state.formModels,
+            });
         } else {
-            console.log('form is OK');
+            this.submitForm();
         }
+    };
 
-    }
-
+    submitForm = () => {
+        debugger;
+        axios
+            .post('/contact/sendEmail', {
+                params: { msg: 'test' },
+            })
+            .then(val => {
+                console.log(val);
+            });
+    };
 
     render() {
         const { formModels } = this.state;
@@ -199,96 +219,140 @@ export default class ContactUs extends React.Component {
 
         return (
             <div className="contact-us">
-                <div className="contact-us-title" ref={(ref) => setContactRef(ref)}>
+                <div
+                    className="contact-us-title"
+                    ref={ref => setContactRef(ref)}
+                >
                     <h3 className="title--main">Contact Us</h3>
                     <span className="title--sub">
                         Interested in our Learning Offer? Please contact us
-                  </span>
+                    </span>
                 </div>
                 <div className="contact-formula">
                     <div className="contact-formula-form">
                         <div className="contact-formula-container">
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Email*"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Email*"
                                     {...formModels.email}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="First Name*"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="First Name*"
                                     {...formModels.firstName}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Last Name*"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Last Name*"
                                     {...formModels.lastName}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="contact-separator"></div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Company*"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Company*"
                                     {...formModels.company}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSSelect placeholder="Country or Area*" data={Countries}
+                                <CLSSelect
+                                    placeholder="Country or Area*"
+                                    data={Countries}
                                     {...formModels.country}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Phone*"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Phone*"
                                     {...formModels.phone}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                         </div>
                         <div className="contact-formula-container">
                             <div className="item-container">
-                                <CLSSelect placeholder="Job Level*" data={JobLevels}
+                                <CLSSelect
+                                    placeholder="Job Level*"
+                                    data={JobLevels}
                                     {...formModels.jobLevel}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSSelect placeholder="Department*" data={Department}
+                                <CLSSelect
+                                    placeholder="Department*"
+                                    data={Department}
                                     {...formModels.department}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Job Title"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Job Title"
                                     {...formModels.jobTitle}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="text" placeholder="Related Industry"
+                                <CLSInput
+                                    type="text"
+                                    placeholder="Related Industry"
                                     {...formModels.industry}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSCheckbox text="I would like more information on learning contents"
-                                    checked={formModels.learningContentCheck.checked}
-                                    handleChange={(val) => {
-                                        this.toggleCheck('learningContentCheck', val);
-                                    }} />
+                                <CLSCheckbox
+                                    text="I would like more information on learning contents"
+                                    checked={
+                                        formModels.learningContentCheck.checked
+                                    }
+                                    handleChange={val => {
+                                        this.toggleCheck(
+                                            'learningContentCheck',
+                                            val
+                                        );
+                                    }}
+                                />
                             </div>
                             <div className="item-container">
-                                <CLSCheckbox text="I would like more information on Certification"
+                                <CLSCheckbox
+                                    text="I would like more information on Certification"
                                     checked={formModels.certCheck.checked}
-                                    handleChange={(val) => {
+                                    handleChange={val => {
                                         this.toggleCheck('certCheck', val);
                                     }}
                                 />
                             </div>
                             <div className="item-container">
-                                <CLSCheckbox text="I would like more information about how to buy"
+                                <CLSCheckbox
+                                    text="I would like more information about how to buy"
                                     checked={formModels.buyCheck.checked}
-                                    handleChange={(val) => {
+                                    handleChange={val => {
                                         this.toggleCheck('buyCheck', val);
                                     }}
                                 />
                             </div>
                             <div className="item-container">
-                                <CLSInput type="textarea"
+                                <CLSInput
+                                    type="textarea"
                                     placeholder="Please give us more details about your learning needs"
                                     {...formModels.comment}
-                                    onValueChange={this.onValueChange} />
+                                    onValueChange={this.onValueChange}
+                                />
                             </div>
                         </div>
                     </div>
@@ -297,30 +361,34 @@ export default class ContactUs extends React.Component {
                         <div className="policy-switch--main">
                             <Switch
                                 // size="small"
-                                checked={formModels.tofuCheck.value}
-                                onChange={(val) => {
-                                    this.toggleCheck('tofuCheck', val)
+                                checked={formModels.tofuCheck.checked}
+                                onChange={val => {
+                                    this.toggleCheck('tofuCheck', val);
                                 }}
                             />
                             <span className="align-left title--sub">
-                                I acknowledge I have read and I hereby accept the
-                                privacy policy under which my Personal Data will be used
-                                by Dassault Systèmes*</span>
+                                I acknowledge I have read and I hereby accept
+                                the privacy policy under which my Personal Data
+                                will be used by Dassault Systèmes*
+                            </span>
                         </div>
-                        {formModels['tofuCheck'].errorIndex !== -1 && 
-                          <span className="policy-switch--error">
-                              {formModels['tofuCheck']['errorMsg'][0]}
-                            </span>}
-
+                        {formModels['tofuCheck'].errorIndex !== -1 && (
+                            <span className="policy-switch--error">
+                                {formModels['tofuCheck']['errorMsg'][0]}
+                            </span>
+                        )}
                     </div>
                     <div className="contact-confirm">
-                        <div role="button" className="btn contact" onClick={
-                            this.submitForm
-                        }>Submit</div>
+                        <div
+                            role="button"
+                            className="btn contact"
+                            onClick={this.submitForm}
+                        >
+                            Submit
+                        </div>
                     </div>
                 </div>
-
             </div>
-        )
+        );
     }
 }
