@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 
-import { Switch } from 'zent';
+import { Switch, Notify } from 'zent';
 import CLSInput from '../input/input';
 import CLSSelect from '../select/select';
 import CLSCheckbox from '../checkbox/checkbox';
@@ -24,22 +24,22 @@ export default class ContactUs extends React.Component {
             // tofuCheck: false,
             formModels: {
                 learningContentCheck: {
-                    checked: false,
+                    value: false,
                     name: 'learningContentCheck',
                     mandatory: false,
                 },
                 certCheck: {
-                    checked: false,
+                    value: false,
                     name: 'certCheck',
                     mandatory: false,
                 },
                 buyCheck: {
-                    checked: false,
+                    value: false,
                     name: 'buyCheck',
                     mandatory: false,
                 },
                 tofuCheck: {
-                    checked: false,
+                    value: false,
                     name: 'tofuCheck',
                     mandatory: true,
                     errorMsg: [
@@ -78,16 +78,16 @@ export default class ContactUs extends React.Component {
                     errorMsg: ['Please indicate your Company'],
                     errorIndex: -1,
                 },
-                phone: {
-                    value: '',
-                    name: 'phone',
-                    mandatory: true,
-                    errorMsg: [
-                        'Please indicate your Phone number',
-                        'This phone number is not valid',
-                    ],
-                    errorIndex: -1,
-                },
+                // phone: {
+                //     value: '',
+                //     name: 'phone',
+                //     mandatory: true,
+                //     errorMsg: [
+                //         'Please indicate your Phone number',
+                //         'This phone number is not valid',
+                //     ],
+                //     errorIndex: -1,
+                // },
                 country: {
                     value: '',
                     name: 'country',
@@ -95,20 +95,20 @@ export default class ContactUs extends React.Component {
                     errorMsg: ['Please select your country or area'],
                     errorIndex: -1,
                 },
-                jobLevel: {
-                    value: '',
-                    name: 'jobLevel',
-                    mandatory: true,
-                    errorMsg: ['Please select your job Level'],
-                    errorIndex: -1,
-                },
-                department: {
-                    value: '',
-                    name: 'department',
-                    mandatory: true,
-                    errorMsg: ['Please select your department'],
-                    errorIndex: -1,
-                },
+                // jobLevel: {
+                //     value: '',
+                //     name: 'jobLevel',
+                //     mandatory: true,
+                //     errorMsg: ['Please select your job Level'],
+                //     errorIndex: -1,
+                // },
+                // department: {
+                //     value: '',
+                //     name: 'department',
+                //     mandatory: true,
+                //     errorMsg: ['Please select your department'],
+                //     errorIndex: -1,
+                // },
                 jobTitle: {
                     value: '',
                     name: 'jobTitle',
@@ -132,7 +132,7 @@ export default class ContactUs extends React.Component {
         if (this.state.formModels[fieldName].mandatory && val) {
             this.state.formModels[fieldName].errorIndex = -1;
         }
-        this.state.formModels[fieldName].checked = val;
+        this.state.formModels[fieldName].value = val;
         console.log('toggle check');
         this.setState({
             formModels: this.state.formModels,
@@ -155,7 +155,7 @@ export default class ContactUs extends React.Component {
             }
         }
         this.state.formModels[fieldName].value = value;
-        console.log('onValuechange');
+        // console.log('onValuechange');
         this.setState({
             formModels: this.state.formModels,
         });
@@ -176,7 +176,7 @@ export default class ContactUs extends React.Component {
                     }
                     break;
                 case 'tofuCheck':
-                    if (!filedProps.checked) {
+                    if (!filedProps.value) {
                         filedProps.errorIndex = 0;
                         flag = false;
                     }
@@ -202,14 +202,33 @@ export default class ContactUs extends React.Component {
         }
     };
 
+    // /contact/sendEmail
     submitForm = () => {
-        debugger;
+        let formData = {};
+        for (let key in this.state.formModels) {
+            let field = this.state.formModels[key];
+            formData[field.name] = field.value;
+        }
         axios
-            .post('/contact/sendEmail', {
-                params: { msg: 'test' },
+            .post('https://learningspace-ppdqa.3ds.com:8001/contact/sendEmail', {
+                params: formData,
             })
             .then(val => {
                 console.log(val);
+                for (let key in this.state.formModels) {
+                    let field = this.state.formModels[key];
+                    if (typeof field.value === 'boolean') {
+                        field.value = false;
+                    } else {
+                        field.value = '';
+                    }
+                }
+                this.setState({
+                    formModels: this.state.formModels
+                }, () => {
+                    Notify.success('Your request was sent successfully!');
+                })
+
             });
     };
 
@@ -272,17 +291,17 @@ export default class ContactUs extends React.Component {
                                     onValueChange={this.onValueChange}
                                 />
                             </div>
-                            <div className="item-container">
+                            {/* <div className="item-container">
                                 <CLSInput
                                     type="text"
                                     placeholder="Phone*"
                                     {...formModels.phone}
                                     onValueChange={this.onValueChange}
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="contact-formula-container">
-                            <div className="item-container">
+                            {/* <div className="item-container">
                                 <CLSSelect
                                     placeholder="Job Level*"
                                     data={JobLevels}
@@ -297,7 +316,7 @@ export default class ContactUs extends React.Component {
                                     {...formModels.department}
                                     onValueChange={this.onValueChange}
                                 />
-                            </div>
+                            </div> */}
                             <div className="item-container">
                                 <CLSInput
                                     type="text"
@@ -318,7 +337,7 @@ export default class ContactUs extends React.Component {
                                 <CLSCheckbox
                                     text="I would like more information on learning contents"
                                     checked={
-                                        formModels.learningContentCheck.checked
+                                        formModels.learningContentCheck.value
                                     }
                                     handleChange={val => {
                                         this.toggleCheck(
@@ -331,7 +350,7 @@ export default class ContactUs extends React.Component {
                             <div className="item-container">
                                 <CLSCheckbox
                                     text="I would like more information on Certification"
-                                    checked={formModels.certCheck.checked}
+                                    checked={formModels.certCheck.value}
                                     handleChange={val => {
                                         this.toggleCheck('certCheck', val);
                                     }}
@@ -340,7 +359,7 @@ export default class ContactUs extends React.Component {
                             <div className="item-container">
                                 <CLSCheckbox
                                     text="I would like more information about how to buy"
-                                    checked={formModels.buyCheck.checked}
+                                    checked={formModels.buyCheck.value}
                                     handleChange={val => {
                                         this.toggleCheck('buyCheck', val);
                                     }}
@@ -361,7 +380,7 @@ export default class ContactUs extends React.Component {
                         <div className="policy-switch--main">
                             <Switch
                                 // size="small"
-                                checked={formModels.tofuCheck.checked}
+                                checked={formModels.tofuCheck.value}
                                 onChange={val => {
                                     this.toggleCheck('tofuCheck', val);
                                 }}
@@ -382,7 +401,7 @@ export default class ContactUs extends React.Component {
                         <div
                             role="button"
                             className="btn contact"
-                            onClick={this.submitForm}
+                            onClick={this.validateForm}
                         >
                             Submit
                         </div>

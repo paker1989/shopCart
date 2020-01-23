@@ -8,37 +8,44 @@ export default class DiscoverContainer extends React.Component {
 
         return (
             <div className="discover-container">
-                <div className="discover-btn">
-                    <img src="./static/svg/arrow.svg" />
-                    <span className="discover-btn--text" onClick={() => {
-                        scrollTo('discover');
-                    }}>Discover</span>
-                </div>
                 <div className="discover-main">
                     <h3 className="title--main align-center" ref={(ref) => setDiscoverRef(ref)}>
                         Discover 3DS Learning Space
                     </h3>
-                    <section className="title--sub">
-                        <p>
+                    <section className="discover-main--body title--sub">
+                        {/* <p> */}
                             Our learning portal{' '}
                             {/* <a href="https://companion.3ds.com" target="_blank"> */}
                             3DS Learning Space
                             {/* </a>{' '} */}
                             provides an extensive online catalog made of
                             thousands
-                        </p>
-                        <p>
+                        {/* </p> */}
+                        {/* <p> */}
                             of courses jointly developed by technical and
                             digital learning experts to empower you on
-                        </p>
-                        <p>
+                        {/* </p>
+                        <p> */}
                             Dassault Systèmes solutions anytime & anywhere
                             through multiple devices.
-                        </p>
+                        {/* </p> */}
                     </section>
                     <div className="discover-step">
-                        {/* <div className="discover-step--timeline"></div> */}
                         <div className="discover-step-body">
+                            <div className="discover-step-main">
+                                <img src="./static/svg/idea.svg" />
+                                <div className="discover-step-content">
+                                    <div className="discover-step-content--title">
+                                        Best in class
+                                    </div>
+                                    <div className="discover-step-content--des">
+                                        Gain <strong>domain knowledge</strong> and <strong>software know-how</strong> through
+                                        learning experiences based on <strong>real scenarios</strong>, co-designed
+                                         by <strong>Industry leaders</strong> and <strong>Dassault Systèmes
+                                         experts</strong> in software products and digital learning.
+                                    </div>
+                                </div>
+                            </div>
                             <div className="discover-step-main">
                                 <img src="./static/svg/brain.svg" />
                                 <div className="discover-step-content">
@@ -46,40 +53,20 @@ export default class DiscoverContainer extends React.Component {
                                         Learning-by-doing
                                     </div>
                                     <div className="discover-step-content--des">
-                                        Playing an active part in the learning
-                                        process by directly applying acquired
-                                        notions using the 3DEXPERIENCE platform
-                                        through exercises and quizzes.
+                                        Play an <strong>active role</strong> in the learning process by directly
+                                         applying acquired notions using the <strong>3D</strong>EXPERIENCE platform
+                                          through <strong>hands-on exercises</strong> and <strong>quizzes</strong>.
                                     </div>
                                 </div>
                             </div>
                             <div className="discover-step-main">
-                                <img src="./static/svg/idea.svg" />
+                                <img src="./static/svg/responsive.svg" />
                                 <div className="discover-step-content">
                                     <div className="discover-step-content--title">
-                                        Knowledge and Software know-how
+                                        Mobility and Responsiveness
                                     </div>
                                     <div className="discover-step-content--des">
-                                        To be proficient in a role, it is
-                                        essential to first acquire domain
-                                        knowledge and then build on know-how to
-                                        perform effectively using the
-                                        3DEXPERIENCE Platform.
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="discover-step-main">
-                                <img src="./static/svg/partner.svg" />
-                                <div className="discover-step-content">
-                                    <div className="discover-step-content--title">
-                                        Partnerships
-                                    </div>
-                                    <div className="discover-step-content--des">
-                                        To ensure our Learning Experiences
-                                        provide state-of-the-art methodologies,
-                                        they are jointly developed by experts in
-                                        domain knowledge, software products and
-                                        digital learning.
+                                        Learn <strong>anywhere & anytime</strong> through multiple devices in a self-paced mode.
                                     </div>
                                 </div>
                             </div>
@@ -90,12 +77,10 @@ export default class DiscoverContainer extends React.Component {
                                         Get Certified
                                     </div>
                                     <div className="discover-step-content--des">
-                                        Self-proctored certificates are
-                                        available within each Learning
-                                        Experience so that you can measure your
-                                        competences on Dassault Systèmes
-                                        solutions and promote your new skills
-                                        through professional channels.
+                                        Measure your competences on Dassault Systèmes
+                                         solutions and <strong>promote your new skills</strong> through
+                                         professional channels thanks to the <strong>self-proctored
+                                          certificates</strong> available within our Learning Experiences.
                                     </div>
                                 </div>
                             </div>

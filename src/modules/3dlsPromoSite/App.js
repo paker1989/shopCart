@@ -35,7 +35,7 @@ class App extends React.Component {
             case 'discover':
                 this.discoverRef.scrollIntoView({
                     behavior: 'smooth',
-                });  
+                });
                 break;
         }
     }
@@ -53,9 +53,8 @@ class App extends React.Component {
                                 <p>Learn anywhere, anytime.</p>
                             </div>
                             <div className="carousel-main-text--sub">
-                                <p>3DS Learning Space is a unique learning portal developed by
-                                Dassault Systèmes to host a scientific course library of Dassault
-                                Systèmes products and solutions.</p>
+                                <p>3DS Learning Space is an online learning portal developed by Dassault
+                                     Systèmes providing the best learning experiences to master Dassault Systèmes products and solutions.</p>
                             </div>
                             <span role="button"
                                 className="btn carousel-main-text--btn"
@@ -67,10 +66,15 @@ class App extends React.Component {
                         </div>
                     </div>
                     <img src="./static/img/1495-new.png" className="carousel-main-img"></img>
+                    <div className="discover-btn">
+                        <img src="./static/svg/arrow.svg" />
+                        <span className="discover-btn--text" onClick={() => {
+                            this.scrollTo('discover');
+                        }}>Discover</span>
+                    </div>
                 </section>
-                <DiscoverContainer setDiscoverRef={this.setDiscoverRef} scrollTo={this.scrollTo}/>
+                <DiscoverContainer setDiscoverRef={this.setDiscoverRef} scrollTo={this.scrollTo} />
                 <ContactUs setContactRef={this.setContactRef} />
-                {/* <ContactUsForm setContactRef={this.setContactRef} /> */}
                 <Footer />
             </div>
         )

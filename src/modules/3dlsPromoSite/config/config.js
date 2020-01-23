@@ -1,8 +1,14 @@
 'use strcit'
 
 const path = require('path');
+let mode = 'production';
+
+if (process.argv[2] && process.argv[2] == 'test') {
+    mode = 'test';
+}
 
 module.exports = {
+    mode,
     dev: {
         env: {
             NODE_ENV: '"development"',

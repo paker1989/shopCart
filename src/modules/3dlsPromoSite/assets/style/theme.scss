@@ -14,15 +14,15 @@
   &--main {
       color: #005386;
       letter-spacing: 0.42px;
-      font-size: 28px;
+      font-size: 42px;
       line-height: 80px;
   }
 
   &--sub {
       color: #555555;
       letter-spacing: 0.42px;
-      font-size: 17px;
-      line-height: 24px;
+      font-size: 28px;
+      line-height: 42px;
       text-align: center;
       & a {
           text-decoration: underline;
@@ -34,4 +34,17 @@
 
 .align-center {
     text-align: center;
+}
+
+@media only screen and (max-width: 1400px) {
+  .title--main {
+      font-size: 26px;
+      line-height: 42px;
+  }
+
+  .title--sub {
+    font-size: 18px;
+    line-height: 28px;
+}
+
 }
