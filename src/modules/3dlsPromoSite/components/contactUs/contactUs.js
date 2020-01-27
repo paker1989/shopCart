@@ -210,7 +210,7 @@ export default class ContactUs extends React.Component {
             formData[field.name] = field.value;
         }
         axios
-            .post('https://learningspace-ppdqa.3ds.com:8001/contact/sendEmail', {
+            .post('https://learningspace-ppdqa.3ds.com/Dashboard/contact/sendEmail', {
                 params: formData,
             })
             .then(val => {

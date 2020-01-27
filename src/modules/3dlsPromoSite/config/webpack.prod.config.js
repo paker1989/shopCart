@@ -13,6 +13,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const webpackProdConfig = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
+    polyfill: '@babel/polyfill',
     app: './main.js'
   },
   output: {

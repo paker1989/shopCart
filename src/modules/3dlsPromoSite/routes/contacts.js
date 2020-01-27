@@ -23,6 +23,10 @@ function handleError(err, next) {
     }
 }
 
+const test = (req, res, next) => {
+    res.status(200).send('<html><body>Yes</body></html>');
+}
+
 const sendEmail = (req, res, next) => {
     try {
         // console.log(req.body.params);
@@ -30,7 +34,7 @@ const sendEmail = (req, res, next) => {
 
         const message = {
             from: mailConfig.sendFrom, // Sender address
-            to: isTestMode ? params.email: mailConfig.sendTo, // List of recipients
+            to: isTestMode ? params.email : mailConfig.sendTo, // List of recipients
             subject: 'Someone just send a contact request to my first dashboard', // Subject line
             html: `
             <p>The contactor has submitted below contact information:</p>\
@@ -42,9 +46,9 @@ const sendEmail = (req, res, next) => {
                 <li>Country:    ${params.country}</li>
                 <li>Job Title:    ${params.jobTitle}</li>
                 <li>Related Industry:    ${params.industry}</li>
-                <li>would like more information on learning contents:    ${params.learningContentCheck ? 'Yes': 'No'}</li>
-                <li>would like more information on Certification:    ${params.certCheck ? 'Yes': 'No'}</li>
-                <li>would like more information about how to buy:    ${params.buyCheck ? 'Yes': 'No'}</li>
+                <li>would like more information on learning contents:    ${params.learningContentCheck ? 'Yes' : 'No'}</li>
+                <li>would like more information on Certification:    ${params.certCheck ? 'Yes' : 'No'}</li>
+                <li>would like more information about how to buy:    ${params.buyCheck ? 'Yes' : 'No'}</li>
                 <li>More details:    ${params.comment}</li>
             `,
         };
@@ -61,9 +65,6 @@ const sendEmail = (req, res, next) => {
 };
 
 router.post('/sendEmail', sendEmail);
+router.get('/test', test);
 
 module.exports = router;
-
-{/* <li>Phone number:    ${params.phone}</li>
-<li>Job Level:    ${params.jobLevel}</li>
-<li>Department:    ${params.department}</li> */}

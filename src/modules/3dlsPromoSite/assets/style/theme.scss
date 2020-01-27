@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1550px) {
   .title--main {
       font-size: 26px;
       line-height: 42px;
@@ -46,5 +46,10 @@
     font-size: 18px;
     line-height: 28px;
 }
+
+  .discover-step-content--des {
+    font-size: 18px;
+    line-height: 28px;
+  }
 
 }

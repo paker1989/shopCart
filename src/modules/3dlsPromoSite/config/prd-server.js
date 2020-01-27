@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')());
+// app.use(require('connect-history-api-fallback')());
 
 // app.use(devMiddleWare);
 

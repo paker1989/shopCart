@@ -11,6 +11,7 @@ const webpackdevConfig = merge(webpackBaseConfig, {
   entry: [
     /** need to comment the hot middleware entry to be able to work with dev-server */
     // 'webpack-hot-middleware/client.js?noInfo=true&reload=true',
+    '@babel/polyfill',
     './main.js'],
   devtool: config.dev.devtool,
   devServer: {
