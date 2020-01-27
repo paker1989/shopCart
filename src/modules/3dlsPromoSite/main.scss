@@ -10,8 +10,8 @@ $carousel-text-left: 120px;
   margin: 0 auto;
   background-image: url("/static/svg/backdrop.svg");
   background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
+   -o-background-size: 100% 100%;
+   -webkit-background-size: 100% 100%;
   background-size: cover;
 }
 
@@ -111,9 +111,9 @@ $carousel-text-left: 120px;
 
 
 @media only screen and (min-width: 1100px) {
-  .carousel-container {
-    min-height: 900px;
-  }
+  // .carousel-container {
+  //   min-height: 900px;
+  // }
 }
 
 @media only screen and (max-width: 1550px) {
