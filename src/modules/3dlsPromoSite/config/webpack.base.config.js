@@ -4,7 +4,11 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
   filename: 'index.html',
   template: path.join(__dirname, '../../../', '_templates_/3dlsPromo.html'),
-  inject: true
+  inject: true,
+  chunksSortMode: function (a, b) {
+    var order = ["app", "polyfill"];
+    return order.indexOf(b.names[0]) - order.indexOf(a.names[0]);
+  }
 });
 
 module.exports = {

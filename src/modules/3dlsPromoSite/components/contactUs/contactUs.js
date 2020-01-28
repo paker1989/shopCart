@@ -226,7 +226,7 @@ export default class ContactUs extends React.Component {
                 this.setState({
                     formModels: this.state.formModels
                 }, () => {
-                    Notify.success('Your request was sent successfully!');
+                    Notify.success('Request has been sent successfully!');
                 })
 
             });
@@ -388,7 +388,7 @@ export default class ContactUs extends React.Component {
                             <span className="align-left title--sub">
                                 I acknowledge I have read and I hereby accept
                                 the privacy policy under which my Personal Data
-                                will be used by Dassault Systèmes*
+                                will be used by Dassault Systemes*
                             </span>
                         </div>
                         {formModels['tofuCheck'].errorIndex !== -1 && (

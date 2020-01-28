@@ -16,10 +16,15 @@
   text-align: left;
 }
 
-.zent-checkbox-label[data-zv="8.0.0"] {
+.zent-checkbox-wrap[data-zv="8.0.0"].cls-checkbox-style .zent-checkbox[data-zv="8.0.0"] {
+  display: inline;
+}
+
+.zent-checkbox-wrap[data-zv="8.0.0"].cls-checkbox-style .zent-checkbox-label[data-zv="8.0.0"] {
   color: #555555;
   letter-spacing: 0.21px;
   font-size: 14px;
   line-height: 24px;
   text-align: left;
+  display: inline;
 }
