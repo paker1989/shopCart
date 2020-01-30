@@ -34,7 +34,7 @@ app.use(devMiddleWare);
 
 app.use(hotMiddleWare);
 
-app.use('/static', express.static(path.join(__dirname, '..', '/assets'))); // serve 本地资源
+//  app.use('/static', express.static(path.join(__dirname, '..', '/assets'))); // serve 本地资源
 
 // app.use('/events', eventRoutes);
 

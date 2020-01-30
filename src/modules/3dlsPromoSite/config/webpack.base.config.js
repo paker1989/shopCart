@@ -39,12 +39,25 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpe?g|png|gif|svg|otf|ttf)$/i,
+        test: /\.(jpe?g|png|gif|svg)$/i,
         loader: "file-loader",
         options: {
-          limit: 10000,
-          name: 'static/images/[name].[hash:7].[ext]' //打包后存放的位置
+          // limit: 10000,
+          name: '[name].[hash:7].[ext]', //打包后存放的位置
+          outputPath: 'static/img/',
+          publicPath: '../static/img/'
         }
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: 'static/font/',
+            publicPath: '../static/font/'
+          },
+        },
       },
       {
         test: /\.json$/i,

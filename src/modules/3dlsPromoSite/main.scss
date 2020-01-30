@@ -3,12 +3,17 @@
 $header-bottom-to-top: 186px;
 $carousel-text-left: 120px;
 
+@font-face {
+  font-family: '3dslight';
+  src: url('./assets/font/3dsLight.ttf') format('truetype'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 .dls-promo-container {
   position: relative;
   width: 100%;
   height: auto;
   margin: 0 auto;
-  background-image: url("/static/svg/backdrop.svg");
+  background-image: url("./assets/svg/backdrop.svg");
   background-size: 100% 100%;
    -o-background-size: 100% 100%;
    -webkit-background-size: 100% 100%;
