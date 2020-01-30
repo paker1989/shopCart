@@ -41,7 +41,7 @@ export default class DiscoverContainer extends React.Component {
                                 <img src="./static/svg/brain.svg" />
                                 <div className="discover-step-content">
                                     <div className="discover-step-content--title">
-                                        Learn-by-doing
+                                        Learn by doing
                                     </div>
                                     <div className="discover-step-content--des">
                                         Play an <strong>active role</strong> in the learning process by directly

@@ -56,3 +56,20 @@ $footer-padding-hor: 80px;
         padding: 0 0 0 20px;
     }
 }
+
+@media only screen and (max-device-width: 500px) {
+    .footer-container {
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    .footer-container .power-by {
+        font-size: 16px;
+    }
+
+    .footer-container .footer-options {
+        font-size: 14px;
+    }
+
+
+}

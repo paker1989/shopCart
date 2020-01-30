@@ -388,7 +388,7 @@ export default class ContactUs extends React.Component {
                             <span className="align-left title--sub">
                                 I acknowledge I have read and I hereby accept
                                 the privacy policy under which my Personal Data
-                                will be used by Dassault Systemes*
+                                will be used by Dassault Systèmes*
                             </span>
                         </div>
                         {formModels['tofuCheck'].errorIndex !== -1 && (

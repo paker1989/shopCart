@@ -18,7 +18,7 @@ export default class CLSFooter extends React.Component {
                     <span><a href="https://www.3ds.com/privacy-policy/" target="_blank">Privacy Policy</a></span>
                     <span><a href="https://www.3ds.com/terms-of-use/" target="_blank">Terms of use</a></span>
                     <span><a href="https://www.3ds.com/piracy/" target="_blank">Piracy</a></span>
-                    <span>2007-2020 Dassault Systemes - All rights reserved</span>
+                    <span>2007-2020 Dassault Systèmes - All rights reserved</span>
                 </div>
             </div>
         )
