@@ -12,7 +12,7 @@ export default class CLSFooter extends React.Component {
         return (
             <div className="footer-container">
                 <div className="power-by">
-                    <a href="https://www.3ds.com/" target="_blank">Powered by Dassault Systemes Learning Experience</a>
+                    <a href="https://www.3ds.com/" target="_blank">Powered by Dassault Systèmes Learning Experience</a>
                </div>
                 <div className="footer-options">
                     <span><a href="https://www.3ds.com/privacy-policy/" target="_blank">Privacy Policy</a></span>
