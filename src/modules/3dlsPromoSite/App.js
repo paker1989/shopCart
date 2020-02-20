@@ -1,4 +1,5 @@
 import React from "react";
+import { Tooltip } from 'zent';
 
 import DiscoverContainer from './components/discoverContainer/discoverContainer';
 import ContactUs from './components/ContactUs/ContactUs';
@@ -65,12 +66,18 @@ class App extends React.Component {
                                 </span>
                         </div>
                     </div>
-                    <img src="./static/img/1495-new.png" className="carousel-main-img"></img>
-                    <div className="discover-btn">
+                    <img src="./static/img/1495-new2.png" className="carousel-main-img"></img>
+                    <div className="discover-btn" onClick={() => {
+                        this.scrollTo('discover');
+                    }}>
                         <img src="./static/svg/arrow.svg" />
-                        <span className="discover-btn--text" onClick={() => {
-                            this.scrollTo('discover');
-                        }}>Discover</span>
+                        {/* <Tooltip trigger="hover"
+                            className="discover-tooltip"
+                            position="auto-top-center"
+                            title="Click to discover 3DS Learning Space highlights"> */}
+                            <span className="discover-btn--text">Discover</span>
+                        {/* </Tooltip> */}
+
                     </div>
                 </section>
                 <DiscoverContainer setDiscoverRef={this.setDiscoverRef} scrollTo={this.scrollTo} />

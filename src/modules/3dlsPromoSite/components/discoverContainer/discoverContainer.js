@@ -17,14 +17,14 @@ export default class DiscoverContainer extends React.Component {
                             Our learning portal{' '}
                             {/* <a href="https://companion.3ds.com" target="_blank"> */}
                             3DS Learning Space provides an extensive online catalog made of thousands{' '}
-                            of courses jointly developped by technical and digital learning experts to{' '}
+                            of courses jointly developed by technical and digital learning experts to{' '}
                              empower you on Dassault Systèmes solutions anytime anywhere through multiple devices.
                         {/* </p> */}
                     </section>
                     <div className="discover-step">
                         <div className="discover-step-body">
                             <div className="discover-step-main">
-                                <img src="./static/svg/idea.svg" />
+                                <img src="./static/svg/idea.svg" className="bigger" />
                                 <div className="discover-step-content">
                                     <div className="discover-step-content--title">
                                         Best in class
@@ -62,7 +62,7 @@ export default class DiscoverContainer extends React.Component {
                                 </div>
                             </div>
                             <div className="discover-step-main">
-                                <img src="./static/svg/medal.svg" />
+                                <img src="./static/svg/medal.svg" class="smaller"/>
                                 <div className="discover-step-content">
                                     <div className="discover-step-content--title">
                                         Get Certified

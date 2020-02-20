@@ -61,8 +61,8 @@ $discover-step-img-width: 90px;
   &::after {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 180px;
+    bottom: 185px;
     left: $discover-step-img-width / 2;
     border-left: 3px dashed #eeeeee;
     z-index: 1;
@@ -85,6 +85,12 @@ $discover-step-img-width: 90px;
   & img {
     width: $discover-step-img-width;
     flex-shrink: 0;
+    &.bigger {
+      transform: scale(1.1);
+    }
+    &.smaller {
+      transform: scale(.9);
+    }
   }
 }
 
