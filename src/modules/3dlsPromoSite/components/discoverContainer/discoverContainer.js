@@ -62,7 +62,7 @@ export default class DiscoverContainer extends React.Component {
                                 </div>
                             </div>
                             <div className="discover-step-main">
-                                <img src="./static/svg/medal.svg" class="smaller"/>
+                                <img src="./static/svg/medal.svg" className="smaller"/>
                                 <div className="discover-step-content">
                                     <div className="discover-step-content--title">
                                         Get Certified

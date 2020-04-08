@@ -1,9 +1,10 @@
 @import './assets/style/theme.scss';
 
-$header-bottom-to-top: 186px;
+// $header-bottom-to-top: 186px;
+$header-bottom-to-top: 50px;
 $carousel-text-left: 120px;
 
-$edu-header-height: 60px;
+$edu-header-height: 70px;
 $edu-header-padding: 0 120px;
 
 @font-face {
@@ -30,12 +31,13 @@ $edu-header-padding: 0 120px;
     background-color: #fff;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: $edu-header-padding;
 
     .ds-logo {
         background: url('./assets/img/header3ds.png') 0 -88px transparent no-repeat;
         background-position: 0 -176px;
-        float: left;
+        // float: left;
         height: 44px;
         margin: 0;
         width: 132px;
@@ -45,12 +47,16 @@ $edu-header-padding: 0 120px;
             position: absolute;
         }
     }
+
+    .dls-header-logo img {
+        height: 44px;
+    }
 }
 
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - $edu-header-height);
     min-height: 1000px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -84,7 +90,8 @@ $edu-header-padding: 0 120px;
     height: auto;
     top: 180px;
     right: -20px;
-    width: 1000px;
+    width: 1100px;
+    max-width: 70%;
 }
 
 .carousel-header {
@@ -105,7 +112,7 @@ $edu-header-padding: 0 120px;
     &-text {
         position: relative;
         padding-left: $carousel-text-left;
-        padding-top: 110px;
+        // padding-top: 110px;
         padding-right: 200px;
         flex-shrink: 0;
         flex-grow: 0;
@@ -121,9 +128,13 @@ $edu-header-padding: 0 120px;
 
         &--sub {
             margin-top: 40px;
-            font-size: 21px;
+            font-size: 24px;
             line-height: 36px;
             text-align: justify;
+
+            & > p {
+                margin-bottom: 50px;
+            }
         }
 
         &--btn {
@@ -178,21 +189,23 @@ $edu-header-padding: 0 120px;
 
     .carousel-main-img {
         width: 65%;
+        top: 50px;
     }
 
     .carousel-main-text {
-        padding-left: 120px;
+        padding-left: 90px;
         padding-top: 80px;
-        padding-right: 120px;
+        padding-top: 0px;
+        padding-right: 90px;
     }
 
     .carousel-main-text--main {
-        font-size: 28px;
+        font-size: 40px;
         line-height: 42px;
     }
 
     .carousel-main-text--sub {
-        font-size: 16px;
+        font-size: 20px;
         line-height: 28px;
     }
 
@@ -205,9 +218,24 @@ $edu-header-padding: 0 120px;
     .carousel-main-img {
         width: 55%;
     }
+
+    .carousel-main-text {
+      padding-left: 50px;
+      padding-right: 50px;
+  }
 }
 
 @media only screen and (max-width: 1000px) {
+    .carousel-main-text--main {
+        font-size: 28px;
+        line-height: 42px;
+    }
+
+    .carousel-main-text--sub {
+        font-size: 16px;
+        line-height: 28px;
+    }
+
     .carousel-main-img {
         display: none;
     }

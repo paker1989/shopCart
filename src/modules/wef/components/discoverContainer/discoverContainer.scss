@@ -27,26 +27,6 @@ $discover-step-img-width: 90px;
     width: 100%;
     padding: 0 350px;
   }
-
-  // &--title {
-  //     color: #005386;
-  //     letter-spacing: 0.42px;
-  //     font-size: 28px;
-  //     line-height: 42px;
-  // }
-
-  // &--des {
-  //     color: #555555;
-  //     letter-spacing: 0.28px;
-  //     font-size: 14px;
-  //     line-height: 24px;
-  //     text-align: center;
-  //     & a {
-  //         text-decoration: underline;
-  //         color: #35b4ff;
-  //         font-weight: 600;
-  //     }
-  // }
 }
 
 .discover-step {
@@ -117,6 +97,7 @@ $discover-step-img-width: 90px;
     text-align: left;
   }
 }
+
 @media only screen and (max-width: 1400px) {
   // .discover-container {
   //   margin-top: 200px;
