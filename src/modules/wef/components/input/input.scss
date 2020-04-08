@@ -1,0 +1,28 @@
+.cls-input-style {
+    // padding: 10px 40px;
+    height: 60px;
+    & .zent-input {
+      line-height: 60px;
+      font-size: 14px;
+      padding-left: 10px;
+      border: 1px solid #AAAAAA;
+    }
+}
+.zent-input-wrapper[data-zv="8.0.0"].zent-input--size-normal.cls-input-style {
+  height: 45px;
+}
+
+.zent-input-wrapper[data-zv="8.0.0"].cls-input-style.is-error {
+  border-color: #e63f41;
+}
+
+.cls-text-area-style .zent-textarea[data-zv="8.0.0"] {
+  height: 130px;
+}
+
+.form-errormsg {
+  position: absolute;
+  color: #e63f41;
+  font-size: 13px;
+  left: 0;
+}

@@ -113,7 +113,29 @@ $carousel-text-left: 120px;
   position: absolute;
   top: 40px;
   left: $carousel-text-left;
-  width: 232px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+
+  & img {
+    width: 232px;
+  }
+
+  & .divider {
+    display: block;
+    height: 35px;
+    width: 2px;
+    opacity: .4;
+    background-color: lighten(#005386, 40%);
+    margin: 0 15px;
+  }
+
+  & .logo-text {
+    font-family: "3dslight";
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+  }
 }
 
 

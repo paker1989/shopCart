@@ -92,6 +92,8 @@
     "3dls-dev": "webpack-dev-server --progress --inline --config src/modules/3dlsPromoSite/config/webpack.dev.config.js",
     "start-3dls": "node src/modules/3dlsPromoSite/config/dev-server.js",
     "build-3dls": "node src/modules/3dlsPromoSite/config/build.js",
-    "prod-3dls": "pm2 start node src/modules/3dlsPromoSite/config/dev-server.js"
+    "prod-3dls": "pm2 start node src/modules/3dlsPromoSite/config/dev-server.js",
+    "start-wef": "node src/modules/wef/config/dev-server.js",
+    "build-wef": "node src/modules/wef/config/build.js"
   }
 }

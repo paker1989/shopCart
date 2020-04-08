@@ -3,8 +3,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 let htmlWebPackPlugin = new HtmlWebPackPlugin({
   filename: 'index.html',
-  template: path.join(__dirname, '../../../', '_templates_/demo_carousel.html'),
-  inject: true
+  template: path.join(__dirname, '../../../', '_templates_/wef.html'),
+  inject: true,
+  chunksSortMode: function (a, b) {
+    var order = ["app", "polyfill"];
+    return order.indexOf(b.names[0]) - order.indexOf(a.names[0]);
+  }
 });
 
 module.exports = {
@@ -27,7 +31,7 @@ module.exports = {
     rules: [
       { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ },
       {
-        test: /\.scss$/,
+        test: /\.css|scss$/,
         use: [
           'style-loader',
           'css-loader',
@@ -38,8 +42,10 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: "file-loader",
         options: {
-          limit: 10000,
-          name: 'static/images/[name].[hash:7].[ext]' //打包后存放的位置
+          // limit: 10000,
+          name: '[name].[hash:7].[ext]', //打包后存放的位置
+          outputPath: 'static/img/',
+          publicPath: '../static/img/'
         }
       },
       {

@@ -46,7 +46,12 @@ class App extends React.Component {
             <div className="dls-promo-container">
                 <section className="carousel-container">
                     <div className="carousel-header">
-                        <img src="./static/img/logo.png" className="dls-logo" />
+                        <div className="dls-logo">
+                        <img src="./static/img/3DS_LOGO_3DEXP_EDU_WHITE_RGB.png"  />
+                        <b className="divider"></b>
+                        <span className="logo-text">Learning Space</span>
+                        </div>
+
                     </div>
                     <div className="carousel-main">
                         <div className="carousel-main-text">
@@ -54,7 +59,7 @@ class App extends React.Component {
                                 <p>Learn anywhere, anytime.</p>
                             </div>
                             <div className="carousel-main-text--sub">
-                                <p>3DS Learning Space is an online learning portal developed by Dassault
+                                <p>3DEXPERIENCE Edu Learning Space is an online learning portal developed by Dassault
                                      Systèmes providing the best learning experiences to master Dassault Systèmes products and solutions.</p>
                             </div>
                             <span role="button"
