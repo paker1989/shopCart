@@ -4,17 +4,17 @@ import './getAccess.scss';
 
 export default class GetAccess extends React.Component {
     render() {
-        const { voucherLink } = this.props;
+        const { voucherLink, setGetAccessRef } = this.props;
         return (
             <div className="get-access">
-                <div className="main">
+                <div className="main" ref={(ref) => setGetAccessRef(ref)}>
                     <h3 className="title">
                         How to get access to the trainings?
                     </h3>
                     <div className="content">
                         <p className="content-item">
                             Dassault Systèmes is happy to offer you a free
-                            access to a Learning Path till May 31st, 2020 on 3DS
+                            access to a Learning Path till June 30th, 2020 on 3DS
                             Learning Space, our elearning platform.
                         </p>
                         <p className="content-item">

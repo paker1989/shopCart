@@ -22,7 +22,7 @@ module.exports = {
         env: {
             NODE_ENV: '"production"',
         },
-        assetsRoot: path.resolve(__dirname, '../../../../dist/3dlsPromo'),
+        assetsRoot: path.resolve(__dirname, '../../../../dist/wef'),
         port: "8000",
         productionSourceMap: true,
         devtool: '#source-map',

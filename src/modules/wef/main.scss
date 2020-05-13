@@ -35,12 +35,14 @@ $edu-header-padding: 0 120px;
     padding: $edu-header-padding;
 
     .ds-logo {
-        background: url('./assets/img/header3ds.png') 0 -88px transparent no-repeat;
-        background-position: 0 -176px;
-        // float: left;
+        // background: url('./assets/img/new/3ds_blue.png') 0 -88px transparent no-repeat;
+        // background-position: 0 -176px;
+        background-image: url('./assets/img/new/3ds_blue.png');
+        background-position: center;
+        background-size: contain;
         height: 44px;
-        margin: 0;
         width: 132px;
+        margin: 0;
 
         .ds-hide {
             clip: rect(1px 1px 1px 1px);
@@ -48,6 +50,20 @@ $edu-header-padding: 0 120px;
         }
     }
 
+    // .dls-header-logo {
+    //     // background: url('./assets/img/new/3ds_blue.png') 0 -88px transparent no-repeat;
+    //     // background-position: 0 -176px;
+    //     background: url('./assets/img/header_1920.png') 0 -88px transparent no-repeat;
+    //     background-position: 0 -176px;
+    //     height: 44px;
+    //     width: 132px;
+    //     margin: 0;
+
+    //     .ds-hide {
+    //         clip: rect(1px 1px 1px 1px);
+    //         position: absolute;
+    //     }
+    // }
     .dls-header-logo img {
         height: 44px;
     }
@@ -56,7 +72,7 @@ $edu-header-padding: 0 120px;
 .carousel-container {
     position: relative;
     width: 100%;
-    height: calc(100vh - $edu-header-height);
+    height: calc(100vh - #{$edu-header-height});
     min-height: 1000px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -65,7 +81,8 @@ $edu-header-padding: 0 120px;
 .discover-btn {
     position: absolute;
     left: 50%;
-    bottom: 40px;
+    // bottom: 40px;
+    top: 800px;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -94,6 +111,15 @@ $edu-header-padding: 0 120px;
     max-width: 70%;
 }
 
+.carousel-main-img2 {
+    position: absolute;
+    height: auto;
+    top: 180px;
+    width: 600px;
+    max-width: 40%;
+    left: 50%;
+}
+
 .carousel-header {
     position: absolute;
     top: 20px;
@@ -112,8 +138,8 @@ $edu-header-padding: 0 120px;
     &-text {
         position: relative;
         padding-left: $carousel-text-left;
-        // padding-top: 110px;
-        padding-right: 200px;
+        padding-top: 50px;
+        padding-right: 100px;
         flex-shrink: 0;
         flex-grow: 0;
         width: 50%;
@@ -122,14 +148,17 @@ $edu-header-padding: 0 120px;
         letter-spacing: 0.5px;
 
         &--main {
-            font-size: 50px;
-            line-height: 70px;
+            font-size: 42px;
+            line-height: 60px;
+            letter-spacing: 0.42px;
+            font-weight: 600;
         }
 
         &--sub {
             margin-top: 40px;
             font-size: 24px;
             line-height: 36px;
+            letter-spacing: 0.24px;
             text-align: justify;
 
             & > p {
@@ -189,8 +218,12 @@ $edu-header-padding: 0 120px;
 
     .carousel-main-img {
         width: 65%;
-        top: 50px;
+        top: 80px;
     }
+
+     .carousel-main-img2 {
+       top: 80px;
+     }
 
     .carousel-main-text {
         padding-left: 90px;
@@ -220,9 +253,9 @@ $edu-header-padding: 0 120px;
     }
 
     .carousel-main-text {
-      padding-left: 50px;
-      padding-right: 50px;
-  }
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }
 
 @media only screen and (max-width: 1000px) {
@@ -236,7 +269,8 @@ $edu-header-padding: 0 120px;
         line-height: 28px;
     }
 
-    .carousel-main-img {
+    .carousel-main-img,
+    .carousel-main-img2 {
         display: none;
     }
 
@@ -260,17 +294,38 @@ $edu-header-padding: 0 120px;
     }
 }
 
-@media only screen and (max-height: 1000px) {
+// @media only screen and (max-height: 1000px) {
+//     .discover-btn {
+//         top: 580px;
+//         bottom: inherit;
+//     }
+// }
+
+@media only screen and (max-width: 1600px){
     .discover-btn {
-        top: 580px;
+        top: 600px;
         bottom: inherit;
+    }
+
+    .carousel-container {
+        min-height: 710px;
+    }   
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1300px) {
+    .carousel-container {
+        height: 710px;
     }
 }
 
-@media only screen and (min-width: 1000px) and (max-height: 1000px) {
+@media only screen and (max-width: 1000px) {
+    .carousel-container {
+        min-height: 800px;
+    }
+    
     .discover-btn {
-        top: 810px;
-        bottom: inherit;
+        // top: 400px;
+        bottom: 100px;
     }
 }
 

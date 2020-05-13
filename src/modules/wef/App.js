@@ -7,7 +7,8 @@ import Footer from './components/footer/footer';
 import './main.scss';
 import './assets/style/theme.scss';
 
-const voucherLink = 'https://learningspace.3ds.com/CompanionManager/ui/#/?vuid=69729864';
+const voucherLink =
+    'https://learningspace.3ds.com/CompanionManager/ui/#/?vuid=54967180';
 
 class App extends React.Component {
     constructor(props) {
@@ -24,6 +25,10 @@ class App extends React.Component {
 
     setCourseMetaRef = (ref) => {
         this.courseMetaRef = ref;
+    };
+
+    setGetAccessRef = (ref) => {
+        this.getAccessRef = ref;
     };
 
     scrollTo = (target) => {
@@ -43,6 +48,11 @@ class App extends React.Component {
                     behavior: 'smooth',
                 });
                 break;
+            case 'getAccess':
+                this.getAccessRef.scrollIntoView({
+                    behavior: 'smooth',
+                });
+                break;
         }
     };
 
@@ -58,17 +68,32 @@ class App extends React.Component {
                     >
                         <span class="ds-hide">Dassault Systèmes</span>
                     </a>
-                    <a
-                        href="https://learningspace.3ds.com/CompanionManager/ui/#/"
-                        target="_blank"
-                        alt="3dls-logo"
-                        className="dls-header-logo"
-                    >
-                        <img
-                            src="./static/img/header_1920.png"
+                    <div className="logo-right">
+                        {/* <a
+                            href="https://learningspace.3ds.com/CompanionManager/ui/#/"
+                            target="_blank"
+                            alt="3dexedu-logo"
+                            className="dls-header-logo"
+                            style={{ marginRight: 10 }}
+                        >
+                            <img
+                                src="./static/img/new/3dxedu_logo.png"
+                                alt="3dexedu-logo"
+                            />
+                        </a>
+                        */}
+                        <a
+                            href="https://learningspace.3ds.com/CompanionManager/ui/#/"
+                            target="_blank"
                             alt="3dls-logo"
-                        />
-                    </a>
+                            className="dls-header-logo"
+                        >
+                            <img
+                                src="./static/img/header_1920.png"
+                                alt="3dls-logo"
+                            />
+                        </a>
+                    </div>
                 </div>
                 <section className="carousel-container">
                     {/* <div className="carousel-header">
@@ -111,9 +136,13 @@ class App extends React.Component {
                             </span> */}
                         </div>
                     </div>
-                    <img
+                    {/* <img
                         src="./static/img/1495-new2.png"
                         className="carousel-main-img"
+                    ></img> */}
+                    <img
+                        src="./static/img/new/main_inbluepanel.jpg"
+                        className="carousel-main-img2"
                     ></img>
                     <div
                         className="discover-btn"
@@ -129,8 +158,17 @@ class App extends React.Component {
                     setDiscoverRef={this.setDiscoverRef}
                     scrollTo={this.scrollTo}
                 /> */}
-                <CourseMetaContainer setCourseMetaRef={this.setCourseMetaRef} voucherLink={voucherLink}/>
-                <GetAccess voucherLink={voucherLink}/>
+                <CourseMetaContainer
+                    scrollToAccess={() => {
+                        this.scrollTo('getAccess');
+                    }}
+                    setCourseMetaRef={this.setCourseMetaRef}
+                    voucherLink={voucherLink}
+                />
+                <GetAccess
+                    voucherLink={voucherLink}
+                    setGetAccessRef={this.setGetAccessRef}
+                />
                 {/* <ContactUs setContactRef={this.setContactRef} /> */}
                 <Footer />
             </div>
