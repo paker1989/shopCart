@@ -6,7 +6,8 @@ const path = require('path');
 const config = require('./config');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -23,13 +24,21 @@ const webpackProdConfig = merge(webpackBaseConfig, {
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   optimization: {
-    minimizer: [new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {}
-      },
-      sourceMap: config.build.productionSourceMap,
+    minimizer: [
+    //   new UglifyJsPlugin({
+    //   uglifyOptions: {
+    //     compress: {}
+    //   },
+    //   sourceMap: config.build.productionSourceMap,
+    //   parallel: true,
+    // })
+    new TerserPlugin({
       parallel: true,
-    })],
+      terserOptions: {
+        ecma: 6,
+      },
+    }),
+  ],
     splitChunks: {
       chunks: 'all',
       // automaticNameDelimiter: '_',

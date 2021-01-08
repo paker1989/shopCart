@@ -12,11 +12,12 @@ install:
   - yarn
 
 script:
-  - npm run cal-start
+  - npm run build-cal
 
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
+  local_dir: dist/calendar
   on:
     branch: master
