@@ -8,5 +8,8 @@ cache: npm # 开启缓存
 services:
   - mongodb
 
+install:
+  - yarn
+
 script:
   - npm run cal-start
