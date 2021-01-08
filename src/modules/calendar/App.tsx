@@ -7,7 +7,7 @@ import * as layoutActionCreator from './store/action/layoutAction';
 import CalConfig from './assets/scripts/calendar.config';
 import I18nProvider from './utils/i18nProvider';
 import Header from './components/header';
-import CalBody from './components/calBody';
+import CalBody from './components/calendarBody';
 import DefinerPopHandler from './components/definerPopHandler';
 import CxtMenuHandler from './components/cxtMenuHandler';
 import ViewPopHandler from './components/viewPopHandler';
