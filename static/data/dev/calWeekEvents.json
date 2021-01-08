@@ -1,0 +1,260 @@
+[
+    {
+        "dateKey": "20191014",
+        "evts": [
+            {
+                "id": 1,
+                "title": "all day home address reminder",
+                "type": "reminder",
+                "allDayEvt": true,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "14",
+                            "hourAt": "12",
+                            "minAt": "00"
+                        }
+                    },
+                    "repeatOpt": "everyWorkDay",
+                    "color": "rgb(63, 81, 181)"
+                }
+            },
+            {
+                "id": 2,
+                "title": "all day home address reminder 2",
+                "type": "reminder",
+                "allDayEvt": true,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "14",
+                            "hourAt": "15",
+                            "minAt": "00"
+                        }
+                    },
+                    "repeatOpt": "everyWorkDay",
+                    "color": "rgb(63, 81, 181)"
+                }
+            }
+        ]
+    },
+    {
+        "dateKey": "20191016",
+        "evts": [
+            {
+                "id": 3,
+                "title": "allday holiday activity",
+                "type": "activity",
+                "allDayEvt": true,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "8",
+                            "dayAt": "25",
+                            "hourAt": "00",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(121, 134, 203)"
+                }
+            },
+            {
+                "id": 4,
+                "title": "all day holiday activity 2",
+                "type": "activity",
+                "allDayEvt": true,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "8",
+                            "dayAt": "25",
+                            "hourAt": "00",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(121, 134, 203)"
+                }
+            },
+            {
+                "id": 5,
+                "title": "timing holiday activity 1",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "16",
+                            "hourAt": "12",
+                            "minAt": "00"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "16",
+                            "hourAt": "14",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(230, 124, 115)"
+                }
+            }
+        ]
+    },
+    {
+        "dateKey": "20191018",
+        "evts": [
+            {
+                "id": 6,
+                "title": "same timing holiday activity 2",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "12",
+                            "minAt": "00"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "14",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(121, 134, 203)"
+                }
+            },
+            {
+                "id": 7,
+                "title": "timing home address reminder 1",
+                "type": "reminder",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "16",
+                            "minAt": "00"
+                        }
+                    },
+                    "repeatOpt": "everyWorkDay",
+                    "color": "rgb(63, 81, 181)"
+                }
+            },
+            {
+                "id": 8,
+                "title": "same timing home address reminder 2",
+                "type": "reminder",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "05",
+                            "minAt": "00"
+                        }
+                    },
+                    "repeatOpt": "everyWorkDay",
+                    "color": "rgb(63, 81, 181)"
+                }
+            },
+            {
+                "id": 9,
+                "title": "diff timing home address reminder 3",
+                "type": "reminder",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "08",
+                            "minAt": "30"
+                        }
+                    },
+                    "repeatOpt": "everyWorkDay",
+                    "color": "rgb(63, 81, 181)"
+                }
+            },
+            {
+                "id": 10,
+                "title": "go to dinner",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "11",
+                            "minAt": "00"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "13",
+                            "minAt": "00"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "rgb(121, 134, 203)"
+                }
+            },
+            {
+                "id": 11,
+                "title": "go to school",
+                "type": "activity",
+                "allDayEvt": false,
+                "opts": {
+                    "time": {
+                        "from": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "11",
+                            "minAt": "45"
+                        },
+                        "to": {
+                            "year": "2019",
+                            "month": "10",
+                            "dayAt": "18",
+                            "hourAt": "14",
+                            "minAt": "30"
+                        }
+                    },
+                    "address": "Sta Filomena 132, Recoleta, Región Metropolitana, Chile",
+                    "description": "evt address",
+                    "color": "lightGrey"
+                }
+            }
+        ]
+    }
+]
