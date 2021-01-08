@@ -2,7 +2,7 @@
 ## 启动mongo db命令
 * 公司电脑环境下
 ```
-  C:\Progra~1\MongoDB\Server\4.0\bin\mongod.exe --port 27019 -dbpath C:\Users\bxu1\Desktop\react_component_project\db
+  C:\Progra~1\MongoDB\Server\4.0\bin\mongod.exe --port 27019 -dbpath E:\NO_BACKUP\db\calendar
 ```
 * macbook
   ```
