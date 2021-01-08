@@ -1,0 +1,32 @@
+@import "../../../../../assets/style/theme.scss";
+
+$weekLinemarginTop: 15px;
+$weekLineItemPaddingTop: 5px;
+
+.weekLine-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - #{$weekLinemarginTop});
+  margin-top: $weekLinemarginTop;
+
+  &__placeholder {
+    background: $weekLineBgColor;
+    flex-basis: calc(#{$calBodyContentMonthLayoutHeaderHeight} - #{$weekLinemarginTop});
+    padding-top: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  &__items {
+    background: $weekLineBgColor;
+    flex-grow: 1;
+  }
+
+  &-item {
+    color: $fontColor;
+    font-size: 12px;
+    font-weight: 500;
+    border-bottom: 1px solid $appFrameBorderColor;
+    padding-top: $weekLineItemPaddingTop;
+  }
+}
